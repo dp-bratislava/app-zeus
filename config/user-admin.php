@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default User Password
@@ -13,7 +12,6 @@ return [
     |
     */
     'default-password' => '0000',
-
     /*
     |--------------------------------------------------------------------------
     | Default User Color
@@ -25,5 +23,49 @@ return [
     |
     */
     'default-color' => '#000000',
-
+    /*
+    |--------------------------------------------------------------------------
+    | User Parameters
+    |--------------------------------------------------------------------------
+    |
+    | These are customizable parameters assigned to individual users.
+    | Each parameter can represent various types of data, such as a
+    | model reference or a simple value. The configuration defines
+    | whether the parameter allows multiple values, whether it's
+    | read-only, how it should be displayed, and what type of
+    | data it refers to. These settings help control and
+    | personalize the behavior of the application per user.
+    |
+    */
+    'parameters' => [
+        [
+            'key' => 'available-departments',
+            'label' => 'Prístup k oddeleniam',
+            'is_multiple' => true,
+            'type' => 'model',
+            'type_detail' => Dpb\DatahubSync\Models\Department::class,
+            'option_label' => 'title',
+            'is_readonly' => false,
+        ],
+        [
+            'key' => 'datahub-employee-id',
+            'label' => 'Zamestnanec',
+            'is_multiple' => false,
+            'type' => 'model',
+            'type_detail' => Dpb\DatahubSync\Models\Employee::class,
+            'option_label' => 'fullName',
+            'is_readonly' => false,
+        ],
+        /*
+        [
+            'key' => 'value',
+            'label' => 'Hodnota',
+            'is_multiple' => false,
+            'type' => 'string',
+            'type_detail' => '',
+            'option_label' => '',
+            'is_readonly' => false,
+        ],
+        */
+    ],
 ];
