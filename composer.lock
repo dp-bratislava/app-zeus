@@ -916,12 +916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "80f371fc54df2aa80c2ec3de0c259bda840d3a88"
+                "reference": "f8e4b5af0ad878b57b6114ef30d0e5dcc16163ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/80f371fc54df2aa80c2ec3de0c259bda840d3a88",
-                "reference": "80f371fc54df2aa80c2ec3de0c259bda840d3a88",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/f8e4b5af0ad878b57b6114ef30d0e5dcc16163ba",
+                "reference": "f8e4b5af0ad878b57b6114ef30d0e5dcc16163ba",
                 "shasum": ""
             },
             "require": {
@@ -978,7 +978,7 @@
                 "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/main",
                 "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
             },
-            "time": "2025-05-22T14:39:01+00:00"
+            "time": "2025-05-26T14:35:26+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
