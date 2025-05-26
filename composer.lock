@@ -986,12 +986,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "f6c1b5825336f6e6255186da02cb1e6b482d5679"
+                "reference": "6c1634417715231ce3b847c8da10c60de7990c93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/f6c1b5825336f6e6255186da02cb1e6b482d5679",
-                "reference": "f6c1b5825336f6e6255186da02cb1e6b482d5679",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/6c1634417715231ce3b847c8da10c60de7990c93",
+                "reference": "6c1634417715231ce3b847c8da10c60de7990c93",
                 "shasum": ""
             },
             "require": {
@@ -1034,7 +1034,7 @@
                 "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/main",
                 "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
             },
-            "time": "2025-05-22T15:16:46+00:00"
+            "time": "2025-05-26T14:42:58+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
