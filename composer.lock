@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dab6bb52f9a9e40963fcd8772808a36",
+    "content-hash": "e9a66e42801589f87ad9b445aae197c6",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -458,6 +458,60 @@
             "time": "2025-02-21T08:52:11+00:00"
         },
         {
+            "name": "deployer/deployer",
+            "version": "7.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deployphp/deployer.git",
+                "reference": "6c73221538363b1eb916e79888f7a59df1715dc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/6c73221538363b1eb916e79888f7a59df1715dc6",
+                "reference": "6c73221538363b1eb916e79888f7a59df1715dc6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.0|^7.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "pestphp/pest": "^3.3",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/php-code-coverage": "^11.0",
+                "phpunit/phpunit": "^11.4"
+            },
+            "bin": [
+                "bin/dep"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Medvedev",
+                    "email": "anton@medv.io"
+                }
+            ],
+            "description": "Deployment Tool",
+            "homepage": "https://deployer.org",
+            "support": {
+                "docs": "https://deployer.org/docs",
+                "issues": "https://github.com/deployphp/deployer/issues",
+                "source": "https://github.com/deployphp/deployer"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/antonmedv",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-24T21:22:19+00:00"
+        },
+        {
             "name": "dflydev/dot-access-data",
             "version": "dev-main",
             "source": {
@@ -862,12 +916,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "11d7b9fd1c6557d3b9111a47a3ba2d1d1c7919c0"
+                "reference": "80f371fc54df2aa80c2ec3de0c259bda840d3a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/11d7b9fd1c6557d3b9111a47a3ba2d1d1c7919c0",
-                "reference": "11d7b9fd1c6557d3b9111a47a3ba2d1d1c7919c0",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/80f371fc54df2aa80c2ec3de0c259bda840d3a88",
+                "reference": "80f371fc54df2aa80c2ec3de0c259bda840d3a88",
                 "shasum": ""
             },
             "require": {
@@ -924,7 +978,7 @@
                 "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/main",
                 "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
             },
-            "time": "2025-05-19T11:53:36+00:00"
+            "time": "2025-05-22T14:39:01+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
@@ -932,12 +986,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "f659738d264f85ecbc500512fbce17b76b999f5b"
+                "reference": "f6c1b5825336f6e6255186da02cb1e6b482d5679"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/f659738d264f85ecbc500512fbce17b76b999f5b",
-                "reference": "f659738d264f85ecbc500512fbce17b76b999f5b",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/f6c1b5825336f6e6255186da02cb1e6b482d5679",
+                "reference": "f6c1b5825336f6e6255186da02cb1e6b482d5679",
                 "shasum": ""
             },
             "require": {
@@ -980,7 +1034,7 @@
                 "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/main",
                 "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
             },
-            "time": "2025-05-19T12:00:46+00:00"
+            "time": "2025-05-22T15:16:46+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
@@ -988,12 +1042,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "0de3facceb932bdf44fc7fc82b236420a0ffbafe"
+                "reference": "71f80e10e085bae68703e4d061a7ddd94cc438ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/0de3facceb932bdf44fc7fc82b236420a0ffbafe",
-                "reference": "0de3facceb932bdf44fc7fc82b236420a0ffbafe",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/71f80e10e085bae68703e4d061a7ddd94cc438ad",
+                "reference": "71f80e10e085bae68703e4d061a7ddd94cc438ad",
                 "shasum": ""
             },
             "require": {
@@ -1048,7 +1102,7 @@
                 "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/main",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2025-05-19T12:04:28+00:00"
+            "time": "2025-05-22T14:47:12+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -5671,6 +5725,80 @@
             "time": "2024-09-25T14:21:43+00:00"
         },
         {
+            "name": "symfony/dotenv",
+            "version": "7.3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "28347a897771d0c28e99b75166dd2689099f3045"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/28347a897771d0c28e99b75166dd2689099f3045",
+                "reference": "28347a897771d0c28e99b75166dd2689099f3045",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "conflict": {
+                "symfony/console": "<6.4",
+                "symfony/process": "<6.4"
+            },
+            "require-dev": {
+                "symfony/console": "^6.4|^7.0",
+                "symfony/process": "^6.4|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/dotenv/tree/v7.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-11-27T11:18:42+00:00"
+        },
+        {
             "name": "symfony/error-handler",
             "version": "7.3.x-dev",
             "source": {
@@ -10240,6 +10368,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
