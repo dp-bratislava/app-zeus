@@ -11,6 +11,10 @@
     "require": {
         "php": "^8.2",
         "deployer/deployer": "^7.4",
+        "dpb/dpb-employee-manager": "dev-main",
+        "dpb/dpb-utils": "dev-main",
+        "dpb/dpb-work-time-fund": "dev-main",
+        "dpb/dpb-work-time-fund-filament": "dev-main",
         "dpb/filament-admin-panel": "dev-main",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
@@ -28,6 +32,22 @@
         {
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/laravel-datahub-sync.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dp-bratislava/dpb-employee-manager.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dp-bratislava/dpb-utils.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dp-bratislava/dpb-work-time-fund.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git"
         }
     ],
     "require-dev": {

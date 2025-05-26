@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9a66e42801589f87ad9b445aae197c6",
+    "content-hash": "285490b87d5e7eb8c082505351cc1d91",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -909,6 +909,194 @@
                 }
             ],
             "time": "2024-07-29T08:29:21+00:00"
+        },
+        {
+            "name": "dpb/dpb-employee-manager",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
+                "reference": "a99dbedee2931da2184817222f0cb04b9aa829ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/a99dbedee2931da2184817222f0cb04b9aa829ba",
+                "reference": "a99dbedee2931da2184817222f0cb04b9aa829ba",
+                "shasum": ""
+            },
+            "require": {
+                "dpb/dpb-utils": "dev-main"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\DpbEmployeeManager\\Providers\\EmployeeManagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\DpbEmployeeManager\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/main",
+                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
+            },
+            "time": "2025-05-22T10:28:42+00:00"
+        },
+        {
+            "name": "dpb/dpb-utils",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-utils.git",
+                "reference": "89296d3b1ef03f60fcf9a1037563fa3fc29e1c09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-utils/zipball/89296d3b1ef03f60fcf9a1037563fa3fc29e1c09",
+                "reference": "89296d3b1ef03f60fcf9a1037563fa3fc29e1c09",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\DpbUtils\\Providers\\DpbUtilsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\DpbUtils\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-utils/tree/main",
+                "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
+            },
+            "time": "2025-05-22T10:31:14+00:00"
+        },
+        {
+            "name": "dpb/dpb-work-time-fund",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
+                "reference": "da447555c2bb52a986444028d30d63215222fbcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/da447555c2bb52a986444028d30d63215222fbcd",
+                "reference": "da447555c2bb52a986444028d30d63215222fbcd",
+                "shasum": ""
+            },
+            "require": {
+                "dpb/dpb-employee-manager": "dev-main",
+                "dpb/dpb-utils": "dev-main",
+                "staudenmeir/laravel-adjacency-list": "^1.9"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\WorkTimeFund\\Providers\\WorkTimeFundServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\WorkTimeFund\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/main",
+                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
+            },
+            "time": "2025-05-26T13:06:53+00:00"
+        },
+        {
+            "name": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
+                "reference": "96d71e7247b4c537860afd26c3aece28145689d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/96d71e7247b4c537860afd26c3aece28145689d2",
+                "reference": "96d71e7247b4c537860afd26c3aece28145689d2",
+                "shasum": ""
+            },
+            "require": {
+                "dpb/dpb-employee-manager": "dev-main",
+                "dpb/dpb-utils": "dev-main",
+                "dpb/dpb-work-time-fund": "dev-main",
+                "filament/filament": "^3.2",
+                "php": "^8.2",
+                "saade/filament-fullcalendar": "^3.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\WorkTimeFundFilament\\Providers\\WorkTimeFundFilamentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\WorkTimeFundFilament\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/main",
+                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
+            },
+            "time": "2025-05-26T14:13:20+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
@@ -5070,6 +5258,81 @@
             "time": "2025-02-25T09:09:36+00:00"
         },
         {
+            "name": "saade/filament-fullcalendar",
+            "version": "3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saade/filament-fullcalendar.git",
+                "reference": "c5494e0360c924c509cd703f8857ab4435828054"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/c5494e0360c924c509cd703f8857ab4435828054",
+                "reference": "c5494e0360c924c509cd703f8857ab4435828054",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0",
+                "illuminate/contracts": "^10.0|^11.0|^12.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13.5"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^7.0|^8.0",
+                "nunomaduro/larastan": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Saade\\FilamentFullCalendar\\FilamentFullCalendarServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Saade\\FilamentFullCalendar\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saade",
+                    "email": "saade@outlook.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The Most Popular JavaScript Calendar integrated with Filament 💛",
+            "homepage": "https://github.com/saade/filament-fullcalendar",
+            "keywords": [
+                "filament-fullcalendar",
+                "laravel",
+                "saade"
+            ],
+            "support": {
+                "issues": "https://github.com/saade/filament-fullcalendar/issues",
+                "source": "https://github.com/saade/filament-fullcalendar/tree/3.x"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/saade",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-05-12T17:26:08+00:00"
+        },
+        {
             "name": "spatie/color",
             "version": "1.8.0",
             "source": {
@@ -5422,6 +5685,177 @@
                 }
             ],
             "time": "2025-05-14T03:34:44+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-has-many-deep-contracts",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts.git",
+                "reference": "37ce351e4db919b3af606bc8ca0e62e2e4939cde"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep-contracts/zipball/37ce351e4db919b3af606bc8ca0e62e2e4939cde",
+                "reference": "37ce351e4db919b3af606bc8ca0e62e2e4939cde",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentHasManyDeepContracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Contracts for staudenmeir/eloquent-has-many-deep",
+            "support": {
+                "issues": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts/issues",
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts/tree/v1.3"
+            },
+            "time": "2025-02-15T17:11:01+00:00"
+        },
+        {
+            "name": "staudenmeir/laravel-adjacency-list",
+            "version": "v1.25",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/laravel-adjacency-list.git",
+                "reference": "01672577da7ab120ae6d1d1b27f8caa979b97928"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/laravel-adjacency-list/zipball/01672577da7ab120ae6d1d1b27f8caa979b97928",
+                "reference": "01672577da7ab120ae6d1d1b27f8caa979b97928",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0",
+                "php": "^8.2",
+                "staudenmeir/eloquent-has-many-deep-contracts": "^1.3",
+                "staudenmeir/laravel-cte": "^1.12.1"
+            },
+            "require-dev": {
+                "barryvdh/laravel-ide-helper": "^3.0",
+                "larastan/larastan": "^3.0",
+                "laravel/framework": "^12.0",
+                "mockery/mockery": "^1.5.1",
+                "orchestra/testbench-core": "^10.0",
+                "phpunit/phpunit": "^11.0",
+                "singlestoredb/singlestoredb-laravel": "^2.0",
+                "staudenmeir/eloquent-has-many-deep": "^1.21"
+            },
+            "suggest": {
+                "barryvdh/laravel-ide-helper": "Provide type hints for attributes and relations."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Staudenmeir\\LaravelAdjacencyList\\IdeHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\LaravelAdjacencyList\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Recursive Laravel Eloquent relationships with CTEs",
+            "support": {
+                "issues": "https://github.com/staudenmeir/laravel-adjacency-list/issues",
+                "source": "https://github.com/staudenmeir/laravel-adjacency-list/tree/v1.25"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-05-01T15:49:06+00:00"
+        },
+        {
+            "name": "staudenmeir/laravel-cte",
+            "version": "v1.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/laravel-cte.git",
+                "reference": "36b1ec2ad2ec964c0b0963f4941e019a6fe9c844"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/laravel-cte/zipball/36b1ec2ad2ec964c0b0963f4941e019a6fe9c844",
+                "reference": "36b1ec2ad2ec964c0b0963f4941e019a6fe9c844",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "laravel/framework": "^12.0",
+                "orchestra/testbench-core": "^10.0",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^11.0",
+                "singlestoredb/singlestoredb-laravel": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Staudenmeir\\LaravelCte\\DatabaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\LaravelCte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel queries with common table expressions",
+            "support": {
+                "issues": "https://github.com/staudenmeir/laravel-cte/issues",
+                "source": "https://github.com/staudenmeir/laravel-cte/tree/v12.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-03-31T19:16:13+00:00"
         },
         {
             "name": "symfony/clock",
@@ -10361,6 +10795,10 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dpb/dpb-employee-manager": 20,
+        "dpb/dpb-utils": 20,
+        "dpb/dpb-work-time-fund": 20,
+        "dpb/dpb-work-time-fund-filament": 20,
         "dpb/filament-admin-panel": 20
     },
     "prefer-stable": false,
