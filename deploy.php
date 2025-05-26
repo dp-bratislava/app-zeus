@@ -29,14 +29,12 @@ host('staging')
     ->set('branch', env('DEPLOYER_STAGING_BRANCH'))
     ->set('use_nvm', true);
 
-/*
 host('production')
-    ->setHostname(env('DEP_PROD_HOSTNAME'))
-    ->setRemoteUser(env('DEP_PROD_REMOTE_USER'))
-    ->setDeployPath(env('DEP_PROD_DEPLOY_PATH'))
-    ->set('branch', env('DEP_PROD_BRANCH'))
+    ->setHostname(env('DEPLOYER_PRODUCTION_HOSTNAME'))
+    ->setRemoteUser(env('DEPLOYER_PRODUCTION_REMOTE_USER'))
+    ->setDeployPath(env('DEPLOYER_PRODUCTION_DEPLOY_PATH'))
+    ->set('branch', env('DEPLOYER_PRODUCTION_BRANCH'))
     ->set('use_nvm', false);
-*/
 
 // Tasks
 task('build', function () {
