@@ -10,9 +10,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "deployer/deployer": "^7.4",
         "dpb/filament-admin-panel": "dev-main",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "symfony/dotenv": "^7.1"
     },
     "repositories": [
         {
