@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('login');
-            $table->string('color');
             $table->string('email')->unique()->nullable();
+            $table->json('properties')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_active')->default(true);

@@ -18,6 +18,7 @@ class RoleSeeder extends Seeder
             'user',
             'admin',
             'super-admin',
+            'veduci-pracovnik',
         ]));
     }
 

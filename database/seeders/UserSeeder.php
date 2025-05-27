@@ -13,7 +13,6 @@ class UserSeeder extends Seeder
             'firstname' => 'Admin',
             'lastname' => 'DPB',
             'login' => 'admin',
-            'color' => '#000000',
             'password' => \Hash::make('0000'),
             'is_active' => 1,
             'first_login' => 1,
