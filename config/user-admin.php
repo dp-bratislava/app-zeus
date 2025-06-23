@@ -53,7 +53,8 @@ return [
             'is_multiple' => false,
             'type' => 'model',
             'type_detail' => Dpb\DatahubSync\Models\Employee::class,
-            'option_label' => 'fullName',
+            'scope' => 'active',
+            'option_label' => 'fullNameWithPid',
             'is_readonly' => false,
         ],
         /*
