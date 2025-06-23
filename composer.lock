@@ -1170,12 +1170,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "6d8beb694d1064d84cb8cb0381d347fa80946495"
+                "reference": "389c34042afd9fb1bd2815e98a69d6703452306a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/6d8beb694d1064d84cb8cb0381d347fa80946495",
-                "reference": "6d8beb694d1064d84cb8cb0381d347fa80946495",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/389c34042afd9fb1bd2815e98a69d6703452306a",
+                "reference": "389c34042afd9fb1bd2815e98a69d6703452306a",
                 "shasum": ""
             },
             "require": {
@@ -1218,7 +1218,7 @@
                 "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/main",
                 "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
             },
-            "time": "2025-06-23T11:12:03+00:00"
+            "time": "2025-06-23T12:40:12+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
@@ -1226,12 +1226,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "af040f0604aada782cf9488ea6d10016d311aa47"
+                "reference": "4675cbec086602c95d03543591f05006f1d89b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/af040f0604aada782cf9488ea6d10016d311aa47",
-                "reference": "af040f0604aada782cf9488ea6d10016d311aa47",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/4675cbec086602c95d03543591f05006f1d89b21",
+                "reference": "4675cbec086602c95d03543591f05006f1d89b21",
                 "shasum": ""
             },
             "require": {
@@ -1286,7 +1286,7 @@
                 "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/main",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2025-06-02T14:22:38+00:00"
+            "time": "2025-06-23T12:51:32+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
