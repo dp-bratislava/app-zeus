@@ -44,7 +44,7 @@ return [
             'is_multiple' => true,
             'type' => 'model',
             'type_detail' => Dpb\DatahubSync\Models\Department::class,
-            'option_label' => 'title',
+            'option_label' => 'titleWithCode',
             'is_readonly' => false,
         ],
         [
