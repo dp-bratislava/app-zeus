@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('datahub_employee_id')->nullable()->constrained('datahub_employees')->nullOnDelete();
             $table->foreignId('datahub_department_id')->nullable()->constrained('datahub_departments')->nullOnDelete();
             $table->foreignId('datahub_profession_id')->nullable()->constrained('datahub_professions')->nullOnDelete();
+            $table->foreignId('circuit_id')->nullable()->constrained('datahub_employee_circuits')->nullOnDelete();
             $table->foreignId('type_id')->nullable();
             $table->string('valid_from')->nullable();
             $table->boolean('is_active');
