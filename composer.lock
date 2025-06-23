@@ -1051,12 +1051,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "e9f4d5578f629d5904c1113660b3af5fe8dd7e03"
+                "reference": "e367b3a2ee480c485fed9b6b90ede9671c6ca315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/e9f4d5578f629d5904c1113660b3af5fe8dd7e03",
-                "reference": "e9f4d5578f629d5904c1113660b3af5fe8dd7e03",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/e367b3a2ee480c485fed9b6b90ede9671c6ca315",
+                "reference": "e367b3a2ee480c485fed9b6b90ede9671c6ca315",
                 "shasum": ""
             },
             "require": {
@@ -1094,7 +1094,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/main",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2025-06-23T11:11:19+00:00"
+            "time": "2025-06-23T13:49:09+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
