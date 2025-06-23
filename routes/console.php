@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('datahub-sync:update', [
-    '--models' => implode('', [
+    '--models' => implode(',', [
         'Hierarchy',
         'ContractType',
         'Department',
