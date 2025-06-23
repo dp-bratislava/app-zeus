@@ -40,7 +40,7 @@ return [
     'parameters' => [
         [
             'key' => 'available-departments',
-            'label' => 'Prístup k oddeleniam',
+            'label' => 'Prístup ku strediskám',
             'is_multiple' => true,
             'type' => 'model',
             'type_detail' => Dpb\DatahubSync\Models\Department::class,
