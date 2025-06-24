@@ -912,13 +912,13 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "bce552e2106fb006d7508f46464cc23334e17822"
+                "url": "https://github.com/dp-bratislava/dpb-employee-manager.git",
+                "reference": "297871059309f3d8a55966453eaafaf3a389352a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/bce552e2106fb006d7508f46464cc23334e17822",
-                "reference": "bce552e2106fb006d7508f46464cc23334e17822",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/297871059309f3d8a55966453eaafaf3a389352a",
+                "reference": "297871059309f3d8a55966453eaafaf3a389352a",
                 "shasum": ""
             },
             "require": {
@@ -947,18 +947,14 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/main",
-                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
-            },
-            "time": "2025-06-23T11:10:52+00:00"
+            "time": "2025-06-24T09:55:41+00:00"
         },
         {
             "name": "dpb/dpb-utils",
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-utils.git",
+                "url": "https://github.com/dp-bratislava/dpb-utils.git",
                 "reference": "0e6e8282a721dc6a48b8450a58777d95b1ae63d8"
             },
             "dist": {
@@ -990,10 +986,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-utils/tree/main",
-                "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
-            },
             "time": "2025-06-19T15:12:48+00:00"
         },
         {
@@ -1001,7 +993,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
+                "url": "https://github.com/dp-bratislava/dpb-work-time-fund.git",
                 "reference": "be018d5f86a261cf3f4ba1e74e58d454ca404dec"
             },
             "dist": {
@@ -1039,10 +1031,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/main",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
             "time": "2025-06-19T15:13:34+00:00"
         },
         {
@@ -1050,13 +1038,13 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "e367b3a2ee480c485fed9b6b90ede9671c6ca315"
+                "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git",
+                "reference": "d7b3167ab793daedba95cd66e2fedbcd18ebb657"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/e367b3a2ee480c485fed9b6b90ede9671c6ca315",
-                "reference": "e367b3a2ee480c485fed9b6b90ede9671c6ca315",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/d7b3167ab793daedba95cd66e2fedbcd18ebb657",
+                "reference": "d7b3167ab793daedba95cd66e2fedbcd18ebb657",
                 "shasum": ""
             },
             "require": {
@@ -1090,18 +1078,14 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/main",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2025-06-23T13:49:09+00:00"
+            "time": "2025-06-24T09:58:47+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
+                "url": "https://github.com/dp-bratislava/filament-admin-panel.git",
                 "reference": "74ee86fe893ee2acb1ae4377162596040b0f0219"
             },
             "dist": {
@@ -1158,10 +1142,6 @@
                 "filament",
                 "users"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/main",
-                "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
-            },
             "time": "2025-06-20T11:00:32+00:00"
         },
         {
@@ -1169,7 +1149,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
+                "url": "https://github.com/dp-bratislava/laravel-datahub-sync.git",
                 "reference": "389c34042afd9fb1bd2815e98a69d6703452306a"
             },
             "dist": {
@@ -1214,10 +1194,6 @@
                 "datahub",
                 "dpb"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/main",
-                "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
-            },
             "time": "2025-06-23T12:40:12+00:00"
         },
         {
@@ -1225,7 +1201,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
+                "url": "https://github.com/dp-bratislava/laravel-user-admin.git",
                 "reference": "4675cbec086602c95d03543591f05006f1d89b21"
             },
             "dist": {
@@ -1282,10 +1258,6 @@
                 "filament",
                 "users"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/main",
-                "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
-            },
             "time": "2025-06-23T12:51:32+00:00"
         },
         {
@@ -10901,6 +10873,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
