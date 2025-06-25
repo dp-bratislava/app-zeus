@@ -913,12 +913,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-employee-manager.git",
-                "reference": "d5ead96831e4cd148da5d38bc1ce13b8dbf57b59"
+                "reference": "7a555b4fc4fa776a24d7bae61e18001fc294c2b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/d5ead96831e4cd148da5d38bc1ce13b8dbf57b59",
-                "reference": "d5ead96831e4cd148da5d38bc1ce13b8dbf57b59",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/7a555b4fc4fa776a24d7bae61e18001fc294c2b8",
+                "reference": "7a555b4fc4fa776a24d7bae61e18001fc294c2b8",
                 "shasum": ""
             },
             "require": {
@@ -947,7 +947,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2025-06-24T14:40:58+00:00"
+            "time": "2025-06-25T14:24:19+00:00"
         },
         {
             "name": "dpb/dpb-utils",
@@ -1039,12 +1039,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "c9c640713bea11638b0c4785c0832db2df0980e2"
+                "reference": "464c7daa8acb4a5dea087af97260eb7aa329207f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/c9c640713bea11638b0c4785c0832db2df0980e2",
-                "reference": "c9c640713bea11638b0c4785c0832db2df0980e2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/464c7daa8acb4a5dea087af97260eb7aa329207f",
+                "reference": "464c7daa8acb4a5dea087af97260eb7aa329207f",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2025-06-25T08:46:09+00:00"
+            "time": "2025-06-25T14:41:29+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
@@ -3114,16 +3114,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.29.1",
+            "version": "3.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "edc1bb7c86fab0776c3287dbd19b5fa278347319"
+                "reference": "2203e3151755d874bb2943649dae1eb8533ac93e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/edc1bb7c86fab0776c3287dbd19b5fa278347319",
-                "reference": "edc1bb7c86fab0776c3287dbd19b5fa278347319",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/2203e3151755d874bb2943649dae1eb8533ac93e",
+                "reference": "2203e3151755d874bb2943649dae1eb8533ac93e",
                 "shasum": ""
             },
             "require": {
@@ -3147,13 +3147,13 @@
                 "composer/semver": "^3.0",
                 "ext-fileinfo": "*",
                 "ext-ftp": "*",
-                "ext-mongodb": "^1.3",
+                "ext-mongodb": "^1.3|^2",
                 "ext-zip": "*",
                 "friendsofphp/php-cs-fixer": "^3.5",
                 "google/cloud-storage": "^1.23",
                 "guzzlehttp/psr7": "^2.6",
                 "microsoft/azure-storage-blob": "^1.1",
-                "mongodb/mongodb": "^1.2",
+                "mongodb/mongodb": "^1.2|^2",
                 "phpseclib/phpseclib": "^3.0.36",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^9.5.11|^10.0",
@@ -3191,22 +3191,22 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.29.1"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.30.0"
             },
-            "time": "2024-10-08T08:58:34+00:00"
+            "time": "2025-06-25T13:29:59+00:00"
         },
         {
             "name": "league/flysystem-local",
-            "version": "3.29.0",
+            "version": "3.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-local.git",
-                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27"
+                "reference": "6691915f77c7fb69adfb87dcd550052dc184ee10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/e0e8d52ce4b2ed154148453d321e97c8e931bd27",
-                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/6691915f77c7fb69adfb87dcd550052dc184ee10",
+                "reference": "6691915f77c7fb69adfb87dcd550052dc184ee10",
                 "shasum": ""
             },
             "require": {
@@ -3240,9 +3240,9 @@
                 "local"
             ],
             "support": {
-                "source": "https://github.com/thephpleague/flysystem-local/tree/3.29.0"
+                "source": "https://github.com/thephpleague/flysystem-local/tree/3.30.0"
             },
-            "time": "2024-08-09T21:24:39+00:00"
+            "time": "2025-05-21T10:34:19+00:00"
         },
         {
             "name": "league/mime-type-detection",
