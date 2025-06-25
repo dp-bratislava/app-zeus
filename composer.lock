@@ -994,12 +994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-work-time-fund.git",
-                "reference": "0a6a8e7d1b152eaafe436d1e1f627e262627340c"
+                "reference": "7b88b74fd7724334b0a316b95b7e9d9c3d1aaf07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/0a6a8e7d1b152eaafe436d1e1f627e262627340c",
-                "reference": "0a6a8e7d1b152eaafe436d1e1f627e262627340c",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/7b88b74fd7724334b0a316b95b7e9d9c3d1aaf07",
+                "reference": "7b88b74fd7724334b0a316b95b7e9d9c3d1aaf07",
                 "shasum": ""
             },
             "require": {
@@ -1031,7 +1031,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2025-06-24T14:41:53+00:00"
+            "time": "2025-06-25T08:44:57+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -1039,12 +1039,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "a467c9da834c6cd0ceca34627fc59debe0e60178"
+                "reference": "c9c640713bea11638b0c4785c0832db2df0980e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/a467c9da834c6cd0ceca34627fc59debe0e60178",
-                "reference": "a467c9da834c6cd0ceca34627fc59debe0e60178",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/c9c640713bea11638b0c4785c0832db2df0980e2",
+                "reference": "c9c640713bea11638b0c4785c0832db2df0980e2",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2025-06-24T15:16:44+00:00"
+            "time": "2025-06-25T08:46:09+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
@@ -3023,16 +3023,16 @@
         },
         {
             "name": "league/csv",
-            "version": "9.23.0",
+            "version": "9.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/csv.git",
-                "reference": "774008ad8a634448e4f8e288905e070e8b317ff3"
+                "reference": "3f11e12ccd7d6dc25729056e7ce386e4084089ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/774008ad8a634448e4f8e288905e070e8b317ff3",
-                "reference": "774008ad8a634448e4f8e288905e070e8b317ff3",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/3f11e12ccd7d6dc25729056e7ce386e4084089ea",
+                "reference": "3f11e12ccd7d6dc25729056e7ce386e4084089ea",
                 "shasum": ""
             },
             "require": {
@@ -3042,14 +3042,14 @@
             "require-dev": {
                 "ext-dom": "*",
                 "ext-xdebug": "*",
-                "friendsofphp/php-cs-fixer": "^3.69.0",
-                "phpbench/phpbench": "^1.4.0",
-                "phpstan/phpstan": "^1.12.18",
+                "friendsofphp/php-cs-fixer": "^3.75.0",
+                "phpbench/phpbench": "^1.4.1",
+                "phpstan/phpstan": "^1.12.27",
                 "phpstan/phpstan-deprecation-rules": "^1.2.1",
                 "phpstan/phpstan-phpunit": "^1.4.2",
                 "phpstan/phpstan-strict-rules": "^1.6.2",
-                "phpunit/phpunit": "^10.5.16 || ^11.5.7",
-                "symfony/var-dumper": "^6.4.8 || ^7.2.3"
+                "phpunit/phpunit": "^10.5.16 || ^11.5.22",
+                "symfony/var-dumper": "^6.4.8 || ^7.3.0"
             },
             "suggest": {
                 "ext-dom": "Required to use the XMLConverter and the HTMLConverter classes",
@@ -3110,7 +3110,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-28T06:52:04+00:00"
+            "time": "2025-06-24T19:54:25+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3552,16 +3552,16 @@
         },
         {
             "name": "lorisleiva/cron-translator",
-            "version": "v0.4.5",
+            "version": "v0.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lorisleiva/cron-translator.git",
-                "reference": "3c7d8e3984c845a33bc1ae3cdc36c0b38f4783e9"
+                "reference": "082e3cd493de13bd5816bfdda484d07bb2326768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lorisleiva/cron-translator/zipball/3c7d8e3984c845a33bc1ae3cdc36c0b38f4783e9",
-                "reference": "3c7d8e3984c845a33bc1ae3cdc36c0b38f4783e9",
+                "url": "https://api.github.com/repos/lorisleiva/cron-translator/zipball/082e3cd493de13bd5816bfdda484d07bb2326768",
+                "reference": "082e3cd493de13bd5816bfdda484d07bb2326768",
                 "shasum": ""
             },
             "require": {
@@ -3596,7 +3596,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lorisleiva/cron-translator/issues",
-                "source": "https://github.com/lorisleiva/cron-translator/tree/v0.4.5"
+                "source": "https://github.com/lorisleiva/cron-translator/tree/v0.4.6"
             },
             "funding": [
                 {
@@ -3604,7 +3604,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-02T10:51:56+00:00"
+            "time": "2025-06-23T10:51:20+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -9085,16 +9085,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v8.8.1",
+            "version": "v8.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "44ccb82e3e21efb5446748d2a3c81a030ac22bd5"
+                "reference": "60207965f9b7b7a4ce15a0f75d57f9dadb105bdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/44ccb82e3e21efb5446748d2a3c81a030ac22bd5",
-                "reference": "44ccb82e3e21efb5446748d2a3c81a030ac22bd5",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/60207965f9b7b7a4ce15a0f75d57f9dadb105bdb",
+                "reference": "60207965f9b7b7a4ce15a0f75d57f9dadb105bdb",
                 "shasum": ""
             },
             "require": {
@@ -9180,7 +9180,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-06-11T01:04:21+00:00"
+            "time": "2025-06-25T02:12:12+00:00"
         },
         {
             "name": "phar-io/manifest",
