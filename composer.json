@@ -41,13 +41,13 @@
     "require": {
         "php": "^8.2",
         "deployer/deployer": "^7.4",
-        "dpb/dpb-employee-manager": "dev-main",
-        "dpb/dpb-utils": "dev-main",
-        "dpb/dpb-work-time-fund": "dev-main",
-        "dpb/dpb-work-time-fund-filament": "dev-main",
-        "dpb/filament-admin-panel": "dev-main@dev",
-        "dpb/laravel-datahub-sync": "dev-main@dev",
-        "dpb/laravel-user-admin": "dev-main@dev",
+        "dpb/dpb-employee-manager": "^1.0",
+        "dpb/dpb-utils": "^1.0",
+        "dpb/dpb-work-time-fund": "^1.0",
+        "dpb/dpb-work-time-fund-filament": "^1.0",
+        "dpb/filament-admin-panel": "^1.0",
+        "dpb/laravel-datahub-sync": "^1.0",
+        "dpb/laravel-user-admin": "^1.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-activitylog": "^4.10",
@@ -106,6 +106,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
