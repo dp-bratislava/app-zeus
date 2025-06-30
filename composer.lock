@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d529f863da4ff0a5e07bd73c94c1b58e",
+    "content-hash": "50f7e5363911881ba8065a1ddf44db55",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1094,7 +1094,7 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v1.0.1",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
@@ -1154,23 +1154,23 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v1.0.1",
+                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v12.0.0",
                 "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
             },
             "time": "2025-06-27T09:56:27+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
-            "version": "v1.0.1",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "49c0b36cdae1f1e8d167f3163037e70a2060f76e"
+                "reference": "479e233fa03f49a9930cbd9f63ebda1e408d7186"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/49c0b36cdae1f1e8d167f3163037e70a2060f76e",
-                "reference": "49c0b36cdae1f1e8d167f3163037e70a2060f76e",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/479e233fa03f49a9930cbd9f63ebda1e408d7186",
+                "reference": "479e233fa03f49a9930cbd9f63ebda1e408d7186",
                 "shasum": ""
             },
             "require": {
@@ -1209,14 +1209,14 @@
                 "dpb"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v1.0.1",
+                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
             },
-            "time": "2025-06-27T11:06:55+00:00"
+            "time": "2025-06-30T08:54:05+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v1.0.1",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
@@ -1276,7 +1276,7 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v1.0.1",
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v12.0.0",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
             "time": "2025-06-27T09:33:14+00:00"
