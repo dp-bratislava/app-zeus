@@ -2,7 +2,10 @@
 
 namespace App\Models\WTF;
 
+use App\Models\Datahub\Department;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
@@ -20,8 +23,24 @@ class Task extends Model
         'title',
         'description',
         'date',
+        'department_id',
     ];
 
+    public function parent(): BelongsTo    
+    {
+        return $this->belongsTo(Task::class, "parent_id");
+    }
+
+    public function department(): BelongsTo    
+    {
+        return $this->belongsTo(Department::class, "parent_id");
+    }
+
+    public function standardisedActivities(): HasMany
+    {
+        return $this->hasMany(StandardisedActivity::class, "task_id");
+    }
+    
     // public function activities(): HasMany
     // {
     //     return $this->hasMany(Activity::class, "type_id");

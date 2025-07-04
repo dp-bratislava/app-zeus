@@ -25,7 +25,7 @@ class ActivityGroupResource extends Resource
     protected static ?string $model = ActivityGroup::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    
+
     public static function getNavigationGroup(): ?string
     {
         return 'WTF';
@@ -62,13 +62,14 @@ class ActivityGroupResource extends Resource
     {
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)        
+            ->defaultPaginationPageOption(100)
             ->columns([
                 TextColumn::make('parent.title'),
                 TextColumn::make('title'),
                 TextColumn::make('description'),
                 TextColumn::make('activities.title')
-                ->badge(),
+                    ->badge(),
+                TextColumn::make('department.code'),
             ])
             ->filters([
                 //
@@ -77,7 +78,7 @@ class ActivityGroupResource extends Resource
                 ImportAction::make()
                     ->importer(ActivityGroupImporter::class)
                     ->csvDelimiter(';')
-            ])              
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])

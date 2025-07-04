@@ -48,7 +48,8 @@ class EmployeeContractGroupImporter extends Importer
                 }),
             ImportColumn::make('department')
                 ->relationship('department', 'code')
-                ->rules(['required', 'max:255']),
+                // ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WTF;
 
+use App\Filament\Imports\WTF\EmployeeContractGroupImporter;
 use App\Filament\Resources\WTF\EmployeeContractGroupResource\Pages;
 use App\Filament\Resources\WTF\EmployeeContractGroupResource\RelationManagers;
 use App\Models\WTF\EmployeeContractGroup;
@@ -42,13 +43,14 @@ class EmployeeContractGroupResource extends Resource
             ->columns([
                 TextColumn::make('title'),
                 TextColumn::make('description'),
+                TextColumn::make('department.code'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 ImportAction::make()
-                    ->importer(DepartmentGroupImporter::class)
+                    ->importer(EmployeeContractGroupImporter::class)
                     ->csvDelimiter(';')
             ])            
             ->actions([

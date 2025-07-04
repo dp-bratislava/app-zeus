@@ -2,6 +2,7 @@
 
 namespace App\Models\Attendance;
 
+use App\Models\Datahub\EmployeeContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,13 +26,27 @@ class Attendance extends Model
         'shift_duration',
     ];
 
-    public function group(): BelongsTo
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+            // 'time_from' => 'time',
+            // 'time_to' => 'time',
+        ];
+    }  
+
+    public function calendarGroup(): BelongsTo
     {
         return $this->belongsTo(CalendarGroup::class, "calendar_group_id");
     }
 
-    // public function contract(): BelongsTo
-    // {
-    //     return $this->belongsTo(Empl::class, "calendar_group_id");
-    // }
+    public function contract(): BelongsTo
+    {
+        return $this->belongsTo(EmployeeContract::class, "employee_contract_id");
+    }
 }
