@@ -4,6 +4,7 @@ namespace App\Models\WTF;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StandardisedActivity extends Model
@@ -18,7 +19,6 @@ class StandardisedActivity extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'date',
         'task_id',
         'template_id',
     ];
@@ -32,4 +32,9 @@ class StandardisedActivity extends Model
     {
         return $this->belongsTo(StandardisedActivityTemplate::class, "template_id");
     }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class, "standardised_activity_id");
+    }    
 }

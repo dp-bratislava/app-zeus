@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources\WTF;
 
-use App\Filament\Imports\WTF\ActivityImporter;
-use App\Filament\Resources\WTF\ActivityResource\Pages;
-use App\Filament\Resources\WTF\ActivityResource\RelationManagers;
-use App\Models\WTF\Activity;
+use App\Filament\Imports\WTF\ActivityTemplateImporter;
+use App\Filament\Resources\WTF\ActivityTemplateResource\Pages;
+use App\Filament\Resources\WTF\ActivityTemplateResource\RelationManagers;
+use App\Models\WTF\ActivityTemplate;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,16 +16,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ActivityResource extends Resource
+class ActivityTemplateResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = ActivityTemplate::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationGroup(): ?string
     {
         return 'WTF';
     }
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -40,21 +41,18 @@ class ActivityResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)        
             ->columns([
-                TextColumn::make('date')->date(),
-                TextColumn::make('employeeContract.pid'),
-                TextColumn::make('template.title'),
-                TextColumn::make('task.title'),
-                TextColumn::make('time_from')->date('H:i'),
-                TextColumn::make('time_to')->date('H:i'),
-                TextColumn::make('duration'),
-                TextColumn::make('template.type.title'),
+                TextColumn::make('title'),
+                TextColumn::make('description'),
+                TextColumn::make('group.title'),
+                TextColumn::make('type.title'),
+                TextColumn::make('durations.duration')->badge(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 ImportAction::make()
-                    ->importer(ActivityImporter::class)
+                    ->importer(ActivityTemplateImporter::class)
                     ->csvDelimiter(';')
             ])            
             ->actions([
@@ -77,9 +75,9 @@ class ActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListActivities::route('/'),
-            'create' => Pages\CreateActivity::route('/create'),
-            'edit' => Pages\EditActivity::route('/{record}/edit'),
+            'index' => Pages\ListActivityTemplates::route('/'),
+            'create' => Pages\CreateActivityTemplate::route('/create'),
+            'edit' => Pages\EditActivityTemplate::route('/{record}/edit'),
         ];
     }
 }

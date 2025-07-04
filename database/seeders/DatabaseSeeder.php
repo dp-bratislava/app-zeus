@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\WTF\EnumSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
+
+            // app specific seeders
+            EnumSeeder::class,
         ]);
     }
 }

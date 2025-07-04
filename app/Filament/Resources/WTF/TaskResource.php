@@ -4,12 +4,9 @@ namespace App\Filament\Resources\WTF;
 
 use App\Filament\Resources\WTF\TaskResource\Pages;
 use App\Filament\Resources\WTF\TaskResource\RelationManagers;
+use App\Models\WTF\ActivityStatus;
 use App\Models\WTF\Task;
 use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -32,41 +29,82 @@ class TaskResource extends Resource
     {
         return $form
             ->schema([
-                DatePicker::make('date')->default(now()),
-                TextInput::make('title'),
-                TextInput::make('description'),
-                // Select::make('parent_id')
-                //     ->relationship('parent', 'title')
-                //     ->searchable()
-                //     ->required(false),
-                Select::make('department_id')
+                Forms\Components\DatePicker::make('date')->default(now()),
+                Forms\Components\TextInput::make('title'),
+                Forms\Components\TextInput::make('description'),
+                Forms\Components\Select::make('parent_id')
+                    ->relationship('parent', 'title', null, true)
+                    ->searchable()
+                    ->required(false),
+                Forms\Components\Select::make('department_id')
                     ->relationship('department', 'code')
                     ->searchable(),
 
-                    // standardised activities 
-                Repeater::make('standardisedActivities')
+                // standardised activities 
+                Forms\Components\Repeater::make('standardisedActivities')
                     ->relationship('standardisedActivities')
                     ->schema([
-                        Select::make('template_id')
-                            ->relationship('template', 'title'),
+                        Forms\Components\Select::make('template_id')
+                            ->relationship('template', 'title')
+                            ->searchable(),
+
+                        // activities
+                        Forms\Components\Repeater::make('activities')
+                            ->relationship('activities')
+                            ->schema([
+                                Forms\Components\DatePicker::make('date')
+                                    ->default(now()),
+                                // Forms\Components\TextInput::make('duration')
+                                //     ->numeric()
+                                //     ->integer()
+                                //     ->default(60),
+                                Forms\Components\TimePicker::make('time_from'),
+                                Forms\Components\TimePicker::make('time_to'),
+                                Forms\Components\Select::make('template_id')
+                                    ->relationship('template', 'title')
+                                    ->preload()
+                                    ->searchable(),
+                                Forms\Components\Select::make('employee_contract_id')
+                                    ->relationship('employeeContract', 'pid')
+                                    ->searchable(),
+                                Forms\Components\ToggleButtons::make('status_id')
+                                    ->options(fn() => ActivityStatus::pluck('title', 'id'))
+                                    ->default(ActivityStatus::where('code', '=', 'undone')->first()->id),
+                            ])
+                            ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get, $set, $livewire) {
+                                $taskId = $livewire->record?->id;
+
+                                if ($taskId) {
+                                    $data['task_id'] = $taskId;
+                                }
+
+                                return $data;
+                            }),
                     ]),
 
-                // Repeater::make('activities')
-                //     ->relationship('activities')
-                //     ->schema([
-                //         TextInput::make('title'),
-                //         TextInput::make('description'),
-                //         Toggle::make('is_locked'),
-                //         Repeater::make('durations')
-                //             ->relationship('durations')
-                //             ->schema([
-                //                 TextInput::make('duration')->numeric(),
-                //             ]),
-                //         Select::make('type_id')
-                //             ->relationship('type', 'title'),
-
-                //     ])
-
+                // activities
+                Forms\Components\Repeater::make('activities')
+                    ->relationship('activities')
+                    ->schema([
+                        Forms\Components\DatePicker::make('date')
+                            ->default(now()),
+                        // Forms\Components\TextInput::make('duration')
+                        //     ->numeric()
+                        //     ->integer()
+                        //     ->default(60),
+                        Forms\Components\TimePicker::make('time_from'),
+                        Forms\Components\TimePicker::make('time_to'),
+                        Forms\Components\Select::make('template_id')
+                            ->relationship('template', 'title')
+                            ->preload()
+                            ->searchable(),
+                        Forms\Components\Select::make('employee_contract_id')
+                            ->relationship('employeeContract', 'pid')
+                            ->searchable(),
+                        Forms\Components\ToggleButtons::make('status_id')
+                            ->options(fn() => ActivityStatus::pluck('title', 'id'))
+                            ->default(ActivityStatus::where('code', '=', 'undone')->first()->id),
+                    ]),
             ]);
     }
 
@@ -87,6 +125,7 @@ class TaskResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ReplicateAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

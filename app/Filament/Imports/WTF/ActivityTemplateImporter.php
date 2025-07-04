@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\WTF;
 
-use App\Models\WTF\Activity;
+use App\Models\WTF\ActivityTemplate;
 use App\Models\WTF\ActivityGroup;
 use App\Models\WTF\ActivityType;
 use Filament\Actions\Imports\ImportColumn;
@@ -11,9 +11,9 @@ use Filament\Actions\Imports\Models\Import;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class ActivityImporter extends Importer
+class ActivityTemplateImporter extends Importer
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = ActivityTemplate::class;
 
     public function __construct(
         protected Import $import,
@@ -58,14 +58,14 @@ class ActivityImporter extends Importer
         ];
     }
 
-    public function resolveRecord(): ?Activity
+    public function resolveRecord(): ?ActivityTemplate
     {
         // return ShiftTemplate::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
 
-        return new Activity();
+        return new ActivityTemplate();
     }
 
     public static function getCompletedNotificationBody(Import $import): string

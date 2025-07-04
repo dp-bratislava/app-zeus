@@ -5,14 +5,13 @@ namespace App\Models\WTF;
 use App\Models\Datahub\EmployeeContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Activity extends Model
+class PlannedActivity extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'dpb_wtf_activities';
+    protected $table = 'dpb_wtf_planned_activities';
 
     /**
      * The attributes that are mass assignable.
@@ -21,13 +20,10 @@ class Activity extends Model
      */
     protected $fillable = [
         'date',
-        'task_id',
         'template_id',
-        'time_from',
-        'time_to',
+        'duration',
         'employee_contract_id',
         'status_id',
-        'standardised_activity_id',
     ];
 
     /**
@@ -39,33 +35,21 @@ class Activity extends Model
     {
         return [
             'date' => 'date',
-            'time_from' => 'datetime',
-            'time_to' => 'datetime',
         ];
     } 
-
-    public function task(): BelongsTo
-    {
-        return $this->belongsTo(Task::class, "task_id");
-    }
 
     public function template(): BelongsTo
     {
         return $this->belongsTo(ActivityTemplate::class, "template_id");
     }
 
+    public function employeeContract(): BelongsTo
+    {
+        return $this->belongsTo(EmployeeContract::class, "employee_contract_id");
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(ActivityStatus::class, "status_id");
     }
-
-    public function standardisedActivity(): BelongsTo
-    {
-        return $this->belongsTo(StandardisedActivity::class, "standardised_activity_id");
-    }
-
-    public function employeeContract(): BelongsTo    
-    {
-        return $this->belongsTo(EmployeeContract::class, "employee_contract_id");
-    }    
 }

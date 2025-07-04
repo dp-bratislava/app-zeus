@@ -35,5 +35,11 @@ class ActivityGroup extends Model
     {
         return $this->belongsTo(ActivityGroup::class, "parent_id");
     }
+
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }    
       
 }

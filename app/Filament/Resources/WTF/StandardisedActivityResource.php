@@ -35,8 +35,18 @@ class StandardisedActivityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated([10, 25, 50, 100, 'all'])
+            ->defaultPaginationPageOption(100)
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('task.title'),
+                Tables\Columns\TextColumn::make('template.title'),
+                Tables\Columns\TextColumn::make('template.duration'),
+                Tables\Columns\TextColumn::make('activities.duration_sum')
+                ->state(function($record) {
+                    $result = $record->activities->sum('duration');
+                    return $result;
+                }),
+                Tables\Columns\TextColumn::make('department.code'),
             ])
             ->filters([
                 //

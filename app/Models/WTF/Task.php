@@ -26,23 +26,33 @@ class Task extends Model
         'department_id',
     ];
 
-    public function parent(): BelongsTo    
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Task::class, "parent_id");
     }
 
-    public function department(): BelongsTo    
+    public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "parent_id");
+        return $this->belongsTo(Department::class, "department_id");
     }
 
     public function standardisedActivities(): HasMany
     {
         return $this->hasMany(StandardisedActivity::class, "task_id");
     }
-    
-    // public function activities(): HasMany
-    // {
-    //     return $this->hasMany(Activity::class, "type_id");
-    // }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class, "task_id");
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(TaskStatus::class, "status_id");
+    }
+
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(TaskPriority::class, "priority_id");
+    }
 }
