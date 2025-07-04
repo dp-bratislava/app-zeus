@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dpb_wtf_standardised_activities', function (Blueprint $table) {
-            $table->comment('Instances of standardised activity templates');
+        Schema::create('dpb_wtf_activity_templates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id');
-            $table->unsignedBigInteger('template_id');
+            $table->string('title');
+            $table->string('description')->nullable();
+            $table->boolean('is_locked')->default(false)->comment('Is locked for editation. ');
+            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('group_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dpb_wtf_standardised_activities');
+        Schema::dropIfExists('dpb_wtf_activity_templates');
     }
 };

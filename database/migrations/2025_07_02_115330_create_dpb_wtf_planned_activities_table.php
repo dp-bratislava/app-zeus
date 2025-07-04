@@ -11,11 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dpb_wtf_standardised_activities', function (Blueprint $table) {
-            $table->comment('Instances of standardised activity templates');
+        Schema::create('dpb_wtf_planned_activities', function (Blueprint $table) {
+            $table->comment('List of planned activities');
             $table->id();
-            $table->unsignedBigInteger('task_id');
+
+            $table->date('date')->nullable();
             $table->unsignedBigInteger('template_id');
+            $table->integer('duration')
+                ->nullable()
+                ->comment('Planned duration in minutes');
+            $table->unsignedBigInteger('employee_contract_id');
+            $table->unsignedBigInteger('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dpb_wtf_standardised_activities');
+        Schema::dropIfExists('dpb_wtf_planned_activities');
     }
 };

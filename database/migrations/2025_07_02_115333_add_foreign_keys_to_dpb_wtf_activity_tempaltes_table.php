@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dpb_wtf_standardised_activities', function (Blueprint $table) {
-            $table->foreign(['template_id'])
+        Schema::table('dpb_wtf_activity_templates', function (Blueprint $table) {
+            $table->foreign(['group_id'])
                 ->references(['id'])
-                ->on('dpb_wtf_standardised_activity_templates')
+                ->on('dpb_wtf_activity_groups')
                 ->onUpdate('no action')
                 ->onDelete('no action');
-            $table->foreign(['task_id'])
+            $table->foreign(['type_id'])
                 ->references(['id'])
-                ->on('dpb_wtf_tasks')
+                ->on('dpb_wtf_activity_types')
                 ->onUpdate('no action')
                 ->onDelete('no action');
         });
@@ -30,9 +30,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dpb_wtf_standardised_activities', function (Blueprint $table) {
-            $table->dropForeign(['template_id']);
-            $table->dropForeign(['task_id']);
+        Schema::table('dpb_wtf_activity_templates', function (Blueprint $table) {
+            $table->dropForeign(['group_id']);
+            $table->dropForeign(['type_id']);
         });
     }
 };

@@ -14,9 +14,22 @@ return new class extends Migration
         Schema::create('dpb_wtf_standardised_activity_templates', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('duration')->comment('Expected duration in minutes');
-            $table->boolean('is_divisible')->default(false)->comment('Divisible between multiple contracts');
-            $table->integer('people')->default(1)->comment('Number of participants expected');
+            $table->integer('duration')
+                ->nullable(false)
+                ->comment('Expected duration in minutes');
+            $table->boolean('is_divisible')
+                ->default(false)
+                ->comment('Divisible between multiple contracts');
+            $table->integer('people')
+                ->nullable(false)
+                ->default(1)
+                ->comment('Number of participants expected');
+            // computed column with duration in minutes
+            $table->integer('man_minutes')
+                ->nullable()
+                ->storedAs('duration * people')
+                ->comment('Computed column with man_minutes');
+
             $table->timestamps();
             $table->softDeletes();
         });

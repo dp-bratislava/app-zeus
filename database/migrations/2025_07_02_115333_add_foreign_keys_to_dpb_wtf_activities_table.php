@@ -12,8 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dpb_wtf_activities', function (Blueprint $table) {
-            $table->foreign(['group_id'])->references(['id'])->on('dpb_wtf_activity_groups')->onUpdate('no action')->onDelete('no action');
-            $table->foreign(['type_id'])->references(['id'])->on('dpb_wtf_activity_types')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['task_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_tasks')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['template_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_activity_templates')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['status_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_activity_statuses')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['employee_contract_id'])
+                ->references(['id'])
+                ->on('datahub_employee_contracts')
+                ->onUpdate('no action')
+                ->onDelete('no action');                
         });
     }
 
@@ -23,8 +41,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dpb_wtf_activities', function (Blueprint $table) {
-            $table->dropForeign(['group_id']);
-            $table->dropForeign(['type_id']);
+            $table->dropForeign(['task_id']);
+            $table->dropForeign(['template_id']);
+            $table->dropForeign(['status_id']);
+            $table->dropForeign(['employee_contract_id']);
         });
     }
 };

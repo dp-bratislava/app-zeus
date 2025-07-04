@@ -12,8 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dpb_wtf_tasks', function (Blueprint $table) {
-            $table->foreign(['department_id'])->references(['id'])->on('datahub_departments')->onUpdate('no action')->onDelete('no action');
-            $table->foreign(['parent_id'])->references(['id'])->on('dpb_wtf_tasks')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['department_id'])
+                ->references(['id'])
+                ->on('datahub_departments')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['parent_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_tasks')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['priority_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_task_priorities')
+                ->onUpdate('no action')
+                ->onDelete('no action');
+            $table->foreign(['status_id'])
+                ->references(['id'])
+                ->on('dpb_wtf_task_statuses')
+                ->onUpdate('no action')
+                ->onDelete('no action');
         });
     }
 

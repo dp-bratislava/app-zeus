@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->dateTime('date')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('priority_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();;
             $table->timestamps();
             $table->softDeletes();
         });

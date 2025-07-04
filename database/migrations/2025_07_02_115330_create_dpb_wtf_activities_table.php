@@ -12,12 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dpb_wtf_activities', function (Blueprint $table) {
+            $table->comment('List of activities ');
             $table->id();
-            $table->string('title');
-            $table->string('description')->nullable();
-            $table->boolean('is_locked')->default(false)->comment('Is locked for editation. ');
-            $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger('group_id');
+
+            $table->date('date')->nullable();
+            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('template_id');
+            $table->dateTime('time_from')->nullable();
+            $table->dateTime('time_to')->nullable();
+            // computed column with duration in minutes
+            $table->integer('duration')
+                ->nullable()
+                ->storedAs('TIMESTAMPDIFF(MINUTE, time_from, time_to)')
+                ->comment('Computed column with real duration in minutes');
+            $table->unsignedBigInteger('employee_contract_id');
+            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('standardised_activity_id')
+                ->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
