@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\WTF;
 
+use App\Filament\Components\ContractPicker;
+use App\Filament\Components\DepartmentPicker;
 use App\Filament\Resources\WTF\TaskResource\Pages;
 use App\Filament\Resources\WTF\TaskResource\RelationManagers;
 use App\Models\WTF\ActivityStatus;
@@ -20,6 +22,7 @@ class TaskResource extends Resource
     protected static ?string $model = Task::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function getNavigationGroup(): ?string
     {
         return 'WTF';
@@ -36,8 +39,10 @@ class TaskResource extends Resource
                     ->relationship('parent', 'title', null, true)
                     ->searchable()
                     ->required(false),
-                Forms\Components\Select::make('department_id')
-                    ->relationship('department', 'code')
+                DepartmentPicker::make('department_id')
+                    ->relationship('department', 'title')
+                    ->getOptionLabelFromRecordUsing(null)
+                    ->getSearchResultsUsing(null)
                     ->searchable(),
 
                 // standardised activities 
@@ -64,8 +69,10 @@ class TaskResource extends Resource
                                     ->relationship('template', 'title')
                                     ->preload()
                                     ->searchable(),
-                                Forms\Components\Select::make('employee_contract_id')
+                                ContractPicker::make('employee_contract_id')
                                     ->relationship('employeeContract', 'pid')
+                                    ->getOptionLabelFromRecordUsing(null)
+                                    ->getSearchResultsUsing(null)
                                     ->searchable(),
                                 Forms\Components\ToggleButtons::make('status_id')
                                     ->options(fn() => ActivityStatus::pluck('title', 'id'))
@@ -98,8 +105,10 @@ class TaskResource extends Resource
                             ->relationship('template', 'title')
                             ->preload()
                             ->searchable(),
-                        Forms\Components\Select::make('employee_contract_id')
+                        ContractPicker::make('employee_contract_id')
                             ->relationship('employeeContract', 'pid')
+                            ->getOptionLabelFromRecordUsing(null)
+                            ->getSearchResultsUsing(null)
                             ->searchable(),
                         Forms\Components\ToggleButtons::make('status_id')
                             ->options(fn() => ActivityStatus::pluck('title', 'id'))
