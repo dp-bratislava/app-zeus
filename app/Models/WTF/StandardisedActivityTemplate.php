@@ -3,6 +3,7 @@
 namespace App\Models\WTF;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StandardisedActivityTemplate extends Model
@@ -33,5 +34,10 @@ class StandardisedActivityTemplate extends Model
         return [
             'is_divisible' => 'boolean',
         ];
+    }    
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(StandardisedActivityGroup::class, "group_id");
     }    
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dpb_wtf_standardised_activity_templates', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('group_id');
             $table->string('title');
             $table->integer('duration')
                 ->nullable(false)

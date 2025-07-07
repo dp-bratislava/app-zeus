@@ -1,27 +1,30 @@
 <?php
 
-namespace App\Filament\Resources\WTF;
+namespace App\Filament\Resources\Fleet;
 
-use App\Filament\Resources\WTF\StandardisedActivityResource\Pages;
-use App\Filament\Resources\WTF\StandardisedActivityResource\RelationManagers;
-use App\Models\WTF\StandardisedActivity;
+use App\Filament\Imports\Fleet\VehicleImporter;
+use App\Filament\Resources\Fleet\VehicleResource\Pages;
+use App\Filament\Resources\Fleet\VehicleResource\RelationManagers;
+use App\Models\Fleet\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StandardisedActivityResource extends Resource
+class VehicleResource extends Resource
 {
-    protected static ?string $model = StandardisedActivity::class;
+    protected static ?string $model = Vehicle::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'WTF';
+        return 'Fleet';
     }
 
     public static function form(Form $form): Form
@@ -38,18 +41,20 @@ class StandardisedActivityResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                Tables\Columns\TextColumn::make('task.title'),
-                Tables\Columns\TextColumn::make('template.title'),
-                Tables\Columns\TextColumn::make('template.duration'),
-                Tables\Columns\TextColumn::make('activities.duration_sum')
-                    ->state(function ($record) {
-                        $result = $record->activities->sum('duration');
-                        return $result;
-                    }),
-                Tables\Columns\TextColumn::make('department.code'),
+                TextColumn::make('code'),
+                TextColumn::make('model.title'),
+                TextColumn::make('model.length')->label('length'),
+                TextColumn::make('end_of_warranty'),
+                TextColumn::make('model.warranty')->label('warranty'),
+                TextColumn::make('model.type.title'),
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(VehicleImporter::class)
+                    ->csvDelimiter(';')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -71,9 +76,9 @@ class StandardisedActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStandardisedActivities::route('/'),
-            'create' => Pages\CreateStandardisedActivity::route('/create'),
-            'edit' => Pages\EditStandardisedActivity::route('/{record}/edit'),
+            'index' => Pages\ListVehicles::route('/'),
+            'create' => Pages\CreateVehicle::route('/create'),
+            'edit' => Pages\EditVehicle::route('/{record}/edit'),
         ];
     }
 }
