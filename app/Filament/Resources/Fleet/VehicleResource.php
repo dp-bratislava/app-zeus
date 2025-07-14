@@ -8,6 +8,8 @@ use App\Filament\Resources\Fleet\VehicleResource\RelationManagers;
 use App\Models\Fleet\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
@@ -58,11 +60,57 @@ class VehicleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Tabs::make('tabs')
+                    ->tabs([
+                        Infolists\Components\Tabs\Tab::make('technicke parametre')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('poistne udalosti')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('poruchy')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('material')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('STK')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),       
+
+                    ])
             ]);
     }
 
@@ -79,6 +127,7 @@ class VehicleResource extends Resource
             'index' => Pages\ListVehicles::route('/'),
             'create' => Pages\CreateVehicle::route('/create'),
             'edit' => Pages\EditVehicle::route('/{record}/edit'),
+            'view' => Pages\ViewVehicle::route('/{record}'),
         ];
     }
 }

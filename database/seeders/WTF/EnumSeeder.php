@@ -25,7 +25,7 @@ class EnumSeeder extends Seeder
             ['code' => 'absence', 'title' => 'Neprítomnosť', 'description' => 'Neprítomnosť na pracovisku, pri ktorej zaniká nárok na prémiu'],
             ['code' => 'absence_2', 'title' => 'Neprítomnosť 2', 'description' => 'Neprítomnosť na pracovisku, pri ktorej nezaniká nárok na prémiu'],
             ['code' => 'custom_work', 'title' => 'Voliteľná pracovná činnosť', 'description' => 'Voliteľné pracovné činnosti podľa potrieb jednotlivých stredísk'],
-            ['code' => 'catalogised_work', 'title' => 'Katalogizovaná pracovná činnosťomnosť', 'description' => 'Fixné pracovné činnosti dané predstavenstvom'],
+            ['code' => 'catalogised_work', 'title' => 'Katalogizovaná pracovná činnosť', 'description' => 'Fixné pracovné činnosti dané predstavenstvom'],
         ];
 
         foreach ($activityTypes as $activityType) {

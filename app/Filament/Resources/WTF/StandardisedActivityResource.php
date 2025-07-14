@@ -40,13 +40,15 @@ class StandardisedActivityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('task.title'),
                 Tables\Columns\TextColumn::make('template.title'),
-                Tables\Columns\TextColumn::make('template.duration'),
+                Tables\Columns\TextColumn::make('template.duration')
+                    ->label('trvanie podla normy'),
                 Tables\Columns\TextColumn::make('activities.duration_sum')
+                    ->label('skutocne trvanie')
                     ->state(function ($record) {
                         $result = $record->activities->sum('duration');
                         return $result;
                     }),
-                Tables\Columns\TextColumn::make('department.code'),
+                Tables\Columns\TextColumn::make('template.group.department.code'),
             ])
             ->filters([
                 //

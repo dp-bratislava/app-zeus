@@ -25,6 +25,9 @@ class TaskResource extends Resource
     protected static ?string $model = Task::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Zakazky';
+    protected static ?string $pluralModelLabel = 'Zakazky';
+    protected static ?string $ModelLabel = 'Zakazka';
 
     public static function getNavigationGroup(): ?string
     {
@@ -47,18 +50,20 @@ class TaskResource extends Resource
                     ->relationship('department', 'title')
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
-                    ->searchable(),
+                    ->searchable()
+                    ->required(),
                 // Forms\Components\Select::make('subject')
                 //     ->options(fn() => Vehicle::pluck('title', 'id')),
                 // standardised activities 
                 Forms\Components\Tabs::make('Tabs')
                     ->columnSpanFull()
                     ->tabs([
+                        // standardised activities
                         Forms\Components\Tabs\Tab::make('Std activities')
                             ->schema([
-
-                                Forms\Components\Repeater::make('standardisedActivities')
+                                Forms\Components\Repeater::make('standardisedActivities')                                
                                     ->relationship('standardisedActivities')
+                                    ->defaultItems(0)
                                     ->schema([
                                         Forms\Components\Select::make('template_id')
                                             ->relationship('template', 'title')
@@ -67,6 +72,8 @@ class TaskResource extends Resource
                                         // activities
                                         TableRepeater::make('activities')
                                             ->relationship('activities')
+                                            ->defaultItems(0)
+                                            ->cloneable()
                                             ->headers([
                                                 Header::make('date'),
                                                 Header::make('time_from'),
@@ -113,6 +120,7 @@ class TaskResource extends Resource
                             ->schema([
                                 TableRepeater::make('activities')
                                     ->relationship('activities')
+                                    ->defaultItems(0)
                                     ->columnSpanFull()
                                     ->headers([
                                         Header::make('date'),
@@ -150,6 +158,7 @@ class TaskResource extends Resource
                             ->schema([
                                 TableRepeater::make('materials')
                                     ->relationship('materials')
+                                    ->defaultItems(0)
                                     ->headers([
                                         Header::make('title'),
                                         Header::make('unit_price'),

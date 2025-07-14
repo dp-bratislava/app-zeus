@@ -27,13 +27,17 @@ class StandardisedActivityTemplateImporter extends Importer
                 }),
             ImportColumn::make('duration')
                 ->requiredMapping()
-                ->rules(['required', 'max:255', 'integer']),
+                ->rules(['required', 'integer']),
             ImportColumn::make('is_divisible')
                 ->requiredMapping()
-                ->rules(['required', 'max:255', 'boolean']), 
+                ->rules(['required', 'boolean']), 
             ImportColumn::make('people')
                 ->requiredMapping()
-                ->rules(['required', 'max:255', 'integer'])                                  
+                ->rules(['required', 'integer']),
+            ImportColumn::make('group')
+                ->relationship('group', 'title')
+                ->requiredMapping()
+                ->rules(['required', 'max:255'])                 
         ];
     }
 

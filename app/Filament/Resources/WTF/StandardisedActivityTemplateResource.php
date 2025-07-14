@@ -24,6 +24,9 @@ class StandardisedActivityTemplateResource extends Resource
     protected static ?string $model = StandardisedActivityTemplate::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Normované činnosti';
+    protected static ?string $pluralModelLabel = 'Normované činnosti';
+    protected static ?string $ModelLabel = 'Normovaná činnosť';
     public static function getNavigationGroup(): ?string
     {
         return 'WTF';
