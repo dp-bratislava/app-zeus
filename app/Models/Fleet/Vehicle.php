@@ -2,6 +2,7 @@
 
 namespace App\Models\Fleet;
 
+use App\Models\TS\Ticket;
 use App\Models\WTF\Task;
 use App\Models\WTF\TaskSubject;
 use Illuminate\Database\Eloquent\Model;
@@ -44,14 +45,26 @@ class Vehicle extends Model
     {
         return $this->belongsTo(VehicleModel::class, "model_id");
     }    
-    // public function tasks(): MorphToMany
-    // {
-    //     return $this->morphToMany(
-    //         Task::class, 
-    //         'subject',
-    //         'dpb_wtf_task_subjects',
-    //         'task_id',
-    //         'subject_id'
-    //     );
-    // }
+    
+    public function tickets(): MorphToMany
+    {
+        return $this->morphToMany(
+            Ticket::class, 
+            'subject',
+            'dpb_ts_ticket_subjects',
+            'subject_id',
+            'ticket_id',
+        );
+    }
+
+    public function tasks(): MorphToMany
+    {
+        return $this->morphToMany(
+            Task::class, 
+            'subject',
+            'dpb_wtf_task_subjects',
+            'subject_id',
+            'task_id',
+        );
+    }
 }

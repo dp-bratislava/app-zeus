@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\WTF;
+namespace App\Models\TS;
 
+use App\Models\BM\Building;
 use App\Models\Datahub\Department;
 use App\Models\Fleet\Vehicle;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Task extends Model
+class Ticket extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'dpb_wtf_tasks';
+    protected $table = 'dpb_ts_tickets';
 
     /**
      * The attributes that are mass assignable.
@@ -25,12 +26,20 @@ class Task extends Model
         'title',
         'description',
         'date',
+        'deadline',
         'department_id',
+        'priority_id',
+        'status_id',
+        'group_id',
     ];
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Task::class, "parent_id");
+        return $this->belongsTo(Ticket::class, "parent_id");
+    }
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(TicketGroup::class, "group_id");
     }
 
     public function department(): BelongsTo
@@ -40,27 +49,27 @@ class Task extends Model
 
     public function standardisedActivities(): HasMany
     {
-        return $this->hasMany(StandardisedActivity::class, "task_id");
+        return $this->hasMany(StandardisedActivity::class, "ticket_id");
     }
 
     public function activities(): HasMany
     {
-        return $this->hasMany(Activity::class, "task_id");
+        return $this->hasMany(Activity::class, "ticket_id");
     }
 
     public function materials(): HasMany
     {
-        return $this->hasMany(TaskMaterial::class, "task_id");
+        return $this->hasMany(TicketMaterial::class, "ticket_id");
     }
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(TaskStatus::class, "status_id");
+        return $this->belongsTo(TicketStatus::class, "status_id");
     }
 
     public function priority(): BelongsTo
     {
-        return $this->belongsTo(TaskPriority::class, "priority_id");
+        return $this->belongsTo(TicketPriority::class, "priority_id");
     }
 
     public function vehicles(): MorphToMany
@@ -68,9 +77,20 @@ class Task extends Model
         return $this->morphedByMany(
             Vehicle::class,
             'subject',
-            'dpb_wtf_task_subjects',
-            'task_id',
+            'dpb_ts_ticket_subjects',
+            'ticket_id',
             'subject_id'
         );
     }
+
+    public function buildings(): MorphToMany
+    {
+        return $this->morphedByMany(
+            Building::class,
+            'subject',
+            'dpb_ts_ticket_subjects',
+            'ticket_id',
+            'subject_id'
+        );
+    }    
 }

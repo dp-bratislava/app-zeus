@@ -52,7 +52,7 @@ class EnumSeeder extends Seeder
             TaskStatus::create($status);
         }
 
-        // prorities
+        // priorities
         $taskPriorities = [
             ['code' => 'low', 'title' => 'nízka'],
             ['code' => 'normal', 'title' => 'normálna'],

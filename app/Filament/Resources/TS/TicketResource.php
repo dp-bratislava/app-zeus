@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\WTF;
+namespace App\Filament\Resources\TS;
 
 use App\Filament\Components\ContractPicker;
 use App\Filament\Components\DepartmentPicker;
-use App\Filament\Resources\WTF\TaskResource\Pages;
-use App\Filament\Resources\WTF\TaskResource\RelationManagers;
+use App\Filament\Resources\TS\TicketResource\Pages;
+use App\Filament\Resources\TS\TicketResource\RelationManagers;
+use App\Models\BM\Building;
 use App\Models\Fleet\Vehicle as FleetVehicle;
-use App\Models\WTF\ActivityStatus;
-use App\Models\WTF\Task;
-use App\Models\WTF\TaskSubject\Vehicle;
+use App\Models\TS\Ticket;
+use App\Models\TS\ActivityStatus;
+use App\Models\TS\TicketGroup;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Filament\Forms;
@@ -21,9 +22,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TaskResource extends Resource
+class TicketResource extends Resource
 {
-    protected static ?string $model = Task::class;
+    protected static ?string $model = Ticket::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Zakazky';
@@ -32,7 +33,7 @@ class TaskResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'WTF';
+        return 'TS';
     }
 
     public static function form(Form $form): Form
@@ -40,6 +41,9 @@ class TaskResource extends Resource
         return $form
             ->schema([
                 Forms\Components\DatePicker::make('date')->default(now()),
+                Forms\Components\Select::make('group_id')
+                    ->relationship('group', 'title')
+                    ->live(),
                 Forms\Components\TextInput::make('title'),
                 Forms\Components\TextInput::make('description'),
                 Forms\Components\Select::make('parent_id')
@@ -57,7 +61,20 @@ class TaskResource extends Resource
                     ->relationship('vehicles', 'code')
                     ->options(fn() => FleetVehicle::pluck('code', 'id'))
                     ->multiple()
-                    ->searchable(),
+                    ->searchable()
+                    ->visible(function($get) {
+                        $ticketGroup = TicketGroup::find($get('group_id'))?->code;
+                        return $ticketGroup === 'fleet';
+                    }),
+                Forms\Components\Select::make('buildings')
+                    ->relationship('buildings', 'code')
+                    ->options(fn() => Building::pluck('title', 'id'))
+                    ->multiple()
+                    ->searchable()
+                    ->visible(function($get) {
+                        $ticketGroup = TicketGroup::find($get('group_id'))?->code;
+                        return $ticketGroup === 'building_management';
+                    }),                    
 
                 // standardised activities 
                 Forms\Components\Tabs::make('Tabs')
@@ -66,7 +83,7 @@ class TaskResource extends Resource
                         // standardised activities
                         Forms\Components\Tabs\Tab::make('Std activities')
                             ->schema([
-                                Forms\Components\Repeater::make('standardisedActivities')                                
+                                Forms\Components\Repeater::make('standardisedActivities')
                                     ->relationship('standardisedActivities')
                                     ->defaultItems(0)
                                     ->schema([
@@ -83,7 +100,7 @@ class TaskResource extends Resource
                                                 Header::make('date'),
                                                 Header::make('time_from'),
                                                 Header::make('time_to'),
-                                                Header::make('template'),
+                                                Header::make('description'),
                                                 Header::make('contract'),
                                                 Header::make('status'),
                                             ])
@@ -96,10 +113,7 @@ class TaskResource extends Resource
                                                 //     ->default(60),
                                                 Forms\Components\TimePicker::make('time_from'),
                                                 Forms\Components\TimePicker::make('time_to'),
-                                                Forms\Components\Select::make('template_id')
-                                                    ->relationship('template', 'title')
-                                                    ->preload()
-                                                    ->searchable(),
+                                                Forms\Components\Textarea::make('description'),
                                                 ContractPicker::make('employee_contract_id')
                                                     ->relationship('employeeContract', 'pid')
                                                     ->getOptionLabelFromRecordUsing(null)
@@ -110,10 +124,10 @@ class TaskResource extends Resource
                                                     ->default(ActivityStatus::where('code', '=', 'undone')->first()->id),
                                             ])
                                             ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get, $set, $livewire) {
-                                                $taskId = $livewire->record?->id;
+                                                $ticketId = $livewire->record?->id;
 
-                                                if ($taskId) {
-                                                    $data['task_id'] = $taskId;
+                                                if ($ticketId) {
+                                                    $data['ticket_id'] = $ticketId;
                                                 }
 
                                                 return $data;
@@ -131,7 +145,7 @@ class TaskResource extends Resource
                                         Header::make('date'),
                                         Header::make('time_from'),
                                         Header::make('time_to'),
-                                        Header::make('template'),
+                                        Header::make('description'),
                                         Header::make('contract'),
                                         Header::make('status'),
                                     ])
@@ -144,10 +158,7 @@ class TaskResource extends Resource
                                         //     ->default(60),
                                         Forms\Components\TimePicker::make('time_from'),
                                         Forms\Components\TimePicker::make('time_to'),
-                                        Forms\Components\Select::make('template_id')
-                                            ->relationship('template', 'title')
-                                            ->preload()
-                                            ->searchable(),
+                                        Forms\Components\Textarea::make('description'),
                                         ContractPicker::make('employee_contract_id')
                                             ->relationship('employeeContract', 'pid')
                                             ->getOptionLabelFromRecordUsing(null)
@@ -229,9 +240,9 @@ class TaskResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTasks::route('/'),
-            'create' => Pages\CreateTask::route('/create'),
-            'edit' => Pages\EditTask::route('/{record}/edit'),
+            'index' => Pages\ListTickets::route('/'),
+            'create' => Pages\CreateTicket::route('/create'),
+            'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 }

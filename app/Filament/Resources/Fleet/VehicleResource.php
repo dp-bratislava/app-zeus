@@ -68,6 +68,7 @@ class VehicleResource extends Resource
                 ]),
             ]);
     }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -97,10 +98,7 @@ class VehicleResource extends Resource
                             ]),
                         Infolists\Components\Tabs\Tab::make('material')
                             ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
+                                Infolists\Components\TextEntry::make('tickets.materials.title'),
                             ]),
                         Infolists\Components\Tabs\Tab::make('STK')
                             ->schema([
@@ -117,7 +115,7 @@ class VehicleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TicketsRelationManager::class,
         ];
     }
 
