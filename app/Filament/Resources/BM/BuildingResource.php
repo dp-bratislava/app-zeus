@@ -9,6 +9,8 @@ use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -74,6 +76,7 @@ class BuildingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -82,10 +85,39 @@ class BuildingResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Tabs::make('tabs')
+                    ->tabs([
+                        Infolists\Components\Tabs\Tab::make('technicke parametre')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('poistne udalosti')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('param 1'),
+                                Infolists\Components\TextEntry::make('param 2'),
+                                Infolists\Components\TextEntry::make('param ...'),
+                                Infolists\Components\TextEntry::make('param N'),
+                            ]),
+                        Infolists\Components\Tabs\Tab::make('material')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('tickets.materials.title'),
+                            ]),
+                    ])
+            ]);
+    }
+    
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\OfficesRelationManager::class,
+            RelationManagers\TicketsRelationManager::class,
         ];
     }
 
@@ -95,6 +127,7 @@ class BuildingResource extends Resource
             'index' => Pages\ListBuildings::route('/'),
             'create' => Pages\CreateBuilding::route('/create'),
             'edit' => Pages\EditBuilding::route('/{record}/edit'),
+            'view' => Pages\ViewBuilding::route('/{record}'),
         ];
     }
 }
