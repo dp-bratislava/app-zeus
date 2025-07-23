@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('short_title');
             $table->timestamps();
             $table->softDeletes();
-        });     
+        });
 
         // vehicle types
         Schema::create('dpb_fleet_vehicle_types', function (Blueprint $table) {
@@ -38,6 +38,31 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('title');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        // vehicle statuses
+        Schema::create('dpb_fleet_vehicle_statuses', function (Blueprint $table) {
+            $table->comment('List of vehicle statuses');
+            $table->id();
+            $table->string('code');
+            $table->string('title');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        // vehicle groups
+        Schema::create('dpb_fleet_vehicle_groups', function (Blueprint $table) {
+            $table->comment('List of vehicle groups');
+            $table->id();
+            $table->string('code')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->foreignId('responsible_id')
+                ->nullable()
+                ->comment('Person responsible for this group.')
+                ->constrained('datahub_employees', 'id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -62,7 +87,7 @@ return new class extends Migration
 
         // vehicles
         Schema::create('dpb_fleet_vehicles', function (Blueprint $table) {
-            $table->comment('dummy table to simulate vehicle list from datahub');
+            $table->comment('List of vehicles');
             $table->id();
             $table->string('code')
                 ->comment('4 digit vehicle code. Multiple vehicles can have same code over time.');
@@ -76,6 +101,22 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // vehicle status pivot
+        Schema::create('dpb_fleet_vehicle_status', function (Blueprint $table) {
+            $table->comment('Pivot to bind vehicles and statuses');
+            $table->id();
+            $table->date('date');
+            $table->foreignId('vehicle_id')
+                ->nullable(false)
+                ->constrained('dpb_fleet_vehicles', 'id');
+            $table->foreignId('status_id')
+                ->nullable(false)
+                ->constrained('dpb_fleet_vehicle_statuses', 'id');
+            $table->text('note');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -83,8 +124,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('dpb_fleet_vehicle_status');
         Schema::dropIfExists('dpb_fleet_vehicles');
+        Schema::dropIfExists('dpb_fleet_vehicle_groups');
         Schema::dropIfExists('dpb_fleet_vehicle_models');
         Schema::dropIfExists('dpb_fleet_vehicle_types');
+        Schema::dropIfExists('dpb_fleet_vehicle_statuses');
+        Schema::dropIfExists('dpb_fleet_service_groups');
+        Schema::dropIfExists('dpb_fleet_transport_groups');
     }
 };
