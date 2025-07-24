@@ -20,6 +20,10 @@ class StatusResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Stavy pneumatik';
+    protected static ?string $pluralModelLabel = 'Stavy pneumatik';
+    protected static ?string $ModelLabel = 'Stavy pneumatik';
+
     public static function getNavigationGroup(): ?string
     {
         return 'Fleet';

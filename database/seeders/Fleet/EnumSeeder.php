@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Fleet;
 
+use App\Models\Fleet\FuelType;
 use App\Models\Fleet\ServiceGroup;
 use App\Models\Fleet\TransportGroup;
 use App\Models\Fleet\VehicleStatus;
@@ -15,8 +16,10 @@ class EnumSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::table('dpb_fleet_vehicle_types')->truncate();
+        DB::table('dpb_fleet_vehicle_statuses')->truncate();
         DB::table('dpb_fleet_transport_groups')->truncate();
         DB::table('dpb_fleet_service_groups')->truncate();
+        DB::table('dpb_fleet_fuel_types')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         // vehicle types
@@ -61,6 +64,28 @@ class EnumSeeder extends Seeder
 
         foreach ($serviceGroups as $serviceGroup) {
             ServiceGroup::create($serviceGroup);
+        }
+
+        // fuel types
+        $fuelTypes = [
+            ['title' => 'Benzín EVO Racing 102+'],
+            ['title' => 'Benzín 100 EVO'],
+            ['title' => 'Benzín 95 natural'],
+            ['title' => 'Benzín 95 premium'],
+            ['title' => 'Benzín 98'],
+            ['title' => 'CNG'],
+            ['title' => 'Elektrina'],
+            ['title' => 'LPG'],
+            ['title' => 'MaxxMotion100+'],
+            ['title' => 'Nafta'],
+            ['title' => 'Nafta EVO Diesel'],
+            ['title' => 'Nafta premium'],
+            ['title' => 'Nafta zimná'],
+            ['title' => 'Vodík'],
+        ];
+
+        foreach ($fuelTypes as $fuelType) {
+            FuelType::create($fuelType);
         }
     }
 }

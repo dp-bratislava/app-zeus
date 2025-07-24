@@ -42,9 +42,12 @@ class VehicleModelResource extends Resource
             ->defaultPaginationPageOption(100)
             ->columns([
                 TextColumn::make('title'),
-                TextColumn::make('length'),
-                TextColumn::make('warranty'),
-                TextColumn::make('type.title'),
+                TextColumn::make('year'),
+                TextColumn::make('seats'),
+                TextColumn::make('fuel_consumption'),
+                // TextColumn::make('length'),
+                // TextColumn::make('warranty'),
+                // TextColumn::make('type.title'),
             ])
             ->filters([
                 //

@@ -1,30 +1,24 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Tire;
+namespace App\Filament\Resources\Fleet;
 
-use App\Filament\Imports\Fleet\TireParameterImporter;
-use App\Filament\Resources\Fleet\Tire\ParameterResource\Pages;
-use App\Filament\Resources\Fleet\Tire\ParameterResource\RelationManagers;
-use App\Models\Fleet\Tire\Parameter;
+use App\Filament\Resources\Fleet\FuelTypeResource\Pages;
+use App\Filament\Resources\Fleet\FuelTypeResource\RelationManagers;
+use App\Models\Fleet\FuelType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ParameterResource extends Resource
+class FuelTypeResource extends Resource
 {
-    protected static ?string $model = Parameter::class;
+    protected static ?string $model = FuelType::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Parametre pneumatik';
-    protected static ?string $pluralModelLabel = 'Parametre pneumatik';
-    protected static ?string $ModelLabel = 'Parametre pneumatik';
 
     public static function getNavigationGroup(): ?string
     {
@@ -45,17 +39,7 @@ class ParameterResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                TextColumn::make('tire_width'),
-                TextColumn::make('profile_number'),
-                TextColumn::make('constructionType.title'),
-                TextColumn::make('rim_diameter'),
-                TextColumn::make('load_index'),
-                TextColumn::make('speed_rating'),
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(TireParameterImporter::class)
-                    ->csvDelimiter(';')
+                TextColumn::make('title'),
             ])
             ->filters([
                 //
@@ -80,9 +64,9 @@ class ParameterResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListParameters::route('/'),
-            'create' => Pages\CreateParameter::route('/create'),
-            'edit' => Pages\EditParameter::route('/{record}/edit'),
+            'index' => Pages\ListFuelTypes::route('/'),
+            'create' => Pages\CreateFuelType::route('/create'),
+            'edit' => Pages\EditFuelType::route('/{record}/edit'),
         ];
     }
 }

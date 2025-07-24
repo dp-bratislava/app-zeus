@@ -26,7 +26,7 @@ return new class extends Migration
         Schema::create('dpb_fleet_tire_brands', function (Blueprint $table) {
             $table->comment('List of tire brands');
             $table->id();
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
@@ -46,7 +46,7 @@ return new class extends Migration
         Schema::create('dpb_fleet_tire_statuses', function (Blueprint $table) {
             $table->comment('List of tire statuses');
             $table->id();
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
@@ -76,16 +76,20 @@ return new class extends Migration
         Schema::create('dpb_fleet_tire_parameters', function (Blueprint $table) {
             $table->comment('List of tire parameters');
             $table->id();
-            $table->integer('tire_width')->comment('Tire width in mm');
-            $table->integer('profile_number');
-            $table->decimal('rim_diameter');
+            $table->integer('tire_width')
+                ->nullable()
+                ->comment('Tire width in mm');
+            $table->integer('profile_number')->nullable();
+            $table->decimal('rim_diameter')->nullable();
             $table->foreignId('construction_type_id')
                 ->nullable()
                 ->comment('')
                 ->constrained('dpb_fleet_tire_construction_types', 'id');
             $table->string('load_index')
+                ->nullable()
                 ->comment('Maximal weight distributed on one tire.');
             $table->string('speed_rating')
+                ->nullable()
                 ->comment('maximum speed the tire can safely maintain over time under its recommended load.');
             $table->timestamps();
             $table->softDeletes();

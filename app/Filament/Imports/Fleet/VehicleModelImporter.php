@@ -25,12 +25,43 @@ class VehicleModelImporter extends Importer
 
                     return Str::trim($state);
                 }),
-            ImportColumn::make('length'),
-            ImportColumn::make('warranty'),
-            ImportColumn::make('type')
-                ->relationship('type', 'code')
-                // ->rules(['required', 'max:255']),
-                ->rules(['max:255']),              
+            ImportColumn::make('fuel_consumption_city')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),            
+            ImportColumn::make('fuel_consumption')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            ImportColumn::make('fuel_consumption_combined')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            ImportColumn::make('year'),
+            ImportColumn::make('tank_size'),
+            ImportColumn::make('seats'),
+            ImportColumn::make('std_fuel_consumption_city_summer')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            ImportColumn::make('std_fuel_consumption_city_winter')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            ImportColumn::make('std_fuel_consumption_summer')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            ImportColumn::make('std_fuel_consumption_winter')
+                ->castStateUsing(function (?string $state): ?string {
+                    return Str::of($state)->replace(',', '.');
+                }),
+            // ImportColumn::make('length'),
+            // ImportColumn::make('warranty'),
+            // ImportColumn::make('type')
+            //     ->relationship('type', 'code')
+            //     // ->rules(['required', 'max:255']),
+            //     ->rules(['max:255']),              
         ];
     }
 

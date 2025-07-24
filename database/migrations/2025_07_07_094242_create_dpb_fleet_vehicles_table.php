@@ -52,6 +52,16 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        // vehicle statuses
+        Schema::create('dpb_fleet_fuel_types', function (Blueprint $table) {
+            $table->comment('List of vehicle fuel types');
+            $table->id();
+            $table->string('code')->nullable(true);
+            $table->string('title');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         // vehicle groups
         Schema::create('dpb_fleet_vehicle_groups', function (Blueprint $table) {
             $table->comment('List of vehicle groups');
@@ -72,15 +82,31 @@ return new class extends Migration
             $table->comment('List of vehicle models');
             $table->id();
             $table->string('title');
-            $table->decimal('length')
-                ->nullable()
-                ->comment('Vehicle length in meters');
             $table->integer('warranty')
                 ->nullable()
                 ->comment('Default warranty in months');
             $table->foreignId('type_id')
-                ->nullable(false)
+                ->nullable(true)
                 ->constrained('dpb_fleet_vehicle_types', 'id');
+
+            $table->string('year')->nullable(true);
+            // $table->decimal('length')->nullable(true)->comment('Length in meters');
+            $table->integer('tank_size')->nullable(true)->comment('Tank size in liters');
+            $table->integer('seats')->nullable(true)->comment('Number of seats in vehicle');
+            $table->foreignId('fuel_type_id')
+                ->nullable(true)
+                ->constrained('dpb_fleet_fuel_types', 'id');
+            $table->foreignId('alternate_fuel_type_id')
+                ->nullable(true)
+                ->constrained('dpb_fleet_fuel_types', 'id');
+            $table->decimal('fuel_consumption')->nullable(true)->comment('Fuel consumption out of city');
+            $table->decimal('fuel_consumption_city')->nullable(true)->comment('Fuel consumption out of city');
+            $table->decimal('fuel_consumption_combined')->nullable(true)->comment('Fuel consumption out of city');
+            $table->decimal('std_fuel_consumption_winter')->nullable(true)->comment('Standardised fuel consumption out of city in winter');
+            $table->decimal('std_fuel_consumption_city_winter')->nullable(true)->comment('Standardised fuel consumption out of city in winter');
+            $table->decimal('std_fuel_consumption_summer')->nullable(true)->comment('Standardised fuel consumption out of city in summer');
+            $table->decimal('std_fuel_consumption_city_summer')->nullable(true)->comment('Standardised fuel consumption out of city in summer');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -117,6 +143,20 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // vehicle licence plates
+        Schema::create('dpb_fleet_vehicle_licence_plates', function (Blueprint $table) {
+            $table->comment('List of vehicle licence plates');
+            $table->id();
+            $table->date('date_from');
+            $table->date('date_to')->nullable(true);
+            $table->foreignId('vehicle_id')
+                ->nullable(false)
+                ->constrained('dpb_fleet_vehicles', 'id');
+            $table->string('licence_plate');
+            $table->timestamps();
+            $table->softDeletes();
+        });        
     }
 
     /**
@@ -124,6 +164,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('dpb_fleet_vehicle_licence_plates');
         Schema::dropIfExists('dpb_fleet_vehicle_status');
         Schema::dropIfExists('dpb_fleet_vehicles');
         Schema::dropIfExists('dpb_fleet_vehicle_groups');
@@ -132,5 +173,6 @@ return new class extends Migration
         Schema::dropIfExists('dpb_fleet_vehicle_statuses');
         Schema::dropIfExists('dpb_fleet_service_groups');
         Schema::dropIfExists('dpb_fleet_transport_groups');
+        Schema::dropIfExists('dpb_fleet_fuel_types');
     }
 };
