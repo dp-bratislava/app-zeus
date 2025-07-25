@@ -17,8 +17,11 @@ class StandardisedActivityResource extends Resource
 {
     protected static ?string $model = StandardisedActivity::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationGroup(): ?string
+    {
+        return 'temp';
+    }
     public static function form(Form $form): Form
     {
         return $form

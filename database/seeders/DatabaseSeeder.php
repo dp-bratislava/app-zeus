@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\WTF\EnumSeeder as WTFEnumSeeder;
 use Database\Seeders\Fleet\EnumSeeder as FleetEnumSeeder;
 use Database\Seeders\Fleet\TireEnumSeeder;
+use Database\Seeders\TS\TaskEnumSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             WTFEnumSeeder::class,
             FleetEnumSeeder::class,
             TireEnumSeeder::class,
+            TaskEnumSeeder::class,
         ]);
     }
 }

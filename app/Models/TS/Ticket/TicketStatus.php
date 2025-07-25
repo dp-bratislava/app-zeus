@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\TS;
+namespace App\Models\TS\Ticket;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

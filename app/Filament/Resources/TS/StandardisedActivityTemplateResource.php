@@ -30,7 +30,7 @@ class StandardisedActivityTemplateResource extends Resource
     protected static ?string $ModelLabel = 'Normovaná činnosť';
     public static function getNavigationGroup(): ?string
     {
-        return 'TS';
+        return 'temp';
     }
     
     public static function form(Form $form): Form

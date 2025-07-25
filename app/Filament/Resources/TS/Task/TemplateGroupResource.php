@@ -1,38 +1,41 @@
 <?php
 
-namespace App\Filament\Resources\TS;
+namespace App\Filament\Resources\TS\Task;
 
-use App\Filament\Imports\TS\StandardisedActivityGroupImporter;
-use App\Filament\Resources\TS\StandardisedActivityGroupResource\Pages;
-use App\Filament\Resources\TS\StandardisedActivityGroupResource\RelationManagers;
-use App\Models\TS\StandardisedActivityGroup;
+use App\Filament\Resources\TS\Task\TemplateGroupResource\Pages;
+use App\Filament\Resources\TS\Task\TemplateGroupResource\RelationManagers;
+use App\Models\TS\Task\TemplateGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StandardisedActivityGroupResource extends Resource
+class TemplateGroupResource extends Resource
 {
-    protected static ?string $model = StandardisedActivityGroup::class;
+    protected static ?string $model = TemplateGroup::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Skupiny normovaných činností';
-    protected static ?string $pluralModelLabel = 'Skupiny normovaných činností';
-    protected static ?string $ModelLabel = 'Normovaná činnosť';
+    protected static ?string $navigationLabel = 'Skupiny úloh';
+    protected static ?string $pluralModelLabel = 'Skupiny úloh';
+    protected static ?string $ModelLabel = 'Skupina úloh';
+
     public static function getNavigationGroup(): ?string
     {
-        return 'temp';
+        return 'TS';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('parent_id')
+                    ->relationship('parent', 'title'),
+                // ->options(),
+                Forms\Components\TextInput::make('title'),
+                Forms\Components\TextInput::make('description'),
             ]);
     }
 
@@ -50,11 +53,6 @@ class StandardisedActivityGroupResource extends Resource
             ->filters([
                 //
             ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(StandardisedActivityGroupImporter::class)
-                    ->csvDelimiter(';')
-            ]) 
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -75,9 +73,9 @@ class StandardisedActivityGroupResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStandardisedActivityGroups::route('/'),
-            'create' => Pages\CreateStandardisedActivityGroup::route('/create'),
-            'edit' => Pages\EditStandardisedActivityGroup::route('/{record}/edit'),
+            'index' => Pages\ListTemplateGroups::route('/'),
+            'create' => Pages\CreateTemplateGroup::route('/create'),
+            'edit' => Pages\EditTemplateGroup::route('/{record}/edit'),
         ];
     }
 }

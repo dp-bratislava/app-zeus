@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models\TS;
+namespace App\Models\TS\Task;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TicketStatus extends Model
+class TaskStatus extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'dpb_ts_ticket_statuses';
+    protected $table = 'dpb_ts_task_statuses';
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,8 @@ class TicketStatus extends Model
         'title',
     ];
 
-    public function tickets(): HasMany
+    public function tasks(): HasMany
     {
-        return $this->hasMany(Ticket::class, "status_id");
+        return $this->hasMany(Task::class, "status_id");
     }
 }

@@ -17,8 +17,11 @@ class TireResource extends Resource
 {
     protected static ?string $model = Tire::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Fleet';
+    }
     public static function form(Form $form): Form
     {
         return $form
