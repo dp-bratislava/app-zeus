@@ -36,6 +36,47 @@ class TaskEnumSeeder extends Seeder
 
         foreach ($taskTemplateGroups as $taskTemplateGroup) {
             TemplateGroup::create($taskTemplateGroup);
-        }        
+        }
+
+        //
+        $parent = TemplateGroup::whereLike('title', 'Katalogizované úlohy')->first()->id;
+        $taskTemplateGroups = [
+            ['title' => 'Údržba', 'parent_id' => $parent],
+            ['title' => 'Poruchy', 'parent_id' => $parent],
+            ['title' => 'Ostatné', 'parent_id' => $parent],
+        ];
+
+        foreach ($taskTemplateGroups as $taskTemplateGroup) {
+            TemplateGroup::create($taskTemplateGroup);
+        }
+
+        $parent = TemplateGroup::whereLike('title', 'Údržba')->first()->id;
+        $taskTemplateGroups = [
+            ['title' => 'Bežná', 'parent_id' => $parent],
+        ];
+
+        foreach ($taskTemplateGroups as $taskTemplateGroup) {
+            TemplateGroup::create($taskTemplateGroup);
+        }
+
+        $parent = TemplateGroup::whereLike('title', 'Poruchy')->first()->id;
+        $taskTemplateGroups = [
+            ['title' => 'Bežná', 'parent_id' => $parent],
+            ['title' => 'Po havárii', 'parent_id' => $parent],
+        ];
+
+        foreach ($taskTemplateGroups as $taskTemplateGroup) {
+            TemplateGroup::create($taskTemplateGroup);
+        }
+
+        $parent = TemplateGroup::whereLike('title', 'Ostatné')->first()->id;
+        $taskTemplateGroups = [
+            ['title' => 'Bežná', 'parent_id' => $parent],
+            ['title' => 'Po havárii', 'parent_id' => $parent],
+        ];
+
+        foreach ($taskTemplateGroups as $taskTemplateGroup) {
+            TemplateGroup::create($taskTemplateGroup);
+        }
     }
 }

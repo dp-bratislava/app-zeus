@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Tire;
+namespace App\Filament\Resources\Fleet;
 
-use App\Filament\Resources\Fleet\Tire\StatusResource\Pages;
-use App\Filament\Resources\Fleet\Tire\StatusResource\RelationManagers;
-use App\Models\Fleet\Tire\Status;
+use App\Filament\Resources\Fleet\ServiceGroupResource\Pages;
+use App\Filament\Resources\Fleet\ServiceGroupResource\RelationManagers;
+use App\Models\Fleet\ServiceGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StatusResource extends Resource
+class ServiceGroupResource extends Resource
 {
-    protected static ?string $model = Status::class;
+    protected static ?string $model = ServiceGroup::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Stavy pneumatik';
-    protected static ?string $pluralModelLabel = 'Stavy pneumatik';
-    protected static ?string $ModelLabel = 'Stavy pneumatik';
+    protected static ?string $navigationLabel = 'Technické prevádzky';
+    protected static ?string $pluralModelLabel = 'Technické prevádzky';
+    protected static ?string $ModelLabel = 'Technická prevádzka';
 
     public static function getNavigationGroup(): ?string
     {
@@ -32,7 +31,7 @@ class StatusResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code')->required(),
+                Forms\Components\TextInput::make('short_title')->required(),
                 Forms\Components\TextInput::make('title')->required(),
             ]);
     }
@@ -43,7 +42,7 @@ class StatusResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                Tables\Columns\TextColumn::make('code'),
+                Tables\Columns\TextColumn::make('short_title'),
                 Tables\Columns\TextColumn::make('title'),
             ])
             ->filters([
@@ -69,9 +68,9 @@ class StatusResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStatuses::route('/'),
-            'create' => Pages\CreateStatus::route('/create'),
-            'edit' => Pages\EditStatus::route('/{record}/edit'),
+            'index' => Pages\ListServiceGroups::route('/'),
+            'create' => Pages\CreateServiceGroup::route('/create'),
+            'edit' => Pages\EditServiceGroup::route('/{record}/edit'),
         ];
     }
 }

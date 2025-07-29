@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Tire;
+namespace App\Filament\Resources\TS\Issue;
 
-use App\Filament\Resources\Fleet\Tire\StatusResource\Pages;
-use App\Filament\Resources\Fleet\Tire\StatusResource\RelationManagers;
-use App\Models\Fleet\Tire\Status;
+use App\Filament\Resources\TS\Issue\StatusResource\Pages;
+use App\Filament\Resources\TS\Issue\StatusResource\RelationManagers;
+use App\Models\TS\Issue\Status;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,22 +18,20 @@ class StatusResource extends Resource
     protected static ?string $model = Status::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Stavy pneumatik';
-    protected static ?string $pluralModelLabel = 'Stavy pneumatik';
-    protected static ?string $ModelLabel = 'Stavy pneumatik';
+    protected static ?string $navigationLabel = 'Stavy porúch';
+    protected static ?string $pluralModelLabel = 'Stavy porúch';
+    protected static ?string $ModelLabel = 'Stav poruchy';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'TS';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code')->required(),
-                Forms\Components\TextInput::make('title')->required(),
+                //
             ]);
     }
 
@@ -45,6 +43,7 @@ class StatusResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('code'),
                 Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\IconColumn::make('is_default')->boolean(),
             ])
             ->filters([
                 //

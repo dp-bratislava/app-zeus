@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Tire;
+namespace App\Filament\Resources\TS\Issue;
 
-use App\Filament\Resources\Fleet\Tire\StatusResource\Pages;
-use App\Filament\Resources\Fleet\Tire\StatusResource\RelationManagers;
-use App\Models\Fleet\Tire\Status;
+use App\Filament\Imports\TS\IssueTypeImporter;
+use App\Filament\Resources\TS\Issue\TypeResource\Pages;
+use App\Filament\Resources\TS\Issue\TypeResource\RelationManagers;
+use App\Models\TS\Issue\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StatusResource extends Resource
+class TypeResource extends Resource
 {
-    protected static ?string $model = Status::class;
+    protected static ?string $model = Type::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Stavy pneumatik';
-    protected static ?string $pluralModelLabel = 'Stavy pneumatik';
-    protected static ?string $ModelLabel = 'Stavy pneumatik';
+    protected static ?string $navigationLabel = 'Typy porúch';
+    protected static ?string $pluralModelLabel = 'Typy porúch';
+    protected static ?string $ModelLabel = 'Typ poruchy';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'TS';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code')->required(),
-                Forms\Components\TextInput::make('title')->required(),
+                //
             ]);
     }
 
@@ -41,14 +41,22 @@ class StatusResource extends Resource
     {
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
+            ->defaultPaginationPageOption(100)           
             ->columns([
-                Tables\Columns\TextColumn::make('code'),
+                Tables\Columns\TextColumn::make('departmentGroup.code'),
                 Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('parent.title'),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+
+                ImportAction::make()
+                ->importer(IssueTypeImporter::class)
+                ->csvDelimiter(';')            
+                ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -69,9 +77,9 @@ class StatusResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStatuses::route('/'),
-            'create' => Pages\CreateStatus::route('/create'),
-            'edit' => Pages\EditStatus::route('/{record}/edit'),
+            'index' => Pages\ListTypes::route('/'),
+            'create' => Pages\CreateType::route('/create'),
+            'edit' => Pages\EditType::route('/{record}/edit'),
         ];
     }
 }

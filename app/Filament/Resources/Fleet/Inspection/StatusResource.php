@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Tire;
+namespace App\Filament\Resources\Fleet\Inspection;
 
-use App\Filament\Resources\Fleet\Tire\StatusResource\Pages;
-use App\Filament\Resources\Fleet\Tire\StatusResource\RelationManagers;
-use App\Models\Fleet\Tire\Status;
+use App\Filament\Resources\Fleet\Inspection\StatusResource\Pages;
+use App\Filament\Resources\Fleet\Inspection\StatusResource\RelationManagers;
+use App\Models\Fleet\Inspection\Status;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,10 +18,9 @@ class StatusResource extends Resource
     protected static ?string $model = Status::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Stavy pneumatik';
-    protected static ?string $pluralModelLabel = 'Stavy pneumatik';
-    protected static ?string $ModelLabel = 'Stavy pneumatik';
+    protected static ?string $navigationLabel = 'Stavy kontrol';
+    protected static ?string $pluralModelLabel = 'Stavy kontrol';
+    protected static ?string $ModelLabel = 'Stav kontroly';
 
     public static function getNavigationGroup(): ?string
     {

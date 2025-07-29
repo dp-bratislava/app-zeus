@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\TS\Task;
 
+use App\Filament\Imports\TS\TaskTemplateGroupImporter;
 use App\Filament\Resources\TS\Task\TemplateGroupResource\Pages;
 use App\Filament\Resources\TS\Task\TemplateGroupResource\RelationManagers;
 use App\Models\TS\Task\TemplateGroup;
@@ -9,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -53,6 +55,11 @@ class TemplateGroupResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(TaskTemplateGroupImporter::class)
+                    ->csvDelimiter(';')
+            ])               
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
