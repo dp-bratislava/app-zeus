@@ -36,7 +36,35 @@
         {
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git"
-        }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-tickets",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-tasks",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-activities",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-work-log",
+            "options": {
+                "symlink": true
+            }
+        }        
     ],
     "require": {
         "php": "^8.2",
@@ -49,10 +77,17 @@
         "dpb/filament-admin-panel": "^12.0",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
+
+        "dpb/pkg-activities": "dev-main",
+        "dpb/pkg-tasks": "dev-main",
+        "dpb/pkg-tickets": "dev-main",
+        "dpb/pkg-work-log": "dev-main",
+
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-package-tools": "^1.92",
         "spatie/laravel-schedule-monitor": "^3.10",
         "symfony/dotenv": "^7.1"
     },
