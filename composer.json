@@ -64,6 +64,20 @@
             "options": {
                 "symlink": true
             }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-vehicles",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-entity-manager",
+            "options": {
+                "symlink": true
+            }
         }        
     ],
     "require": {
@@ -82,6 +96,8 @@
         "dpb/pkg-tasks": "dev-main",
         "dpb/pkg-tickets": "dev-main",
         "dpb/pkg-work-log": "dev-main",
+        "dpb/pkg-vehicles": "dev-main",
+        "dpb/pkg-entity-manager": "dev-main",
 
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
