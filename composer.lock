@@ -4,16 +4,23 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4866954733c4f91dad9501bcb36ed044",
+    "content-hash": "bedb70ac4c675f1d5d4f0f829e5f7c9d",
     "packages": [
         {
             "name": "andrej-horny/pkg-activities",
             "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "packages/dpb/pkg-activities",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:andrej-horny/pkg-activities.git",
                 "reference": "afb5ce2b17f15f25358399d1bd229c6fe8a525a2"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrej-horny/pkg-activities/zipball/afb5ce2b17f15f25358399d1bd229c6fe8a525a2",
+                "reference": "afb5ce2b17f15f25358399d1bd229c6fe8a525a2",
+                "shasum": ""
+            },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -36,10 +43,11 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/andrej-horny/pkg-activities/tree/main",
+                "issues": "https://github.com/andrej-horny/pkg-activities/issues"
+            },
+            "time": "2025-09-05T12:31:08+00:00"
         },
         {
             "name": "andrej-horny/pkg-entity-manager",
