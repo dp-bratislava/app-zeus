@@ -23,7 +23,10 @@ class TemplateGroupResource extends Resource
     protected static ?string $navigationLabel = 'Skupiny úloh';
     protected static ?string $pluralModelLabel = 'Skupiny úloh';
     protected static ?string $ModelLabel = 'Skupina úloh';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

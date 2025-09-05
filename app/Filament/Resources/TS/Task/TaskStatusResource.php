@@ -21,7 +21,10 @@ class TaskStatusResource extends Resource
     protected static ?string $navigationLabel = 'Stavy úloh';
     protected static ?string $pluralModelLabel = 'Stavy úloh';
     protected static ?string $ModelLabel = 'Stav úlohy';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

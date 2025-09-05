@@ -21,7 +21,10 @@ class StatusResource extends Resource
     protected static ?string $navigationLabel = 'Stavy porúch';
     protected static ?string $pluralModelLabel = 'Stavy porúch';
     protected static ?string $ModelLabel = 'Stav poruchy';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

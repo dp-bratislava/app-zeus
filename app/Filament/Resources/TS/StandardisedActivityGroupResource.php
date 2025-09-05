@@ -23,6 +23,10 @@ class StandardisedActivityGroupResource extends Resource
     protected static ?string $navigationLabel = 'Skupiny normovaných činností';
     protected static ?string $pluralModelLabel = 'Skupiny normovaných činností';
     protected static ?string $ModelLabel = 'Normovaná činnosť';
+    public static function canViewAny(): bool
+    {
+        return false;
+    }    
     public static function getNavigationGroup(): ?string
     {
         return 'temp';

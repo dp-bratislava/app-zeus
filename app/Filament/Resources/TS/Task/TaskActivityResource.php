@@ -21,7 +21,10 @@ class TaskActivityResource extends Resource
     protected static ?string $navigationLabel = 'Činnosti';
     protected static ?string $pluralModelLabel = 'Činnosti';
     protected static ?string $ModelLabel = 'Činnosť';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

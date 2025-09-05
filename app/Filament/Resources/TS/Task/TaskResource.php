@@ -22,7 +22,10 @@ class TaskResource extends Resource
     protected static ?string $navigationLabel = 'Úlohy';
     protected static ?string $pluralModelLabel = 'Úlohy';
     protected static ?string $ModelLabel = 'Úloha';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

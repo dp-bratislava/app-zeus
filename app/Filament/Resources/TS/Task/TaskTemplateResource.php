@@ -22,7 +22,10 @@ class TaskTemplateResource extends Resource
     protected static ?string $navigationLabel = 'Šablóny úloh';
     protected static ?string $pluralModelLabel = 'Šablóny úloh';
     protected static ?string $ModelLabel = 'Šablóna úloh';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

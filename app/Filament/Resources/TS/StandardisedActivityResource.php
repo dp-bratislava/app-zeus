@@ -18,6 +18,11 @@ class StandardisedActivityResource extends Resource
     protected static ?string $model = StandardisedActivity::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return 'temp';

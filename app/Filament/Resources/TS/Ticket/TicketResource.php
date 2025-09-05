@@ -29,7 +29,10 @@ class TicketResource extends Resource
     protected static ?string $navigationLabel = 'Zákazky 2';
     protected static ?string $pluralModelLabel = 'Zákazky 2';
     protected static ?string $ModelLabel = 'Zákazka 2';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

@@ -24,7 +24,10 @@ class IssueResource extends Resource
     protected static ?string $navigationLabel = 'Poruchy';
     protected static ?string $pluralModelLabel = 'Poruchy';
     protected static ?string $ModelLabel = 'Porucha';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';

@@ -28,6 +28,12 @@ class StandardisedActivityTemplateResource extends Resource
     protected static ?string $navigationLabel = 'Normované činnosti';
     protected static ?string $pluralModelLabel = 'Normované činnosti';
     protected static ?string $ModelLabel = 'Normovaná činnosť';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return 'temp';

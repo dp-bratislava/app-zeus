@@ -23,7 +23,10 @@ class TypeResource extends Resource
     protected static ?string $navigationLabel = 'Typy porúch';
     protected static ?string $pluralModelLabel = 'Typy porúch';
     protected static ?string $ModelLabel = 'Typ poruchy';
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'TS';
