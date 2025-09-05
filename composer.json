@@ -92,12 +92,12 @@
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
 
-        "dpb/pkg-activities": "dev-main",
-        "dpb/pkg-tasks": "dev-main",
-        "dpb/pkg-tickets": "dev-main",
-        "dpb/pkg-work-log": "dev-main",
-        "dpb/pkg-vehicles": "dev-main",
-        "dpb/pkg-entity-manager": "dev-main",
+        "andrej-horny/pkg-activities": "dev-main",
+        "andrej-horny/pkg-tasks": "dev-main",
+        "andrej-horny/pkg-tickets": "dev-main",
+        "andrej-horny/pkg-work-log": "dev-main",
+        "andrej-horny/pkg-vehicles": "dev-main",
+        "andrej-horny/pkg-entity-manager": "dev-main",
 
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
