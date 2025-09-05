@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 
 use App\Filament\Resources\Fleet\Tire\BrandResource\Pages;
 use App\Filament\Resources\Fleet\Tire\BrandResource\RelationManagers;
-use App\Models\Fleet\Tire\Brand;
+use Dpb\Packages\Vehicles\Models\Tire\Brand;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,11 +17,17 @@ class BrandResource extends Resource
 {
     protected static ?string $model = Brand::class;
 
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function getNavigationGroup(): ?string
     {
         return 'Fleet';
     }
+    
     public static function form(Form $form): Form
     {
         return $form

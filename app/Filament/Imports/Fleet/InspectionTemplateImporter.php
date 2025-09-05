@@ -2,8 +2,8 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use App\Models\Fleet\Inspection\InspectionTemplate;
-use App\Models\Fleet\Vehicle;
+use Dpb\Packages\Vehicles\Models\Inspection\InspectionTemplate;
+use Dpb\Packages\Vehicles\Models\Vehicle;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;

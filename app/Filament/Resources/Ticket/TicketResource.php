@@ -10,6 +10,9 @@ use App\Models\TS\Task\TaskStatus;
 use App\Services\TicketService;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
+use Dpb\DatahubSync\Models\Department;
+use Dpb\PkgTickets\Models\TicketGroup;
+use Dpb\Packages\Vehicles\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -51,17 +54,22 @@ class TicketResource extends Resource
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
                     ->searchable()
+                    // ->default(function(TicketService $ticketService, $record) {
+                        //return $ticketService->getDepartment($record)->id;
+                        // return 283;
+                    // })
                     // ->dehydrated(false)
                     ->required(),
-                // Forms\Components\Select::make('vehicles')
-                //     ->relationship('vehicles', 'code')
-                //     ->options(fn() => FleetVehicle::pluck('code', 'id'))
-                //     ->multiple()
-                //     ->searchable()
-                //     ->visible(function($get) {
-                //         $ticketGroup = TicketGroup::find($get('group_id'))?->code;
-                //         return $ticketGroup === 'fleet';
-                //     }),
+                    // vehicle
+                Forms\Components\Select::make('vehicle_id')
+                    // ->relationship('vehicles', 'code')
+                    ->options(fn() => Vehicle::pluck('code', 'id'))
+                    // ->multiple()
+                    ->searchable()
+                    // ->visible(function($get) {
+                    //     $ticketGroup = TicketGroup::find($get('group_id'))?->code;
+                    //     return $ticketGroup === 'fleet';
+                    // }),
                 // Forms\Components\Select::make('buildings')
                 //     ->relationship('buildings', 'code')
                 //     ->options(fn() => Building::pluck('title', 'id'))
@@ -173,12 +181,14 @@ class TicketResource extends Resource
                 TextColumn::make('title'),
                 TextColumn::make('description'),
                 // TextColumn::make('department.code'),
-                TextColumn::make('departments')
-                ->state(function(TicketService $ticketService, $record) {
-                    // return dd($ticketService->getDepartment($record)->first()->target->code);
-                    return $ticketService->getDepartment($record)->first()->target->code;
-                })
-                ->badge(),
+                TextColumn::make('department')
+                    ->state(function (TicketService $ticketService, $record) {
+                        return $ticketService->getDepartment($record)?->code;
+                    }),
+                TextColumn::make('vehicle')
+                    ->state(function (TicketService $ticketService, $record) {
+                        return $ticketService->getVehicle($record)?->code;
+                    }),
                 // Tables\Columns\TextColumn::make('expenses')
                 //     ->state(function ($record) {
                 //         $result = $record->materials->sum(function ($material) {
@@ -197,6 +207,12 @@ class TicketResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                    // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
+                    // ->after(function ($action, $record) {
+                    //     // $department = $departmentHdl->findOrFail($data['department_id']);
+                    //     dd($action);
+                    //     $ticketService->assignDepartment($record, $department);
+                    // }),
                 Tables\Actions\ReplicateAction::make(),
             ])
             ->bulkActions([

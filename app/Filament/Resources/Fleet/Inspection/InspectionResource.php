@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Inspection;
 
 use App\Filament\Resources\Fleet\Inspection\InspectionResource\Pages;
 use App\Filament\Resources\Fleet\Inspection\InspectionResource\RelationManagers;
-use App\Models\Fleet\Inspection\Inspection;
+use Dpb\Packages\Vehicles\Models\Inspection\Inspection;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,6 +23,11 @@ class InspectionResource extends Resource
     protected static ?string $pluralModelLabel = 'Kontroly';
     protected static ?string $ModelLabel = 'Kontrola';
 
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return 'Fleet';
@@ -36,12 +41,12 @@ class InspectionResource extends Resource
                 Forms\Components\Select::make('vehicle_id')
                     ->relationship('vehicle', 'code')
                     ->searchable()
-                    ->preload()                    
+                    ->preload()
                     ->required(),
                 Forms\Components\Select::make('inspection_template_id')
                     ->relationship('inspectionTemplate', 'title')
                     ->searchable()
-                    ->preload()                    
+                    ->preload()
                     ->required(),
                 Forms\Components\Select::make('service_group_id')
                     ->relationship('serviceGroup', 'title')
@@ -51,7 +56,7 @@ class InspectionResource extends Resource
                 Forms\Components\Select::make('status_id')
                     ->relationship('status', 'title')
                     ->searchable()
-                    ->preload()                    
+                    ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('distance_traveled')->integer(),
                 Forms\Components\TextInput::make('note'),

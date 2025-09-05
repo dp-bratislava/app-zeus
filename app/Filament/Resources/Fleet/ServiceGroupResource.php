@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet;
 
 use App\Filament\Resources\Fleet\ServiceGroupResource\Pages;
 use App\Filament\Resources\Fleet\ServiceGroupResource\RelationManagers;
-use App\Models\Fleet\ServiceGroup;
+use Dpb\Packages\Vehicles\Models\ServiceGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +21,11 @@ class ServiceGroupResource extends Resource
     protected static ?string $navigationLabel = 'Technické prevádzky';
     protected static ?string $pluralModelLabel = 'Technické prevádzky';
     protected static ?string $ModelLabel = 'Technická prevádzka';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {

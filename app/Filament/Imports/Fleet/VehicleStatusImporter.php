@@ -2,39 +2,35 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use Dpb\Packages\Vehicles\Models\Vehicle;
-use Dpb\Packages\Vehicles\Models\VehicleGroup;
+use Dpb\Packages\Vehicles\Models\VehicleStatus;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Support\Str;
 
-class VehicleGroupImporter extends Importer
+class VehicleStatusImporter extends Importer
 {
-    protected static ?string $model = VehicleGroup::class;
+    protected static ?string $model = VehicleStatus::class;
 
     public static function getColumns(): array
     {
         return [
             ImportColumn::make('code'),
             ImportColumn::make('title'),
-            ImportColumn::make('description'),
+            ImportColumn::make('description')
         ];
     }
 
-    public function resolveRecord(): ?VehicleGroup
+    public function resolveRecord(): ?VehicleStatus
     {
-        // return ShiftTemplate::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
+        return VehicleStatus::firstOrNew(['code' => $this->data['code']], $this->data);
 
-        return new VehicleGroup();
+        // return new VehicleStatus();
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your vehicle group import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = 'Your vehicle status import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
             $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';

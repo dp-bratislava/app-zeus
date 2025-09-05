@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use App\Models\Fleet\VehicleModel;
+use Dpb\Packages\Vehicles\Models\VehicleModel;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
@@ -58,10 +58,10 @@ class VehicleModelImporter extends Importer
                 }),
             // ImportColumn::make('length'),
             // ImportColumn::make('warranty'),
-            // ImportColumn::make('type')
-            //     ->relationship('type', 'code')
-            //     // ->rules(['required', 'max:255']),
-            //     ->rules(['max:255']),              
+            ImportColumn::make('vehicle_type')
+                ->relationship('type', 'code')
+                // ->rules(['required', 'max:255']),
+                ->rules(['max:255']),              
         ];
     }
 

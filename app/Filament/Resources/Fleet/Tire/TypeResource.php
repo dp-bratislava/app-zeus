@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 
 use App\Filament\Resources\Fleet\Tire\TypeResource\Pages;
 use App\Filament\Resources\Fleet\Tire\TypeResource\RelationManagers;
-use App\Models\Fleet\Tire\Type;
+use Dpb\Packages\Vehicles\Models\Tire\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,10 +18,17 @@ class TypeResource extends Resource
     protected static ?string $model = Type::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return 'Fleet';
     }
+
     public static function form(Form $form): Form
     {
         return $form

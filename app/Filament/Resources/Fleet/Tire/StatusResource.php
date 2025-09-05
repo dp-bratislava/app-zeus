@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 
 use App\Filament\Resources\Fleet\Tire\StatusResource\Pages;
 use App\Filament\Resources\Fleet\Tire\StatusResource\RelationManagers;
-use App\Models\Fleet\Tire\Status;
+use Dpb\Packages\Vehicles\Models\Tire\Status;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -22,6 +22,11 @@ class StatusResource extends Resource
     protected static ?string $navigationLabel = 'Stavy pneumatik';
     protected static ?string $pluralModelLabel = 'Stavy pneumatik';
     protected static ?string $ModelLabel = 'Stavy pneumatik';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {

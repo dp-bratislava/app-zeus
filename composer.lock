@@ -1473,7 +1473,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-entity-manager",
-                "reference": "621140a71aebc6ecfdceb8f4060cca1c87ec2ccf"
+                "reference": "ac5cf60014a928d8f37f066c87b5921f9b5509e8"
             },
             "type": "package",
             "extra": {
@@ -1508,19 +1508,19 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-tasks",
-                "reference": "4fabde0cd9a2f63705bd7f897cdf841bf45e3483"
+                "reference": "c16b8fb221f62ca5a1666b26289c0920370c6beb"
             },
             "type": "package",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Dpb\\PkgTasks\\Providers\\TaskServiceProvider"
+                        "Dpb\\Packages\\Tasks\\Providers\\TaskServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Dpb\\PkgTasks\\": "src/"
+                    "Dpb\\Packages\\Tasks\\": "src/"
                 }
             },
             "license": [
@@ -1578,7 +1578,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-vehicles",
-                "reference": "42d7d0a7b8a75dcd94c68014fd975d3ee38e46c1"
+                "reference": "f6c5f93341f4a8412c7d7cb7782245c6ef43de97"
             },
             "require": {
                 "filament/filament": "^3.2",
@@ -1590,13 +1590,13 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Dpb\\PkgVehicles\\Providers\\VehicleServiceProvider"
+                        "Dpb\\Packages\\Vehicles\\Providers\\VehicleServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Dpb\\PkgVehicles\\": "src/"
+                    "Dpb\\Packages\\Vehicles\\": "src/"
                 }
             },
             "scripts": {
@@ -2868,20 +2868,20 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.26.4",
+            "version": "v12.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "085a367a32ba86fcfa647bfc796098ae6f795b09"
+                "reference": "aa2e8af4c7e84e83a857d5171cf784c7720da4e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/085a367a32ba86fcfa647bfc796098ae6f795b09",
-                "reference": "085a367a32ba86fcfa647bfc796098ae6f795b09",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/aa2e8af4c7e84e83a857d5171cf784c7720da4e6",
+                "reference": "aa2e8af4c7e84e83a857d5171cf784c7720da4e6",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.11|^0.12|^0.13",
+                "brick/math": "^0.11|^0.12|^0.13|^0.14",
                 "composer-runtime-api": "^2.2",
                 "doctrine/inflector": "^2.0.5",
                 "dragonmantank/cron-expression": "^3.4",
@@ -2955,6 +2955,7 @@
                 "illuminate/filesystem": "self.version",
                 "illuminate/hashing": "self.version",
                 "illuminate/http": "self.version",
+                "illuminate/json-schema": "self.version",
                 "illuminate/log": "self.version",
                 "illuminate/macroable": "self.version",
                 "illuminate/mail": "self.version",
@@ -2987,7 +2988,8 @@
                 "league/flysystem-read-only": "^3.25.1",
                 "league/flysystem-sftp-v3": "^3.25.1",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^10.6.3",
+                "opis/json-schema": "^2.4.1",
+                "orchestra/testbench-core": "^10.6.5",
                 "pda/pheanstalk": "^5.0.6|^7.0.0",
                 "php-http/discovery": "^1.15",
                 "phpstan/phpstan": "^2.0",
@@ -3081,7 +3083,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-08-29T14:15:53+00:00"
+            "time": "2025-09-03T17:04:36+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -4694,16 +4696,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.31.0",
+            "version": "v4.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "90dc2f7ce0b59084b78cd86ca7c5d367759496cd"
+                "reference": "41f045c1f632e1474e15d4c7bc3abcb4a153563d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/90dc2f7ce0b59084b78cd86ca7c5d367759496cd",
-                "reference": "90dc2f7ce0b59084b78cd86ca7c5d367759496cd",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/41f045c1f632e1474e15d4c7bc3abcb4a153563d",
+                "reference": "41f045c1f632e1474e15d4c7bc3abcb4a153563d",
                 "shasum": ""
             },
             "require": {
@@ -4771,7 +4773,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.31.0"
+                "source": "https://github.com/openspout/openspout/tree/v4.32.0"
             },
             "funding": [
                 {
@@ -4783,7 +4785,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-29T05:42:48+00:00"
+            "time": "2025-09-03T16:03:54+00:00"
         },
         {
             "name": "owenvoke/blade-fontawesome",
@@ -10706,16 +10708,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.35",
+            "version": "11.5.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "d341ee94ee5007b286fc7907b383aae6b5b3cc91"
+                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d341ee94ee5007b286fc7907b383aae6b5b3cc91",
-                "reference": "d341ee94ee5007b286fc7907b383aae6b5b3cc91",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/264a87c7ef68b1ab9af7172357740dc266df5957",
+                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957",
                 "shasum": ""
             },
             "require": {
@@ -10787,7 +10789,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.35"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.36"
             },
             "funding": [
                 {
@@ -10811,7 +10813,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-28T05:13:54+00:00"
+            "time": "2025-09-03T06:24:17+00:00"
         },
         {
             "name": "sebastian/cli-parser",

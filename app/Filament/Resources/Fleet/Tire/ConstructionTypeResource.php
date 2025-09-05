@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 
 use App\Filament\Resources\Fleet\Tire\ConstructionTypeResource\Pages;
 use App\Filament\Resources\Fleet\Tire\ConstructionTypeResource\RelationManagers;
-use App\Models\Fleet\Tire\ConstructionType;
+use Dpb\Packages\Vehicles\Models\Tire\ConstructionType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,6 +19,11 @@ class ConstructionTypeResource extends Resource
     protected static ?string $model = ConstructionType::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {

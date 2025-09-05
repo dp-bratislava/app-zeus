@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Inspection;
 
 use App\Filament\Imports\Fleet\InspectionTemplateImporter;
 use App\Filament\Resources\Fleet\Inspection\InspectionTemplateResource\Pages;
-use App\Models\Fleet\Inspection\InspectionTemplate;
+use Dpb\Packages\Vehicles\Models\Inspection\InspectionTemplate;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +21,11 @@ class InspectionTemplateResource extends Resource
     protected static ?string $navigationLabel = 'Šablóny kontrol';
     protected static ?string $pluralModelLabel = 'Šablóny kontrol';
     protected static ?string $ModelLabel = 'Šablóna kontroly';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {
@@ -50,16 +55,16 @@ class InspectionTemplateResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-               Tables\Columns\TextColumn::make('title'),
-               Tables\Columns\TextColumn::make('distance_interval')->label('KM'),
-               Tables\Columns\TextColumn::make('distance_first_advance')->label('KM 1'),
-               Tables\Columns\TextColumn::make('distance_second_advance')->label('KM 2'),
-               Tables\Columns\TextColumn::make('time_interval')->label('time'),
-               Tables\Columns\TextColumn::make('time_first_advance')->label('time 1'),
-               Tables\Columns\TextColumn::make('time_second_advance')->label('time 2'),
-               Tables\Columns\IconColumn::make('is_one_time')->boolean(),
-               Tables\Columns\IconColumn::make('is_periodical')->boolean(),
-               Tables\Columns\TextColumn::make('note'),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('distance_interval')->label('KM'),
+                Tables\Columns\TextColumn::make('distance_first_advance')->label('KM 1'),
+                Tables\Columns\TextColumn::make('distance_second_advance')->label('KM 2'),
+                Tables\Columns\TextColumn::make('time_interval')->label('time'),
+                Tables\Columns\TextColumn::make('time_first_advance')->label('time 1'),
+                Tables\Columns\TextColumn::make('time_second_advance')->label('time 2'),
+                Tables\Columns\IconColumn::make('is_one_time')->boolean(),
+                Tables\Columns\IconColumn::make('is_periodical')->boolean(),
+                Tables\Columns\TextColumn::make('note'),
             ])
             ->filters([
                 //

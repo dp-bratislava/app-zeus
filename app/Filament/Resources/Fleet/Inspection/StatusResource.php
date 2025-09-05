@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Inspection;
 
 use App\Filament\Resources\Fleet\Inspection\StatusResource\Pages;
 use App\Filament\Resources\Fleet\Inspection\StatusResource\RelationManagers;
-use App\Models\Fleet\Inspection\Status;
+use Dpb\Packages\Vehicles\Models\Inspection\Status;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +21,11 @@ class StatusResource extends Resource
     protected static ?string $navigationLabel = 'Stavy kontrol';
     protected static ?string $pluralModelLabel = 'Stavy kontrol';
     protected static ?string $ModelLabel = 'Stav kontroly';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {

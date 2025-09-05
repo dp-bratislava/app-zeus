@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 use App\Filament\Imports\Fleet\TireParameterImporter;
 use App\Filament\Resources\Fleet\Tire\ParameterResource\Pages;
 use App\Filament\Resources\Fleet\Tire\ParameterResource\RelationManagers;
-use App\Models\Fleet\Tire\Parameter;
+use Dpb\Packages\Vehicles\Models\Tire\Parameter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,6 +25,11 @@ class ParameterResource extends Resource
     protected static ?string $navigationLabel = 'Parametre pneumatik';
     protected static ?string $pluralModelLabel = 'Parametre pneumatik';
     protected static ?string $ModelLabel = 'Parametre pneumatik';
+
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
 
     public static function getNavigationGroup(): ?string
     {
