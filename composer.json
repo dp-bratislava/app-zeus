@@ -42,6 +42,26 @@
             "url": "https://github.com/andrej-horny/pkg-activities.git"
         },        
         {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-tickets.git"
+        },            
+        {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-tasks.git"
+        },            
+        {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-work-log.git"
+        },            
+        {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-entity-manager.git"
+        },            
+        {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-vehicles.git"
+        },            
+        {
             "type": "path",
             "url": "packages/dpb/pkg-tickets",
             "options": {
