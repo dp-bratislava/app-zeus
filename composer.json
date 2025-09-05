@@ -38,6 +38,10 @@
             "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/andrej-horny/pkg-activities.git"
+        },        
+        {
             "type": "path",
             "url": "packages/dpb/pkg-tickets",
             "options": {
