@@ -2,44 +2,27 @@
 
 namespace App\Models\TS;
 
-use App\Models\BM\Building;
+use App\Models\Activity\Activity;
 use App\Models\Datahub\Department;
-use App\Models\Fleet\Vehicle;
-use Illuminate\Database\Eloquent\Model;
+use Dpb\Packages\Tickets\Models\Ticket as BaseTicket;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Ticket extends Model
+class Ticket extends BaseTicket
 {
-    use SoftDeletes;
-
-    protected $table = 'dpb_ts_tickets';
 
     /**
-     * The attributes that are mass assignable.
+     * Create a new Eloquent model instance.
      *
-     * @var list<string>
+     * @param  array  $attributes
+     * @return void
      */
-    protected $fillable = [
-        'title',
-        'description',
-        'date',
-        'deadline',
-        'department_id',
-        'priority_id',
-        'status_id',
-        'group_id',
-    ];
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
 
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(Ticket::class, "parent_id");
-    }
-    public function group(): BelongsTo
-    {
-        return $this->belongsTo(TicketGroup::class, "group_id");
+        $this->mergeFillable(['subject_id', 'subject_type']);
     }
 
     public function department(): BelongsTo
@@ -47,50 +30,19 @@ class Ticket extends Model
         return $this->belongsTo(Department::class, "department_id");
     }
 
-    public function standardisedActivities(): HasMany
-    {
-        return $this->hasMany(StandardisedActivity::class, "ticket_id");
-    }
-
     public function activities(): HasMany
     {
         return $this->hasMany(Activity::class, "ticket_id");
     }
 
-    public function materials(): HasMany
-    {
-        return $this->hasMany(TicketMaterial::class, "ticket_id");
-    }
+    // public function materials(): HasMany
+    // {
+    //     return $this->hasMany(Material::class, "ticket_id");
+    // }
 
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(TicketStatus::class, "status_id");
-    }
 
-    public function priority(): BelongsTo
+    public function subject(): MorphTo
     {
-        return $this->belongsTo(TicketPriority::class, "priority_id");
+        return $this->morphTo();
     }
-
-    public function vehicles(): MorphToMany
-    {
-        return $this->morphedByMany(
-            Vehicle::class,
-            'subject',
-            'dpb_ts_ticket_subjects',
-            'ticket_id',
-            'subject_id'
-        );
-    }
-
-    public function buildings(): MorphToMany
-    {
-        return $this->morphedByMany(
-            Building::class,
-            'subject',
-            'dpb_ts_ticket_subjects',
-            'ticket_id',
-            'subject_id'
-        );
-    }    
 }

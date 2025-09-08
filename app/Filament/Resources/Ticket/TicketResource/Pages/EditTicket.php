@@ -24,27 +24,27 @@ class EditTicket extends EditRecord
 
     // }
 
-    protected function afterSave(): void
-    {
-        $data = $this->form->getState();
-        // dd($data);
-        $department = Department::findOrFail($data['department_id']);
+    // protected function afterSave(): void
+    // {
+    //     $data = $this->form->getState();
+    //     // dd($data);
+    //     $department = Department::findOrFail($data['department_id']);
 
-        app(TicketService::class)->assignDepartment($this->record, $department);
+    //     app(TicketService::class)->assignDepartment($this->record, $department);
 
-        $vehicle = Vehicle::findOrFail($data['vehicle_id']);
+    //     $vehicle = Vehicle::findOrFail($data['vehicle_id']);
 
-        app(TicketService::class)->assignVehicle($this->record, $vehicle);
-    }
+    //     app(TicketService::class)->assignVehicle($this->record, $vehicle);
+    // }
 
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
-        $vehicleId = app(TicketService::class)->getVehicle($this->record)?->id;
+    // protected function mutateFormDataBeforeFill(array $data): array
+    // {
+    //     $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
+    //     $vehicleId = app(TicketService::class)->getVehicle($this->record)?->id;
 
-        $data['department_id'] = $departmentId;
-        $data['vehicle_id'] = $vehicleId;
+    //     $data['department_id'] = $departmentId;
+    //     $data['vehicle_id'] = $vehicleId;
 
-        return $data;
-    }
+    //     return $data;
+    // }
 }

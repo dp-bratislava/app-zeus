@@ -16,12 +16,12 @@ class ListTickets extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->after(function (TicketService $ticketService, Department $departmentHdl) {
-                    $data = $this->form->getState();
-                    $department = $departmentHdl->findOrFail($data['department_id']);
+                // ->after(function (TicketService $ticketService, Department $departmentHdl) {
+                //     $data = $this->form->getState();
+                //     $department = $departmentHdl->findOrFail($data['department_id']);
 
-                    $ticketService->assignDepartment($this->record, $department);
-                }),
+                //     $ticketService->assignDepartment($this->record, $department);
+                // }),
         ];
     }
 }

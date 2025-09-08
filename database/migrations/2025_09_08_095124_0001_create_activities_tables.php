@@ -24,7 +24,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        // task statuses
+        // activity statuses
         Schema::create($tablePrefix . 'activity_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('code')
@@ -86,7 +86,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        // tasks
+        // activities
         Schema::create($tablePrefix . 'activities', function (Blueprint $table) use ($tablePrefix) {
             $table->comment('List of activities');
             $table->id();
@@ -101,7 +101,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**
@@ -113,7 +112,7 @@ return new class extends Migration
 
         Schema::dropIfExists($tablePrefix . 'activities');
         Schema::dropIfExists($tablePrefix . 'activity_statuses');
-        Schema::dropIfExists($tablePrefix . 'activity_template_groups');
         Schema::dropIfExists($tablePrefix . 'activity_templates');
+        Schema::dropIfExists($tablePrefix . 'activity_template_groups');
     }
 };

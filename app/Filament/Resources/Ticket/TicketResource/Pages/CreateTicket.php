@@ -12,15 +12,15 @@ class CreateTicket extends CreateRecord
 {
     protected static string $resource = TicketResource::class;
 
-    protected function afterCreate(): void
-    {
-        $data = $this->form->getState();
-        $department = Department::findOrFail($data['department_id']);
+    // protected function afterCreate(): void
+    // {
+    //     $data = $this->form->getState();
+    //     $department = Department::findOrFail($data['department_id']);
 
-        app(TicketService::class)->assignDepartment($this->record, $department);
+    //     app(TicketService::class)->assignDepartment($this->record, $department);
 
-        $vehicle = Vehicle::findOrFail($data['vehicle_id']);
+    //     $vehicle = Vehicle::findOrFail($data['vehicle_id']);
 
-        app(TicketService::class)->assignVehicle($this->record, $vehicle);
-    }
+    //     app(TicketService::class)->assignVehicle($this->record, $vehicle);
+    // }
 }
