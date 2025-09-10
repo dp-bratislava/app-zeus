@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
 
             // app specific seeders
-            WTFEnumSeeder::class,
+            // WTFEnumSeeder::class,
             // fleet
-            FleetEnumSeeder::class,
-            TireEnumSeeder::class,
-            InspectionEnumSeeder::class,
+            // FleetEnumSeeder::class,
+            // TireEnumSeeder::class,
+            // InspectionEnumSeeder::class,
             // TS
-            TaskEnumSeeder::class,
-            IssueEnumSeeder::class,
+            // TaskEnumSeeder::class,
+            // IssueEnumSeeder::class,
         ]);
     }
 }

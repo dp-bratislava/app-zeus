@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // All future morphs *must* be mapped!
+        // Relation::enforceMorphMap([
+        //     'ticket' => \App\Models\TS\Ticket::class,
+        //     'user' => \App\Models\User::class,
+        //     'vehicle' => \App\Models\Fleet\Vehicle::class,
+        // ]);
+        Relation::morphMap([
+            'ticket' => \App\Models\TS\Ticket::class,
+            'user' => \App\Models\User::class,
+            'vehicle' => \App\Models\Fleet\Vehicle::class,
+        ]);
     }
 }

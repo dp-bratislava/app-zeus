@@ -37,7 +37,7 @@ class ActivityTemplateImporter extends Importer
             ImportColumn::make('group')
                 ->relationship('templateGroup', 'title')
                 ->requiredMapping()
-                ->rules(['required', 'max:255'])                 
+                ->rules(['max:255'])                 
         ];
     }
 

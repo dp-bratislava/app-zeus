@@ -74,6 +74,14 @@ class TicketResource extends Resource
                     ->preload()
                     ->searchable(),
 
+                // states
+                // Forms\Components\Select::make('state')                                        
+                //     ->options(function($record) {
+                //         $record->trtransitionableStateInstances();
+                //     })
+                //     ->preload()
+                //     ->searchable(),                    
+
                 // activities 
                 Forms\Components\Tabs::make('Tabs')
                     ->columnSpanFull()
