@@ -39,6 +39,9 @@ return new class extends Migration
                 ->nullable()
                 ->comment("Department handling this ticket.")
                 ->constrained('datahub_departments', 'id');
+            $table->string('state')
+                ->nullable()
+                ->comment("Current ticket state");
         });
     }
 
