@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class StateChange extends Model
 {
+    /**
+     * Prevent using created_at and updated_at timestamps
+     * @var 
+     */
     public $timestamps = false;    
-
-    protected $table = 'model_state_changes';
 
     protected $fillable = [
         'model_type', 
@@ -22,6 +24,11 @@ class StateChange extends Model
         'changed_at',
         'source'
     ];
+
+    public function getTable(): string
+    {
+        return config('database.table_prefix') . 'model_state_changes';
+    }
 
     public function model(): MorphTo
     {

@@ -5,7 +5,7 @@ namespace App\Models\Activity;
 use App\Models\TS\Ticket;
 use Dpb\Packages\Activities\Models\Activity as BaseActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends BaseActivity
 {
@@ -14,8 +14,11 @@ class Activity extends BaseActivity
         return $this->belongsTo(Ticket::class, "ticket_id");
     }
 
-    public function workAssignments(): BelongsToMany
+    public function workAssignments(): HasMany
     {
-        return $this->belongsToMany(ActivityWorkAssignment::class, "activity_id");
-    }    
+        return $this->hasMany(
+            ActivityWorkAssignment::class,
+            'activity_id',
+        );
+    }
 }

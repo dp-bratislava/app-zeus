@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Imports\Activity;
+namespace App\Filament\Imports\Inspection;
 
-use Dpb\Packages\Activities\Models\ActivityTemplate;
+use App\Models\Inspection\InspectionTemplate;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Support\Str;
 
-class ActivityTemplateImporter extends Importer
+class InspectionTemplateImporter extends Importer
 {
-    protected static ?string $model = ActivityTemplate::class;
+    protected static ?string $model = InspectionTemplate::class;
 
     public static function getColumns(): array
     {
@@ -25,15 +25,15 @@ class ActivityTemplateImporter extends Importer
 
                     return Str::trim($state);
                 }),
-            ImportColumn::make('duration')
-                ->requiredMapping()
-                ->rules(['required', 'integer']),
-            ImportColumn::make('is_divisible')
-                ->requiredMapping()
-                ->rules(['required', 'boolean']), 
-            ImportColumn::make('people')
-                ->requiredMapping()
-                ->rules(['required', 'integer']),
+            // ImportColumn::make('duration')
+            //     ->requiredMapping()
+            //     ->rules(['required', 'integer']),
+            // ImportColumn::make('is_divisible')
+            //     ->requiredMapping()
+            //     ->rules(['required', 'boolean']), 
+            // ImportColumn::make('people')
+            //     ->requiredMapping()
+            //     ->rules(['required', 'integer']),
             // ImportColumn::make('group')
             //     ->relationship('templateGroup', 'title')
             //     ->requiredMapping()
@@ -41,19 +41,19 @@ class ActivityTemplateImporter extends Importer
         ];
     }
 
-    public function resolveRecord(): ?ActivityTemplate
+    public function resolveRecord(): ?InspectionTemplate
     {
         // return ShiftTemplate::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
 
-        return new ActivityTemplate();
+        return new InspectionTemplate();
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your activity template import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = 'Your inspection template import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
             $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';

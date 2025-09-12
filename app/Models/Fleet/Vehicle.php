@@ -2,11 +2,10 @@
 
 namespace App\Models\Fleet;
 
+use App\Models\Inspection\Inspection;
 use App\Models\TS\Ticket;
 use Dpb\Packages\Vehicles\Models\Vehicle as BaseVehicle;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Vehicle extends BaseVehicle
@@ -24,6 +23,16 @@ class Vehicle extends BaseVehicle
         );
     }
 
+    public function inspections(): MorphMany
+    {
+        return $this->morphMany(
+            Inspection::class, 
+            'subject',
+            'subject_type',
+            'subject_id',
+            'id',
+        );
+    }
     // public function tasks(): MorphToMany
     // {
     //     return $this->morphToMany(

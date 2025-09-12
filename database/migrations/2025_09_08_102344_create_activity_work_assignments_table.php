@@ -11,24 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $tablePrefix = config('database.table_prefix');
         $actTablePrefix = config('pkg-activities.table_prefix');
         $wlTablePrefix = config('pkg-work-log.table_prefix');
 
-        Schema::create($actTablePrefix . 'activity_work_assignments', function (Blueprint $table) use ($actTablePrefix, $wlTablePrefix) {
-            $table->comment('');
+        Schema::create($tablePrefix . 'activity_work_assignments', function (Blueprint $table) use ($tablePrefix, $actTablePrefix, $wlTablePrefix) {
+            $table->comment('Pivot connecting actual work to planned activity.');
             $table->id();
             $table->foreignId('activity_id')
                 ->nullable(false)
                 ->comment('Specific activity instance the work is being done on.')
                 ->constrained($actTablePrefix . 'activities', 'id');
             $table->foreignId('work_interval_id')
-                ->nullable(false)
+                ->nullable()
                 ->comment('Work interval done on this activity instance.')
                 ->constrained($wlTablePrefix . 'work_intervals', 'id');
             $table->foreignId('employee_contract_id')
                 ->nullable(false)
                 ->comment('Contract of employee that did the work')
                 ->constrained('datahub_employee_contracts', 'id');
+            $table->text('note')
+                ->nullable()
+                ->comment('Optional note');
 
             $table->timestamps();
             $table->softDeletes();
@@ -40,7 +44,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('pkg-activities.table_prefix');
+        $tablePrefix = config('database.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'activity_work_assignments');
     }

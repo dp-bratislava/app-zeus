@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('model_state_changes', function (Blueprint $table) {
+        $tablePrefix = config('database.table_prefix');
+
+        Schema::create($tablePrefix . 'model_state_changes', function (Blueprint $table) {
             $table->id();
             $table->morphs('model');
             $table->string('from_state')
@@ -36,6 +38,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('model_state_changes');
+        $tablePrefix = config('database.table_prefix');
+
+        Schema::dropIfExists($tablePrefix . 'model_state_changes');
     }
 };

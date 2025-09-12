@@ -2,30 +2,20 @@
 
 namespace App\Models\Fleet;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Inspection\InspectionTemplate;
+use Dpb\Packages\Vehicles\Models\VehicleModel as BaseVehicleModel;
 
-class VehicleModel extends Model
+class VehicleModel extends BaseVehicleModel
 {
-    use SoftDeletes;
-
-    protected $table = 'dpb_fleet_vehicle_models';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'title',
-        'length',
-        'warranty',
-        'type_id',
-    ];
-
-    public function type(): BelongsTo
+    public function inspectionTempaltes()
     {
-        return $this->belongsTo(VehicleType::class, "type_id");
-    }    
+        return $this->morphToMany(
+            InspectionTemplate::class,
+            'subject',
+            config('pkg-inspections.table_prefix') . 'inspection_templatables',    
+            'subject_type',
+            'subject_id',
+        )
+        ->withTimestamps();
+    }
 }

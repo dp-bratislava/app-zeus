@@ -39,27 +39,19 @@ class ActivityTemplateResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('ticket.id'),
-                Tables\Columns\TextColumn::make('date')->date(),
-                Tables\Columns\TextColumn::make('status.title'),
-                Tables\Columns\TextColumn::make('template.title')->label('uloha'),
-                Tables\Columns\TextColumn::make('template.duration')->label('ocakavane trvanie'),
-                Tables\Columns\TextColumn::make('real_duration')
-                    ->label('realne trvanie')
-                    ->state(function ($record) {
-                        $result = $record->activities->sum('duration');
-                        return $result;
-                    }),
-                Tables\Columns\IconColumn::make('template.is_divisible')
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('duration'),
+                Tables\Columns\TextColumn::make('man_minutes'),
+                Tables\Columns\IconColumn::make('is_divisible')
                     ->label('delitelna')
                     ->boolean(),
-                Tables\Columns\IconColumn::make('template.is_standardised')
+                Tables\Columns\IconColumn::make('is_standardised')
                     ->label('normovana')
                     ->boolean(),
-                Tables\Columns\IconColumn::make('template.is_catalogised')
+                Tables\Columns\IconColumn::make('is_catalogised')
                     ->label('katalogizovana')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('template.people')
+                Tables\Columns\TextColumn::make('people')
                     ->label('pocet ludi'),
             ])
             ->filters([

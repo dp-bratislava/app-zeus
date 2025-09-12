@@ -4,6 +4,8 @@ namespace App\Models\TS;
 
 use App\Models\Activity\Activity;
 use App\Models\Datahub\Department;
+use App\Models\Expense\Material;
+use App\Models\Expense\Service;
 use App\States\Ticket\TicketState;
 use App\Traits\HasStateHistory;
 use Dpb\Packages\Tickets\Models\Ticket as BaseTicket;
@@ -45,12 +47,31 @@ class Ticket extends BaseTicket implements HasStatesContract
         return $this->hasMany(Activity::class, "ticket_id");
     }
 
-    // public function materials(): HasMany
-    // {
-    //     return $this->hasMany(Material::class, "ticket_id");
-    // }
+    /**
+     * External materials used outside of SAP to solve this ticket
+     * 
+     * @return HasMany<Material, Ticket>
+     */
+    public function materials(): HasMany
+    {
+        return $this->hasMany(Material::class, "ticket_id");
+    }
 
+    /**
+     * External services used to solve this ticket
+     * 
+     * @return HasMany<Service, Ticket>
+     */
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class, "ticket_id");
+    }    
 
+    /**
+     * Subject of this ticket. E.g. vehicle, building, device ...
+     * 
+     * @return MorphTo<\Illuminate\Database\Eloquent\Model, Ticket>
+     */
     public function subject(): MorphTo
     {
         return $this->morphTo();

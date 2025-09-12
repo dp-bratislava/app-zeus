@@ -27,9 +27,12 @@ class AppServiceProvider extends ServiceProvider
         //     'vehicle' => \App\Models\Fleet\Vehicle::class,
         // ]);
         Relation::morphMap([
+            'inspection' => \App\Models\Inspection\Inspection::class,
+            'inspection-template' => \App\Models\Inspection\InspectionTemplate::class,
             'ticket' => \App\Models\TS\Ticket::class,
             'user' => \App\Models\User::class,
             'vehicle' => \App\Models\Fleet\Vehicle::class,
+            'vehicle-model' => \App\Models\Fleet\VehicleModel::class,
         ]);
     }
 }
