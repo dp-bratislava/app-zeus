@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\Inspection;
 
-use App\Models\Inspection\InspectionTemplate;
+use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;

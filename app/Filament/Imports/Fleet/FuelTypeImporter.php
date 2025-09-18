@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use Dpb\Packages\Vehicles\Models\FuelType;
+use Dpb\Package\Fleet\Models\FuelType;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;

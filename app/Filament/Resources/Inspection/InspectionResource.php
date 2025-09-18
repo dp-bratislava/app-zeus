@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Inspection;
 
 use App\Filament\Resources\Inspection\InspectionResource\Pages;
 use App\Filament\Resources\Inspection\InspectionResource\RelationManagers;
-use App\Models\Inspection\Inspection;
+use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

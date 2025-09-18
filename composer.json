@@ -12,7 +12,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/filament-admin-panel.git"
-        },
+        },        
         {
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/laravel-user-admin.git"
@@ -85,17 +85,48 @@
             "options": {
                 "symlink": true
             }
-        }  
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-finance",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-utils",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-fleet",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/ext-spatie-model-states",
+            "options": {
+                "symlink": true
+            }
+        }         
     ],
     "require": {
         "php": "^8.2",
+        "andrej-horny/ext-spatie-model-states": "dev-main",
         "andrej-horny/pkg-activities": "dev-main",
         "andrej-horny/pkg-entity-manager": "dev-main",
+        "andrej-horny/pkg-finance": "dev-main",
+        "andrej-horny/pkg-inspections": "dev-main",
         "andrej-horny/pkg-tasks": "dev-main",
         "andrej-horny/pkg-tickets": "dev-main",
+        "andrej-horny/pkg-utils": "dev-main",
         "andrej-horny/pkg-vehicles": "dev-main",
         "andrej-horny/pkg-work-log": "dev-main",
-        "andrej-horny/pkg-inspections": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-employee-manager": "^1.0",
@@ -105,10 +136,12 @@
         "dpb/filament-admin-panel": "^12.0",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
+        "dpb/pkg-fleet": "dev-main",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-data": "^4.17",
         "spatie/laravel-model-states": "^2.12",
         "spatie/laravel-package-tools": "^1.92",
         "spatie/laravel-schedule-monitor": "^3.10",
@@ -166,6 +199,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

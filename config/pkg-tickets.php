@@ -9,4 +9,12 @@ return [
     */
     'table_prefix' => 'ts_',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default class mapping
+    |--------------------------------------------------------------------------
+    */
+    'classes' => [
+        'ticket_state_class' => '\App\States\Tciket\TicketState::class',
+    ],    
 ];

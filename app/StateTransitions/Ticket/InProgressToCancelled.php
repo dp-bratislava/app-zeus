@@ -2,21 +2,19 @@
 
 namespace App\StateTransitions\Ticket;
 
-use App\Models\TS\Ticket;
+use Dpb\Package\Tickets\Models\Ticket;
 use App\States\Ticket\Cancelled;
 use App\States\Ticket\InProgress;
-use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Spatie\ModelStates\Transition;
 
 class InProgressToCancelled extends Transition
 {
-    public function __construct(private Ticket $ticket, private Guard $guard)
-    {
-    }
+    public function __construct(private Ticket $ticket, private Authenticatable $user) {}
 
     public function canTransition(): bool
     {
-        $userCan = $this->guard->user()->can('cancel-ticket');
+        $userCan = app()->runningInConsole() ? true : ($this->user->can('cancel-ticket') || $this->user->hasRole('super-admin'));
         $validInitialState = $this->ticket->state->equals(InProgress::class);
         return $userCan && $validInitialState;
     }
@@ -27,7 +25,7 @@ class InProgressToCancelled extends Transition
 
             $this->ticket->state = new Cancelled($this->ticket);
             $this->ticket->save();
-            
+
             return $this->ticket;
         }
         return null;

@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Fleet\Vehicle;
 use App\Filament\Imports\Fleet\VehicleModelImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\RelationManagers;
-use Dpb\Packages\Vehicles\Models\VehicleModel;
+use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

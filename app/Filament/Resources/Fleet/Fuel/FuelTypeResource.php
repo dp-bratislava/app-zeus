@@ -4,13 +4,12 @@ namespace App\Filament\Resources\Fleet\Fuel;
 
 use App\Filament\Imports\Fleet\FuelTypeImporter;
 use App\Filament\Resources\Fleet\Fuel\FuelTypeResource\Pages;
-use Dpb\Packages\Vehicles\Models\FuelType;
+use Dpb\Package\Fleet\Models\FuelType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class FuelTypeResource extends Resource
@@ -38,9 +37,9 @@ class FuelTypeResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                TextColumn::make('code'),
-                TextColumn::make('title'),
-                TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('code'),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('description'),
             ])
             ->filters([
                 //

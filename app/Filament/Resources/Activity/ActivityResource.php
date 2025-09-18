@@ -4,7 +4,8 @@ namespace App\Filament\Resources\Activity;
 
 use App\Filament\Resources\Activity\ActivityResource\Pages;
 use App\Filament\Resources\Activity\ActivityResource\RelationManagers;
-use App\Models\Activity\Activity;
+use App\Services\Activity\Activity\TicketService;
+use Dpb\Package\Activities\Models\Activity;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -38,17 +39,20 @@ class ActivityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('ticket.id'),
+                Tables\Columns\TextColumn::make('ticket')
+                    ->state(function(TicketService $svc, $record) {
+                        return $svc->getTicket($record)?->description;
+                    }),
                 Tables\Columns\TextColumn::make('date')->date(),
                 Tables\Columns\TextColumn::make('status.title'),
                 Tables\Columns\TextColumn::make('template.title')->label('uloha'),
                 Tables\Columns\TextColumn::make('template.duration')->label('ocakavane trvanie'),
-                Tables\Columns\TextColumn::make('real_duration')
-                    ->label('realne trvanie')
-                    ->state(function ($record) {
-                        $result = $record->activities->sum('duration');
-                        return $result;
-                    }),
+                // Tables\Columns\TextColumn::make('real_duration')
+                //     ->label('realne trvanie')
+                //     ->state(function ($record) {
+                //         $result = $record->activities->sum('duration');
+                //         return $result;
+                //     }),
                 Tables\Columns\IconColumn::make('template.is_divisible')
                     ->label('delitelna')
                     ->boolean(),

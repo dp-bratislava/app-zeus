@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Vehicle;
 
 use App\Filament\Imports\Fleet\VehicleStatusImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleStatusResource\Pages;
-use Dpb\Packages\Vehicles\Models\VehicleStatus;
+use Dpb\Package\Fleet\Models\VehicleStatus;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

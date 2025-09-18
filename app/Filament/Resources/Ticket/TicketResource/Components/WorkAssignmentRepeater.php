@@ -27,7 +27,7 @@ class WorkAssignmentRepeater
             ])
             ->schema([
                 Forms\Components\Group::make()
-                    ->relationship('workInterval')
+                    // ->relationship('workInterval')
                     ->columns(3)
                     ->schema([
                         Forms\Components\DatePicker::make('date')
@@ -46,14 +46,14 @@ class WorkAssignmentRepeater
                             ->hiddenLabel()
                             ->columnSpan(1),
                     ]),
-                    // contract
-                    ContractPicker::make('employee_contract_id')
+                // contract
+                ContractPicker::make('employee_contract_id')
                     ->relationship('employeeContract', 'pid')
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
                     ->searchable(),
-                    // note
-                    Forms\Components\Textarea::make('note'),
+                // note
+                Forms\Components\Textarea::make('note'),
             ])
             // ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get, $set, $livewire) {
             //     $ticketId = $livewire->record?->id;

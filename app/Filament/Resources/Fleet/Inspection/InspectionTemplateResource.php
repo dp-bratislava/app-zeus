@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Inspection;
 
 use App\Filament\Imports\Fleet\InspectionTemplateImporter;
 use App\Filament\Resources\Fleet\Inspection\InspectionTemplateResource\Pages;
-use Dpb\Packages\Vehicles\Models\Inspection\InspectionTemplate;
+use Dpb\Package\Fleet\Models\Inspection\InspectionTemplate;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

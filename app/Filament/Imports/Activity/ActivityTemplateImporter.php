@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\Activity;
 
-use Dpb\Packages\Activities\Models\ActivityTemplate;
+use Dpb\Package\Activities\Models\ActivityTemplate;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;

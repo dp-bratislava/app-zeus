@@ -202,4 +202,14 @@ return [
     */
 
     'table_prefix' => 'app_',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Related table names from dependencies from other packages
+    |--------------------------------------------------------------------------
+    */
+    'tables' => [
+        'currency' => env('TABLE_UTILS_CURRENCY', 'util_currency'),
+        'units' => env('TABLE_UTILS_MEASUREMENT_UNITS', 'util_measurement_units'),
+    ]    
 ];

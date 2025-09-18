@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 use App\Filament\Imports\Fleet\TireParameterImporter;
 use App\Filament\Resources\Fleet\Tire\ParameterResource\Pages;
 use App\Filament\Resources\Fleet\Tire\ParameterResource\RelationManagers;
-use Dpb\Packages\Vehicles\Models\Tire\Parameter;
+use Dpb\Package\Fleet\Models\Tire\Parameter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

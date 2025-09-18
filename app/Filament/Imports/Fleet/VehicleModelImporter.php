@@ -2,7 +2,7 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use Dpb\Packages\Vehicles\Models\VehicleModel;
+use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
@@ -25,37 +25,37 @@ class VehicleModelImporter extends Importer
 
                     return Str::trim($state);
                 }),
-            ImportColumn::make('fuel_consumption_city')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),            
-            ImportColumn::make('fuel_consumption')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
-            ImportColumn::make('fuel_consumption_combined')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
+            // ImportColumn::make('fuel_consumption_city')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),            
+            // ImportColumn::make('fuel_consumption')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
+            // ImportColumn::make('fuel_consumption_combined')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
             ImportColumn::make('year'),
             ImportColumn::make('tank_size'),
             ImportColumn::make('seats'),
-            ImportColumn::make('std_fuel_consumption_city_summer')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
-            ImportColumn::make('std_fuel_consumption_city_winter')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
-            ImportColumn::make('std_fuel_consumption_summer')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
-            ImportColumn::make('std_fuel_consumption_winter')
-                ->castStateUsing(function (?string $state): ?string {
-                    return Str::of($state)->replace(',', '.');
-                }),
+            // ImportColumn::make('std_fuel_consumption_city_summer')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
+            // ImportColumn::make('std_fuel_consumption_city_winter')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
+            // ImportColumn::make('std_fuel_consumption_summer')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
+            // ImportColumn::make('std_fuel_consumption_winter')
+            //     ->castStateUsing(function (?string $state): ?string {
+            //         return Str::of($state)->replace(',', '.');
+            //     }),
             // ImportColumn::make('length'),
             // ImportColumn::make('warranty'),
             ImportColumn::make('vehicle_type')

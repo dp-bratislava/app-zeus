@@ -8,7 +8,7 @@ use App\Models\Expense\Material;
 use App\Models\Expense\Service;
 use App\States\Ticket\TicketState;
 use App\Traits\HasStateHistory;
-use Dpb\Packages\Tickets\Models\Ticket as BaseTicket;
+use Dpb\Package\Tickets\Models\Ticket as BaseTicket;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

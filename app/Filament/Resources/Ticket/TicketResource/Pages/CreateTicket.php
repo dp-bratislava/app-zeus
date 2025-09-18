@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Ticket\TicketResource\Pages;
 use App\Filament\Resources\Ticket\TicketResource;
 use App\Services\TicketService;
 use Dpb\DatahubSync\Models\Department;
-use Dpb\Packages\Vehicles\Models\Vehicle;
+use Dpb\Package\Vehicles\Models\Vehicle;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTicket extends CreateRecord

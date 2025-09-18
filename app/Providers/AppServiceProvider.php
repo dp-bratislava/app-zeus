@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Dpb\Extension\ModelState\Providers\EventServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,8 +12,8 @@ class AppServiceProvider extends ServiceProvider
      * Register any application services.
      */
     public function register(): void
-    {
-        //
+    {    
+        // app()->register(EventServiceProvider::class);    
     }
 
     /**
@@ -27,12 +28,13 @@ class AppServiceProvider extends ServiceProvider
         //     'vehicle' => \App\Models\Fleet\Vehicle::class,
         // ]);
         Relation::morphMap([
+            'activity-template' => \Dpb\Package\Activities\Models\ActivityTemplate::class,
             'inspection' => \App\Models\Inspection\Inspection::class,
             'inspection-template' => \App\Models\Inspection\InspectionTemplate::class,
-            'ticket' => \App\Models\TS\Ticket::class,
+            'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
             'user' => \App\Models\User::class,
-            'vehicle' => \App\Models\Fleet\Vehicle::class,
-            'vehicle-model' => \App\Models\Fleet\VehicleModel::class,
+            'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
+            'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,
         ]);
     }
 }

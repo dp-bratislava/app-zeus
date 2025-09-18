@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Ticket\TicketResource\Components;
 use App\Filament\Components\ActivityTemplatePicker;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
-use Dpb\Packages\Activities\Models\ActivityTemplate;
+use Dpb\Package\Activities\Models\ActivityTemplate;
 use Filament\Forms\Components\Component;
 use Filament\Forms;
 use Filament\Forms\Get;
@@ -42,9 +42,10 @@ class ActivityRepeater
                 // Forms\Components\TextInput::make('template_duration')                    
                 //     ->readOnly()
                 //     ->dehydrated(),
-                WorkAssignmentRepeater::make('workAssignments')
-                    ->relationship('workAssignments')
-                    ->columnSpan(5)
-            ]);
+                // WorkAssignmentRepeater::make('workAssignments')
+                //     // ->relationship('workAssignments')
+                //     ->columnSpan(5)
+            ])
+            ->default([]);
     }
 }

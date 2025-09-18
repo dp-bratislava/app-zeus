@@ -6,7 +6,7 @@ use App\Filament\Imports\Inspection\InspectionTemplateImporter;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Pages;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\RelationManagers;
 use App\Models\Fleet\VehicleModel;
-use App\Models\Inspection\InspectionTemplate;
+use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

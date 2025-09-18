@@ -4,16 +4,14 @@ namespace App\Filament\Resources\Activity;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
 use App\Filament\Resources\Activity\ActivityTemplateResource\Pages;
-use App\Filament\Resources\Activity\ActivityTemplateResource\RelationManagers;
-use Dpb\Packages\Activities\Models\ActivityTemplate;
+use App\Services\Activity\ActivityTemplate\UnitRateService;
+use Dpb\Package\Activities\Models\ActivityTemplate;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ActivityTemplateResource extends Resource
 {
@@ -27,13 +25,18 @@ class ActivityTemplateResource extends Resource
         return 'Ticket';
     } 
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
+    // public static function form(Form $form): Form
+    // {
+    //     return $form
+    //         ->schema([
+    //             Forms\Components\TextInput::make('title'),
+    //             //
+    //             Forms\Components\Group::make([
+    //                 Forms\Components\DatePicker::make('date_from'), 
+
+    //             ]), 
+    //         ]);
+    // }
 
     public static function table(Table $table): Table
     {
@@ -53,6 +56,12 @@ class ActivityTemplateResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('people')
                     ->label('pocet ludi'),
+                Tables\Columns\TextColumn::make('sa1')
+                    ->label('sa1')
+                    ->state(function($record, UnitRateService $svc) {                        
+
+                        return $svc->getUnitRate($record)?->formatted_rate;
+                    }),
             ])
             ->filters([
                 //

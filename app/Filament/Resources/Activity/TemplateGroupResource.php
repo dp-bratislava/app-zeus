@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Activity;
 use App\Filament\Imports\Activity\ActivityTemplateGroupImporter;
 use App\Filament\Resources\Activity\TemplateGroupResource\Pages;
 use App\Filament\Resources\Activity\TemplateGroupResource\RelationManagers;
-use Dpb\Packages\Activities\Models\TemplateGroup;
+use Dpb\Package\Activities\Models\TemplateGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

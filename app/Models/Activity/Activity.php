@@ -3,7 +3,7 @@
 namespace App\Models\Activity;
 
 use App\Models\TS\Ticket;
-use Dpb\Packages\Activities\Models\Activity as BaseActivity;
+use Dpb\Package\Activities\Models\Activity as BaseActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

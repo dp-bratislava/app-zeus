@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Tire;
 
 use App\Filament\Resources\Fleet\Tire\TireResource\Pages;
 use App\Filament\Resources\Fleet\Tire\TireResource\RelationManagers;
-use Dpb\Packages\Vehicles\Models\Tire\Tire;
+use Dpb\Package\Fleet\Models\Tire\Tire;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

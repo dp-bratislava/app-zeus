@@ -2,10 +2,10 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use Dpb\Packages\Vehicles\Models\LicencePlate;
-use Dpb\Packages\Vehicles\Models\LicencePlateHistory;
-use Dpb\Packages\Vehicles\Models\Vehicle;
-use Dpb\Packages\Vehicles\Models\VehicleGroup;
+use Dpb\Package\Fleet\Models\LicencePlate;
+use Dpb\Package\Fleet\Models\LicencePlateHistory;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Fleet\Models\VehicleGroup;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
@@ -72,10 +72,11 @@ class VehicleImporter extends Importer
     protected function afterSave(): void
     {
         // licence plates
-        $rawVehicleGroup = $this->originalData['licence_plate'] == '' ? null : Str::trim($this->originalData['licence_plate']);        
-        if ($rawVehicleGroup !== null) {
+        $licencePlate = $this->originalData['licence_plate'] == '' ? null : Str::trim($this->originalData['licence_plate']);         
+        
+        if (($licencePlate !== null) && (!in_array($licencePlate, ['N/A']))) {
             $licencePlateId = LicencePlate::createOrFirst([
-                'code' => $rawVehicleGroup,                
+                'code' => $licencePlate,                
             ])->id;
 
             $vehicleId = $this->record->id;

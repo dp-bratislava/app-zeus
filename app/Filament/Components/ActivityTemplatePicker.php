@@ -2,7 +2,7 @@
 
 namespace App\Filament\Components;
 
-use Dpb\Packages\Activities\Models\ActivityTemplate;
+use Dpb\Package\Activities\Models\ActivityTemplate;
 use Closure;
 use Filament\Forms\Components\Select;
 
