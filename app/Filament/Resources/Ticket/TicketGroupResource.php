@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Filament\Resources\Ticket;
+
+use App\Filament\Imports\Ticket\TicketGroupImporter;
+use App\Filament\Resources\Ticket\TicketGroupResource\Pages;
+use App\Filament\Resources\Ticket\TicketGroupResource\RelationManagers;
+use Dpb\Package\Tickets\Models\TicketGroup;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Columns;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class TicketGroupResource extends Resource
+{
+    protected static ?string $model = TicketGroup::class;
+    protected static ?string $navigationLabel = 'Ticket groups';
+    protected static ?string $pluralModelLabel = 'Ticket groups';
+    protected static ?string $ModelLabel = 'Ticket group';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Ticket';
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                //
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->paginated([10, 25, 50, 100, 'all'])
+            ->defaultPaginationPageOption(100)
+            ->columns([
+                Tables\Columns\TextColumn::make('code'),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('parent.title'),
+            ])
+            ->filters([
+                //
+            ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(TicketGroupImporter::class)
+                    ->csvDelimiter(';')
+            ]) 
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListTicketGroups::route('/'),
+            'create' => Pages\CreateTicketGroup::route('/create'),
+            'edit' => Pages\EditTicketGroup::route('/{record}/edit'),
+        ];
+    }
+}

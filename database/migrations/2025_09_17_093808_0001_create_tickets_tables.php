@@ -13,18 +13,6 @@ return new class extends Migration
     {
         $tablePrefix = config('pkg-tickets.table_prefix');
 
-        // ticket statuses
-        // Schema::create($tablePrefix . 'ticket_statuses', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('code')
-        //         ->nullable(false)
-        //         ->unique()
-        //         ->comment('Unique code to identify status in application layer');
-        //     $table->string('title')->nullable();
-        //     $table->timestamps();
-        //     $table->softDeletes();
-        // });
-
         // ticket priorities
         Schema::create($tablePrefix . 'ticket_priorities', function (Blueprint $table) {
             $table->id();
@@ -38,7 +26,7 @@ return new class extends Migration
         });
 
         // ticket groups
-        Schema::create($tablePrefix . 'ticket_groups', function (Blueprint $table) {
+        Schema::create($tablePrefix . 'ticket_groups', function (Blueprint $table) use ($tablePrefix) {
             $table->comment('List of ticket groups e.g. IT, sprava budov, vozy, ...');
             $table->id();
             $table->string('code')
@@ -46,6 +34,10 @@ return new class extends Migration
                 ->unique()
                 ->comment('Unique code to identify group in application layer');
             $table->string('title')->nullable();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->comment('Parent group for hierarchical strucuring of groups')
+                ->constrained($tablePrefix . 'ticket_groups', 'id');            
             $table->timestamps();
             $table->softDeletes();
         });

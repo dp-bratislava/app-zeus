@@ -26,7 +26,10 @@ class VehicleImporter extends Importer
             // ->rules(['required', 'max:255']),
                 ->rules(['max:255']),
             // ImportColumn::make('end_of_warranty'),
-            ImportColumn::make('licence_plate'),
+            ImportColumn::make('licence_plate')
+                ->relationship('licencePlate', 'code')
+            // ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('vehicle_group'),
         ];
     }

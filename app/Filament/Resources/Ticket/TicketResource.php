@@ -34,8 +34,8 @@ class TicketResource extends Resource
     protected static ?string $model = Ticket::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Ticket';
-    protected static ?string $pluralModelLabel = 'Ticket';
+    protected static ?string $navigationLabel = 'Tickets';
+    protected static ?string $pluralModelLabel = 'Tickets';
     protected static ?string $ModelLabel = 'Ticket';
 
     public static function getNavigationGroup(): ?string
