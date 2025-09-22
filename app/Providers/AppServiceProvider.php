@@ -28,9 +28,10 @@ class AppServiceProvider extends ServiceProvider
         //     'vehicle' => \App\Models\Fleet\Vehicle::class,
         // ]);
         Relation::morphMap([
+            'activity' => \Dpb\Package\Activities\Models\Activity::class,
             'activity-template' => \Dpb\Package\Activities\Models\ActivityTemplate::class,
-            'inspection' => \App\Models\Inspection\Inspection::class,
-            'inspection-template' => \App\Models\Inspection\InspectionTemplate::class,
+            'inspection' => \Dpb\Package\Inspections\Models\Inspection::class,
+            'inspection-template' => \Dpb\Package\Inspections\Models\InspectionTemplate::class,
             'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
             'user' => \App\Models\User::class,
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,

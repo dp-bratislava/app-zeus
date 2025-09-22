@@ -25,7 +25,7 @@ class TicketGroupResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Ticket';
+        return 'Zakázky';
     }
 
     public static function form(Form $form): Form

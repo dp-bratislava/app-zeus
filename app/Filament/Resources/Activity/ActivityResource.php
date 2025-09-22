@@ -18,13 +18,13 @@ class ActivityResource extends Resource
 {
     protected static ?string $model = Activity::class;
 
-    protected static ?string $navigationLabel = 'Activity';
-    protected static ?string $pluralModelLabel = 'Activity';
-    protected static ?string $ModelLabel = 'Activity';
+    protected static ?string $navigationLabel = 'Normované činnosti';
+    protected static ?string $pluralModelLabel = 'Normované činnosti';
+    protected static ?string $ModelLabel = 'Normované činnosti';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Ticket';
+        return 'Normy';
     }    
 
     public static function form(Form $form): Form

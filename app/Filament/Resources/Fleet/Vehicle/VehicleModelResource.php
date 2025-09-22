@@ -45,10 +45,14 @@ class VehicleModelResource extends Resource
                 TextColumn::make('year'),
                 TextColumn::make('seats'),
                 TextColumn::make('fuel_consumption'),
-                TextColumn::make('length'),
+                TextColumn::make('length')
+                    ->state(function($record) {return $record->getAttrValue('length');}),
                 TextColumn::make('warranty'),
                 TextColumn::make('type.title'),
                 TextColumn::make('fuelType.title'),
+                TextColumn::make('seats')
+                    ->state(function($record) {return $record->getAttrValue('seat-capacity');}),
+                    // ->state(function($record) {return print_r($record->attributeValues());}),
             ])
             ->filters([
                 //

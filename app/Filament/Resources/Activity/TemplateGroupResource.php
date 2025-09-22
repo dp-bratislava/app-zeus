@@ -18,13 +18,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TemplateGroupResource extends Resource
 {
     protected static ?string $model = TemplateGroup::class;
-    protected static ?string $navigationLabel = 'Activity template groups';
-    protected static ?string $pluralModelLabel = 'Activity template groups';
-    protected static ?string $ModelLabel = 'Activity template groups';
+    protected static ?string $navigationLabel = 'Skupiny noriem';
+    protected static ?string $pluralModelLabel = 'Skupiny noriem';
+    protected static ?string $ModelLabel = 'Skupin noriem';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Ticket';
+        return 'Normy';
     } 
 
     public static function form(Form $form): Form

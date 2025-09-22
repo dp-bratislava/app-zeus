@@ -13,6 +13,10 @@ use App\Models\Fleet\Vehicle as FleetVehicle;
 use App\StateTransitions\Ticket\CreatedToInProgress;
 use Dpb\Package\Tickets\Models\Ticket;
 use App\Models\TS\Task\TaskStatus;
+use App\Services\Activity\Activity\WorkService;
+use App\Services\Ticket\ActivityService;
+use App\Services\Ticket\HeaderService;
+use App\Services\Ticket\SubjectService;
 use App\Services\TicketService;
 use App\StateTransitions\Ticket\InProgressToCancelled;
 use Awcodes\TableRepeater\Components\TableRepeater;
@@ -33,14 +37,13 @@ class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Tickets';
-    protected static ?string $pluralModelLabel = 'Tickets';
-    protected static ?string $ModelLabel = 'Ticket';
+    protected static ?string $navigationLabel = 'Zakázky';
+    protected static ?string $pluralModelLabel = 'Zakázky';
+    protected static ?string $ModelLabel = 'Zakázka';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Ticket';
+        return 'Zakázky';
     }
 
     public static function form(Form $form): Form
@@ -130,21 +133,34 @@ class TicketResource extends Resource
                         Action::make('select')
                             ->requiresConfirmation()
                             ->action(function (Ticket $record): void {
-                                $record->state == 'created' 
-                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard())) 
+                                $record->state == 'created'
+                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()))
                                     : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
                             }),
-                    )
+                    ),
                 // TextColumn::make('department.code'),
-                // TextColumn::make('subject.code'),
-                // TextColumn::make('department')
-                //     ->state(function (TicketService $ticketService, $record) {
-                //         return $ticketService->getDepartment($record)?->code;
-                //     }),
-                // TextColumn::make('vehicle')
-                //     ->state(function (TicketService $ticketService, $record) {
-                //         return $ticketService->getVehicle($record)?->code;
-                //     }),
+                TextColumn::make('Vozidlo')
+                    ->state(function ($record, SubjectService $svc) {
+                        return $svc->getSubject($record)?->code;
+                    }),
+                TextColumn::make('Stredisko')
+                    ->state(function (HeaderService $svc, $record) {
+                        return $svc->getHeader($record)?->department?->code;
+                    }),
+                Tables\Columns\TextColumn::make('Normy')
+                    ->state(function ($record, ActivityService $svc, WorkService $workService) {
+                        $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
+                            // dd($workService->getWorkIntervals($activity));
+                            return $activity->template->title
+                                . ' #' . $activity->template->duration
+                                . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
+                                    // return $work;
+                                    return $work?->duration;
+                                    // return print_r($work?->duration);
+                                });
+                        });
+                        return $result;
+                    }),
                 // Tables\Columns\TextColumn::make('expenses')
                 //     ->state(function ($record) {
                 //         $result = $record->materials->sum(function ($material) {

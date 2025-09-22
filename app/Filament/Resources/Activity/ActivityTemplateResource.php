@@ -16,13 +16,13 @@ use Filament\Tables\Table;
 class ActivityTemplateResource extends Resource
 {
     protected static ?string $model = ActivityTemplate::class;
-    protected static ?string $navigationLabel = 'Activity templates';
-    protected static ?string $pluralModelLabel = 'Activity templates';
-    protected static ?string $ModelLabel = 'Activity template';
+    protected static ?string $navigationLabel = 'Normy';
+    protected static ?string $pluralModelLabel = 'Normy';
+    protected static ?string $ModelLabel = 'Norma';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Ticket';
+        return 'Normy';
     } 
 
     // public static function form(Form $form): Form

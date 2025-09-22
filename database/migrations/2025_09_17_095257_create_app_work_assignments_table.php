@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create($tablePrefix . 'work_assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('work_id')
+            $table->foreignId('work_interval_id')
                 ->nullable(false)
                 ->comment('')
                 ->constrained('wl_work_intervals');

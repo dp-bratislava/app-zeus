@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Datahub\Department;
 use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TicketHeader extends Model
+class TicketSubject extends Model
 {
     use SoftDeletes;
 
@@ -19,33 +18,22 @@ class TicketHeader extends Model
      */
     protected $fillable = [
         'ticket_id',
-        'department_id',
-        'author_id',
-        'assigned_to',
+        'subject_id',
+        'subject_type',
     ];
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_headers';
+        return config('database.table_prefix') . 'ticket_subjects';
     }
-        
+    
     public function ticket(): BelongsTo
     {
         return $this->belongsTo(Ticket::class, "ticket_id");
     }
 
-    public function department(): BelongsTo
+    public function subject()
     {
-        return $this->belongsTo(Department::class, "department_id");
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(User::class, "author_id");
-    }
-
-    public function assignedTo(): BelongsTo
-    {
-        return $this->belongsTo(User::class, "assigned_to");
+        return $this->morphTo();
     }
 }

@@ -113,7 +113,14 @@
             "options": {
                 "symlink": true
             }
-        }         
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-eav",
+            "options": {
+                "symlink": true
+            }
+        }  
     ],
     "require": {
         "php": "^8.2",
@@ -127,6 +134,7 @@
         "andrej-horny/pkg-utils": "dev-main",
         "andrej-horny/pkg-vehicles": "dev-main",
         "andrej-horny/pkg-work-log": "dev-main",
+        "andrej-horny/pkg-eav": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-employee-manager": "^1.0",
