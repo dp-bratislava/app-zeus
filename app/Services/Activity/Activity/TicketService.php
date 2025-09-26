@@ -16,7 +16,7 @@ class TicketService
             ->with('subject')
             ->where('activity_id', '=', $activity->id)
             ->where('subject_type', '=', 'ticket')
-            ->first()->subject;
+            ->first()?->subject;
             // ->map(fn($assignment) => $assignment->subject);
     }
 

@@ -20,7 +20,7 @@ class FuelTypeResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'Flotila';
     }
 
     public static function form(Form $form): Form

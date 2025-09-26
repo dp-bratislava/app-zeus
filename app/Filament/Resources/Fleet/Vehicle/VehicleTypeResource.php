@@ -20,11 +20,13 @@ class VehicleTypeResource extends Resource
 {
     protected static ?string $model = VehicleType::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Typy vozidiel';
+    protected static ?string $pluralModelLabel = 'Typy vozidiel';
+    protected static ?string $ModelLabel = 'Typ vozidla';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'Flotila';
     }
 
     public static function form(Form $form): Form

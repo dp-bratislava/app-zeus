@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle;
 
+use App\Filament\Components\DepartmentPicker;
 use App\Filament\Imports\Fleet\VehicleImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\RelationManagers;
+use App\Services\Fleet\VehicleService;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -22,19 +24,33 @@ class VehicleResource extends Resource
 {
     protected static ?string $model = Vehicle::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Vozidlá';
+    protected static ?string $pluralModelLabel = 'Vozidlá';
+    protected static ?string $ModelLabel = 'Vozidlo';
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'Flotila';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
-            ]);
+                Forms\Components\TextInput::make('vin')->label('VIN'),
+                Forms\Components\TextInput::make('code')->label('Kód'),
+                Forms\Components\Select::make('model_id')
+                    ->label('')
+                    ->relationship('model', 'title')
+                    ->preload()
+                    ->searchable(),
+                DepartmentPicker::make('department')
+                    ->getOptionLabelFromRecordUsing(null)
+                    ->getSearchResultsUsing(null)
+                    ->searchable()
+                    ->label('Stredisko')
+            ])
+            ;
     }
 
     public static function table(Table $table): Table
@@ -43,7 +59,9 @@ class VehicleResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                TextColumn::make('code'),
+                // TextColumn::make('code.code'),
+                TextColumn::make('code')
+                ->state(fn($record) => dd($record)),
                 TextColumn::make('model.title'),
                 TextColumn::make('model.length')->label('length'),
                 TextColumn::make('end_of_warranty'),
@@ -52,6 +70,10 @@ class VehicleResource extends Resource
                 TextColumn::make('model.type.title'),
                 TextColumn::make('groups.title'),
                 TextColumn::make('status'),
+                TextColumn::make('Stredisko')
+                    ->state(function (VehicleService $svc, $record) {
+                        return $svc->getDepartment($record)?->code;
+                    }),
             ])
             ->filters([
                 //
@@ -109,7 +131,7 @@ class VehicleResource extends Resource
                                 Infolists\Components\TextEntry::make('param 2'),
                                 Infolists\Components\TextEntry::make('param ...'),
                                 Infolists\Components\TextEntry::make('param N'),
-                            ]),       
+                            ]),
 
                     ])
             ]);

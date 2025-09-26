@@ -117,7 +117,7 @@
         },
         {
             "type": "path",
-            "url": "packages/dpb/pkg-fleet",
+            "url": "packages/dpb/pkg-eav",
             "options": {
                 "symlink": true
             }
@@ -144,7 +144,7 @@
         "dpb/filament-admin-panel": "^12.0",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
-        "dpb/pkg-fleet": "dev-main",
+        "dpb/pkg-fleet": "^1.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",

@@ -20,18 +20,33 @@ class VehicleGroupResource extends Resource
 {
     protected static ?string $model = VehicleGroup::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationLabel(): string
+    {
+        return __('fleet/vehicle_group.navigation');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('fleet/vehicle_group.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('fleet/vehicle_group.resource.models_label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'Flotila';
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('code')->label('Kód'),
+                Forms\Components\TextInput::make('title')->label('Názov'),
+                Forms\Components\TextInput::make('description')->label('Popis'),
             ]);
     }
 
@@ -41,10 +56,9 @@ class VehicleGroupResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                TextColumn::make('code'),
+                TextColumn::make('code')->label(__('fleet/vehicle_group.table.columns.code.label')),
                 TextColumn::make('title'),
                 TextColumn::make('description'),
-                // TextColumn::make('title'),
             ])
             ->filters([
                 //

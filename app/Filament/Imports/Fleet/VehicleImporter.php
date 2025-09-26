@@ -2,13 +2,18 @@
 
 namespace App\Filament\Imports\Fleet;
 
+use App\Models\Datahub\Department;
+use App\Services\Fleet\VehicleService;
 use Dpb\Package\Fleet\Models\LicencePlate;
 use Dpb\Package\Fleet\Models\LicencePlateHistory;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleGroup;
+use Dpb\Packages\Vehicles\Models\VehicleCode;
+use Dpb\Packages\Vehicles\Models\VehicleCodeHistory;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class VehicleImporter extends Importer
@@ -16,6 +21,16 @@ class VehicleImporter extends Importer
     protected const DEFAULT_DATE_FROM = '2000-01-01';
 
     protected static ?string $model = Vehicle::class;
+
+    public function __construct(
+        protected Import $import, 
+        protected array $columnMap, 
+        protected array $options, 
+        protected VehicleService $vehicleService,
+        protected Collection $departments,
+        ) {
+         $this->departments = Department::all()->pluck('id', 'code');
+    }
 
     public static function getColumns(): array
     {
@@ -27,10 +42,12 @@ class VehicleImporter extends Importer
                 ->rules(['max:255']),
             // ImportColumn::make('end_of_warranty'),
             ImportColumn::make('licence_plate')
-                ->relationship('licencePlate', 'code')
+                // ->relationship('licencePlate', 'code')
             // ->rules(['required', 'max:255']),
                 ->rules(['max:255']),
             ImportColumn::make('vehicle_group'),
+            // department
+            ImportColumn::make('department'),
         ];
     }
 
@@ -61,6 +78,7 @@ class VehicleImporter extends Importer
         // into dispense model
         unset($this->data['licence_plate']);
         unset($this->data['vehicle_group']);
+        unset($this->data['department']);
         unset($this->data['']);
     }
 
@@ -94,6 +112,26 @@ class VehicleImporter extends Importer
             ]); 
         }
 
+        // vehicle codes
+        $vehicleCode = $this->originalData['code'] == '' ? null : Str::trim($this->originalData['code']);         
+        
+        if (($vehicleCode !== null) && (!in_array($licencePlate, ['N/A']))) {
+            $vehicleCodeId = VehicleCode::createOrFirst([
+                'code' => $vehicleCode,                
+            ])->id;
+
+            $vehicleId = $this->record->id;
+
+            $now = now();
+            VehicleCodeHistory::create([
+                'vehicle_id' => $vehicleId,
+                'vehicle_code_id' => $vehicleCodeId,
+                'date_from' => self::DEFAULT_DATE_FROM,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]); 
+        }
+
         // vehicle groups
         $rawVehicleGroup = $this->originalData['vehicle_group'] == '' ? null : Str::trim($this->originalData['vehicle_group']);        
         if ($rawVehicleGroup !== null) {
@@ -104,6 +142,11 @@ class VehicleImporter extends Importer
 
             $this->record->groups()->attach($vehicleGroupId);
         }
-        
+       
+        // vehicle department
+        $rawDepartment = $this->originalData['department'] == '' ? null : Str::trim($this->originalData['department']);        
+        if (($rawDepartment !== null) && (isset($this->departments[$rawDepartment]))) {            
+            $this->vehicleService->setDepartment($this->record, $this->departments[$rawDepartment]);
+        }        
     }    
 }
