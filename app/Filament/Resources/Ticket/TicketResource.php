@@ -102,18 +102,18 @@ class TicketResource extends Resource
                                 ActivityRepeater::make('activities')
                                 // ->relationship('activities'),
                             ]),
-                        // // materials
-                        // Forms\Components\Tabs\Tab::make('materials')
-                        //     ->schema([
-                        //         MaterialRepeater::make('materials')
-                        //             ->relationship('materials'),
-                        //     ]),
-                        // // services
-                        // Forms\Components\Tabs\Tab::make('services')
-                        //     ->schema([
-                        //         ServiceRepeater::make('services')
-                        //             ->relationship('services'),
-                        // ])                            
+                        // materials
+                        Forms\Components\Tabs\Tab::make('materials')
+                            ->schema([
+                                MaterialRepeater::make('materials')
+                                    // ->relationship('materials'),
+                            ]),
+                        // services
+                        Forms\Components\Tabs\Tab::make('services')
+                            ->schema([
+                                ServiceRepeater::make('services')
+                                    // ->relationship('services'),
+                        ])                            
                     ]),
             ]);
     }
@@ -129,12 +129,13 @@ class TicketResource extends Resource
                 TextColumn::make('title'),
                 TextColumn::make('description'),
                 TextColumn::make('state')
+                // ->state(fn($record) => dd($record)),
                     ->action(
                         Action::make('select')
                             ->requiresConfirmation()
                             ->action(function (Ticket $record): void {
                                 $record->state == 'created'
-                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()))
+                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
                                     : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
                             }),
                     ),
@@ -190,7 +191,14 @@ class TicketResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
+        //         ->(function (ActivityService $svc, array $data, Ticket $record) {
+        //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
+
+        // $data['activities'] = $activities;
+        // dd($activities);
+                // })
                 // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
                 // ->after(function ($action, $record) {
                 //     // $department = $departmentHdl->findOrFail($data['department_id']);
@@ -218,7 +226,8 @@ class TicketResource extends Resource
         return [
             'index' => Pages\ListTickets::route('/'),
             'create' => Pages\CreateTicket::route('/create'),
-            'view' => Pages\ViewTicket::route('/{record}'),
+            // 'view' => Pages\ViewTicket::route('/{record}'),
+            'view' => Pages\ViewTicketPage::route('/{record}'),
             'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }

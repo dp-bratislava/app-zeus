@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Ticket\TicketResource\Pages;
 
 use App\Filament\Resources\Ticket\TicketResource;
+use App\Services\Ticket\ActivityService;
 use App\Services\TicketService;
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Package\Vehicles\Models\Vehicle;
@@ -37,14 +38,18 @@ class EditTicket extends EditRecord
     //     app(TicketService::class)->assignVehicle($this->record, $vehicle);
     // }
 
-    // protected function mutateFormDataBeforeFill(array $data): array
-    // {
-    //     $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
-    //     $vehicleId = app(TicketService::class)->getVehicle($this->record)?->id;
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
+        // $vehicleId = app(TicketService::class)->getVehicle($this->record)?->id;
 
-    //     $data['department_id'] = $departmentId;
-    //     $data['vehicle_id'] = $vehicleId;
+        // $data['department_id'] = $departmentId;
+        // $data['vehicle_id'] = $vehicleId;
 
-    //     return $data;
-    // }
+        $activities = app(ActivityService::class)->getActivities($this->record)->toArray();
+
+        $data['activities'] = $activities;
+        // dd($activities);
+        return $data;
+    }
 }

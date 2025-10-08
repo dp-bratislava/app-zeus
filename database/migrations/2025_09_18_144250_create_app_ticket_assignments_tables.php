@@ -24,7 +24,7 @@ return new class extends Migration
                 ->constrained($ticketTablePrefix . 'tickets', 'id');
             $table->unsignedBigInteger('subject_id')
                 ->nullable(false)
-                ->comment('Single subject bound to this inspection template. E.g. vehicle model, ...');
+                ->comment('Single subject bound to this ticket. E.g. vehicle, building, ...');
             $table->string('subject_type')
                 ->nullable(false)
                 ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
@@ -35,7 +35,7 @@ return new class extends Migration
 
         // ticket header pivot
         Schema::create($tablePrefix . 'ticket_headers', function (Blueprint $table) use ($ticketTablePrefix) {
-            $table->comment("Relations binding ticket to users");
+            $table->comment("Relations binding ticket to other domains");
             $table->id();
             $table->foreignId('ticket_id')
                 ->nullable(false)

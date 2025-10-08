@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Datahub\Department;
+use App\Models\Datahub\EmployeeContract;
 use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,11 +42,13 @@ class TicketHeader extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, "author_id");
+        // return $this->belongsTo(User::class, "author_id");
+        return $this->belongsTo(EmployeeContract::class, "author_id");
     }
 
     public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(User::class, "assigned_to");
+        // return $this->belongsTo(User::class, "assigned_to");
+        return $this->belongsTo(EmployeeContract::class, "assigned_to");
     }
 }

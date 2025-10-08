@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use DateTime;
+use Illuminate\Support\Facades\Date;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 
@@ -10,8 +11,9 @@ class WorkIntervalData extends Data
 {
     public function __construct(
         public int $id,
-        public DateTime $timFrom,
-        public DateTime $timTo,
+        public Date $date,
+        public DateTime $timeFrom,
+        public DateTime $timeTo,
         public int $duration,
     ) {}
 

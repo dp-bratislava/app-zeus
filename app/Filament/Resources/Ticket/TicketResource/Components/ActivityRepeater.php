@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Ticket\TicketResource\Components;
 
 use App\Filament\Components\ActivityTemplatePicker;
+use App\Services\Ticket\ActivityService;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Dpb\Package\Activities\Models\ActivityTemplate;
@@ -46,6 +47,9 @@ class ActivityRepeater
                 //     // ->relationship('workAssignments')
                 //     ->columnSpan(5)
             ])
+            // ->(function($record, ActivityService $svc) {
+            //     return $svc->getActivities($record);  
+            // })
             ->default([]);
     }
 }

@@ -125,7 +125,6 @@
     ],
     "require": {
         "php": "^8.2",
-        "andrej-horny/ext-spatie-model-states": "dev-main",
         "andrej-horny/pkg-activities": "dev-main",
         "andrej-horny/pkg-entity-manager": "dev-main",
         "andrej-horny/pkg-finance": "dev-main",
@@ -137,6 +136,7 @@
         "andrej-horny/pkg-work-log": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
+        "dpb/ext-spatie-model-states": "dev-main",
         "dpb/dpb-employee-manager": "^1.0",
         "dpb/dpb-utils": "^1.0",
         "dpb/dpb-work-time-fund": "^1.0",

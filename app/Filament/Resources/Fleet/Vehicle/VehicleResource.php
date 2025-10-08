@@ -7,6 +7,8 @@ use App\Filament\Imports\Fleet\VehicleImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\RelationManagers;
 use App\Services\Fleet\VehicleService;
+use App\StateTransitions\Fleet\Vehicle\DiscardedToInService;
+use App\StateTransitions\Fleet\Vehicle\InServiceToDiscarded;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,6 +16,7 @@ use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -59,9 +62,9 @@ class VehicleResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                // TextColumn::make('code.code'),
-                TextColumn::make('code')
-                ->state(fn($record) => dd($record)),
+                TextColumn::make('code.code'),
+                // TextColumn::make('code'),
+                // ->state(fn($record) => dd($record)),
                 TextColumn::make('model.title'),
                 TextColumn::make('model.length')->label('length'),
                 TextColumn::make('end_of_warranty'),
@@ -69,7 +72,17 @@ class VehicleResource extends Resource
                 TextColumn::make('licencePlate'),
                 TextColumn::make('model.type.title'),
                 TextColumn::make('groups.title'),
-                TextColumn::make('status'),
+                TextColumn::make('state')
+                    ->action(
+                        Action::make('select')
+                            ->requiresConfirmation()
+                            ->action(function (Vehicle $record): void {
+                                // dd($record->state);
+                                $record->state == 'in-service'
+                                    ? $record->state->transition(new InServiceToDiscarded($record, auth()->guard()->user()))
+                                    : $record->state->transition(new DiscardedToInService($record, auth()->guard()->user()));
+                            }),
+                    ),
                 TextColumn::make('Stredisko')
                     ->state(function (VehicleService $svc, $record) {
                         return $svc->getDepartment($record)?->code;
