@@ -19,13 +19,25 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TicketGroupResource extends Resource
 {
     protected static ?string $model = TicketGroup::class;
-    protected static ?string $navigationLabel = 'Ticket groups';
-    protected static ?string $pluralModelLabel = 'Ticket groups';
-    protected static ?string $ModelLabel = 'Ticket group';
+
+    public static function getModelLabel(): string
+    {
+        return __('tickets/ticket-group.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('tickets/ticket-group.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('tickets/ticket-group.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Zakázky';
+        return __('tickets/ticket-group.navigation.group');
     }
 
     public static function form(Form $form): Form

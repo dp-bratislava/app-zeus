@@ -9,6 +9,7 @@ use App\Filament\Resources\Ticket\TicketResource\Components\MaterialRepeater;
 use App\Filament\Resources\Ticket\TicketResource\Components\ServiceRepeater;
 use App\Filament\Resources\Ticket\TicketResource\Pages;
 use App\Filament\Resources\Ticket\TicketResource\RelationManagers\ActivitiesRelationManager;
+use App\Filament\Resources\Ticket\TicketResource\Tables\TicketTable;
 use App\Models\Fleet\Vehicle as FleetVehicle;
 use App\StateTransitions\Ticket\CreatedToInProgress;
 use Dpb\Package\Tickets\Models\Ticket;
@@ -32,18 +33,30 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
 
-    protected static ?string $navigationLabel = 'Zakázky';
-    protected static ?string $pluralModelLabel = 'Zakázky';
-    protected static ?string $ModelLabel = 'Zakázka';
+    public static function getModelLabel(): string
+    {
+        return __('tickets/ticket.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('tickets/ticket.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('tickets/ticket.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Zakázky';
+        return __('tickets/ticket.navigation.group');
     }
 
     public static function form(Form $form): Form
@@ -120,98 +133,100 @@ class TicketResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('date')->date(),
-                TextColumn::make('parent.id'),
-                TextColumn::make('title'),
-                TextColumn::make('description'),
-                TextColumn::make('state')
-                // ->state(fn($record) => dd($record)),
-                    ->action(
-                        Action::make('select')
-                            ->requiresConfirmation()
-                            ->action(function (Ticket $record): void {
-                                $record->state == 'created'
-                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
-                                    : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
-                            }),
-                    ),
-                // TextColumn::make('department.code'),
-                TextColumn::make('Vozidlo')
-                    ->state(function ($record, SubjectService $svc) {
-                        return $svc->getSubject($record)?->code;
-                    }),
-                TextColumn::make('Stredisko')
-                    ->state(function (HeaderService $svc, $record) {
-                        return $svc->getHeader($record)?->department?->code;
-                    }),
-                Tables\Columns\TextColumn::make('Normy')
-                    ->state(function ($record, ActivityService $svc, WorkService $workService) {
-                        $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
-                            // dd($workService->getWorkIntervals($activity));
-                            return $activity->template->title
-                                . ' #' . $activity->template->duration
-                                . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
-                                    // return $work;
-                                    return $work?->duration;
-                                    // return print_r($work?->duration);
-                                });
-                        });
-                        return $result;
-                    }),
-                // Tables\Columns\TextColumn::make('expenses')
-                //     ->state(function ($record) {
-                //         $result = $record->materials->sum(function ($material) {
-                //             return $material->unit_price * $material->quantity;
-                //         });
-                //         return $result;
-                //     }),
+        // return $table
+        //     ->paginated([10, 25, 50, 100, 'all'])
+        //     ->defaultPaginationPageOption(100)
+        //     ->columns([
+        //         TextColumn::make('date')->date(),
+        //         TextColumn::make('parent.id'),
+        //         TextColumn::make('title'),
+        //         TextColumn::make('description'),
+        //         TextColumn::make('state')
+        //             ->state(fn(Ticket $record) => $record->state->label())
+        //         // ->state(fn($record) => dd($record)),
+        //             ->action(
+        //                 Action::make('select')
+        //                     ->requiresConfirmation()
+        //                     ->action(function (Ticket $record): void {
+        //                         $record->state == 'created'
+        //                             ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
+        //                             : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
+        //                     }),
+        //             ),
+        //         // TextColumn::make('department.code'),
+        //         TextColumn::make('Vozidlo')
+        //             ->state(function ($record, SubjectService $svc) {
+        //                 return $svc->getSubject($record)?->code;
+        //             }),
+        //         TextColumn::make('Stredisko')
+        //             ->state(function (HeaderService $svc, $record) {
+        //                 return $svc->getHeader($record)?->department?->code;
+        //             }),
+        //         Tables\Columns\TextColumn::make('Normy')
+        //             ->state(function ($record, ActivityService $svc, WorkService $workService) {
+        //                 $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
+        //                     // dd($workService->getWorkIntervals($activity));
+        //                     return $activity->template->title
+        //                         . ' #' . $activity->template->duration
+        //                         . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
+        //                             // return $work;
+        //                             return $work?->duration;
+        //                             // return print_r($work?->duration);
+        //                         });
+        //                 });
+        //                 return $result;
+        //             }),
+        //         // Tables\Columns\TextColumn::make('expenses')
+        //         //     ->state(function ($record) {
+        //         //         $result = $record->materials->sum(function ($material) {
+        //         //             return $material->unit_price * $material->quantity;
+        //         //         });
+        //         //         return $result;
+        //         //     }),
 
-                // Tables\Columns\TextColumn::make('expenses')
-                //     ->state(function ($record) {
-                //         $materials = $record->materials->sum(function ($material) {
-                //             return $material->price;
-                //         });
-                //         $services = $record->services->sum(function ($service) {
-                //             return $service->price;
-                //         });
-                //         return $materials + $services;
-                //     }),
-                // Tables\Columns\TextColumn::make('man_minutes')
-                //     ->state(function ($record) {
-                //         $result = $record->activities->sum('duration');
-                //         return $result;
-                //     }),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()
-                // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
-        //         ->(function (ActivityService $svc, array $data, Ticket $record) {
-        //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
+        //         // Tables\Columns\TextColumn::make('expenses')
+        //         //     ->state(function ($record) {
+        //         //         $materials = $record->materials->sum(function ($material) {
+        //         //             return $material->price;
+        //         //         });
+        //         //         $services = $record->services->sum(function ($service) {
+        //         //             return $service->price;
+        //         //         });
+        //         //         return $materials + $services;
+        //         //     }),
+        //         // Tables\Columns\TextColumn::make('man_minutes')
+        //         //     ->state(function ($record) {
+        //         //         $result = $record->activities->sum('duration');
+        //         //         return $result;
+        //         //     }),
+        //     ])
+        //     ->filters([
+        //         //
+        //     ])
+        //     ->actions([
+        //         Tables\Actions\ViewAction::make(),
+        //         Tables\Actions\EditAction::make()
+        //         // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
+        // //         ->(function (ActivityService $svc, array $data, Ticket $record) {
+        // //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
 
-        // $data['activities'] = $activities;
-        // dd($activities);
-                // })
-                // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
-                // ->after(function ($action, $record) {
-                //     // $department = $departmentHdl->findOrFail($data['department_id']);
-                //     dd($action);
-                //     $ticketService->assignDepartment($record, $department);
-                // }),
-                // Tables\Actions\ReplicateAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        // // $data['activities'] = $activities;
+        // // dd($activities);
+        //         // })
+        //         // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
+        //         // ->after(function ($action, $record) {
+        //         //     // $department = $departmentHdl->findOrFail($data['department_id']);
+        //         //     dd($action);
+        //         //     $ticketService->assignDepartment($record, $department);
+        //         // }),
+        //         // Tables\Actions\ReplicateAction::make(),
+        //     ])
+        //     ->bulkActions([
+        //         Tables\Actions\BulkActionGroup::make([
+        //             Tables\Actions\DeleteBulkAction::make(),
+        //         ]),
+        //     ]);
+        return TicketTable::make($table);
     }
 
     public static function getRelations(): array
@@ -231,4 +246,19 @@ class TicketResource extends Resource
             'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
+
+    // public static function canCreate(): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.create');
+    // }
+
+    // public static function canEdit(Model $record): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.update');
+    // }   
+    
+    // public static function canDelete(Model $record): bool
+    // {        
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.delete');
+    // }       
 }

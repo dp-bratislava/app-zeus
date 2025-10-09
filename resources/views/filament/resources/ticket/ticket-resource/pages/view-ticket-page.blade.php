@@ -2,6 +2,7 @@
     <div>datum: {{ $ticket->date }}</div>
     <div>nazov: {{ $ticket->title }}</div>
     <div>popis: {{ $ticket->description }}</div>
+    <div>stav: {{ $ticket->state->label() }}</div>
 
     <div>zadal: {{ $ticketHeader?->author?->employee?->last_name }}</div>
     <div>pre stredisko: {{ $ticketHeader?->department?->code }}</div>

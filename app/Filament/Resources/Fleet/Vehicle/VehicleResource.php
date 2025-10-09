@@ -52,8 +52,7 @@ class VehicleResource extends Resource
                     ->getSearchResultsUsing(null)
                     ->searchable()
                     ->label('Stredisko')
-            ])
-            ;
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -61,10 +60,15 @@ class VehicleResource extends Resource
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
+            ->recordClasses(fn($record) => match ($record->state->getValue()) {
+                'in-service' => 'bg-yellow-50',
+                'discarded' => 'bg-red-50',
+                default => null,
+            })
             ->columns([
                 TextColumn::make('code.code'),
                 // TextColumn::make('code'),
-                // ->state(fn($record) => dd($record)),
+                // ->state(fn($record) => dd($record->state)),
                 TextColumn::make('model.title'),
                 TextColumn::make('model.length')->label('length'),
                 TextColumn::make('end_of_warranty'),
@@ -73,6 +77,7 @@ class VehicleResource extends Resource
                 TextColumn::make('model.type.title'),
                 TextColumn::make('groups.title'),
                 TextColumn::make('state')
+                    ->state(fn(Vehicle $record) => $record->state->label())
                     ->action(
                         Action::make('select')
                             ->requiresConfirmation()
