@@ -5,6 +5,7 @@ namespace App\Models;
 use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TicketSubject extends Model
@@ -32,7 +33,7 @@ class TicketSubject extends Model
         return $this->belongsTo(Ticket::class, "ticket_id");
     }
 
-    public function subject()
+    public function subject(): MorphTo
     {
         return $this->morphTo();
     }

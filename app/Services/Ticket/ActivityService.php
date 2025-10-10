@@ -24,4 +24,14 @@ class ActivityService
             ->get()
             ->map(fn($assignment) => $assignment->activity);
     }
+
+    public function getTotalExpectedDuration(Ticket $ticket): int
+    {        
+        return $this->activityAssignmentModel
+            ->with('activity.template')
+            ->where('subject_id', '=', $ticket->id)
+            ->where('subject_type', '=', 'ticket')
+            ->get()
+            ->sum('activity.template.duration');
+    }    
 }

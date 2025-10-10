@@ -11,6 +11,7 @@ use App\Services\Ticket\HeaderService;
 use App\Services\Ticket\SubjectService;
 use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Resources\Pages\Page;
+use Illuminate\Database\Eloquent\Model;
 
 class ViewTicketPage extends Page
 {
@@ -20,7 +21,7 @@ class ViewTicketPage extends Page
 
     public Ticket $ticket;
     public TicketHeader $ticketHeader;
-    public ?TicketSubject $ticketSubject;
+    public ?Model $ticketSubject;
     public $activities;
     public $workIntervals;
     public $workAssignments;

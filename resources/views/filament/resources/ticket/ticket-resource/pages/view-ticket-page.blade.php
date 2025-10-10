@@ -8,7 +8,8 @@
     <div>pre stredisko: {{ $ticketHeader?->department?->code }}</div>
     <div>priradene: {{ $ticketHeader?->assignedTo?->employee?->last_name }}</div>
 
-    <div>voz: {{ print_r($ticketSubject?->subject) }}</div>
+    {{-- <div>voz: {{ print_r($ticketSubjectsubject) }}</div> --}}
+    <div>voz: {{ $ticketSubject?->code?->code }}</div>
 
     <h3 class="font-bold text-2xl">cinnosti / normy</h3>
     @foreach ($activities as $activity)

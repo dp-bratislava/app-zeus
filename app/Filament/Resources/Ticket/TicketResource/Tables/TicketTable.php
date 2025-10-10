@@ -6,6 +6,7 @@ use App\Services\Activity\Activity\WorkService;
 use App\Services\Ticket\ActivityService;
 use App\Services\Ticket\HeaderService;
 use App\Services\Ticket\SubjectService;
+use App\States;
 use App\StateTransitions\Ticket\CreatedToInProgress;
 use App\StateTransitions\Ticket\InProgressToCancelled;
 use Dpb\Package\Tickets\Models\Ticket;
@@ -20,6 +21,13 @@ class TicketTable
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
+            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+                States\Ticket\Created::$name => 'bg-blue-200',
+                States\Ticket\Closed::$name => 'bg-green-200',
+                States\Ticket\Cancelled::$name => 'bg-gray-50',
+                States\Ticket\InProgress::$name => 'bg-yellow-200',
+                default => null,
+            })            
             ->columns([
                 Tables\Columns\TextColumn::make('date')->date()
                     ->label(__('tickets/ticket.table.columns.date.label')),
@@ -42,11 +50,13 @@ class TicketTable
                             }),
                     ),
                 // TextColumn::make('department.code'),
-                Tables\Columns\TextColumn::make('vehicle')
+                Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket.table.columns.subject.label'))
                     ->state(function ($record, SubjectService $svc) {
-                        return $svc->getSubject($record)?->code;
+                        return $svc->getSubject($record)?->code?->code;
                     }),
+                Tables\Columns\TextColumn::make('source.title')
+                    ->label(__('tickets/ticket.table.columns.source.label')),
                 Tables\Columns\TextColumn::make('department')
                     ->label(__('tickets/ticket.table.columns.department.label'))
                     ->state(function (HeaderService $svc, $record) {
@@ -55,16 +65,17 @@ class TicketTable
                 Tables\Columns\TextColumn::make('activities')
                     ->label(__('tickets/ticket.table.columns.activities.label'))
                     ->state(function ($record, ActivityService $svc, WorkService $workService) {
-                        $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
-                            // dd($workService->getWorkIntervals($activity));
-                            return $activity->template->title
-                                . ' #' . $activity->template->duration
-                                . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
-                                    // return $work;
-                                    return $work?->duration;
-                                    // return print_r($work?->duration);
-                                });
-                        });
+                        // $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
+                        //     // dd($workService->getWorkIntervals($activity));
+                        //     return $activity->template->title
+                        //         . ' #' . $activity->template->duration
+                        //         . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
+                        //             // return $work;
+                        //             return $work?->duration;
+                        //             // return print_r($work?->duration);
+                        //         });
+                        // });
+                        $result = $svc->getTotalExpectedDuration($record);
                         return $result;
                     }),
                 // Tables\Columns\TextColumn::make('expenses')

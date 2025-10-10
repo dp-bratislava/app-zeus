@@ -10,9 +10,16 @@ return [
                 'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
+            'date' => 'Dátum',
             'title' => 'Názov',
             'description' => 'Popis',
+            'source' => 'Miesto výskytu',
         ],
+        'tabs' => [
+            'activities' => 'Činnosti / normy',
+            'materials' => 'Materiál',
+            'services' => 'Služby',
+        ]
     ],
     'table' => [
         'heading' => 'Zakázky',
@@ -27,6 +34,7 @@ return [
             'subject' => ['label' => 'Vozidlo'],
             'department' => ['label' => 'Stredisko'],
             'activities' => ['label' => 'Normy'],
+            'source' => ['label' => 'Miesto výskytu'],
         ]
     ],
     'navigation' => [
@@ -41,6 +49,6 @@ return [
         'created' => 'Nová',
         'cancelled' => 'Zrušená',
         'closed' => 'Uzavretá',
-        'in_progress' => 'V riešení',
+        'in-progress' => 'V riešení',
     ]
 ];

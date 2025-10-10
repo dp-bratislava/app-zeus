@@ -37,10 +37,7 @@
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git"
         },
-        {
-            "type": "vcs",
-            "url": "git@github.com:dp-bratislava/pkg-fleet.git"
-        },        
+      
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/pkg-eav.git"
@@ -73,13 +70,7 @@
                 "symlink": true
             }
         },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-vehicles",
-            "options": {
-                "symlink": true
-            }
-        },
+
         {
             "type": "path",
             "url": "packages/dpb/pkg-entity-manager",
@@ -109,7 +100,7 @@
             }
         },
         {
-            "type": "path",
+            "type": "vcs",
             "url": "packages/dpb/ext-spatie-model-states",
             "options": {
                 "symlink": true
@@ -132,11 +123,9 @@
         "andrej-horny/pkg-tasks": "dev-main",
         "andrej-horny/pkg-tickets": "dev-main",
         "andrej-horny/pkg-utils": "dev-main",
-        "andrej-horny/pkg-vehicles": "dev-main",
         "andrej-horny/pkg-work-log": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
-        "dpb/ext-spatie-model-states": "dev-main",
         "dpb/dpb-employee-manager": "^1.0",
         "dpb/dpb-utils": "^1.0",
         "dpb/dpb-work-time-fund": "^1.0",
