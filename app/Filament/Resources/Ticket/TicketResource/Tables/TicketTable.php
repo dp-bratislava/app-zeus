@@ -27,11 +27,14 @@ class TicketTable
                 States\Ticket\Cancelled::$name => 'bg-gray-50',
                 States\Ticket\InProgress::$name => 'bg-yellow-200',
                 default => null,
-            })            
+            })
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label(__('tickets/ticket.table.columns.id.label')),
                 Tables\Columns\TextColumn::make('date')->date()
                     ->label(__('tickets/ticket.table.columns.date.label')),
-                Tables\Columns\TextColumn::make('parent.id'),
+                Tables\Columns\TextColumn::make('parent.id')
+                    ->label(__('tickets/ticket.table.columns.parent.label')),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('tickets/ticket.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('description')
@@ -39,7 +42,7 @@ class TicketTable
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('tickets/ticket.table.columns.state.label'))
                     ->state(fn(Ticket $record) => $record->state->label())
-                // ->state(fn($record) => dd($record)),
+                    // ->state(fn($record) => dd($record)),
                     ->action(
                         Action::make('select')
                             ->requiresConfirmation()
@@ -75,7 +78,12 @@ class TicketTable
                         //             // return print_r($work?->duration);
                         //         });
                         // });
-                        $result = $svc->getTotalExpectedDuration($record);
+                        $activities = $svc->getActivities($record);
+                        $totalDuration = 0;
+                        foreach ($activities as $activity) {
+                            $totalDuration += $workService->getTotalDuration($activity);
+                        }
+                        $result = $svc->getTotalExpectedDuration($record) . ' min / ' . $totalDuration . ' min';
                         return $result;
                     }),
                 // Tables\Columns\TextColumn::make('expenses')
@@ -109,11 +117,11 @@ class TicketTable
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
                 // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
-        //         ->(function (ActivityService $svc, array $data, Ticket $record) {
-        //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
+                //         ->(function (ActivityService $svc, array $data, Ticket $record) {
+                //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
 
-        // $data['activities'] = $activities;
-        // dd($activities);
+                // $data['activities'] = $activities;
+                // dd($activities);
                 // })
                 // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
                 // ->after(function ($action, $record) {
@@ -128,6 +136,5 @@ class TicketTable
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 }

@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť zákazku',
-        'update_heading' => 'Upraviť zákazku: :title',
+        'create_heading' => 'Vytvoriť kontrolu',
+        'update_heading' => 'Upraviť kontrolu: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -23,34 +23,32 @@ return [
     ],
     'table' => [
         'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne zákazky na zobrazenie',
+        'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'id' => ['label' => 'ID'],
             'date' => ['label' => 'Dátum'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'template' => ['label' => 'Typ kontroly'],
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
-            'department' => ['label' => 'Stredisko'],
-            'activities' => ['label' => 'Normy'],
-            'source' => ['label' => 'Miesto výskytu'],
-            'parent' => ['label' => 'Patrí pod'],
+            'note' => ['label' => 'Poznámka'],
+            'maintenance_group' => ['label' => 'Prevádzka'],
+            'finished_at' => ['label' => 'Ukončená'],
+            'distance_traveled' => ['label' => 'Stav km'],
         ]
     ],
     'navigation' => [
-        'label' => 'Zákazky',
-        'group' => 'Zákazky',
+        'label' => 'Kontroly',
+        'group' => 'Kontroly',
     ],
     'resource' => [
-        'model_label' => 'Zákazka',
-        'plural_model_label' => 'Zákazky',
+        'model_label' => 'Kontrola',
+        'plural_model_label' => 'Kontroly',
     ],
     'states' => [
-        'created' => 'Nová',
-        'cancelled' => 'Zrušená',
-        'closed' => 'Uzavretá',
-        'in-progress' => 'V riešení',
+        'upcoming' => 'Nadchádzajúca',
+        'overdue' => 'Po termíne',
+        'in-progress' => 'Prebieha',
     ]
 ];

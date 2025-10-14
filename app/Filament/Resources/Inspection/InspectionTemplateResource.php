@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inspection;
 use App\Filament\Imports\Inspection\InspectionTemplateImporter;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Pages;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\RelationManagers;
+use App\Filament\Resources\Inspection\InspectionTemplateResource\Tables\InspectionTemplateTable;
 use App\Models\Fleet\VehicleModel;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Filament\Forms;
@@ -20,18 +21,24 @@ class InspectionTemplateResource extends Resource
 {
     protected static ?string $model = InspectionTemplate::class;
 
-    protected static ?string $navigationLabel = 'Šablóny kontrol';
-    protected static ?string $pluralModelLabel = 'Šablóny kontrol';
-    protected static ?string $ModelLabel = 'Šablóna kontroly';
+    public static function getModelLabel(): string
+    {
+        return __('inspections/inspection-template.resource.model_label');
+    }
 
-    // public static function canViewAny(): bool
-    // {
-    //     return false;
-    // }
+    public static function getPluralModelLabel(): string
+    {
+        return __('inspections/inspection-template.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('inspections/inspection-template.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Kontroly';
+        return __('inspections/inspection-template.navigation.group');
     }
 
     public static function form(Form $form): Form
@@ -50,30 +57,7 @@ class InspectionTemplateResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('vehicleModels.title')
-                    ->badge(),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(InspectionTemplateImporter::class)
-                    ->csvDelimiter(';')
-            ])            
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return InspectionTemplateTable::make($table);
     }
 
     public static function getRelations(): array

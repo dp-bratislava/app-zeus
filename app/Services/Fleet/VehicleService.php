@@ -37,4 +37,28 @@ class VehicleService
             ],
         );
     }
+
+    /**
+     * Get total distance traveled since vehicle was 
+     * first launched into service
+     * @param \Dpb\Package\Fleet\Models\Vehicle $vehicle
+     */
+    public function getTotalDistanceTraveled(Vehicle $vehicle)
+    {
+        return $vehicle->travelLog()->sum('distance');
+    }    
+
+    /**
+     * Get total distance traveled since vehicle was 
+     * first launched into service
+     * @param \Dpb\Package\Fleet\Models\Vehicle $vehicle
+     */
+    public function getInspectionDistanceTraveled(Vehicle $vehicle)
+    {
+        $lastInspectionDate = '2025-10-10';
+        return $vehicle->travelLog()
+            ->where('date', '>',  $lastInspectionDate)
+            ->sum('distance');
+    }    
+
 }

@@ -45,6 +45,7 @@ class MaterialRepeater
                     ->numeric()
                     ->inputMode('decimal'),
                 SpatieMediaLibraryFileUpload::make('attachments')
+                    ->columnSpan(2)
                     ->multiple()
             ]);
     }

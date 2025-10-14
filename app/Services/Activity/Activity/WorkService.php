@@ -28,6 +28,16 @@ class WorkService
             ->where('subject_type', '=', 'activity')
             ->get();            
     }
+
+    public function getTotalDuration(Activity $activity)
+    {
+        return $this->workAssignment
+            ->with(['workInterval'])
+            ->where('subject_id', '=', $activity->id)
+            ->where('subject_type', '=', 'activity')
+            ->get()
+            ->sum('workInterval.duration');            
+    }    
     // public function assignVehicle(Ticket $ticket, Vehicle $vehicle)
     // {
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');

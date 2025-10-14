@@ -19,19 +19,24 @@ class TicketForm
     public static function make(Form $form): Form
     {
         return $form
+            ->columns(6)
             ->schema([
                 Forms\Components\DatePicker::make('date')
                     ->label(__('tickets/ticket.form.fields.date'))
+                    ->columnSpan(1)
                     ->default(now()),
-                Forms\Components\Select::make('group_id')
-                    ->label(__('tickets/ticket.form.fields.title'))
-                    ->relationship('group', 'title')
-                    ->live(),
-                Forms\Components\TextInput::make('title'),
+                // Forms\Components\Select::make('group_id')
+                //     ->label(__('tickets/ticket.form.fields.title'))
+                //     ->relationship('group', 'title')
+                //     ->live(),
+                Forms\Components\TextInput::make('title')
+                    ->columnSpan(3)
+                    ->label(__('tickets/ticket.form.fields.title')),
                 Forms\Components\ToggleButtons::make('source_id')
                     ->label(__('tickets/ticket.form.fields.source'))
                     // ->relationship('source', 'title')
-                    ->inline()                    
+                    ->inline()
+                    ->columnSpan(2)
                     ->options(fn() => TicketSource::pluck('title', 'id')),
 
                 // Forms\Components\Select::make('source_id')
@@ -39,8 +44,9 @@ class TicketForm
                 //     ->preload()
                 //     ->searchable()
                 //     ->required(false),
-                Forms\Components\TextInput::make('description')
-                    ->label(__('tickets/ticket.form.fields.description')),
+                Forms\Components\Textarea::make('description')
+                    ->label(__('tickets/ticket.form.fields.description'))
+                    ->columnSpanFull(),
                 // Forms\Components\Select::make('parent_id')
                 //     ->relationship('parent', 'title', null, true)
                 //     ->preload()
@@ -87,7 +93,7 @@ class TicketForm
                             ->badge(3)
                             ->icon('heroicon-m-wrench')
                             ->schema([
-                                ActivityRepeater::make('activities')
+                                // ActivityRepeater::make('activities')
                                 // ->relationship('activities'),
                             ]),
                         // materials

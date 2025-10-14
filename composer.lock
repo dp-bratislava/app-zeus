@@ -127,9 +127,10 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-inspections",
-                "reference": "ccdb4534d281b6206ed3ac4ed95178935462fd9d"
+                "reference": "ba8871731b377f7fe5c48d3b732955702d6a5ee6"
             },
             "require": {
+                "dpb/ext-spatie-model-states": "^1.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -202,7 +203,13 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-tickets",
-                "reference": "9612020533228d4ccd25db417be983436aac2d3b"
+                "reference": "32017f35e2b328c5f2f9e662621aa342e130eb54"
+            },
+            "require": {
+                "dpb/ext-spatie-model-states": "^1.0",
+                "laravel/framework": "^11.0 || ^12.0",
+                "spatie/laravel-package-tools": "^1.92",
+                "spatie/laravel-permission": "^6.3"
             },
             "type": "package",
             "extra": {
@@ -1828,7 +1835,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-fleet",
-                "reference": "1c225dbfb6e1afc142c2584bc60c889d3ad861e1"
+                "reference": "5229cc4cdd55d4ed97593c2ad7022ac484153b2a"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",

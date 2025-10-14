@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť zákazku',
-        'update_heading' => 'Upraviť zákazku: :title',
+        'create_heading' => 'Vytvoriť kontrolu',
+        'update_heading' => 'Upraviť kontrolu: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -22,35 +22,34 @@ return [
         ]
     ],
     'table' => [
-        'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne zákazky na zobrazenie',
+        'heading' => 'Kontroly',
+        'empty_state_heading' => 'Žiadne nadchádzajúce kontroly na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'id' => ['label' => 'ID'],
             'date' => ['label' => 'Dátum'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'template' => ['label' => 'Typ kontroly'],
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
-            'department' => ['label' => 'Stredisko'],
-            'activities' => ['label' => 'Normy'],
-            'source' => ['label' => 'Miesto výskytu'],
-            'parent' => ['label' => 'Patrí pod'],
+            'note' => ['label' => 'Poznámka'],
+            'maintenance_group' => ['label' => 'Prevádzka'],
+            'distance_traveled' => ['label' => 'Stav km'],
+            'due_distance' => ['label' => 'Kontrola pri stave km'],
+            'km_to_due_distance' => ['label' => 'Km do kontroly'],
+            'due_date' => ['label' => 'Dátum kontroly'],
+            'days_to_due_date' => ['label' => 'Dní do kontroly'],
         ]
     ],
     'navigation' => [
-        'label' => 'Zákazky',
-        'group' => 'Zákazky',
+        'label' => 'Nadchádzajúce kontroly',
+        'group' => 'Kontroly',
     ],
     'resource' => [
-        'model_label' => 'Zákazka',
-        'plural_model_label' => 'Zákazky',
+        'model_label' => 'Nadchádzajúca kontrola',
+        'plural_model_label' => 'Nadchádzajúce kontroly',
     ],
     'states' => [
-        'created' => 'Nová',
-        'cancelled' => 'Zrušená',
-        'closed' => 'Uzavretá',
-        'in-progress' => 'V riešení',
+        'upcoming' => 'Nadchádzajúca',
     ]
 ];

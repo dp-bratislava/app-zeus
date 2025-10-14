@@ -85,34 +85,12 @@ return new class extends Migration
                 ->nullable()
                 ->comment('')
                 ->constrained($tablePrefix . 'inspection_templates', 'id');
-            $table->unsignedBigInteger('subject_id')
+            $table->string('state')
                 ->nullable()
-                ->comment('Single subject bound to this inspection. E.g. vehicle, building, device, ...');
-            $table->string('subject_type')
-                ->nullable()
-                ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
-
+                ->comment("Current inspection state");                
             $table->timestamps();
             $table->softDeletes();
         });
-
-        // inspectable subjects
-        Schema::create($tablePrefix . 'inspection_templatables', function (Blueprint $table) use ($tablePrefix) {
-            $table->id();
-            $table->foreignId('template_id')
-                ->nullable()
-                ->comment('')
-                ->constrained($tablePrefix . 'inspection_templates', 'id');
-            $table->unsignedBigInteger('subject_id')
-                ->nullable()
-                ->comment('Single subject bound to this inspection template. E.g. vehicle model, ...');
-            $table->string('subject_type')
-                ->nullable()
-                ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
-
-            $table->timestamps();
-            $table->softDeletes();
-        });        
     }
 
     /**
@@ -122,11 +100,10 @@ return new class extends Migration
     {
         $tablePrefix = config('pkg-inspections.table_prefix');
 
-        Schema::dropIfExists($tablePrefix . 'inspectable_subjects');
         Schema::dropIfExists($tablePrefix . 'inspections');
-        Schema::dropIfExists($tablePrefix . 'measurement_units');
         Schema::dropIfExists($tablePrefix . 'inspection_template_conditions');
         Schema::dropIfExists($tablePrefix . 'inspection_template_condition_types');
-        Schema::dropIfExists($tablePrefix . 'inspection_templatables');
+        Schema::dropIfExists($tablePrefix . 'inspection_template_templates');
+        Schema::dropIfExists($tablePrefix . 'measurement_units');
     }
 };

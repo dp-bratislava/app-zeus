@@ -71,8 +71,17 @@ class VehicleResource extends Resource
                 // ->state(fn($record) => dd($record->state)),
                 TextColumn::make('model.title'),
                 TextColumn::make('model.length')->label('length'),
-                TextColumn::make('end_of_warranty'),
-                TextColumn::make('model.warranty')->label('warranty'),
+                // TextColumn::make('end_of_warranty'),
+                // TextColumn::make('model.warranty')->label('warranty'),
+                TextColumn::make('total_distance')
+                    ->state(function($record, VehicleService $vehicleService) {
+                        return round($vehicleService->getTotalDistanceTraveled($record), 2);
+                    }),
+                TextColumn::make('distance_since_inspection')
+                    ->state(function($record, VehicleService $vehicleService) {
+                        return round($vehicleService->getInspectionDistanceTraveled($record), 2);
+                    }),
+
                 TextColumn::make('licencePlate'),
                 TextColumn::make('model.type.title'),
                 TextColumn::make('groups.title'),

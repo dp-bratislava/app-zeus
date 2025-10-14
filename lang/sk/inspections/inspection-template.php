@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť zákazku',
-        'update_heading' => 'Upraviť zákazku: :title',
+        'create_heading' => 'Vytvoriť kontrolu',
+        'update_heading' => 'Upraviť kontrolu: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -23,34 +23,28 @@ return [
     ],
     'table' => [
         'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne zákazky na zobrazenie',
+        'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
+            'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'department' => ['label' => 'Stredisko'],
-            'activities' => ['label' => 'Normy'],
-            'source' => ['label' => 'Miesto výskytu'],
-            'parent' => ['label' => 'Patrí pod'],
+            'is_periodic' => ['label' => 'Cyklická'],
+            'interval_distance' => ['label' => 'inter km'],
+            'first_advance_distance' => ['label' => '1 pred km'],
+            'second_advance_distance' => ['label' => '2 pred km'],
+            'interval_time' => ['label' => 'inter dni'],
+            'first_advance_time' => ['label' => '1 pred dni'],
+            'second_advance_time' => ['label' => '2 pred dni'],
         ]
     ],
     'navigation' => [
-        'label' => 'Zákazky',
-        'group' => 'Zákazky',
+        'label' => 'Šablóny Kontrol',
+        'group' => 'Kontroly',
     ],
     'resource' => [
-        'model_label' => 'Zákazka',
-        'plural_model_label' => 'Zákazky',
+        'model_label' => 'Šablóny kontrola',
+        'plural_model_label' => 'Šablóny kontrol',
     ],
-    'states' => [
-        'created' => 'Nová',
-        'cancelled' => 'Zrušená',
-        'closed' => 'Uzavretá',
-        'in-progress' => 'V riešení',
-    ]
 ];

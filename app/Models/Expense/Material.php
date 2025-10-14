@@ -28,6 +28,7 @@ class Material extends Model implements HasMedia
         'description',
         'price',
         'vat',
+        'ticket_id'
         // 'attachments',
     ];
 
@@ -43,7 +44,7 @@ class Material extends Model implements HasMedia
             ->useDisk('public');
     }
 
-    public function type(): BelongsTo
+    public function ticket(): BelongsTo
     {
         return $this->belongsTo(Ticket::class, "ticket_id");
     }   
