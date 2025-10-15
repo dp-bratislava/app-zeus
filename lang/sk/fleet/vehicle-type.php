@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť skupinu vozidiel',
-        'update_heading' => 'Upraviť skupinu vozidiel: :title',
+        'create_heading' => 'Vytvoriť typ vozidla',
+        'update_heading' => 'Upraviť typ vozidila: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -11,23 +11,24 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => 'Názov',
-            'description' => 'Popis',
         ],
     ],
     'table' => [
-        'heading' => 'Skupiny vozidiel',
-        'empty_state_heading' => 'Žiadne skupint vozidiel na zobrazenie',
+        'heading' => 'Typy vozidiel',
+        'empty_state_heading' => 'Žiadne typy vozidiel na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
         ]
     ],
-    'navigation' => 'Skupiny vozidiel',
+    'navigation' => [
+        'label' => 'Typy vozidiel',
+        'group' => 'Flotila',
+    ],
     'resource' => [
-        'model_label' => 'Skupina vozidiel',
-        'models_label' => 'Skupiny vozidiel',
+        'model_label' => 'Typ vozidla',
+        'plural_model_label' => 'Typy vozidiel',
     ],
 ];

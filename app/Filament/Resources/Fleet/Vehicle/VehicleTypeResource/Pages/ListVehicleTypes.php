@@ -13,7 +13,8 @@ class ListVehicleTypes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->visible(auth()->user()->can('fleet.vehicle-type.create')),
         ];
     }
 }

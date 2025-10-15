@@ -16,7 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class FuelConsumptionTypeResource extends Resource
 {
     protected static ?string $model = FuelConsumptionType::class;
-
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
     public static function getNavigationGroup(): ?string
     {
         return 'Flotila';

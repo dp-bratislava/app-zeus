@@ -2,36 +2,52 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť skupinu vozidiel',
-        'update_heading' => 'Upraviť skupinu vozidiel: :title',
+        'create_heading' => 'Vytvoriť vozidlo',
+        'update_heading' => 'Upraviť vozidlo: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'helper' => 'Štvormiestny kód vozidla',
+                'tooltip' => 'Štvormiestny kód vozidla',
             ],
-            'title' => 'Názov',
-            'description' => 'Popis',
+            'licence_plate' => 'EČV',
+            'dispatch_group' => 'Dopravná prevádzka',
+            'maintenance_group' => 'Technciká prevádzka',
+            'vin' => 'VIN',
+            'model' => 'Model',
+            'department' => 'Stredisko',
+            'groups' => 'Skupiny',
         ],
     ],
     'table' => [
-        'heading' => 'Skupiny vozidiel',
-        'empty_state_heading' => 'Žiadne skupint vozidiel na zobrazenie',
+        'heading' => 'Vozidlá',
+        'empty_state_heading' => 'Žiadne vozidlá na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'code' => 'Kód',
+            'vin' => 'VIN',
+            'model' => 'Model',
+            'type' => 'Typ',
+            'licence_plate' => 'EČV',
+            'groups' => 'Skupiny',
+            'department' => 'SAP Stredisko',
+            'state' => 'Stav',
+            'dispatch_group' => 'Dopravná prevádzka',
+            'maintenance_group' => 'Technciká prevádzka',
         ]
     ],
-    'navigation' => 'Skupiny vozidiel',
+    'navigation' => [
+        'label' => 'Vozidlá',
+        'group' => 'Flotila',
+    ],
     'resource' => [
-        'model_label' => 'Skupina vozidiel',
-        'models_label' => 'Skupiny vozidiel',
+        'model_label' => 'Vozidlo',
+        'plural_model_label' => 'Vozidlá',
     ],
     'states' => [
         'in-service' => 'V prevádzke',
+        'under-repair' => 'V oprave',
         'discarded' => 'Vyradené',
-    ]    
+    ]     
 ];

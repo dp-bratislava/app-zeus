@@ -6,6 +6,7 @@ use App\Filament\Components\DepartmentPicker;
 use App\Filament\Imports\Fleet\VehicleImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\RelationManagers;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Tables\VehicleTable;
 use App\Services\Fleet\VehicleService;
 use App\StateTransitions\Fleet\Vehicle\DiscardedToInService;
 use App\StateTransitions\Fleet\Vehicle\InServiceToDiscarded;
@@ -57,68 +58,7 @@ class VehicleResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state->getValue()) {
-                'in-service' => 'bg-yellow-50',
-                'discarded' => 'bg-red-50',
-                default => null,
-            })
-            ->columns([
-                TextColumn::make('code.code'),
-                // TextColumn::make('code'),
-                // ->state(fn($record) => dd($record->state)),
-                TextColumn::make('model.title'),
-                TextColumn::make('model.length')->label('length'),
-                // TextColumn::make('end_of_warranty'),
-                // TextColumn::make('model.warranty')->label('warranty'),
-                TextColumn::make('total_distance')
-                    ->state(function($record, VehicleService $vehicleService) {
-                        return round($vehicleService->getTotalDistanceTraveled($record), 2);
-                    }),
-                TextColumn::make('distance_since_inspection')
-                    ->state(function($record, VehicleService $vehicleService) {
-                        return round($vehicleService->getInspectionDistanceTraveled($record), 2);
-                    }),
-
-                TextColumn::make('licencePlate'),
-                TextColumn::make('model.type.title'),
-                TextColumn::make('groups.title'),
-                TextColumn::make('state')
-                    ->state(fn(Vehicle $record) => $record->state->label())
-                    ->action(
-                        Action::make('select')
-                            ->requiresConfirmation()
-                            ->action(function (Vehicle $record): void {
-                                // dd($record->state);
-                                $record->state == 'in-service'
-                                    ? $record->state->transition(new InServiceToDiscarded($record, auth()->guard()->user()))
-                                    : $record->state->transition(new DiscardedToInService($record, auth()->guard()->user()));
-                            }),
-                    ),
-                TextColumn::make('Stredisko')
-                    ->state(function (VehicleService $svc, $record) {
-                        return $svc->getDepartment($record)?->code;
-                    }),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(VehicleImporter::class)
-                    ->csvDelimiter(';')
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return VehicleTable::make($table);
     }
 
     public static function infolist(Infolist $infolist): Infolist
