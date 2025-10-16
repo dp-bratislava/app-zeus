@@ -14,6 +14,27 @@ class HeaderService
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');
     // }
 
+    public function setHeader(Ticket $ticket, TicketHeader $header): TicketHeader|null
+    {       
+        $ticketHeader = $this->ticketHeader->where('ticket_id', '=', $ticket->id)->first();
+        
+        // update
+        if ($ticketHeader !== null) {
+            $ticketHeader->ticket = $ticket;
+            $ticketHeader->header = $header;
+            $ticketHeader->save();
+        }
+        else {
+            $ticketHeader = new TicketHeader();
+            $ticketHeader->ticket = $ticket;
+            $ticketHeader->department = null;
+            $ticketHeader->save();
+
+        }
+
+        return $this->ticketHeader;
+    }
+
     public function getHeader(Ticket $ticket): TicketHeader|null
     {        
         return $this->ticketHeader

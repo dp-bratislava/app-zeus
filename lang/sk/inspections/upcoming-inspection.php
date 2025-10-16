@@ -39,6 +39,9 @@ return [
             'km_to_due_distance' => ['label' => 'Km do kontroly'],
             'due_date' => ['label' => 'Dátum kontroly'],
             'days_to_due_date' => ['label' => 'Dní do kontroly'],
+        ],
+        'actions' => [
+            'create_ticket' => 'Vyvoriť zákazku',
         ]
     ],
     'navigation' => [

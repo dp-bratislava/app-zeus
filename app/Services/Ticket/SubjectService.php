@@ -14,6 +14,25 @@ class SubjectService
     // {
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');
     // }
+    public function setSubject(Ticket $ticket, Model $subject): TicketSubject|null
+    {       
+        $ticketSubject = $this->ticketSubject->where('ticket_id', '=', $ticket->id)->first();
+        
+        // update
+        if ($ticketSubject !== null) {
+            $ticketSubject->subject()->associate($subject);
+            $ticketSubject->save();
+        }
+        // create
+        else {
+            $ticketSubject = new TicketSubject();
+            $ticketSubject->ticket()->associate($ticket);
+            $ticketSubject->subject()->associate($subject);
+            $ticketSubject->save();
+        }
+
+        return $this->ticketSubject;
+    }
 
     public function getSubject(Ticket $ticket): Model|null
     {        

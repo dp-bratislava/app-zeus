@@ -62,8 +62,8 @@ class UpcomingInspectionResource extends Resource
     {
         return [
             'index' => Pages\ListUpcomingInspections::route('/'),
-            'create' => Pages\CreateUpcomingInspection::route('/create'),
-            'edit' => Pages\EditUpcomingInspection::route('/{record}/edit'),
+            // 'create' => Pages\CreateUpcomingInspection::route('/create'),
+            // 'edit' => Pages\EditUpcomingInspection::route('/{record}/edit'),
         ];
     }
 

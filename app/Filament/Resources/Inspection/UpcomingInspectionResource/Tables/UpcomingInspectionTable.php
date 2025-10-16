@@ -3,11 +3,13 @@
 namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
 
 use App\Services\Fleet\VehicleService;
+use App\Services\Inspection\CreateTicketService;
 use App\Services\Inspection\SubjectService;
 use App\States;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class UpcomingInspectionTable
 {
@@ -57,8 +59,13 @@ class UpcomingInspectionTable
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('create_ticket')
+                    ->label(__('inspections/upcoming-inspection.table.actions.create_ticket'))
+                    ->action(function ($record, CreateTicketService $createTicketService) {
+                        $createTicketService->createTicket($record);
+                    })
                 // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
                 //         ->(function (ActivityService $svc, array $data, Ticket $record) {
                 //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
@@ -76,7 +83,14 @@ class UpcomingInspectionTable
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\Action::make('bulk_create_tickets')
+                        ->label(__('inspections/upcoming-inspection.table.actions.bulk_create_tickets'))
+                        ->action(function (Collection $records, CreateTicketService $createTicketService) {
+                            foreach ($records as $record) {
+                                $createTicketService->createTicket($record);
+                            }
+                        })
                 ]),
             ]);
     }
