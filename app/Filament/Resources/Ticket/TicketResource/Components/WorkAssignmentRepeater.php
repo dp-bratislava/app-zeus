@@ -19,11 +19,11 @@ class WorkAssignmentRepeater
             ->columnSpan(3)
             ->headers([
                 Header::make('date'),
-                // Header::make('time_from'),
-                // Header::make('time_to'),
+                Header::make('time_from'),
+                Header::make('time_to'),
                 Header::make('contract'),
-                Header::make('poznamka'),
-                Header::make('status'),
+                // Header::make('poznamka'),
+                // Header::make('status'),
             ])
             ->schema([
                 Forms\Components\Group::make()
@@ -52,8 +52,8 @@ class WorkAssignmentRepeater
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
                     ->searchable(),
-                // note
-                Forms\Components\Textarea::make('note'),
+                // // note
+                // Forms\Components\Textarea::make('note'),
             ])
             // ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get, $set, $livewire) {
             //     $ticketId = $livewire->record?->id;

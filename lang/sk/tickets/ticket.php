@@ -14,6 +14,8 @@ return [
             'title' => 'Názov',
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
+            'subject' => 'Vozidlo',
+            'department' => 'Stredisko',
         ],
         'tabs' => [
             'activities' => 'Činnosti / normy',
@@ -34,7 +36,10 @@ return [
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
             'department' => ['label' => 'Stredisko'],
-            'activities' => ['label' => 'Normy'],
+            'activities' => [
+                'label' => 'Normy',
+                'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
+            ],
             'source' => ['label' => 'Miesto výskytu'],
             'parent' => ['label' => 'Patrí pod'],
         ]

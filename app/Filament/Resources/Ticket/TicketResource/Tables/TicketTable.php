@@ -4,15 +4,18 @@ namespace App\Filament\Resources\Ticket\TicketResource\Tables;
 
 use App\Services\Activity\Activity\WorkService;
 use App\Services\Ticket\ActivityService;
+use App\Services\Ticket\CreateTicketService;
 use App\Services\Ticket\HeaderService;
 use App\Services\Ticket\SubjectService;
 use App\States;
 use App\StateTransitions\Ticket\CreatedToInProgress;
 use App\StateTransitions\Ticket\InProgressToCancelled;
 use Dpb\Package\Tickets\Models\Ticket;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketTable
 {
@@ -67,6 +70,7 @@ class TicketTable
                     }),
                 Tables\Columns\TextColumn::make('activities')
                     ->label(__('tickets/ticket.table.columns.activities.label'))
+                    ->tooltip(__('tickets/ticket.table.columns.activities.tooltip'))
                     ->state(function ($record, ActivityService $svc, WorkService $workService) {
                         // $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
                         //     // dd($workService->getWorkIntervals($activity));
@@ -116,20 +120,37 @@ class TicketTable
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
-                // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
-                //         ->(function (ActivityService $svc, array $data, Ticket $record) {
-                //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
-
-                // $data['activities'] = $activities;
-                // dd($activities);
-                // })
-                // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
-                // ->after(function ($action, $record) {
-                //     // $department = $departmentHdl->findOrFail($data['department_id']);
-                //     dd($action);
-                //     $ticketService->assignDepartment($record, $department);
-                // }),
-                // Tables\Actions\ReplicateAction::make(),
+                    ->mutateRecordDataUsing(function (
+                        $record,
+                        array $data,
+                        SubjectService $subjectSvc,
+                        HeaderService $headerSvc,
+                        ActivityService $activitySvc
+                    ): array {
+                        $data['subject_id'] = $subjectSvc->getSubject($record)?->id;
+                        $data['department_id'] = $headerSvc->getHeader($record)?->department?->id;
+                        $data['source_id'] = $record?->source?->id;
+                        // $activities = $activitySvc->getActivities($record);
+                        // foreach ($activities as $activity) {
+                        //     $data['activities'][] = [
+                        //             'id' => $activity->id,
+                        //             'date' => $activity->date,
+                        //             // 'activity_template_id' => $activity->template_id
+                        //     ];
+                        // }
+                        // $data['activities'] = $activitySvc->getActivities($record)
+                        //     ->map(function($activity) {
+                        //         return [
+                        //             'date' => $activity->date,
+                        //             'activity_template_id' => $activity->template_id
+                        //         ];
+                        //     });
+                        $data['activities'] = $activitySvc->getActivities($record);
+                        return $data;
+                    })
+                    ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
+                        return $ticketSvc->update($record,$data);
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

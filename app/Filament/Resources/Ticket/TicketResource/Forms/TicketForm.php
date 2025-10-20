@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Ticket\TicketResource\Forms;
 
+use App\Filament\Components\DepartmentPicker;
+use App\Filament\Components\VehiclePicker;
 use App\Filament\Resources\Ticket\TicketResource\Components\ActivityRepeater;
 use App\Filament\Resources\Ticket\TicketResource\Components\MaterialRepeater;
 use App\Filament\Resources\Ticket\TicketResource\Components\ServiceRepeater;
@@ -9,6 +11,7 @@ use App\Services\Activity\Activity\WorkService;
 use App\Services\Ticket\ActivityService;
 use App\Services\Ticket\HeaderService;
 use App\Services\Ticket\SubjectService;
+use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
@@ -19,24 +22,43 @@ class TicketForm
     public static function make(Form $form): Form
     {
         return $form
-            ->columns(6)
+            ->columns(7)
             ->schema([
                 Forms\Components\DatePicker::make('date')
                     ->label(__('tickets/ticket.form.fields.date'))
                     ->columnSpan(1)
                     ->default(now()),
+                // VehiclePicker::make('subject')
+                //     ->label(__('tickets/ticket.form.fields.subject'))
+                //     ->columnSpan(1)
+                //     // ->relationship('department', 'title')
+                //     ->getOptionLabelFromRecordUsing(null)
+                //     ->getSearchResultsUsing(null)
+                //     ->searchable(),
+                Forms\Components\Select::make('subject_id')
+                    ->label(__('tickets/ticket.form.fields.subject'))
+                    ->columnSpan(3)
+                    // ->relationship('source', 'title', null, true)
+                    ->options(fn() => Vehicle::pluck('code_1', 'id'))
+                    ->preload()
+                    ->searchable()
+                    ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                    ->required(false),                
                 // Forms\Components\Select::make('group_id')
                 //     ->label(__('tickets/ticket.form.fields.title'))
                 //     ->relationship('group', 'title')
                 //     ->live(),
                 Forms\Components\TextInput::make('title')
                     ->columnSpan(3)
-                    ->label(__('tickets/ticket.form.fields.title')),
+                    ->label(__('tickets/ticket.form.fields.title'))
+                    // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                    ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
                 Forms\Components\ToggleButtons::make('source_id')
                     ->label(__('tickets/ticket.form.fields.source'))
+                    ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                     // ->relationship('source', 'title')
                     ->inline()
-                    ->columnSpan(2)
+                    ->columnSpan(7)
                     ->options(fn() => TicketSource::pluck('title', 'id')),
 
                 // Forms\Components\Select::make('source_id')
@@ -53,17 +75,19 @@ class TicketForm
                 //     ->searchable()
                 //     ->required(false),
                 //department
-                // DepartmentPicker::make('department_id')
-                //     ->relationship('department', 'title')
-                //     ->getOptionLabelFromRecordUsing(null)
-                //     ->getSearchResultsUsing(null)
-                //     ->searchable()
-                //     // ->default(function(TicketService $ticketService, $record) {
-                //     //return $ticketService->getDepartment($record)->id;
-                //     // return 283;
-                //     // })
-                //     // ->dehydrated(false)
-                //     ->required(),
+                DepartmentPicker::make('department_id')
+                    ->label(__('tickets/ticket.form.fields.department'))
+                    // ->relationship('department', 'title')
+                    ->getOptionLabelFromRecordUsing(null)
+                    ->getSearchResultsUsing(null)
+                    ->searchable()
+                    ->columnSpan(4)
+                    // ->default(function(TicketService $ticketService, $record) {
+                    //return $ticketService->getDepartment($record)->id;
+                    // return 283;
+                    // })
+                    // ->dehydrated(false)
+                    ->required(),
                 // vehicle
                 // Forms\Components\MorphToSelect::make('subject')
                 //     ->types([
@@ -93,7 +117,7 @@ class TicketForm
                             ->badge(3)
                             ->icon('heroicon-m-wrench')
                             ->schema([
-                                // ActivityRepeater::make('activities')
+                                ActivityRepeater::make('activities')
                                 // ->relationship('activities'),
                             ]),
                         // materials

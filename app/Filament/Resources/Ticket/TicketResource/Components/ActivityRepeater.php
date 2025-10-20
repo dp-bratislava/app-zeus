@@ -23,7 +23,7 @@ class ActivityRepeater
             ->headers([
                 Header::make('date'),
                 Header::make('template'),
-                Header::make('pracovne vykony'),
+                // Header::make('pracovne vykony'),
                 // Header::make('e1'),
                 // Header::make('e2'),
             ])
@@ -31,14 +31,14 @@ class ActivityRepeater
                 Forms\Components\DatePicker::make('date')
                     ->default(now()),
                 ActivityTemplatePicker::make('activity_template_id')
-                    ->relationship('template', 'title')
+                    // ->relationship('template', 'title')
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
-                    // ->live()
-                    // ->afterStateUpdated(function (Set $set, Get $get) {
-                    //     $template = ActivityTemplate::find($get('activity_template_id'));
-                    //     $set('template_duration', $template?->duration);
-                    // })
+                    ->live()
+                    ->afterStateUpdated(function (Set $set, Get $get) {
+                        $template = ActivityTemplate::find($get('activity_template_id'));
+                        $set('template_duration', $template?->duration);
+                    })
                     ->searchable(),
                 // Forms\Components\TextInput::make('template_duration')                    
                 //     ->readOnly()

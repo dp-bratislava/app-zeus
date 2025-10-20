@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Reports;
 
 use App\Filament\Resources\Reports\VehicleStatusReportResource\Pages;
 use App\Filament\Resources\Reports\VehicleStatusReportResource\RelationManagers;
-use App\Models\Reports\VehicleStatusReport;
+// use App\Models\Reports\VehicleStatusReport;
 use Carbon\Carbon;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Forms;
@@ -20,7 +20,25 @@ class VehicleStatusReportResource extends Resource
 {
     protected static ?string $model = Vehicle::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getModelLabel(): string
+    {
+        return __('reports/vehicle-status-report.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('reports/vehicle-status-report.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('reports/vehicle-status-report.navigation.label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('reports/vehicle-status-report.navigation.group');
+    }
 
     public static function form(Form $form): Form
     {
@@ -37,8 +55,8 @@ class VehicleStatusReportResource extends Resource
             ->defaultPaginationPageOption(100)
             ->columns([
                 Tables\Columns\TextColumn::make('TP')
-                    ->state(function () {
-                        return rand(1, 3) . 'TP';
+                    ->state(function ($record) {
+                        return $record->code->code[0] . 'TP';
                     }),
                 Tables\Columns\TextColumn::make('model.title')
                     ->searchable()
@@ -103,8 +121,8 @@ class VehicleStatusReportResource extends Resource
     {
         return [
             'index' => Pages\ListVehicleStatusReports::route('/'),
-            'create' => Pages\CreateVehicleStatusReport::route('/create'),
-            'edit' => Pages\EditVehicleStatusReport::route('/{record}/edit'),
+            // 'create' => Pages\CreateVehicleStatusReport::route('/create'),
+            // 'edit' => Pages\EditVehicleStatusReport::route('/{record}/edit'),
         ];
     }
 }

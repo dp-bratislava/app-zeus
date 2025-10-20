@@ -18,7 +18,7 @@
     <div>datum: {{ $ticket->date }}</div>
     <div>nazov: {{ $ticket->title }}</div>
     <div>popis: {{ $ticket->description }}</div>
-    <div>stav: {{ $ticket->state->label() }}</div>
+    <div>stav: {{ $ticket?->state?->label() }}</div>
 </div>
   <div class="bg-gray-300 p-4">
     <div>zadal: {{ $ticketHeader?->author?->employee?->last_name }}</div>

@@ -22,12 +22,14 @@ class HeaderService
         if ($ticketHeader !== null) {
             $ticketHeader->ticket = $ticket;
             $ticketHeader->header = $header;
+            // $ticketHeader->author = $this->auth->getAuthIdentifier();
             $ticketHeader->save();
         }
         else {
             $ticketHeader = new TicketHeader();
             $ticketHeader->ticket = $ticket;
             $ticketHeader->department = null;
+            // $ticketHeader->author = $this->auth->getAuthIdentifier();
             $ticketHeader->save();
 
         }

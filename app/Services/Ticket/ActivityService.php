@@ -10,15 +10,29 @@ class ActivityService
 {
     public function __construct(protected ActivityAssignment $activityAssignmentModel) {}
 
-    // public function assignUnitRate(ActivityTemplate $tempalte, UnitRate $unitRate)
-    // {
-    //     $this->erService->createRelation($ticket, $vehicle, 'assigned');
-    // }
+    public function addActivities(Ticket $ticket, Collection $activities)
+    {       
+        foreach ($activities as $key => $activity) {
+            $this->activityAssignmentModel->create([
+                'activity_id' => $activity->id,
+                'subject_id' => $ticket->id,
+                'subject_type' => $ticket->getMorphClass()
+            ]);
+        } 
+    }
+
+    public function syncActivities(Ticket $ticket, Collection $activities): Collection
+    {        
+        return $this->activityAssignmentModel
+            ->where('subject_id', '=', $ticket->id)
+            ->where('subject_type', '=', 'ticket')
+            ->sync($activities);
+    }
 
     public function getActivities(Ticket $ticket): Collection
     {        
         return $this->activityAssignmentModel
-            ->with('activity')
+            ->with(['activity', 'activity.template'])
             ->where('subject_id', '=', $ticket->id)
             ->where('subject_type', '=', 'ticket')
             ->get()

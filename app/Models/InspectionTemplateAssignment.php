@@ -25,7 +25,7 @@ class InspectionTemplateAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'inspection_template_assignments';
+        return config('database.table_prefix') . 'inspection_templatables';
     }
 
     public function template(): BelongsTo 
