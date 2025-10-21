@@ -17,22 +17,23 @@ class InspectionTemplateTable
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->label(__('inspections/inspection-template.table.columns.code.label')),
-                Tables\Columns\TextColumn::make('title')                
-                    ->label(__('inspections/inspection-template.table.columns.title.label')),
-
+                // title
+                Tables\Columns\TextColumn::make('title')
+                    ->label(__('inspections/inspection-template.table.columns.title.label'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('interval_distance')
                     ->label(__('inspections/inspection-template.table.columns.interval_distance.label'))
-                    ->state(function($record) {
+                    ->state(function ($record) {
                         return $record->conditions()->where('code', '=', 'treshold')->first()?->value;
                     }),
                 Tables\Columns\TextColumn::make('first_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.first_advance_distance.label'))
-                    ->state(function($record) {
+                    ->state(function ($record) {
                         return $record->conditions()->where('code', '=', '1-advance')->first()?->value;
                     }),
                 Tables\Columns\TextColumn::make('second_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.second_advance_distance.label'))
-                    ->state(function($record) {
+                    ->state(function ($record) {
                         return $record->conditions()->where('code', '=', '2-advance')->first()?->value;
                     }),
                 Tables\Columns\TextColumn::make('interval_time')

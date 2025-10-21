@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle;
 
+use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists\VehicleModelForm;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Tables\VehicleModelTable;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists\VehicleModelInfolist;
@@ -41,20 +42,7 @@ class VehicleModelResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label(__('fleet/vehicle-model.form.fields.title.label')),
-                Forms\Components\TextInput::make('year')
-                    ->label(__('fleet/vehicle-model.form.fields.year.label'))
-                    ->numeric(),
-
-                Forms\Components\Select::make('type_id')                
-                    ->label(__('fleet/vehicle-model.form.fields.type.label'))
-                    ->relationship('type', 'title')
-                    ->searchable()
-                    ->preload()
-            ]);
+        return VehicleModelForm::make($form);
     }
 
     public static function infolist(Infolist $infolist): Infolist

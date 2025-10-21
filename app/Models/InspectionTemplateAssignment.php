@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Dpb\Package\Inspections\Models\Inspection;
+use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -30,7 +30,7 @@ class InspectionTemplateAssignment extends Model
 
     public function template(): BelongsTo 
     {
-        return $this->belongsTo(Inspection::class);
+        return $this->belongsTo(InspectionTemplate::class);
     } 
 
     public function subject(): MorphTo

@@ -4,6 +4,8 @@ namespace App\Filament\Resources\Fleet\Vehicle;
 
 use App\Filament\Components\DepartmentPicker;
 use App\Filament\Imports\Fleet\VehicleImporter;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Forms\VehicleForm;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Infolists\VehicleInfolist;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\RelationManagers;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Tables\VehicleTable;
@@ -28,32 +30,29 @@ class VehicleResource extends Resource
 {
     protected static ?string $model = Vehicle::class;
 
-    protected static ?string $navigationLabel = 'Vozidlá';
-    protected static ?string $pluralModelLabel = 'Vozidlá';
-    protected static ?string $ModelLabel = 'Vozidlo';
+    public static function getModelLabel(): string
+    {
+        return __('fleet/vehicle.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('fleet/vehicle.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('fleet/vehicle.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Flotila';
+        return __('fleet/vehicle.navigation.group');
     }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('vin')->label('VIN'),
-                Forms\Components\TextInput::make('code')->label('Kód'),
-                Forms\Components\Select::make('model_id')
-                    ->label('')
-                    ->relationship('model', 'title')
-                    ->preload()
-                    ->searchable(),
-                DepartmentPicker::make('department')
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable()
-                    ->label('Stredisko')
-            ]);
+        return VehicleForm::make($form);
     }
 
     public static function table(Table $table): Table
@@ -63,45 +62,7 @@ class VehicleResource extends Resource
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        return $infolist
-            ->schema([
-                Infolists\Components\Tabs::make('tabs')
-                    ->tabs([
-                        Infolists\Components\Tabs\Tab::make('technicke parametre')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('poistne udalosti')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('poruchy')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('material')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('tickets.materials.title'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('STK')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-
-                    ])
-            ]);
+        return VehicleInfolist::make($infolist);
     }
 
     public static function getRelations(): array

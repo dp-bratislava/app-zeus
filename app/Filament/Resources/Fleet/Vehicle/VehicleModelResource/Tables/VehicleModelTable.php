@@ -4,11 +4,10 @@ namespace App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Tables;
 
 use App\Filament\Imports\Fleet\VehicleModelImporter;
 use Filament\Tables;
-use Filament\Resources\Resource;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 
-class VehicleModelTable extends Resource
+class VehicleModelTable
 {
     public static function make(Table $table): Table
     {
@@ -17,7 +16,8 @@ class VehicleModelTable extends Resource
             ->defaultPaginationPageOption(100)
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('fleet/vehicle-model.table.columns.title.label')),
+                    ->label(__('fleet/vehicle-model.table.columns.title.label'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('year')
                     ->label(__('fleet/vehicle-model.table.columns.year.label')),
                 Tables\Columns\TextColumn::make('length')

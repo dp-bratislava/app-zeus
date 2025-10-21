@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
 
 use App\Services\Fleet\VehicleService;
 use App\Services\Inspection\CreateTicketService;
-use App\Services\Inspection\SubjectService;
+use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
 use App\States;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
@@ -28,7 +28,7 @@ class UpcomingInspectionTable
                     ->label(__('inspections/upcoming-inspection.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket.table.columns.subject.label'))
-                    ->state(function ($record, SubjectService $svc) {
+                    ->state(function ($record, InspectionAssignmentService $svc) {
                         return $svc->getSubject($record)?->code?->code;
                     }),
                 Tables\Columns\TextColumn::make('template.title')
@@ -42,9 +42,9 @@ class UpcomingInspectionTable
                     ->label(__('inspections/upcoming-inspection.table.columns.note.label')),
                 Tables\Columns\TextColumn::make('distance_traveled')
                     ->label(__('inspections/upcoming-inspection.table.columns.distance_traveled.label'))
-                    ->state(function ($record, VehicleService $vehicleService, SubjectService $subjectService) {
-                        $vehicle = $subjectService->getSubject($record);
-                        return round($vehicleService->getInspectionDistanceTraveled($vehicle), 2);
+                    ->state(function ($record, VehicleService $vehicleSvc, InspectionAssignmentService $assignmentSvc) {
+                        $vehicle = $assignmentSvc->getSubject($record);
+                        return round($vehicleSvc->getInspectionDistanceTraveled($vehicle), 2);
                     }),
                 Tables\Columns\TextColumn::make('due_distance')
                     ->label(__('inspections/upcoming-inspection.table.columns.due_distance.label')),

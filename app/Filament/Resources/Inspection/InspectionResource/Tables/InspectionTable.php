@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Inspection\InspectionResource\Tables;
 
-use App\Services\Inspection\SubjectService;
+use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
 use App\States;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
@@ -26,7 +26,7 @@ class InspectionTable
                     ->label(__('inspections/inspection.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket.table.columns.subject.label'))
-                    ->state(function ($record, SubjectService $svc) {
+                    ->state(function ($record, InspectionAssignmentService $svc) {
                         return $svc->getSubject($record)?->code?->code;
                     }),
                 Tables\Columns\TextColumn::make('template.title')
