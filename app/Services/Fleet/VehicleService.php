@@ -55,6 +55,10 @@ class VehicleService
      */
     public function getInspectionDistanceTraveled(Vehicle $vehicle)
     {
+        if (!$vehicle) {
+            return;
+        }
+
         $lastInspectionDate = '2025-10-10';
         return $vehicle->travelLog()
             ->where('date', '>',  $lastInspectionDate)

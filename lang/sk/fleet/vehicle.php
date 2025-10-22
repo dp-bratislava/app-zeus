@@ -47,7 +47,10 @@ return [
     ],
     'states' => [
         'in-service' => 'V prevádzke',
-        'under-repair' => 'V oprave',
+        'under-repair' => 'Prebieha oprava',
         'discarded' => 'Vyradené',
+        'warranty-repair' => 'Záručná oprava',
+        'warranty-claim' => 'Reklamácia',
+        'missing-parts' => 'Čaká na náhr. diely',
     ]     
 ];

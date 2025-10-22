@@ -38,7 +38,7 @@ class TemplateAssignmentService
         return $this->inspectionTemplateAssignment
             ->with('subject')
             ->where('template_id', '=', $inspectionTemplate->id)
-            ->when($subjectTypes != null, function($q, $subjectTypes) {
+            ->when($subjectTypes != null, function($q) use($subjectTypes) {
                 return $q->whereIn('subject_type', $subjectTypes);
             })
             ->get()

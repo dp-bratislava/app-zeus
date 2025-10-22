@@ -90,11 +90,11 @@
                         <tbody>
                             @foreach ($workAssignments[$activity->id] as $workAssignment)                        
                             <tr>
-                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval->date->format('Y-m-d') }}</td>                                                              
-                                <td class="px-3 py-2 border-b">{{ $workAssignment?->employeeContract->pid }}</td>
-                                <td class="px-3 py-2 border-b">{{ $workAssignment?->employeeContract->employee->last_name }}</td>
-                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval->time_from->format('H:i') }}</td>
-                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval->duration }}</td>
+                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval?->date?->format('Y-m-d') }}</td>                                                              
+                                <td class="px-3 py-2 border-b">{{ $workAssignment?->employeeContract?->pid }}</td>
+                                <td class="px-3 py-2 border-b">{{ $workAssignment?->employeeContract?->employee?->last_name }}</td>
+                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval?->time_from?->format('H:i') }}</td>
+                                <td class="px-3 py-2 border-b">{{ $workAssignment?->workInterval?->duration }}</td>
                             </tr>
                         @endforeach
                         </tbody>

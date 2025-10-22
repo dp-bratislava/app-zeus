@@ -35,7 +35,7 @@ class UpcomingInspectionTable
                     ->label(__('inspections/upcoming-inspection.table.columns.template.label')),
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('inspections/upcoming-inspection.table.columns.state.label'))
-                    ->state(fn(Inspection $record) => $record->state->label()),
+                    ->state(fn(Inspection $record) => $record?->state?->label()),
                 Tables\Columns\TextColumn::make('subject.maintenanceGroup.title')
                     ->label(__('inspections/upcoming-inspection.table.columns.maintenance_group.label')),
                 Tables\Columns\TextColumn::make('note')
