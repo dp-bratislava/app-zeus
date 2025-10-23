@@ -41,9 +41,9 @@ class DailyMaintenanceTable
                 Tables\Columns\TextColumn::make('note')
                     ->label(__('inspections/daily-maintenance.table.columns.note.label')),
                 Tables\Columns\TextColumn::make('total_time')
-                    ->label(__('inspections/daily-maintenance.table.columns.note.label')),
-                Tables\Columns\TextColumn::make('personel')
-                    ->label(__('inspections/daily-maintenance.table.columns.note.label')),
+                    ->label(__('inspections/daily-maintenance.table.columns.total_time.label')),
+                Tables\Columns\TextColumn::make('contracts')
+                    ->label(__('inspections/daily-maintenance.table.columns.contracts.label')),
             ])
             ->filters([
                 //

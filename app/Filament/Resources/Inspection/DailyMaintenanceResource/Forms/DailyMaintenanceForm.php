@@ -36,12 +36,13 @@ class DailyMaintenanceForm
                     ->inline()
                     ->options(
                         fn() =>
-                        InspectionTemplate::whereIn('title', [
-                            'Odstavná plocha',
-                            'Pristavovanie vozidla',
-                            'Programovanie',
-                            'Strojové čistenie vozidla',
-                        ])
+                        InspectionTemplate::byGroup('daily-maintenance')
+                        // InspectionTemplate::whereIn('title', [
+                        //     'Odstavná plocha',
+                        //     'Pristavovanie vozidla',
+                        //     'Programovanie',
+                        //     'Strojové čistenie vozidla',
+                        // ])
                             ->pluck('title', 'id')
                     )
                     ->live()

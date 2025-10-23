@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Inspection\InspectionTemplateResource\Tables;
 
-use App\States;
-use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -46,6 +44,8 @@ class InspectionTemplateTable
                 Tables\Columns\IconColumn::make('is_periodic')
                     ->label(__('inspections/inspection-template.table.columns.is_periodic.label'))
                     ->boolean(),
+                Tables\Columns\TextColumn::make('groups.title')
+                    ->label(__('inspections/inspection-template.table.columns.groups.label')),
             ])
             ->filters([
                 //

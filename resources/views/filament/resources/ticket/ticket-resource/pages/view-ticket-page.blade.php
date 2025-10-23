@@ -4,13 +4,13 @@
     icon="heroicon-m-chevron-double-left"
     color="primary"
     tag="a"
-    href="{{ route('filament.admin.resources.ticket.tickets.index') }}"
+    href="{{ route('filament.admin.resources.t-s.tickets.index') }}"
 >
     Zákazky
 </x-filament::button>
 
 @if ($ticket->parent)
-    <div>patri pod: <a href="{{ route('filament.admin.resources.ticket.tickets.view', ['record' => $ticket->parent->id]) }}">{{ $ticket->parent->id . ' - '. $ticket->parent->title }}</div>    
+    <div>patri pod: <a href="{{ route('filament.admin.resources.t-s.tickets.view', ['record' => $ticket->parent->id]) }}">{{ $ticket->parent->id . ' - '. $ticket->parent->title }}</div>    
 @endif
 
 <div class="grid grid-cols-3 gap-4">

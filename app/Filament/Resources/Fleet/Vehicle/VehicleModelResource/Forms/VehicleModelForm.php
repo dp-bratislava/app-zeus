@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists;
+namespace App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Forms;
 
 use Filament\Forms;
 use Filament\Forms\Form;

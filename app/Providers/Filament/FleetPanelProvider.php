@@ -41,7 +41,7 @@ class FleetPanelProvider extends PanelProvider
                 NavigationItem::make('tickets')
                     ->label('tickets')
                     // ->url(fn (): string => Dashboard::getUrl())
-                    ->url(fn (): string => route('filament.admin.resources.ticket.tickets.index'))
+                    ->url(fn (): string => route('filament.admin.resources.t-s.tickets.index'))
             ])
             ->discoverWidgets(in: app_path('Filament/Fleet/Widgets'), for: 'App\\Filament\\Fleet\\Widgets')
             ->widgets([

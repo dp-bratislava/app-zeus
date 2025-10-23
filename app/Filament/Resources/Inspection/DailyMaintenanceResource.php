@@ -10,6 +10,7 @@ use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class DailyMaintenanceResource extends Resource
 {
@@ -53,4 +54,10 @@ class DailyMaintenanceResource extends Resource
             'edit' => Pages\EditDailyMaintenance::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->byTemplateGroup('daily-maintenance');
+    }    
 }

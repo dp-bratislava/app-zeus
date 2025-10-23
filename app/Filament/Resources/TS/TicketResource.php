@@ -2,243 +2,52 @@
 
 namespace App\Filament\Resources\TS;
 
-use App\Filament\Components\ContractPicker;
-use App\Filament\Components\DepartmentPicker;
+use App\Filament\Resources\TS\TicketResource\Forms\TicketForm;
 use App\Filament\Resources\TS\TicketResource\Pages;
-use App\Filament\Resources\TS\TicketResource\RelationManagers;
-use App\Models\BM\Building;
-use App\Models\Fleet\Vehicle as FleetVehicle;
-use App\Models\TS\Ticket;
-use App\Models\TS\ActivityStatus;
-use App\Models\TS\TicketGroup;
-use Awcodes\TableRepeater\Components\TableRepeater;
-use Awcodes\TableRepeater\Header;
-use Filament\Forms;
+use App\Filament\Resources\TS\TicketResource\Tables\TicketTable;
+use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Zakazky';
-    protected static ?string $pluralModelLabel = 'Zakazky';
-    protected static ?string $ModelLabel = 'Zakazka';
-
-    public static function canViewAny(): bool
+    public static function getModelLabel(): string
     {
-        return false;
+        return __('tickets/ticket.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('tickets/ticket.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('tickets/ticket.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'temp';
+        return __('tickets/ticket.navigation.group');
     }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\DatePicker::make('date')->default(now()),
-                Forms\Components\Select::make('group_id')
-                    ->relationship('group', 'title')
-                    ->live(),
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\TextInput::make('description'),
-                Forms\Components\Select::make('parent_id')
-                    ->relationship('parent', 'title', null, true)
-                    ->searchable()
-                    ->required(false),
-                //department
-                DepartmentPicker::make('department_id')
-                    ->relationship('department', 'title')
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable()
-                    ->required(),
-                Forms\Components\Select::make('vehicles')
-                    ->relationship('vehicles', 'code')
-                    ->options(fn() => FleetVehicle::pluck('code', 'id'))
-                    ->multiple()
-                    ->searchable()
-                    ->visible(function($get) {
-                        $ticketGroup = TicketGroup::find($get('group_id'))?->code;
-                        return $ticketGroup === 'fleet';
-                    }),
-                Forms\Components\Select::make('buildings')
-                    ->relationship('buildings', 'code')
-                    ->options(fn() => Building::pluck('title', 'id'))
-                    ->multiple()
-                    ->searchable()
-                    ->visible(function($get) {
-                        $ticketGroup = TicketGroup::find($get('group_id'))?->code;
-                        return $ticketGroup === 'building_management';
-                    }),                    
-
-                // standardised activities 
-                Forms\Components\Tabs::make('Tabs')
-                    ->columnSpanFull()
-                    ->tabs([
-                        // standardised activities
-                        Forms\Components\Tabs\Tab::make('Std activities')
-                            ->schema([
-                                Forms\Components\Repeater::make('standardisedActivities')
-                                    ->relationship('standardisedActivities')
-                                    ->defaultItems(0)
-                                    ->schema([
-                                        Forms\Components\Select::make('template_id')
-                                            ->relationship('template', 'title')
-                                            ->searchable(),
-
-                                        // activities
-                                        TableRepeater::make('activities')
-                                            ->relationship('activities')
-                                            ->defaultItems(0)
-                                            ->cloneable()
-                                            ->headers([
-                                                Header::make('date'),
-                                                Header::make('time_from'),
-                                                Header::make('time_to'),
-                                                Header::make('description'),
-                                                Header::make('contract'),
-                                                Header::make('status'),
-                                            ])
-                                            ->schema([
-                                                Forms\Components\DatePicker::make('date')
-                                                    ->default(now()),
-                                                // Forms\Components\TextInput::make('duration')
-                                                //     ->numeric()
-                                                //     ->integer()
-                                                //     ->default(60),
-                                                Forms\Components\TimePicker::make('time_from'),
-                                                Forms\Components\TimePicker::make('time_to'),
-                                                Forms\Components\Textarea::make('description'),
-                                                ContractPicker::make('employee_contract_id')
-                                                    ->relationship('employeeContract', 'pid')
-                                                    ->getOptionLabelFromRecordUsing(null)
-                                                    ->getSearchResultsUsing(null)
-                                                    ->searchable(),
-                                                Forms\Components\ToggleButtons::make('status_id')
-                                                    ->options(fn() => ActivityStatus::pluck('title', 'id'))
-                                                    ->default(ActivityStatus::where('code', '=', 'undone')->first()->id),
-                                            ])
-                                            ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get, $set, $livewire) {
-                                                $ticketId = $livewire->record?->id;
-
-                                                if ($ticketId) {
-                                                    $data['ticket_id'] = $ticketId;
-                                                }
-
-                                                return $data;
-                                            }),
-                                    ]),
-                            ]),
-                        // activities
-                        Forms\Components\Tabs\Tab::make('activities')
-                            ->schema([
-                                TableRepeater::make('activities')
-                                    ->relationship('activities')
-                                    ->defaultItems(0)
-                                    ->columnSpanFull()
-                                    ->headers([
-                                        Header::make('date'),
-                                        Header::make('time_from'),
-                                        Header::make('time_to'),
-                                        Header::make('description'),
-                                        Header::make('contract'),
-                                        Header::make('status'),
-                                    ])
-                                    ->schema([
-                                        Forms\Components\DatePicker::make('date')
-                                            ->default(now()),
-                                        // Forms\Components\TextInput::make('duration')
-                                        //     ->numeric()
-                                        //     ->integer()
-                                        //     ->default(60),
-                                        Forms\Components\TimePicker::make('time_from'),
-                                        Forms\Components\TimePicker::make('time_to'),
-                                        Forms\Components\Textarea::make('description'),
-                                        ContractPicker::make('employee_contract_id')
-                                            ->relationship('employeeContract', 'pid')
-                                            ->getOptionLabelFromRecordUsing(null)
-                                            ->getSearchResultsUsing(null)
-                                            ->searchable(),
-                                        Forms\Components\ToggleButtons::make('status_id')
-                                            ->options(fn() => ActivityStatus::pluck('title', 'id'))
-                                            ->default(ActivityStatus::where('code', '=', 'undone')->first()->id),
-                                    ]),
-                            ]),
-                        // materials
-                        Forms\Components\Tabs\Tab::make('materials')
-                            ->schema([
-                                TableRepeater::make('materials')
-                                    ->relationship('materials')
-                                    ->defaultItems(0)
-                                    ->headers([
-                                        Header::make('title'),
-                                        Header::make('unit_price'),
-                                        Header::make('vat'),
-                                        Header::make('quantity'),
-                                    ])
-                                    ->schema([
-                                        Forms\Components\TextInput::make('title'),
-                                        Forms\Components\TextInput::make('unit_price')->numeric(),
-                                        Forms\Components\TextInput::make('vat')->default(23),
-                                        Forms\Components\TextInput::make('quantity')->integer(),
-                                    ]),
-                            ])
-                    ])
-            ]);
+        return TicketForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('date')->date(),
-                TextColumn::make('parent.id'),
-                TextColumn::make('title'),
-                TextColumn::make('description'),
-                TextColumn::make('department.code'),
-                Tables\Columns\TextColumn::make('expenses')
-                    ->state(function ($record) {
-                        $result = $record->materials->sum(function ($material) {
-                            return $material->unit_price * $material->quantity;
-                        });
-                        return $result;
-                    }),
-                Tables\Columns\TextColumn::make('man_minutes')
-                    ->state(function ($record) {
-                        $result = $record->activities->sum('duration');
-                        return $result;
-                    }),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ReplicateAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return TicketTable::make($table);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            // ActivitiesRelationManager::class,
         ];
     }
 
@@ -246,8 +55,25 @@ class TicketResource extends Resource
     {
         return [
             'index' => Pages\ListTickets::route('/'),
-            'create' => Pages\CreateTicket::route('/create'),
-            'edit' => Pages\EditTicket::route('/{record}/edit'),
+            // 'create' => Pages\CreateTicket::route('/create'),
+            // 'view' => Pages\ViewTicket::route('/{record}'),
+            'view' => Pages\ViewTicketPage::route('/{record}'),
+            // 'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
+
+    // public static function canCreate(): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.create');
+    // }
+
+    // public static function canEdit(Model $record): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.update');
+    // }   
+    
+    // public static function canDelete(Model $record): bool
+    // {        
+    //     return auth()->check() && auth()->user()->can('tickets.ticket.delete');
+    // }       
 }

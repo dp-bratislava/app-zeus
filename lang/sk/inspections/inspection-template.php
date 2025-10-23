@@ -37,6 +37,7 @@ return [
             'interval_time' => ['label' => 'inter dni'],
             'first_advance_time' => ['label' => '1 pred dni'],
             'second_advance_time' => ['label' => '2 pred dni'],
+            'groups' => ['label' => 'Skupiny'],
         ]
     ],
     'navigation' => [

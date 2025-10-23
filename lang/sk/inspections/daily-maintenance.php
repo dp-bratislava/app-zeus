@@ -5,26 +5,21 @@ return [
         'create_heading' => 'Denné ošetrenie',
         'update_heading' => 'Upraviť denné ošetrenie: :title',
         'fields' => [
-            'code' => [
-                'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-            ],
             'date' => 'Dátum',
             'vehicles' => 'Vozidlá',
             'template' => 'Typ ošetrenia',
             'contracts' => 'Zamestnanci',
             'activity-templates' => 'Činnosti / normy',
         ],
-        'tabs' => [
+        'sections' => [
+            'vehicles' => 'Vozidlá',
+            'contracts' => 'Zamestnanci',
             'activity-templates' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
+       ]
     ],
     'table' => [
         'heading' => 'Kontroly',
-        'empty_state_heading' => 'Žiadne nadchádzajúce kontroly na zobrazenie',
+        'empty_state_heading' => 'Žiadne denné ošetrenie na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
@@ -38,9 +33,6 @@ return [
             'contracts' => ['label' => 'Vykonal'],
             'total_time' => ['label' => 'Celkový čas']
         ],
-        'actions' => [
-            'create_ticket' => 'Vyvoriť zákazku',
-        ]
     ],
     'navigation' => [
         'label' => 'Denné ošetrenie',

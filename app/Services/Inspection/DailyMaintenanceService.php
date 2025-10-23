@@ -6,9 +6,9 @@ use App\Models\Datahub\Department;
 use App\Models\InspectionAssignment;
 use App\Models\InspectionTemplateAssignment;
 use App\Models\WorkAssignment;
-use App\Services\Ticket\ActivityService;
-use App\Services\Ticket\CreateTicketService as TicketCreateTicketService;
-use App\Services\Ticket\SubjectService;
+use App\Services\TS\ActivityService;
+use App\Services\TS\CreateTicketService as TicketCreateTicketService;
+use App\Services\TS\SubjectService;
 use App\States;
 use Carbon\Carbon;
 use Dpb\Package\Activities\Models\Activity;
@@ -58,7 +58,7 @@ class DailyMaintenanceService
                     'date' => $formData['date'],
                     'title' => $inspectionTemplate->title,
                     'source_id' => TicketSource::byCode('planned-maintenance')->first()->id,
-                    States\Ticket\Created::$name,
+                    States\TS\Ticket\Created::$name,
                     'department_id' => Department::where('code', '=', '9800')->first()->id,
                     'subject_id' => $vehicleId
                 ];

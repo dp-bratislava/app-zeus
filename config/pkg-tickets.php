@@ -15,6 +15,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'classes' => [
-        'ticket_state_class' => '\App\States\Ticket\TicketState::class',
+        'ticket_state_class' => '\App\States\TS\Ticket\TicketState::class',
+        'ticket_item_state_class' => '\App\States\TS\TicketItem\TicketItemState::class',
     ],    
 ];

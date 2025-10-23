@@ -7,6 +7,7 @@ use App\Models\Datahub\EmployeeContract;
 use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TicketHeader extends Model
@@ -23,6 +24,8 @@ class TicketHeader extends Model
         'department_id',
         'author_id',
         'assigned_to',
+        'source_id',
+        'source_type',
     ];
 
     public function getTable()
@@ -51,4 +54,9 @@ class TicketHeader extends Model
         // return $this->belongsTo(User::class, "assigned_to");
         return $this->belongsTo(EmployeeContract::class, "assigned_to");
     }
+    
+    public function source(): MorphTo
+    {
+        return $this->morphTo();
+    }    
 }
