@@ -41,7 +41,7 @@ return [
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
             'source' => ['label' => 'Miesto výskytu'],
-            'parent' => ['label' => 'Patrí pod'],
+            'ticket' => ['label' => 'Patrí pod'],
         ]
     ],
     'navigation' => [

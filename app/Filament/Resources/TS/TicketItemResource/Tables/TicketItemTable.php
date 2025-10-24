@@ -7,6 +7,7 @@ use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
+use App\Services\TS\TicketAssignmentService;
 use App\States;
 use App\StateTransitions\TS\TicketItem\CreatedToInProgress;
 use App\StateTransitions\TS\TicketItem\InProgressToCancelled;
@@ -59,38 +60,45 @@ class TicketItemTable
                 // TextColumn::make('department.code'),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket-item.table.columns.subject.label'))
-                    ->state(function ($record, SubjectService $svc) {
-                        return $svc->getSubject($record->ticket)?->code?->code;
-                    }),
-                Tables\Columns\TextColumn::make('source.title')
-                    ->label(__('tickets/ticket-item.table.columns.source.label')),
-                Tables\Columns\TextColumn::make('department')
-                    ->label(__('tickets/ticket-item.table.columns.department.label'))
-                    ->state(function (HeaderService $svc, $record) {
-                        return $svc->getHeader($record->ticket)?->department?->code;
-                    }),
-                Tables\Columns\TextColumn::make('activities')
-                    ->label(__('tickets/ticket-item.table.columns.activities.label'))
-                    ->tooltip(__('tickets/ticket-item.table.columns.activities.tooltip'))
-                    ->state(function ($record, ActivityService $svc, WorkService $workService) {
-                        // $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
-                        //     // dd($workService->getWorkIntervals($activity));
-                        //     return $activity->template->title
-                        //         . ' #' . $activity->template->duration
-                        //         . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
-                        //             // return $work;
-                        //             return $work?->duration;
-                        //             // return print_r($work?->duration);
-                        //         });
-                        // });
-                        $activities = $svc->getActivities($record->ticket);
-                        $totalDuration = 0;
-                        foreach ($activities as $activity) {
-                            $totalDuration += $workService->getTotalDuration($activity);
+                    ->state(function (TicketItem $record, TicketAssignmentService $svc) {
+                        if ($record->ticket !== null) {
+                            return $svc->getSubject($record->ticket)?->code?->code;
                         }
-                        $result = $svc->getTotalExpectedDuration($record->ticket) . ' min / ' . $totalDuration . ' min';
-                        return $result;
                     }),
+                Tables\Columns\TextColumn::make('source')
+                    ->label(__('tickets/ticket-item.table.columns.source.label'))
+                    ->state(function (TicketItem $record, TicketAssignmentService $svc) {
+                        if ($record->ticket !== null) {
+                            return $svc->getSourceLabel($record->ticket);
+                        }
+                    }),
+                Tables\Columns\TextColumn::make('department')
+                    ->label(__('tickets/ticket-item.table.columns.department.label')),
+                // ->state(function (HeaderService $svc, $record) {
+                //     return $svc->getHeader($record->ticket)?->department?->code;
+                // }),
+                // Tables\Columns\TextColumn::make('activities')
+                //     ->label(__('tickets/ticket-item.table.columns.activities.label'))
+                //     ->tooltip(__('tickets/ticket-item.table.columns.activities.tooltip'))
+                //     ->state(function ($record, ActivityService $svc, WorkService $workService) {
+                //         // $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {
+                //         //     // dd($workService->getWorkIntervals($activity));
+                //         //     return $activity->template->title
+                //         //         . ' #' . $activity->template->duration
+                //         //         . '/' . $workService->getWorkIntervals($activity)?->sum(function($work) {
+                //         //             // return $work;
+                //         //             return $work?->duration;
+                //         //             // return print_r($work?->duration);
+                //         //         });
+                //         // });
+                //         $activities = $svc->getActivities($record->ticket);
+                //         $totalDuration = 0;
+                //         foreach ($activities as $activity) {
+                //             $totalDuration += $workService->getTotalDuration($activity);
+                //         }
+                //         $result = $svc->getTotalExpectedDuration($record->ticket) . ' min / ' . $totalDuration . ' min';
+                //         return $result;
+                //     }),
                 // Tables\Columns\TextColumn::make('expenses')
                 //     ->state(function ($record) {
                 //         $result = $record->materials->sum(function ($material) {
@@ -114,6 +122,10 @@ class TicketItemTable
                 //         $result = $record->activities->sum('duration');
                 //         return $result;
                 //     }),
+                Tables\Columns\TextColumn::make('ticket.id')
+                    ->label(__('tickets/ticket-item.table.columns.ticket.label'))
+                    ->tooltip(fn(TicketItem $record) => $record?->ticket?->title)
+                    ->badge(),
             ])
             ->filters([
                 //
@@ -150,7 +162,7 @@ class TicketItemTable
                         return $data;
                     })
                     ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
-                        return $ticketSvc->update($record,$data);
+                        return $ticketSvc->update($record, $data);
                     })
             ])
             ->bulkActions([

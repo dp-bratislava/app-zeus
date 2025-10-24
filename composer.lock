@@ -203,7 +203,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-tickets",
-                "reference": "f7375dbbfce59bbed4e097e548612b3b82244749"
+                "reference": "0264675f0eb5cd3ebefc4bba2ae2b6bd73a24487"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",

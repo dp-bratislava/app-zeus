@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
 use App\Services\Fleet\VehicleService;
 use App\Services\Inspection\CreateTicketService;
 use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
+use App\Services\TS\TicketAssignmentService;
 use App\States;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
@@ -44,7 +45,9 @@ class UpcomingInspectionTable
                     ->label(__('inspections/upcoming-inspection.table.columns.distance_traveled.label'))
                     ->state(function ($record, VehicleService $vehicleSvc, InspectionAssignmentService $assignmentSvc) {
                         $vehicle = $assignmentSvc->getSubject($record);
-                        return round($vehicleSvc->getInspectionDistanceTraveled($vehicle), 2);
+                        if ($vehicle !== null) {
+                            return round($vehicleSvc->getInspectionDistanceTraveled($vehicle), 2);
+                        }
                     }),
                 Tables\Columns\TextColumn::make('due_distance')
                     ->label(__('inspections/upcoming-inspection.table.columns.due_distance.label')),
@@ -63,9 +66,12 @@ class UpcomingInspectionTable
                 // Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('create_ticket')
                     ->label(__('inspections/upcoming-inspection.table.actions.create_ticket'))
-                    ->action(function ($record, CreateTicketService $createTicketService) {
-                        $createTicketService->createTicket($record);
+                    ->action(function (Inspection $record, TicketAssignmentService $ticketAssignmentService) {
+                        $ticketAssignmentService->createFromInspection($record);
                     })
+                // ->action(function ($record, CreateTicketService $createTicketService) {
+                //     $createTicketService->createTicket($record);
+                // })
                 // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
                 //         ->(function (ActivityService $svc, array $data, Ticket $record) {
                 //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();

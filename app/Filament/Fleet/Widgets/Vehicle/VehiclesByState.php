@@ -17,7 +17,7 @@ class VehiclesByState extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            // ->heading('gg')
+            ->heading(__('fleet/dashboard.widgets.vehicles_by_state.table.heading'))
             ->query(
                 VehicleByState::query()
             )

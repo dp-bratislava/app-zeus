@@ -59,6 +59,7 @@ class TicketItemResource extends Resource
         return [
             'index' => Pages\ListTicketItems::route('/'),
             'create' => Pages\CreateTicketItem::route('/create'),
+            'view' => Pages\ViewTicketItemPage::route('/{record}'),
             'edit' => Pages\EditTicketItem::route('/{record}/edit'),
         ];
     }

@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Filament\Resources\TS\TicketItemResource\Components\TicketItemActivities;
 use Dpb\Extension\ModelState\Providers\EventServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,5 +41,8 @@ class AppServiceProvider extends ServiceProvider
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
             'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,
         ]);
+
+        // Blade::component('ticket-item-activities', TicketItemActivities::class);
+        Livewire::component('ticket-item-activities', TicketItemActivities::class);
     }
 }
