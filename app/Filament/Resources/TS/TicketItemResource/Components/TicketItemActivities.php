@@ -16,17 +16,10 @@ class TicketItemActivities extends Component
     public $workIntervals;
     public $workAssignments;
 
-    // public function __construct(
-    //     public TicketItem $ticketItem,
-    //     public ActivityAssignment $activityAssignmentRepo,
-    // ) {
     public function mount(
         TicketItem $ticketItem,
         ActivityAssignment $activityAssignmentRepo,
     ) {
-        // $activitySvc = app(ActivityService::class);
-        // $this->activities = $activitySvc->getActivities($this->ticketItem);
-        // $this->totalExpectedDuration = $activitySvc->getTotalExpectedDuration($this->ticketItem);
         $this->activities = $activityAssignmentRepo->whereMorphedTo('subject', $ticketItem)
             ->with(['activity', 'activity.template'])
             ->get()

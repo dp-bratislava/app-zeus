@@ -8,6 +8,7 @@ use App\Data\MaterialData;
 use App\Data\TicketData;
 use App\Data\WorkIntervalData;
 use App\Models\ActivityAssignment;
+use App\Models\DispatchReport;
 use App\Models\Expense\Material;
 use App\Models\InspectionAssignment;
 use App\Models\InspectionTemplateAssignment;
@@ -77,6 +78,8 @@ class TicketAssignmentService
                 return 'kontrola';
             case 'daily-maintenance':
                 return 'denne osetrenie';
+            case 'dispatch-report':
+                return 'dispecing';
             default:
                 return;
         }
@@ -167,11 +170,39 @@ class TicketAssignmentService
                 }
 
                 // create ticket assignment
-                $ticketAssignment = $this->createTicketAssignment($ticket, $inspection);
+                $ticketSubject = InspectionAssignment::whereBelongsTo($inspection, $inspection->getMorphClass())
+                    ->first()?->subject;
+                $ticketAssignment = $this->createTicketAssignment($ticket, $inspection, $ticketSubject);
             }
         });
     }
 
+    public function createFromDispatchReport(DispatchReport $dispatchReport)
+    {
+        $this->db->transaction(function () use ($dispatchReport) {
+            $date = Carbon::now();
+
+            // create ticket
+            $ticket = Ticket::create([
+                'date' => $date,
+                'title' => 'nahlasene z dispec',
+                'state' => States\TS\Ticket\Created::$name,
+            ]);
+
+            // create ticket items
+            $ticketItem = TicketItem::create([
+                'date' => $date,
+                'ticket_id' => $ticket->id,
+                'title' => 'nahlasene z dispec',
+                'description' => $dispatchReport->description,
+                'state' => States\TS\TicketItem\Created::$name,
+            ]);
+
+            // create ticket assignment
+            $ticketSubject = $dispatchReport?->vehicle;
+            $ticketAssignment = $this->createTicketAssignment($ticket, $dispatchReport, $ticketSubject);
+        });
+    }
     public function createFromInspection(Inspection $inspection)
     {
         $this->db->transaction(function () use ($inspection) {
@@ -217,20 +248,19 @@ class TicketAssignmentService
             // TO DO
 
             // create ticket assignment
-            $ticketAssignment = $this->createTicketAssignment($ticket, $inspection);
+            $ticketSubject = InspectionAssignment::whereBelongsTo($inspection, $inspection->getMorphClass())
+                ->first()?->subject;
+            $ticketAssignment = $this->createTicketAssignment($ticket, $inspection, $ticketSubject);
         });
     }
 
-    protected function createTicketAssignment($ticket, $inspection): TicketAssignment
+    protected function createTicketAssignment($ticket, $source, $ticketSubject): TicketAssignment
     {
-        $ticketSubject = InspectionAssignment::whereBelongsTo($inspection, 'inspection')
-            ->first()?->subject;
-
         $author = $this->guard->id();
         $ticketAssignment = $this->ticketAssignmentRepo->newInstance();
         $ticketAssignment->ticket()->associate($ticket);
         $ticketAssignment->subject()->associate($ticketSubject);
-        $ticketAssignment->source()->associate($inspection);
+        $ticketAssignment->source()->associate($source);
         // $ticketAssignment->department()->associate($department);
         $ticketAssignment->author()->associate($author);
         // $ticketAssignment->assignedTo()->associate($assignedTo);

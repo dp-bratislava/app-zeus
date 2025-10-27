@@ -38,8 +38,8 @@ class TicketItemTable
                     ->label(__('tickets/ticket-item.table.columns.id.label')),
                 Tables\Columns\TextColumn::make('date')->date()
                     ->label(__('tickets/ticket-item.table.columns.date.label')),
-                Tables\Columns\TextColumn::make('parent.id')
-                    ->label(__('tickets/ticket-item.table.columns.parent.label')),
+                // Tables\Columns\TextColumn::make('parent.id')
+                //     ->label(__('tickets/ticket-item.table.columns.parent.label')),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('tickets/ticket-item.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('description')
@@ -71,7 +71,8 @@ class TicketItemTable
                         if ($record->ticket !== null) {
                             return $svc->getSourceLabel($record->ticket);
                         }
-                    }),
+                    })
+                    ->badge(),
                 Tables\Columns\TextColumn::make('department')
                     ->label(__('tickets/ticket-item.table.columns.department.label')),
                 // ->state(function (HeaderService $svc, $record) {

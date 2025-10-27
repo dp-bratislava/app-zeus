@@ -25,19 +25,19 @@ class TicketItemForm
             ->columns(7)
             ->schema([
                 Forms\Components\DatePicker::make('date')
-                    ->label(__('tickets/ticket.form.fields.date'))
+                    ->label(__('tickets/ticket-item.form.fields.date'))
                     ->columnSpan(1)
                     ->default(now()),
                 // VehiclePicker::make('subject')
-                //     ->label(__('tickets/ticket.form.fields.subject'))
+                //     ->label(__('tickets/ticket-item.form.fields.subject'))
                 //     ->columnSpan(1)
                 //     // ->relationship('department', 'title')
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable(),
                 Forms\Components\Select::make('subject_id')
-                    ->label(__('tickets/ticket.form.fields.subject'))
-                    ->columnSpan(3)
+                    ->label(__('tickets/ticket-item.form.fields.subject'))
+                    ->columnSpan(1)
                     // ->relationship('source', 'title', null, true)
                     ->options(fn() => Vehicle::pluck('code_1', 'id'))
                     ->preload()
@@ -45,16 +45,19 @@ class TicketItemForm
                     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                     ->required(false),                
                 // Forms\Components\Select::make('group_id')
-                //     ->label(__('tickets/ticket.form.fields.title'))
+                //     ->label(__('tickets/ticket-item.form.fields.title'))
                 //     ->relationship('group', 'title')
                 //     ->live(),
+                Forms\Components\TextInput::make('source')
+                    ->columnSpan(2)
+                    ->label(__('tickets/ticket-item.form.fields.source')),
                 Forms\Components\TextInput::make('title')
                     ->columnSpan(3)
-                    ->label(__('tickets/ticket.form.fields.title')),
+                    ->label(__('tickets/ticket-item.form.fields.title')),
                     // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
                 // Forms\Components\ToggleButtons::make('source_id')
-                //     ->label(__('tickets/ticket.form.fields.source'))
+                //     ->label(__('tickets/ticket-item.form.fields.source'))
                 //     ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 //     // ->relationship('source', 'title')
                 //     ->inline()
@@ -67,7 +70,7 @@ class TicketItemForm
                 //     ->searchable()
                 //     ->required(false),
                 Forms\Components\Textarea::make('description')
-                    ->label(__('tickets/ticket.form.fields.description'))
+                    ->label(__('tickets/ticket-item.form.fields.description'))
                     ->columnSpanFull(),
                 // Forms\Components\Select::make('parent_id')
                 //     ->relationship('parent', 'title', null, true)
@@ -76,7 +79,7 @@ class TicketItemForm
                 //     ->required(false),
                 //department
                 DepartmentPicker::make('department_id')
-                    ->label(__('tickets/ticket.form.fields.department'))
+                    ->label(__('tickets/ticket-item.form.fields.department'))
                     // ->relationship('department', 'title')
                     ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
@@ -113,7 +116,7 @@ class TicketItemForm
                     ->tabs([
                         // activities
                         Forms\Components\Tabs\Tab::make('activities')
-                            ->label(__('tickets/ticket.form.tabs.activities'))
+                            ->label(__('tickets/ticket-item.form.tabs.activities'))
                             ->badge(3)
                             ->icon('heroicon-m-wrench')
                             ->schema([
@@ -122,7 +125,7 @@ class TicketItemForm
                             ]),
                         // materials
                         Forms\Components\Tabs\Tab::make('materials')
-                            ->label(__('tickets/ticket.form.tabs.materials'))
+                            ->label(__('tickets/ticket-item.form.tabs.materials'))
                             ->icon('heroicon-m-rectangle-stack')
                             ->badge(2)
                             ->schema([
@@ -131,7 +134,7 @@ class TicketItemForm
                             ]),
                         // services
                         Forms\Components\Tabs\Tab::make('services')
-                            ->label(__('tickets/ticket.form.tabs.services'))
+                            ->label(__('tickets/ticket-item.form.tabs.services'))
                             ->badge(0)
                             ->icon('heroicon-m-user-group')
                             ->schema([

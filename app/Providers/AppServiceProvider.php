@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use App\Filament\Resources\TS\TicketItemResource\Components\TicketItemActivities;
-use Dpb\Extension\ModelState\Providers\EventServiceProvider;
+use App\Filament\Resources\TS\TicketItemResource\Components\TicketItemMaterials;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -33,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'activity' => \Dpb\Package\Activities\Models\Activity::class,
             'activity-template' => \Dpb\Package\Activities\Models\ActivityTemplate::class,
+            'dispatch-report' => \App\Models\DispatchReport::class,
             'inspection' => \Dpb\Package\Inspections\Models\Inspection::class,
             'inspection-template' => \Dpb\Package\Inspections\Models\InspectionTemplate::class,
             'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
@@ -44,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Blade::component('ticket-item-activities', TicketItemActivities::class);
         Livewire::component('ticket-item-activities', TicketItemActivities::class);
+        Livewire::component('ticket-item-materials', TicketItemMaterials::class);
     }
 }
