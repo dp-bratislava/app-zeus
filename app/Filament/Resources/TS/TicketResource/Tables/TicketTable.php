@@ -149,7 +149,7 @@ class TicketTable
                         return $data;
                     })
                     ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
-                        return $ticketSvc->update($record,$data);
+                        return $ticketSvc->update($record, $data);
                     })
             ])
             ->bulkActions([

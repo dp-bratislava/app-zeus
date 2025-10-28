@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Fleet;
 
 use App\Filament\Resources\Fleet\MaintenanceGroupResource\Pages;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -37,7 +38,18 @@ class MaintenanceGroupResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('code')
+                    ->columnSpan(1)
+                    ->label(__('fleet/maintenance-group.form.fields.code.label')),
+                Forms\Components\TextInput::make('title')
+                    ->columnSpan(1)
+                    ->label(__('fleet/maintenance-group.form.fields.title')),
+                Forms\Components\TextInput::make('description')
+                    ->columnSpan(1)
+                    ->label(__('fleet/maintenance-group.form.fields.description')),
+                Forms\Components\ColorPicker::make('color')
+                    ->columnSpan(1)
+                    ->label(__('fleet/maintenance-group.form.fields.color')),
             ]);
     }
 
@@ -51,6 +63,8 @@ class MaintenanceGroupResource extends Resource
                     ->label(__('fleet/maintenance-group.table.columns.title')),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('fleet/maintenance-group.table.columns.description')),
+                Tables\Columns\ColorColumn::make('color')
+                    ->label(__('fleet/maintenance-group.table.columns.color')),
             ])
             ->filters([
                 //

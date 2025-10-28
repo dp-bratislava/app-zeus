@@ -34,7 +34,10 @@ return [
             'department' => 'SAP Stredisko',
             'state' => 'Stav',
             'dispatch_group' => 'Dopravná prevádzka',
-            'maintenance_group' => 'Technciká prevádzka',
+            'maintenance_group' => [
+                'label' => 'TP',
+                'tooltip' => 'Technciká prevádzka'
+            ],
         ]
     ],
     'navigation' => [

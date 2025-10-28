@@ -49,10 +49,10 @@ class VehicleTable
                                 $q->whereLike('code', "%$search%");
                             });
                     }),                    
-                Tables\Columns\TextColumn::make('model.type.title')
-                    ->label(__('fleet/vehicle.table.columns.type')),
-                Tables\Columns\TextColumn::make('groups.title')
-                    ->label(__('fleet/vehicle.table.columns.groups')),
+                // Tables\Columns\TextColumn::make('model.type.title')
+                //     ->label(__('fleet/vehicle.table.columns.type')),
+                // Tables\Columns\TextColumn::make('groups.title')
+                //     ->label(__('fleet/vehicle.table.columns.groups')),
                 Tables\Columns\TextColumn::make('department')
                     ->label(__('fleet/vehicle.table.columns.department'))
                     ->state(function (VehicleService $svc, $record) {
@@ -83,8 +83,11 @@ class VehicleTable
                                 // : $record->state->transition(new DiscardedToInService($record, auth()->guard()->user()));
                             }),
                     ),
-                Tables\Columns\TextColumn::make('tp')
-                    ->state('1TPA'),
+                Tables\Columns\TextColumn::make('maintenanceGroup.code')
+                    ->label(__('fleet/vehicle.table.columns.maintenance_group.label'))
+                    ->tooltip(__('fleet/vehicle.table.columns.maintenance_group.tooltip'))
+                    ->badge(),
+                    // ->color(fn ($record) => $record?->maintenanceGroup?->color),
                 Tables\Columns\TextColumn::make('dp')
                     ->state('1DPA'),
             ])
@@ -105,7 +108,7 @@ class VehicleTable
                         States\Fleet\Vehicle\UnderRepair::$name => 'V oprave',
                     ]),
                 Tables\Filters\SelectFilter::make('tp')
-                    ->label(__('fleet/vehicle.table.columns.maintenance_group'))
+                    ->label(__('fleet/vehicle.table.columns.maintenance_group.label'))
                     ->searchable()
                     ->multiple()
                     ->options(fn() => MaintenanceGroup::pluck('title')),

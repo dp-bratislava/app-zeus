@@ -36,8 +36,11 @@ class InspectionTable
                     ->state(fn(Inspection $record) => $record->state->label()),
                 Tables\Columns\TextColumn::make('finished_at')
                     ->label(__('inspections/inspection.table.columns.finished_at.label')),
-                Tables\Columns\TextColumn::make('subject.maintenanceGroup.title')
-                    ->label(__('inspections/inspection.table.columns.maintenance_group.label')),
+                Tables\Columns\TextColumn::make('subject.maintenanceGroup.code')
+                    ->label(__('inspections/inspection.table.columns.maintenance_group.label'))
+                    ->state(function ($record, InspectionAssignmentService $svc) {
+                        return $svc->getSubject($record)?->maintenanceGroup?->code;
+                    }),
                 Tables\Columns\TextColumn::make('note')
                     ->label(__('inspections/inspection.table.columns.note.label')),
                 Tables\Columns\TextColumn::make('distance_traveled')

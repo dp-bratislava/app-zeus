@@ -12,6 +12,7 @@ return [
             ],
             'title' => 'Názov',
             'description' => 'Popis',
+            'color' => 'Farba',
         ],
     ],
     'table' => [
@@ -23,6 +24,7 @@ return [
             'code' => 'Kód',
             'title' => 'Názov',
             'description' => 'Popis',
+            'color' => 'Farba',
         ]
     ],
     'navigation' => [

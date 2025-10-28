@@ -33,6 +33,11 @@ class TicketItemTable
                 States\TS\Ticket\InProgress::$name => 'bg-yellow-200',
                 default => null,
             })
+            // ->groups([
+            //     Tables\Grouping\Group::make('author.name')
+            //         ->collapsible(),
+            // ])
+            ->defaultGroup('ticket_id')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label(__('tickets/ticket-item.table.columns.id.label')),
