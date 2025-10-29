@@ -107,6 +107,13 @@
             }
         },
         {
+            "type": "vcs",
+            "url": "packages/dpb/pkg-incidents",
+            "options": {
+                "symlink": true
+            }
+        },        
+        {
             "type": "path",
             "url": "packages/dpb/pkg-fleet",
             "options": {
@@ -119,6 +126,7 @@
         "andrej-horny/pkg-activities": "dev-main",
         "andrej-horny/pkg-entity-manager": "dev-main",
         "andrej-horny/pkg-finance": "dev-main",
+        "andrej-horny/pkg-incidents": "dev-main",
         "andrej-horny/pkg-inspections": "dev-main",
         "andrej-horny/pkg-tasks": "dev-main",
         "andrej-horny/pkg-tickets": "dev-main",

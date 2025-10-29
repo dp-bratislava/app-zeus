@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
             'activity-template' => \Dpb\Package\Activities\Models\ActivityTemplate::class,
             'dispatch-report' => \App\Models\DispatchReport::class,
             'inspection' => \Dpb\Package\Inspections\Models\Inspection::class,
+            'incident' => \Dpb\Package\Incidents\Models\Incident::class,
             'inspection-template' => \Dpb\Package\Inspections\Models\InspectionTemplate::class,
             'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
             'ticket-item' => \Dpb\Package\Tickets\Models\TicketItem::class,

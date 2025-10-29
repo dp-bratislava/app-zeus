@@ -69,6 +69,7 @@ class UpcomingInspectionTable
                     ->action(function (Inspection $record, TicketAssignmentService $ticketAssignmentService) {
                         $ticketAssignmentService->createFromInspection($record);
                     })
+                    ->disabled()
                 // ->action(function ($record, CreateTicketService $createTicketService) {
                 //     $createTicketService->createTicket($record);
                 // })

@@ -55,5 +55,7 @@ return [
         'warranty-repair' => 'Záručná oprava',
         'warranty-claim' => 'Reklamácia',
         'missing-parts' => 'Čaká na náhr. diely',
+        'waiting-for-repair-spot' => 'Čaká na voľné pracovisko',
+        'waiting-for-insurance' => 'Čaká na poisťovňu',
     ]     
 ];
