@@ -4,6 +4,7 @@ namespace App\Filament\Resources\TS;
 
 use App\Filament\Resources\TS\TicketResource\Forms\TicketForm;
 use App\Filament\Resources\TS\TicketResource\Pages;
+use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelationManager;
 use App\Filament\Resources\TS\TicketResource\Tables\TicketTable;
 use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Forms\Form;
@@ -48,6 +49,7 @@ class TicketResource extends Resource
     {
         return [
             // ActivitiesRelationManager::class,
+            TicketItemRelationManager::class,
         ];
     }
 
@@ -58,7 +60,7 @@ class TicketResource extends Resource
             // 'create' => Pages\CreateTicket::route('/create'),
             // 'view' => Pages\ViewTicket::route('/{record}'),
             'view' => Pages\ViewTicketPage::route('/{record}'),
-            // 'edit' => Pages\EditTicket::route('/{record}/edit'),
+            'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 

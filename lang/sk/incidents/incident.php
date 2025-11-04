@@ -27,6 +27,9 @@ return [
             'type' => ['label' => 'Typ'],
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
+        ],
+        'actions' => [
+            'create_ticket' => 'Vyvoriť zákazku',
         ]
     ],
     'navigation' => [

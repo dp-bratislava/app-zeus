@@ -2,28 +2,18 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť kontrolu',
-        'update_heading' => 'Upraviť kontrolu: :title',
+        'create_heading' => 'Vytvoriť skupinu noriem',
+        'update_heading' => 'Upraviť skupinu noriem: :title',
         'fields' => [
-            'code' => [
-                'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-            ],
-            'date' => 'Dátum',
+            'code' => 'Kód',
             'title' => 'Názov',
             'description' => 'Popis',
-            'source' => 'Miesto výskytu',
+            'parent' => 'Patrí pod',
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
-        'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
+        'heading' => 'Skupiny noriem',
+        'empty_state_heading' => 'Žiadne skupiny noriem na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
@@ -31,14 +21,15 @@ return [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
             'description' => ['label' => 'Popis'],
+            'parent' => ['label' => 'Patrí pod'],
         ]
     ],
     'navigation' => [
-        'label' => 'Skupiny šablón',
-        'group' => 'Kontroly',
+        'label' => 'Skupiny noriem',
+        'group' => 'Normy',
     ],
     'resource' => [
-        'model_label' => 'Skupina šablón',
-        'plural_model_label' => 'Skupiny šablón',
+        'model_label' => 'Skupina noriem',
+        'plural_model_label' => 'Skupiny noriem',
     ],
 ];

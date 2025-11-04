@@ -2,8 +2,12 @@
 
 namespace App\Filament\Resources\Incident\IncidentResource\Tables;
 
+use App\Models\IncidentAssignment;
+use App\Models\TicketAssignment;
+use App\Services\TS\TicketAssignmentService;
 use App\States;
 use Dpb\Package\Incidents\Models\Incident;
+use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -25,7 +29,7 @@ class IncidentTable
                     ->date(),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('incidents/incident.table.columns.subject.label'))
-                    ->date(),
+                    ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('incidents/incident.table.columns.description.label')),
                 Tables\Columns\TextColumn::make('state')
@@ -40,14 +44,35 @@ class IncidentTable
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\EditAction::make()
+                    ->mutateRecordDataUsing(function (
+                        $record,
+                        array $data,
+                        IncidentAssignment $incidentAssignment,
+                    ): array {
+
+                        $data['subject_id'] = $incidentAssignment->whereBelongsTo($record)->first()->subject->id;
+                        dd($data);
+                        return $data;
+                    }),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('create_ticket')
+                    ->label(__('incidents/incident.table.actions.create_ticket'))
+                    ->button()
+                    ->action(function (Incident $record, TicketAssignmentService $ticketAssignmentService) {
+                        $ticketAssignmentService->createFromIncident($record);
+                    })
+                    ->visible(function (Incident $record, TicketAssignment $ticketAssignment) {
+                        // return $ticketAssignment->whereHasMorph($record, $record->getMorphClass());
+                        return !TicketAssignment::where('subject_type', $record->getMorphClass())
+                            ->where('subject_id', $record->id)
+                            ->exists();
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 }

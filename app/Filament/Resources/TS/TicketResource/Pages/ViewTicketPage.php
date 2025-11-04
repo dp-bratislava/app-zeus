@@ -19,7 +19,7 @@ class ViewTicketPage extends Page
 {
     protected static string $resource = TicketResource::class;
 
-    protected static string $view = 'filament.resources.ticket.ticket-resource.pages.view-ticket-page';
+    protected static string $view = 'filament.resources.ts.ticket-resource.pages.view-ticket-page';
 
     public Ticket $ticket;
     public ?TicketHeader $ticketHeader;

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\TS\TicketResource\Tables;
 
+use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
@@ -36,8 +37,8 @@ class TicketTable
                     ->label(__('tickets/ticket.table.columns.id.label')),
                 Tables\Columns\TextColumn::make('date')->date()
                     ->label(__('tickets/ticket.table.columns.date.label')),
-                Tables\Columns\TextColumn::make('parent.id')
-                    ->label(__('tickets/ticket.table.columns.parent.label')),
+                // Tables\Columns\TextColumn::make('parent.id')
+                //     ->label(__('tickets/ticket.table.columns.parent.label')),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('tickets/ticket.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('description')
@@ -58,8 +59,8 @@ class TicketTable
                 // TextColumn::make('department.code'),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket.table.columns.subject.label'))
-                    ->state(function ($record, SubjectService $svc) {
-                        return $svc->getSubject($record)?->code?->code;
+                    ->state(function ($record, TicketAssignment $svc) {
+                        return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
                     }),
                 Tables\Columns\TextColumn::make('source.title')
                     ->label(__('tickets/ticket.table.columns.source.label')),

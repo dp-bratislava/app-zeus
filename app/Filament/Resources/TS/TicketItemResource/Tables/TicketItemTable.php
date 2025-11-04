@@ -2,7 +2,12 @@
 
 namespace App\Filament\Resources\TS\TicketItemResource\Tables;
 
+use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelationManager;
+use App\Models\ActivityAssignment;
+use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
+use App\Services\TicketItemRepository;
+use App\Services\TicketRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;
@@ -24,6 +29,7 @@ class TicketItemTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('tickets/ticket.relation_manager.ticket_items.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->state?->getValue()) {
@@ -37,7 +43,8 @@ class TicketItemTable
             //     Tables\Grouping\Group::make('author.name')
             //         ->collapsible(),
             // ])
-            ->defaultGroup('ticket_id')
+            // ->defaultGroup('ticket_id')
+            ->defaultGroup(TicketItemRelationManager::class ? null : 'ticket_id')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label(__('tickets/ticket-item.table.columns.id.label')),
@@ -45,23 +52,26 @@ class TicketItemTable
                     ->label(__('tickets/ticket-item.table.columns.date.label')),
                 // Tables\Columns\TextColumn::make('parent.id')
                 //     ->label(__('tickets/ticket-item.table.columns.parent.label')),
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('tickets/ticket-item.table.columns.title.label')),
+                // title 
+                Tables\Columns\TextColumn::make('group.title')
+                    ->label(__('tickets/ticket-item.table.columns.group.label')),
+                // Tables\Columns\TextColumn::make('title')
+                //     ->label(__('tickets/ticket-item.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('tickets/ticket-item.table.columns.description.label')),
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('tickets/ticket-item.table.columns.state.label'))
-                    ->state(fn(TicketItem $record) => $record->state->label())
-                    // ->state(fn($record) => dd($record)),
-                    ->action(
-                        Action::make('select')
-                            ->requiresConfirmation()
-                            ->action(function (TicketItem $record): void {
-                                $record->state == 'created'
-                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
-                                    : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
-                            }),
-                    ),
+                    ->state(fn(TicketItem $record) => $record?->state?->label()),
+                // ->state(fn($record) => dd($record)),
+                // ->action(
+                //     Action::make('select')
+                //         ->requiresConfirmation()
+                //         ->action(function (TicketItem $record): void {
+                //             $record->state == 'created'
+                //                 ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
+                //                 : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
+                //         }),
+                // ),
                 // TextColumn::make('department.code'),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket-item.table.columns.subject.label'))
@@ -142,34 +152,20 @@ class TicketItemTable
                     ->mutateRecordDataUsing(function (
                         $record,
                         array $data,
-                        SubjectService $subjectSvc,
-                        HeaderService $headerSvc,
-                        ActivityService $activitySvc
+                        TicketAssignment $ticketAssignment,
+                        ActivityAssignment $activityAssignment
                     ): array {
-                        $data['subject_id'] = $subjectSvc->getSubject($record)?->id;
-                        $data['department_id'] = $headerSvc->getHeader($record)?->department?->id;
-                        $data['source_id'] = $record?->source?->id;
-                        // $activities = $activitySvc->getActivities($record);
-                        // foreach ($activities as $activity) {
-                        //     $data['activities'][] = [
-                        //             'id' => $activity->id,
-                        //             'date' => $activity->date,
-                        //             // 'activity_template_id' => $activity->template_id
-                        //     ];
-                        // }
-                        // $data['activities'] = $activitySvc->getActivities($record)
-                        //     ->map(function($activity) {
-                        //         return [
-                        //             'date' => $activity->date,
-                        //             'activity_template_id' => $activity->template_id
-                        //         ];
-                        //     });
-                        $data['activities'] = $activitySvc->getActivities($record);
+                        $subjectId = $ticketAssignment->whereBelongsTo($record->ticket)->first()?->subject?->id;
+                        $data['subject_id'] = $subjectId;
+
+                        $activities = $activityAssignment->whereMorphedTo('subject', $record)->get()->toArray();
+                        $data['activities'] = $activities;
                         return $data;
                     })
-                    ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
-                        return $ticketSvc->update($record, $data);
-                    })
+                    ->using(function (Model $record, array $data, TicketItemRepository $ticketItemRepo): ?Model {
+                        return $ticketItemRepo->update($record, $data);
+                    }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

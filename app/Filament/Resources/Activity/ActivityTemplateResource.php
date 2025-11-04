@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\Activity;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
+use App\Filament\Resources\Activity\ActivityTemplateResource\Forms\ActivityTemplateForm;
 use App\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+use App\Filament\Resources\Activity\ActivityTemplateResource\Tables\ActivityTemplateTable;
 use App\Services\Activity\ActivityTemplate\UnitRateService;
 use Dpb\Package\Activities\Models\ActivityTemplate;
 use Filament\Forms;
@@ -23,62 +25,16 @@ class ActivityTemplateResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return 'Normy';
-    } 
+    }
 
-    // public static function form(Form $form): Form
-    // {
-    //     return $form
-    //         ->schema([
-    //             Forms\Components\TextInput::make('title'),
-    //             //
-    //             Forms\Components\Group::make([
-    //                 Forms\Components\DatePicker::make('date_from'), 
-
-    //             ]), 
-    //         ]);
-    // }
+    public static function form(Form $form): Form
+    {
+        return ActivityTemplateForm::make($form);
+    }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('duration'),
-                Tables\Columns\TextColumn::make('man_minutes'),
-                Tables\Columns\IconColumn::make('is_divisible')
-                    ->label('delitelna')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('is_standardised')
-                    ->label('normovana')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('is_catalogised')
-                    ->label('katalogizovana')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('people')
-                    ->label('pocet ludi'),
-                Tables\Columns\TextColumn::make('sa1')
-                    ->label('sa1')
-                    ->state(function($record, UnitRateService $svc) {                        
-
-                        return $svc->getUnitRate($record)?->formatted_rate;
-                    }),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(ActivityTemplateImporter::class)
-                    ->csvDelimiter(';')
-            ])            
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return ActivityTemplateTable::make($table);
     }
 
     public static function getRelations(): array

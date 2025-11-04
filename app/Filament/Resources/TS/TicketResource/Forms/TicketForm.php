@@ -40,6 +40,7 @@ class TicketForm
                     ->columnSpan(3)
                     // ->relationship('source', 'title', null, true)
                     ->options(fn() => Vehicle::pluck('code_1', 'id'))
+                    ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
                     ->preload()
                     ->searchable()
                     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
@@ -75,19 +76,19 @@ class TicketForm
                 //     ->searchable()
                 //     ->required(false),
                 //department
-                DepartmentPicker::make('department_id')
-                    ->label(__('tickets/ticket.form.fields.department'))
-                    // ->relationship('department', 'title')
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable()
-                    ->columnSpan(4)
-                    // ->default(function(TicketService $ticketService, $record) {
-                    //return $ticketService->getDepartment($record)->id;
-                    // return 283;
-                    // })
-                    // ->dehydrated(false)
-                    ->required(),
+                // DepartmentPicker::make('department_id')
+                //     ->label(__('tickets/ticket.form.fields.department'))
+                //     // ->relationship('department', 'title')
+                //     ->getOptionLabelFromRecordUsing(null)
+                //     ->getSearchResultsUsing(null)
+                //     ->searchable()
+                //     ->columnSpan(4)
+                //     // ->default(function(TicketService $ticketService, $record) {
+                //     //return $ticketService->getDepartment($record)->id;
+                //     // return 283;
+                //     // })
+                //     // ->dehydrated(false)
+                //     ->required(),
                 // vehicle
                 // Forms\Components\MorphToSelect::make('subject')
                 //     ->types([
@@ -108,37 +109,37 @@ class TicketForm
                 //     ->searchable(),                    
 
                 // activities 
-                Forms\Components\Tabs::make('Tabs')
-                    ->columnSpanFull()
-                    ->tabs([
-                        // activities
-                        Forms\Components\Tabs\Tab::make('activities')
-                            ->label(__('tickets/ticket.form.tabs.activities'))
-                            ->badge(3)
-                            ->icon('heroicon-m-wrench')
-                            ->schema([
-                                ActivityRepeater::make('activities')
-                                // ->relationship('activities'),
-                            ]),
-                        // materials
-                        Forms\Components\Tabs\Tab::make('materials')
-                            ->label(__('tickets/ticket.form.tabs.materials'))
-                            ->icon('heroicon-m-rectangle-stack')
-                            ->badge(2)
-                            ->schema([
-                                MaterialRepeater::make('materials')
-                                // ->relationship('materials'),
-                            ]),
-                        // services
-                        Forms\Components\Tabs\Tab::make('services')
-                            ->label(__('tickets/ticket.form.tabs.services'))
-                            ->badge(0)
-                            ->icon('heroicon-m-user-group')
-                            ->schema([
-                                ServiceRepeater::make('services')
-                                // ->relationship('services'),
-                            ])
-                    ]),
+                // Forms\Components\Tabs::make('Tabs')
+                //     ->columnSpanFull()
+                //     ->tabs([
+                //         // activities
+                //         Forms\Components\Tabs\Tab::make('activities')
+                //             ->label(__('tickets/ticket.form.tabs.activities'))
+                //             ->badge(3)
+                //             ->icon('heroicon-m-wrench')
+                //             ->schema([
+                //                 ActivityRepeater::make('activities')
+                //                 // ->relationship('activities'),
+                //             ]),
+                //         // materials
+                //         Forms\Components\Tabs\Tab::make('materials')
+                //             ->label(__('tickets/ticket.form.tabs.materials'))
+                //             ->icon('heroicon-m-rectangle-stack')
+                //             ->badge(2)
+                //             ->schema([
+                //                 MaterialRepeater::make('materials')
+                //                 // ->relationship('materials'),
+                //             ]),
+                //         // services
+                //         Forms\Components\Tabs\Tab::make('services')
+                //             ->label(__('tickets/ticket.form.tabs.services'))
+                //             ->badge(0)
+                //             ->icon('heroicon-m-user-group')
+                //             ->schema([
+                //                 ServiceRepeater::make('services')
+                //                 // ->relationship('services'),
+                //             ])
+                //     ]),
             ]);
     }
 }

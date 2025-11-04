@@ -10,6 +10,7 @@ use App\Data\WorkIntervalData;
 use App\Models\ActivityAssignment;
 use App\Models\DispatchReport;
 use App\Models\Expense\Material;
+use App\Models\IncidentAssignment;
 use App\Models\InspectionAssignment;
 use App\Models\InspectionTemplateAssignment;
 use App\Models\TicketAssignment;
@@ -22,6 +23,7 @@ use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Support\Carbon;
 use App\States;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Incidents\Models\Incident;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
@@ -177,6 +179,34 @@ class TicketAssignmentService
         });
     }
 
+    public function createFromIncident(Incident $incident)
+    {
+        $this->db->transaction(function () use ($incident) {
+            $date = Carbon::now();
+
+            // create ticket
+            $ticket = Ticket::create([
+                'date' => $date,
+                'title' => $incident->type->title . ' - nahlasene z dispec',
+                'state' => States\TS\Ticket\Created::$name,
+                'description' => $incident->description
+            ]);
+
+            // create ticket items
+            // $ticketItem = TicketItem::create([
+            //     'date' => $date,
+            //     'ticket_id' => $ticket->id,
+            //     'title' => 'nahlasene z dispec',
+            //     'description' => $incident->description,
+            //     'state' => States\TS\TicketItem\Created::$name,
+            // ]);
+
+            // create ticket assignment
+            $ticketSubject = IncidentAssignment::whereBelongsTo($incident)->first()?->subject;
+            $ticketAssignment = $this->createTicketAssignment($ticket, $incident, $ticketSubject);
+        });
+    }
+
     public function createFromDispatchReport(DispatchReport $dispatchReport)
     {
         $this->db->transaction(function () use ($dispatchReport) {
@@ -203,6 +233,7 @@ class TicketAssignmentService
             $ticketAssignment = $this->createTicketAssignment($ticket, $dispatchReport, $ticketSubject);
         });
     }
+
     public function createFromInspection(Inspection $inspection)
     {
         $this->db->transaction(function () use ($inspection) {

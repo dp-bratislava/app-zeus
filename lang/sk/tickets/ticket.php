@@ -18,7 +18,7 @@ return [
             'department' => 'Stredisko',
         ],
         'tabs' => [
-            'activities' => 'Činnosti / normy',
+            'activities' => 'Práca',
             'materials' => 'Materiál',
             'services' => 'Služby',
         ]
@@ -42,6 +42,13 @@ return [
             ],
             'source' => ['label' => 'Miesto výskytu'],
             'parent' => ['label' => 'Patrí pod'],
+        ]
+    ],
+    'relation_manager' => [
+        'ticket_items' => [
+            'table' => [
+                'heading' => 'Podzákazky'
+            ]
         ]
     ],
     'navigation' => [

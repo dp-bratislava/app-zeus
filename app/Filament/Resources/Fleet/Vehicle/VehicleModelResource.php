@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle;
 
-use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists\VehicleModelForm;
+use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Forms\VehicleModelForm;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Tables\VehicleModelTable;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists\VehicleModelInfolist;

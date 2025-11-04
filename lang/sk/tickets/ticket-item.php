@@ -11,14 +11,27 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'date' => 'Dátum',
-            'title' => 'Názov',
+            // 'title' => 'Názov',
+            'title' => 'Detail poruchy',
+            'group' => 'Detail poruchy',
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
             'subject' => 'Vozidlo',
             'department' => 'Stredisko',
+            'activities' => [
+                'date' => 'Dátum',
+                'template' => 'norma',
+                'work_log' => [
+                    'title' => 'Pracovné výkony',
+                    'date' => 'Dátum',
+                    'time_from' => 'Od',
+                    'time_to' => 'Do',
+                    'contract' => 'Úväzok',
+                ]
+            ],
         ],
         'tabs' => [
-            'activities' => 'Činnosti / normy',
+            'activities' => 'Práca',
             'materials' => 'Materiál',
             'services' => 'Služby',
         ]
@@ -31,7 +44,9 @@ return [
         'columns' => [
             'id' => ['label' => 'ID'],
             'date' => ['label' => 'Dátum'],
-            'title' => ['label' => 'Názov'],
+            // 'title' => ['label' => 'Názov'],
+            'title' => ['label' => 'Detail poruchy'],
+            'group' => ['label' => 'Detail poruchy'],
             'description' => ['label' => 'Popis'],
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
