@@ -17,10 +17,13 @@ return [
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
             'subject' => 'Vozidlo',
-            'department' => 'Stredisko',
+            'ticket' => 'Zákazka',
+            'state' => 'Stav',
+            'assigned_to' => 'Technická prevádzka',
             'activities' => [
+                'title' => 'Normy',
                 'date' => 'Dátum',
-                'template' => 'norma',
+                'template' => 'Norma',
                 'work_log' => [
                     'title' => 'Pracovné výkony',
                     'date' => 'Dátum',
@@ -50,13 +53,16 @@ return [
             'description' => ['label' => 'Popis'],
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
-            'department' => ['label' => 'Stredisko'],
+            'ticket' => ['label' => 'Zákazka'],
+            'assigned_to' => [
+                'label' => 'TP',
+                'tooltip' => 'Technická prevádzka'
+            ],
             'activities' => [
                 'label' => 'Normy',
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
             'source' => ['label' => 'Miesto výskytu'],
-            'ticket' => ['label' => 'Patrí pod'],
         ]
     ],
     'navigation' => [

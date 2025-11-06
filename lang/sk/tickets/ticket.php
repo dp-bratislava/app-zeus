@@ -14,6 +14,7 @@ return [
             'title' => 'Názov',
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
+            'group' => 'Typ zákazky',
             'subject' => 'Vozidlo',
             'department' => 'Stredisko',
         ],
@@ -36,6 +37,7 @@ return [
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
             'department' => ['label' => 'Stredisko'],
+            'group' => ['label' => 'Typ zákazky'],
             'activities' => [
                 'label' => 'Normy',
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'

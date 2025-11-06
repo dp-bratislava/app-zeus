@@ -19,7 +19,7 @@ class ActivityRepeater
         return TableRepeater::make($uri)
             ->defaultItems(0)
             ->cloneable()
-            ->columnSpan(5)
+            ->columnSpanFull()
             ->headers([
                 Header::make('date')->label(__('tickets/ticket-item.form.fields.activities.date')),
                 Header::make('template')->label(__('tickets/ticket-item.form.fields.activities.template')),
@@ -28,15 +28,27 @@ class ActivityRepeater
                 // Header::make('e2'),
             ])
             ->schema([                
+                //date
                 Forms\Components\DatePicker::make('date')                
+                    ->columnSpan(1)
                     ->default(now()),
+                // activity template
                 Forms\Components\Select::make('activity_template_id')
+                    // ->relationship('template', 'title')
                     ->label(__('tickets/ticket-item.form.fields.title'))
-                    ->columnSpan(5)
+                    ->columnSpan(3)
                     // ->options(fn(Get $get) => ActivityTemplate::where('template_group_id', $get('../activity_template_group_id'))
                     //     ->pluck('title', 'id')
                     // )
+                    ->options(fn() => ActivityTemplate::pluck('title', 'id'))
                     ->searchable(),                      
+                // Forms\Components\Select::make('activity_template_id')
+                //     ->label(__('tickets/ticket-item.form.fields.title'))
+                //     ->columnSpan(5)
+                //     // ->options(fn(Get $get) => ActivityTemplate::where('template_group_id', $get('../activity_template_group_id'))
+                //     //     ->pluck('title', 'id')
+                //     // )
+                //     ->searchable(),                      
                 // ActivityTemplatePicker::make('activity_template_id')
                 //     // ->relationship('template', 'title')
                 //     ->getOptionLabelFromRecordUsing(null)
@@ -51,7 +63,7 @@ class ActivityRepeater
                 //     ->readOnly()
                 //     ->dehydrated(),
                 WorkAssignmentRepeater::make('workAssignments')
-                    ->label(__('tickets/ticket-item.form.fields.work_log.title'))
+                    ->label(__('tickets/ticket-item.form.fields.activities.work_log.title'))
                     // ->relationship('workAssignments')
                     ->columnSpan(5)
             ])

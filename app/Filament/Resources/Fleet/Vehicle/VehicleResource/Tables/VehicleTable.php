@@ -88,8 +88,13 @@ class VehicleTable
                     ->tooltip(__('fleet/vehicle.table.columns.maintenance_group.tooltip'))
                     ->badge(),
                     // ->color(fn ($record) => $record?->maintenanceGroup?->color),
-                Tables\Columns\TextColumn::make('dp')
-                    ->state('1DPA'),
+                // Tables\Columns\TextColumn::make('dp')
+                //     ->state('1DPA'),
+                Tables\Columns\IconColumn::make('under_warranty')
+                    ->label(__('fleet/vehicle.table.columns.under_warranty.label'))
+                    ->tooltip(__('fleet/vehicle.table.columns.under_warranty.tooltip'))
+                    ->boolean()
+                    ->default(false)
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('model')

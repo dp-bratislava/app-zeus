@@ -34,7 +34,7 @@ return new class extends Migration
             $table->foreignId('group_id')
                 ->nullable()
                 ->after('state')
-                ->constrained($tablePrefix . 'ticket_groups', 'id');
+                ->constrained($tablePrefix . 'ticket_item_groups', 'id');
         });
     }
 

@@ -7,7 +7,7 @@ use Awcodes\TableRepeater\Header;
 use Filament\Forms\Components\Component;
 use Filament\Forms;
 use App\Filament\Components\ContractPicker;
-
+use App\Models\Datahub\EmployeeContract;
 
 class WorkAssignmentRepeater
 {
@@ -16,7 +16,7 @@ class WorkAssignmentRepeater
         return TableRepeater::make($uri)
             ->defaultItems(0)
             ->cloneable()
-            ->columnSpan(5)
+            ->columnSpan(7)
             ->headers([
                 Header::make('date')
                     ->label(__('tickets/ticket-item.form.fields.activities.work_log.date')),
@@ -31,10 +31,10 @@ class WorkAssignmentRepeater
             ])
             ->schema([
                 // Forms\Components\Group::make()
-                // ->relationship('workInterval')
-                // ->columns(5)
-                // ->schema([
-                Forms\Components\DatePicker::make('date')
+                //     ->statePath('workInterval')
+                //     ->columns(3)
+                //     ->schema([
+                Forms\Components\DatePicker::make('work_interval.date')
                     ->hiddenLabel()
                     ->columnSpan(1)
                     ->default(now()),
@@ -43,21 +43,33 @@ class WorkAssignmentRepeater
                 //     ->numeric()
                 //     ->integer()
                 //     ->default(60),
-                Forms\Components\TimePicker::make('time_from')
+                Forms\Components\TimePicker::make('work_interval.time_from')
                     ->hiddenLabel()
                     ->format('H:i')
                     ->columnSpan(1),
-                Forms\Components\TimePicker::make('time_to')
+                Forms\Components\TimePicker::make('work_interval.time_to')
                     ->hiddenLabel()
                     ->columnSpan(1),
+                // ]),
                 // contract
                 ContractPicker::make('employee_contract_id')
-                    ->relationship('employeeContract', 'pid')
-                    ->getOptionLabelFromRecordUsing(null)
+                    // ->relationship('employeeContract', 'pid')
+                    ->options(function () {
+
+                        return EmployeeContract::with('department')
+                            ->has('department')
+                            ->active()
+                            // ->workers()
+                            ->get()
+                            ->map(function ($record) {
+                                // dd($record);
+                                return [$record->id => $record->formattedTitle . ' ' . $record?->department?->code];
+                            });
+                    })
+                    // ->getOptionLabelFromRecordUsing(null)
                     ->getSearchResultsUsing(null)
                     ->searchable()
                     ->columnSpan(2),
-                // ]),
                 // // note
                 // Forms\Components\Textarea::make('note'),
             ])

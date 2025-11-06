@@ -3,17 +3,13 @@
 namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
-use App\Models\TicketSubject;
-use App\Services\TS\ActivityService;
+
 use App\Services\TS\CreateTicketService;
-use App\Services\TS\HeaderService;
-use App\Services\TS\SubjectService;
-use App\Services\TicketService;
-use App\States\TS\Created;
-use Dpb\DatahubSync\Models\Department;
-use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Tickets\Models\TicketGroup;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Support\Enums\MaxWidth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,29 +25,27 @@ class ListTickets extends ListRecords
                 // ->using(function (array $data, string $model, SubjectService $ticketSubjectSvc, HeaderService $ticketHeaderService): ?Model {
                 ->using(function (array $data, string $model, CreateTicketService $ticketSvc): ?Model {
                     return $ticketSvc->create($data);
-                    // dd($data);
-                    // // services
-                    // $materials = $data['materials'];
-                    // // materials
-                    // $services = $data['services'];
+                })
 
-                    // $ticket = $model::create([
-                    //     'date' => $data['date'],
-                    //     'title' => $data['title'],
-                    //     'description' => $data['description'],
-                    //     'source_id' => $data['source_id'],
-                    //     'state' => Created::$name
-                    // ]);
-
-                    // $ticketSubjectSvc->setSubject($ticket, Vehicle::find($data['subject_id']));
-                    // return $ticket;
-                })            
-            // ->after(function (TicketService $ticketService, Department $departmentHdl) {
-            //     $data = $this->form->getState();
-            //     $department = $departmentHdl->findOrFail($data['department_id']);
-
-            //     $ticketService->assignDepartment($this->record, $department);
-            // }),
         ];
+    }
+
+    public function getTabs(): array
+    {
+        $tabs = [];
+
+        // Default “all” tab
+        $tabs['all'] = Tab::make('All');
+
+        // Dynamic tabs
+        foreach (TicketGroup::get() as $group) {
+            $tabs[$group->code] = Tab::make($group->title)
+                ->modifyQueryUsing(
+                    fn(Builder $query) =>
+                    $query->byGroup($group->code)
+                );
+        }
+
+        return $tabs;
     }
 }

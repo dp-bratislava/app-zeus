@@ -5,6 +5,7 @@ namespace App\Filament\Resources\TS\TicketItemResource\Pages;
 use App\Filament\Resources\TS\TicketItemResource;
 use App\Models\ActivityAssignment;
 use App\Models\TicketAssignment;
+use App\Models\TicketItemAssignment;
 use App\Services\TicketItemRepository;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -23,19 +24,20 @@ class EditTicketItem extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        // $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
-        // $vehicleId = app(TicketService::class)->getVehicle($this->record)?->id;
-
-        // $data['department_id'] = $departmentId;
-        // $data['vehicle_id'] = $vehicleId;
-
         $subjectId = TicketAssignment::whereBelongsTo($this->record->ticket)->first()?->subject?->id;
         $data['subject_id'] = $subjectId;
 
-        $activities = ActivityAssignment::whereMorphedTo('subject', $this->record)->get();
+        $activities = ActivityAssignment::whereMorphedTo('subject', $this->record)
+            ->with(['activity', 'activity.template'])
+            ->get()
+            ->map(fn($assignment) => $assignment->activity);
         $data['activities'] = $activities;
 
-        // dd($activities);
+        // assigned to
+        $assignedToId = TicketItemAssignment::whereBelongsTo($this->record, 'ticketItem')->first()?->assignedTo?->id;
+        $data['assigned_to'] = $assignedToId;
+
+        // dd($data);
         return $data;
     }
 

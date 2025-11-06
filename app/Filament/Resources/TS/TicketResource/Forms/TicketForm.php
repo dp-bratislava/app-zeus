@@ -44,16 +44,17 @@ class TicketForm
                     ->preload()
                     ->searchable()
                     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                    ->required(false),                
-                // Forms\Components\Select::make('group_id')
-                //     ->label(__('tickets/ticket.form.fields.title'))
-                //     ->relationship('group', 'title')
-                //     ->live(),
-                Forms\Components\TextInput::make('title')
-                    ->columnSpan(3)
-                    ->label(__('tickets/ticket.form.fields.title')),
-                    // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                    // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
+                    ->required(false),
+                // group
+                Forms\Components\Select::make('group_id')
+                    ->label(__('tickets/ticket.form.fields.group'))
+                    ->relationship('group', 'title')
+                    ->live(),
+                // Forms\Components\TextInput::make('title')
+                //     ->columnSpan(3)
+                //     ->label(__('tickets/ticket.form.fields.title')),
+                // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
                 // Forms\Components\ToggleButtons::make('source_id')
                 //     ->label(__('tickets/ticket.form.fields.source'))
                 //     ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)

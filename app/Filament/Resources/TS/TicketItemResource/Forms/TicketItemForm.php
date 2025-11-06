@@ -8,11 +8,16 @@ use App\Filament\Resources\TS\TicketItemResource\Forms\ActivityRepeater;
 use App\Filament\Resources\TS\TicketResource\Components\MaterialRepeater;
 use App\Filament\Resources\TS\TicketResource\Components\ServiceRepeater;
 use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelationManager;
+use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
+use App\States\TS\TicketItem\Closed;
+use App\States\TS\TicketItem\Created;
+use App\States\TS\TicketItem\InProgress;
 use Dpb\Package\Activities\Models\TemplateGroup as ActivityTemplateGroup;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketItemGroup;
@@ -27,39 +32,72 @@ class TicketItemForm
         return $form
             ->columns(7)
             ->schema([
-                Forms\Components\DatePicker::make('date')
-                    ->label(__('tickets/ticket-item.form.fields.date'))
-                    ->columnSpan(2)
-                    ->default(now()),
-
-                Forms\Components\Select::make('subject_id')
-                    ->label(__('tickets/ticket-item.form.fields.subject'))
-                    ->columnSpan(1)
-                    // ->relationship('source', 'title', null, true)
-                    ->options(fn() => Vehicle::pluck('code_1', 'id'))
-                    ->getOptionLabelsUsing(fn($record) => "{$record->code->code} - {$record->model->title}")
+                // ticket
+                Forms\Components\Select::make('ticket_id')
+                    ->label(__('tickets/ticket-item.form.fields.ticket'))
+                    ->columnSpanFull()
+                    ->relationship('ticket', 'title', null, true)
+                    // ->getOptionLabelsUsing(fn(Ticket $record, TicketAssignment $ticketAssignment) => "{$record->id} - {$record->title}")
                     ->preload()
                     ->searchable()
-                    // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                    ->required(false)
+                    ->required()
                     ->hiddenOn(TicketItemRelationManager::class),
-  
-                // title 
+
+                // date
+                Forms\Components\DatePicker::make('date')
+                    ->label(__('tickets/ticket-item.form.fields.date'))
+                    ->columnSpan(1)
+                    ->default(now()),
+                // // subject
+                // Forms\Components\Select::make('subject_id')
+                //     ->label(__('tickets/ticket-item.form.fields.subject'))
+                //     ->columnSpan(1)
+                //     // ->relationship('source', 'title', null, true)
+                //     ->options(fn() => Vehicle::pluck('code_1', 'id'))
+                //     ->getOptionLabelsUsing(fn($record) => "{$record->code->code} - {$record->model->title}")
+                //     ->preload()
+                //     ->searchable()
+                //     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                //     ->required(false)
+                //     ->hiddenOn(TicketItemRelationManager::class),
+
+                // title
                 Forms\Components\Select::make('group_id')
                     ->relationship('group', 'title')
                     ->label(__('tickets/ticket-item.form.fields.title'))
-                    ->columnSpan(5)
+                    ->columnSpan(2)
                     // ->options(fn() => ActivityTemplateGroup::has('parent')->pluck('title', 'id'))
                     ->getOptionLabelFromRecordUsing(fn(TicketItemGroup $record) => "{$record->code} {$record->title}")
                     ->searchable()
                     ->preload()
                     ->live(),
+
+                // assigned to e.g. maintenance group
+                Forms\Components\ToggleButtons::make('assigned_to')
+                    ->label(__('tickets/ticket-item.form.fields.assigned_to'))
+                    ->columnSpan(2)
+                    ->options(fn() => MaintenanceGroup::pluck('code', 'id'))
+                    ->inline(),
+
+                // state
+                Forms\Components\ToggleButtons::make('state')
+                    ->label(__('tickets/ticket-item.form.fields.state'))
+                    ->columnSpan(2)
+                    ->options(fn() => [
+                        Created::$name => __('tickets/ticket-item.states.created'),
+                        InProgress::$name => __('tickets/ticket-item.states.in-progress'),
+                        Closed::$name => __('tickets/ticket-item.states.closed'),
+                    ])
+                    ->inline(),
+
                 // Forms\Components\TextInput::make('title')
                 //     ->columnSpan(3)
                 //     ->label(__('tickets/ticket-item.form.fields.title')),
                 Forms\Components\Textarea::make('description')
                     ->label(__('tickets/ticket-item.form.fields.description'))
                     ->columnSpanFull(),
+
+                // supervised by
 
                 // activities 
                 Forms\Components\Tabs::make('Tabs')
@@ -72,6 +110,7 @@ class TicketItemForm
                             ->icon('heroicon-m-wrench')
                             ->schema([
                                 ActivityRepeater::make('activities')
+                                    ->label(__('tickets/ticket-item.form.fields.activities.title'))
                                 // ->relationship('activities'),
                             ]),
                         // materials

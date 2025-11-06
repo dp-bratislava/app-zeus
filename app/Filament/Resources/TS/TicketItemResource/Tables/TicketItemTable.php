@@ -5,6 +5,8 @@ namespace App\Filament\Resources\TS\TicketItemResource\Tables;
 use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelationManager;
 use App\Models\ActivityAssignment;
 use App\Models\TicketAssignment;
+use App\Models\TicketItemAssignment;
+use App\Models\WorkAssignment;
 use App\Services\Activity\Activity\WorkService;
 use App\Services\TicketItemRepository;
 use App\Services\TicketRepository;
@@ -19,6 +21,7 @@ use App\StateTransitions\TS\TicketItem\InProgressToCancelled;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
@@ -79,7 +82,8 @@ class TicketItemTable
                         if ($record->ticket !== null) {
                             return $svc->getSubject($record->ticket)?->code?->code;
                         }
-                    }),
+                    })
+                    ->hiddenOn(TicketItemRelationManager::class),
                 Tables\Columns\TextColumn::make('source')
                     ->label(__('tickets/ticket-item.table.columns.source.label'))
                     ->state(function (TicketItem $record, TicketAssignmentService $svc) {
@@ -87,12 +91,18 @@ class TicketItemTable
                             return $svc->getSourceLabel($record->ticket);
                         }
                     })
+                    ->hiddenOn(TicketItemRelationManager::class)
                     ->badge(),
-                Tables\Columns\TextColumn::make('department')
-                    ->label(__('tickets/ticket-item.table.columns.department.label')),
-                // ->state(function (HeaderService $svc, $record) {
-                //     return $svc->getHeader($record->ticket)?->department?->code;
-                // }),
+                Tables\Columns\TextColumn::make('assigned_to')
+                    ->label(__('tickets/ticket-item.table.columns.assigned_to.label'))
+                    ->state(function (TicketItem $record, TicketItemAssignment $ticketItemAssignment) {
+                        return $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->code;
+                    })
+                    ->badge()
+                    ->color(fn (string $state) => match ($state) {
+                        '1TPA' => '#888',
+                        default => '#333'
+                    }),
                 // Tables\Columns\TextColumn::make('activities')
                 //     ->label(__('tickets/ticket-item.table.columns.activities.label'))
                 //     ->tooltip(__('tickets/ticket-item.table.columns.activities.tooltip'))
@@ -147,22 +157,74 @@ class TicketItemTable
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()
+                Tables\Actions\ViewAction::make()
+                    ->modalWidth(MaxWidth::class)
                     ->mutateRecordDataUsing(function (
                         $record,
                         array $data,
                         TicketAssignment $ticketAssignment,
+                        TicketItemAssignment $ticketItemAssignment,
                         ActivityAssignment $activityAssignment
                     ): array {
+                        // subject
                         $subjectId = $ticketAssignment->whereBelongsTo($record->ticket)->first()?->subject?->id;
                         $data['subject_id'] = $subjectId;
 
-                        $activities = $activityAssignment->whereMorphedTo('subject', $record)->get()->toArray();
+                        // activities
+                        $activities = $activityAssignment->whereMorphedTo('subject', $record)
+                            ->with(['activity', 'activity.template'])
+                            ->get()
+                            ->map(fn($assignment) => $assignment->activity);
                         $data['activities'] = $activities;
+                        // dd($activities);
+
+                        // assigned to
+                        $assignedToId = $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->id;
+                        $data['assigned_to'] = $assignedToId;
+
+                        return $data;
+                    }),
+                Tables\Actions\EditAction::make()
+                    ->modalWidth(MaxWidth::class)
+                    ->mutateRecordDataUsing(function (
+                        $record,
+                        array $data,
+                        TicketAssignment $ticketAssignment,
+                        TicketItemAssignment $ticketItemAssignment,
+                        ActivityAssignment $activityAssignment,
+                        WorkAssignment $workAssignment
+                    ): array {
+                        // subject
+                        $subjectId = $ticketAssignment->whereBelongsTo($record->ticket)->first()?->subject?->id;
+                        $data['subject_id'] = $subjectId;
+
+                        // activities
+                        $activities = $activityAssignment->whereMorphedTo('subject', $record)
+                            ->with(['activity', 'activity.template'])
+                            ->get()
+                            ->map(fn($assignment) => $assignment->activity);
+                        $data['activities'] = $activities;
+                        // dd($activities);
+
+                        // work 
+                        foreach ($data['activities'] as $key => $activity) {
+                            $workAssignments = $workAssignment->whereMorphedTo('subject', $activity)
+                            ->with(['workInterval', 'employeeContract'])                            
+                            ->get()
+                            ->toArray();
+                            // ->map(fn($assignment) => $assignment->workInterval);                            
+                            $data['activities'][$key]['workAssignments'] = $workAssignments;
+                            // dd($workAssignments);
+                        }                         
+
+                        // assigned to
+                        $assignedToId = $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->id;
+                        $data['assigned_to'] = $assignedToId;
+                        // dd($data);
                         return $data;
                     })
                     ->using(function (Model $record, array $data, TicketItemRepository $ticketItemRepo): ?Model {
+                        // dd($data);
                         return $ticketItemRepo->update($record, $data);
                     }),
                 Tables\Actions\DeleteAction::make(),

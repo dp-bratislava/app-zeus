@@ -44,7 +44,8 @@ class TicketGroupResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('code'),
+                Forms\Components\TextInput::make('title'),
             ]);
     }
 

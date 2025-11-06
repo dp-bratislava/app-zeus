@@ -35,14 +35,22 @@ class TicketTable
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label(__('tickets/ticket.table.columns.id.label')),
+                    // date
                 Tables\Columns\TextColumn::make('date')->date()
                     ->label(__('tickets/ticket.table.columns.date.label')),
-                // Tables\Columns\TextColumn::make('parent.id')
-                //     ->label(__('tickets/ticket.table.columns.parent.label')),
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('tickets/ticket.table.columns.title.label')),
+                    // subject
+                Tables\Columns\TextColumn::make('subject')
+                    ->label(__('tickets/ticket.table.columns.subject.label'))
+                    ->state(function ($record, TicketAssignment $svc) {
+                        return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
+                    }),
+                Tables\Columns\TextColumn::make('group.title')
+                    ->label(__('tickets/ticket.table.columns.group.label')),
+                // Tables\Columns\TextColumn::make('title')
+                //     ->label(__('tickets/ticket.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('description')
-                    ->label(__('tickets/ticket.table.columns.description.label')),
+                    ->label(__('tickets/ticket.table.columns.description.label'))
+                    ->grow(),
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('tickets/ticket.table.columns.state.label'))
                     ->state(fn(Ticket $record) => $record->state->label())
@@ -57,18 +65,14 @@ class TicketTable
                             }),
                     ),
                 // TextColumn::make('department.code'),
-                Tables\Columns\TextColumn::make('subject')
-                    ->label(__('tickets/ticket.table.columns.subject.label'))
-                    ->state(function ($record, TicketAssignment $svc) {
-                        return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
-                    }),
+
                 Tables\Columns\TextColumn::make('source.title')
                     ->label(__('tickets/ticket.table.columns.source.label')),
-                Tables\Columns\TextColumn::make('department')
-                    ->label(__('tickets/ticket.table.columns.department.label'))
-                    ->state(function (HeaderService $svc, $record) {
-                        return $svc->getHeader($record)?->department?->code;
-                    }),
+                // Tables\Columns\TextColumn::make('department')
+                //     ->label(__('tickets/ticket.table.columns.department.label'))
+                //     ->state(function (HeaderService $svc, $record) {
+                //         return $svc->getHeader($record)?->department?->code;
+                //     }),
                 Tables\Columns\TextColumn::make('activities')
                     ->label(__('tickets/ticket.table.columns.activities.label'))
                     ->tooltip(__('tickets/ticket.table.columns.activities.tooltip'))
