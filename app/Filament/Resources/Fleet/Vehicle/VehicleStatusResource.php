@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet\Vehicle;
 
 use App\Filament\Imports\Fleet\VehicleStatusImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleStatusResource\Pages;
-use Dpb\Packages\Vehicles\Models\VehicleStatus;
+use Dpb\Package\Fleet\Models\VehicleStatus;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,10 +19,15 @@ class VehicleStatusResource extends Resource
 {
     protected static ?string $model = VehicleStatus::class;
 
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return 'Flotila';
     }
 
     public static function form(Form $form): Form
@@ -49,7 +54,7 @@ class VehicleStatusResource extends Resource
                 ImportAction::make()
                     ->importer(VehicleStatusImporter::class)
                     ->csvDelimiter(';')
-            ])             
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])

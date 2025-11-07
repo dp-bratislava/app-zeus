@@ -26,6 +26,9 @@ return new class extends Migration
                 ->nullable()
                 ->storedAs('TIMESTAMPDIFF(MINUTE, time_from, time_to)')
                 ->comment('Computed column with real duration in minutes');
+            $table->text('note')
+                ->nullable()
+                ->comment('Optional note');
             $table->timestamps();
             $table->softDeletes();
         });

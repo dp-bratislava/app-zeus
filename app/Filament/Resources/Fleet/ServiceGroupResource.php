@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Fleet;
 
 use App\Filament\Resources\Fleet\ServiceGroupResource\Pages;
 use App\Filament\Resources\Fleet\ServiceGroupResource\RelationManagers;
-use Dpb\Packages\Vehicles\Models\ServiceGroup;
+use Dpb\Package\Fleet\Models\ServiceGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

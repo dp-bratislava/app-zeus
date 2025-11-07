@@ -2,16 +2,24 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle;
 
+use App\Filament\Components\DepartmentPicker;
 use App\Filament\Imports\Fleet\VehicleImporter;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Forms\VehicleForm;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Infolists\VehicleInfolist;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\RelationManagers;
-use Dpb\Packages\Vehicles\Models\Vehicle;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Tables\VehicleTable;
+use App\Services\Fleet\VehicleService;
+use App\StateTransitions\Fleet\Vehicle\DiscardedToInService;
+use App\StateTransitions\Fleet\Vehicle\InServiceToDiscarded;
+use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -22,97 +30,39 @@ class VehicleResource extends Resource
 {
     protected static ?string $model = Vehicle::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getModelLabel(): string
+    {
+        return __('fleet/vehicle.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('fleet/vehicle.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('fleet/vehicle.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Fleet';
+        return __('fleet/vehicle.navigation.group');
     }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return VehicleForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('code'),
-                TextColumn::make('model.title'),
-                TextColumn::make('model.length')->label('length'),
-                TextColumn::make('end_of_warranty'),
-                TextColumn::make('model.warranty')->label('warranty'),
-                TextColumn::make('licencePlate'),
-                TextColumn::make('model.type.title'),
-                TextColumn::make('groups.title'),
-                TextColumn::make('status'),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(VehicleImporter::class)
-                    ->csvDelimiter(';')
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return VehicleTable::make($table);
     }
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        return $infolist
-            ->schema([
-                Infolists\Components\Tabs::make('tabs')
-                    ->tabs([
-                        Infolists\Components\Tabs\Tab::make('technicke parametre')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('poistne udalosti')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('poruchy')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('material')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('tickets.materials.title'),
-                            ]),
-                        Infolists\Components\Tabs\Tab::make('STK')
-                            ->schema([
-                                Infolists\Components\TextEntry::make('param 1'),
-                                Infolists\Components\TextEntry::make('param 2'),
-                                Infolists\Components\TextEntry::make('param ...'),
-                                Infolists\Components\TextEntry::make('param N'),
-                            ]),       
-
-                    ])
-            ]);
+        return VehicleInfolist::make($infolist);
     }
 
     public static function getRelations(): array

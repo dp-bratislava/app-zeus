@@ -2,8 +2,8 @@
 
 namespace App\Filament\Imports\Fleet;
 
-use Dpb\Packages\Vehicles\Models\Tire\Parameter;
-use Dpb\Packages\Vehicles\Models\Vehicle;
+use Dpb\Package\Fleet\Models\Tire\Parameter;
+use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
