@@ -20,6 +20,7 @@ return [
             'title' => 'Názov',
             'description' => 'Popis',
             'color' => 'Farba',
+            'vehicle_type' => 'Typ',
         ],
     ],
     'table' => [
@@ -32,6 +33,7 @@ return [
             'title' => 'Názov',
             'description' => 'Popis',
             'color' => 'Farba',
+            'vehicle_type' => 'Typ',
         ]
     ],
     'navigation' => [

@@ -49,6 +49,12 @@ class TicketItemTable
             // ->defaultGroup('ticket_id')
             ->defaultGroup(TicketItemRelationManager::class ? null : 'ticket_id')
             ->columns([
+                // ticket id
+                Tables\Columns\TextColumn::make('ticket.id')
+                    ->label(__('tickets/ticket-item.table.columns.ticket.label'))
+                    ->tooltip(fn(TicketItem $record) => $record?->ticket?->title)
+                    ->badge(),
+                // ticket item id
                 Tables\Columns\TextColumn::make('id')
                     ->label(__('tickets/ticket-item.table.columns.id.label')),
                 Tables\Columns\TextColumn::make('date')->date()
@@ -99,7 +105,7 @@ class TicketItemTable
                         return $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->code;
                     })
                     ->badge()
-                    ->color(fn (string $state) => match ($state) {
+                    ->color(fn(string $state) => match ($state) {
                         '1TPA' => '#888',
                         default => '#333'
                     }),
@@ -148,10 +154,7 @@ class TicketItemTable
                 //         $result = $record->activities->sum('duration');
                 //         return $result;
                 //     }),
-                Tables\Columns\TextColumn::make('ticket.id')
-                    ->label(__('tickets/ticket-item.table.columns.ticket.label'))
-                    ->tooltip(fn(TicketItem $record) => $record?->ticket?->title)
-                    ->badge(),
+
             ])
             ->filters([
                 //
@@ -186,6 +189,7 @@ class TicketItemTable
                     }),
                 Tables\Actions\EditAction::make()
                     ->modalWidth(MaxWidth::class)
+                    // ->modalHeading(fn($record) => dd($record->ticke))
                     ->mutateRecordDataUsing(function (
                         $record,
                         array $data,
@@ -209,13 +213,13 @@ class TicketItemTable
                         // work 
                         foreach ($data['activities'] as $key => $activity) {
                             $workAssignments = $workAssignment->whereMorphedTo('subject', $activity)
-                            ->with(['workInterval', 'employeeContract'])                            
-                            ->get()
-                            ->toArray();
+                                ->with(['workInterval', 'employeeContract'])
+                                ->get()
+                                ->toArray();
                             // ->map(fn($assignment) => $assignment->workInterval);                            
                             $data['activities'][$key]['workAssignments'] = $workAssignments;
                             // dd($workAssignments);
-                        }                         
+                        }
 
                         // assigned to
                         $assignedToId = $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->id;

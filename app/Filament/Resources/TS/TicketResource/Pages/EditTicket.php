@@ -32,13 +32,13 @@ class EditTicket extends EditRecord
     
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        // $departmentId = app(TicketService::class)->getDepartment($this->record)?->id;
+        // $data['subject_id'] = app(TicketAssignment::class)->whereBelongsTo($this->record)->first()?->subject?->id;
 
-        // $data['department_id'] = $departmentId;
-        $data['subject_id'] = app(TicketAssignment::class)->whereBelongsTo($this->record)->first()?->subject?->id;
+        // ticket group
+        $data['ticket']['group_id'] = $this->record->ticket->group_id;
 
-        $activities = app(ActivityService::class)->getActivities($this->record)->toArray();
-
+        // activities
+        $activities = app(ActivityService::class)->getActivities($this->record->ticket)->toArray();
         $data['activities'] = $activities;
         // dd($activities);
         return $data;

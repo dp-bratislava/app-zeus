@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inspection;
 
+use App\Filament\Resources\Inspection\InspectionResource\Forms\InspectionFrom;
 use App\Filament\Resources\Inspection\InspectionResource\Pages;
 use App\Filament\Resources\Inspection\InspectionResource\RelationManagers;
 use App\Filament\Resources\Inspection\InspectionResource\Tables\InspectionTable;
@@ -39,22 +40,12 @@ class InspectionResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return InspectionFrom::make($form);
     }
 
     public static function table(Table $table): Table
     {
         return InspectionTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

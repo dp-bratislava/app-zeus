@@ -166,7 +166,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-inspections",
-                "reference": "5c1c4f80e66144169c6fe1b2db786a9c993e87c0"
+                "reference": "0e977a40c8efc2f340b6357bf072d3a8404c7af1"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -1874,7 +1874,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-fleet",
-                "reference": "0502b0a7050d5bd8dd06058e9cd9720eeea540c1"
+                "reference": "24e886798d2a2025311d200a08a1e2b478c65129"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",

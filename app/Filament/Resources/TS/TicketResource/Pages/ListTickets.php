@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
-
+use App\Services\TicketAssignmentRepository;
 use App\Services\TS\CreateTicketService;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Filament\Actions;
@@ -23,10 +23,15 @@ class ListTickets extends ListRecords
             Actions\CreateAction::make()
                 ->modalWidth(MaxWidth::MaxContent) // options: sm, md, lg, xl, 2xl
                 // ->using(function (array $data, string $model, SubjectService $ticketSubjectSvc, HeaderService $ticketHeaderService): ?Model {
-                ->using(function (array $data, string $model, CreateTicketService $ticketSvc): ?Model {
-                    return $ticketSvc->create($data);
-                })
+                // ->using(function (array $data, string $model, CreateTicketService $ticketSvc): ?Model {
+                //     dd('hh');
+                //     return $ticketSvc->create($data);
+                // })
 
+                ->using(function (array $data, TicketAssignmentRepository $ticketAssignmentRepository): ?Model {
+                    // dd('hh');
+                    return $ticketAssignmentRepository->create($data);
+                })
         ];
     }
 

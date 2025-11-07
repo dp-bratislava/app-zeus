@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Inspection;
 
 use App\Filament\Imports\Inspection\InspectionTemplateImporter;
+use App\Filament\Resources\Inspection\InspectionTemplateResource\Forms\InspectionTemplateForm;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Pages;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\RelationManagers;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Tables\InspectionTemplateTable;
@@ -43,16 +44,7 @@ class InspectionTemplateResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code'),
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\Select::make('vehicleModels')
-                    ->relationship('vehicleModels', 'title')
-                    ->multiple()
-                    ->preload()
-                    ->searchable()
-            ]);
+        return InspectionTemplateForm::make($form);
     }
 
     public static function table(Table $table): Table

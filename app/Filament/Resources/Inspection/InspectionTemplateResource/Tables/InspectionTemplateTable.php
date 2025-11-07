@@ -13,8 +13,9 @@ class InspectionTemplateTable
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
-                Tables\Columns\TextColumn::make('code')
-                    ->label(__('inspections/inspection-template.table.columns.code.label')),
+                // // code
+                // Tables\Columns\TextColumn::make('code')
+                //     ->label(__('inspections/inspection-template.table.columns.code.label')),
                 // title
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('inspections/inspection-template.table.columns.title.label'))
@@ -49,15 +50,15 @@ class InspectionTemplateTable
             ])
             ->filters([
                 //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
+            // ->actions([
+            //     Tables\Actions\ViewAction::make(),
+            //     Tables\Actions\EditAction::make()
+            // ])
+            // ->bulkActions([
+            //     Tables\Actions\BulkActionGroup::make([
+            //         Tables\Actions\DeleteBulkAction::make(),
+            //     ]),
+            // ]);
     }
 }

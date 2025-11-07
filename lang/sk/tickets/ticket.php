@@ -16,6 +16,7 @@ return [
             'source' => 'Miesto výskytu',
             'group' => 'Typ zákazky',
             'subject' => 'Vozidlo',
+            'assigned_to' => 'Technická prevádzka',
             'department' => 'Stredisko',
         ],
         'tabs' => [
@@ -30,20 +31,22 @@ return [
         'row_groups' => [
         ],
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'department' => ['label' => 'Stredisko'],
-            'group' => ['label' => 'Typ zákazky'],
+            'id' => 'ID',
+            'date' => 'Dátum',
+            'title' => 'Názov',
+            'description' => 'Popis',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
+            'assigned_to' => 'Technická prevádzka',
+            'department' => 'Stredisko',
+            'group' => 'Typ zákazky',
             'activities' => [
                 'label' => 'Normy',
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
-            'source' => ['label' => 'Miesto výskytu'],
-            'parent' => ['label' => 'Patrí pod'],
+            'source' => 'Miesto výskytu',
+            'parent' => 'Patrí pod',
+            'total_expenses' => 'Náklady'
         ]
     ],
     'relation_manager' => [

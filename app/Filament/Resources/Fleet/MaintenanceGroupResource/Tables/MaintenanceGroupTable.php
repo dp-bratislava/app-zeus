@@ -19,6 +19,8 @@ class MaintenanceGroupTable
                     ->label(__('fleet/maintenance-group.table.columns.description')),
                 Tables\Columns\ColorColumn::make('color')
                     ->label(__('fleet/maintenance-group.table.columns.color')),
+                Tables\Columns\ColorColumn::make('vehicleType.title')
+                    ->label(__('fleet/maintenance-group.table.columns.vehicle_type')),
             ])
             ->filters([
                 //

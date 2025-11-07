@@ -10,10 +10,11 @@ class ListInspectionTemplates extends ListRecords
 {
     protected static string $resource = InspectionTemplateResource::class;
 
+    
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
 }

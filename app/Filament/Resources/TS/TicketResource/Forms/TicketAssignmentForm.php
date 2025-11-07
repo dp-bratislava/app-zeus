@@ -11,20 +11,21 @@ use App\Services\Activity\Activity\WorkService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
 use Filament\Forms\Form;
 
-class TicketForm
+class TicketAssignmentForm
 {
     public static function make(Form $form): Form
     {
         return $form
             ->columns(7)
             ->schema([
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('ticket.date')
                     ->label(__('tickets/ticket.form.fields.date'))
                     ->columnSpan(1)
                     ->default(now()),
@@ -35,68 +36,55 @@ class TicketForm
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable(),
-                // Forms\Components\Select::make('subject_id')
-                //     ->label(__('tickets/ticket.form.fields.subject'))
-                //     ->columnSpan(3)
-                //     // ->relationship('source', 'title', null, true)
-                //     ->options(fn() => Vehicle::pluck('code_1', 'id'))
-                //     ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
-                //     ->preload()
-                //     ->searchable()
-                //     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                //     ->required(false),
                 // subject
-                VehiclePicker::make('subject_id')
+                Forms\Components\Select::make('subject_id')
                     ->label(__('tickets/ticket.form.fields.subject'))
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable(),
+                    ->columnSpan(1)
+                    // ->relationship('source', 'title', null, true)
+                    ->options(fn() => Vehicle::pluck('code_1', 'id'))
+                    ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
+                    ->preload()
+                    ->searchable()
+                    // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                    ->required(false),
+                // assigned to e.g. maintenance group
+                Forms\Components\ToggleButtons::make('assigned_to')
+                    ->label(__('tickets/ticket.form.fields.assigned_to'))
+                    ->columnSpan(2)
+                    ->options(fn() => MaintenanceGroup::pluck('code', 'id'))
+                    ->inline(),
+                // // assigned to
+                // Forms\Components\MorphToSelect::make('assignedTo')
+                //     ->types([
+                //         Forms\Components\MorphToSelect\Type::make(MaintenanceGroup::class)
+                //             ->titleAttribute('code'),
+                //     ])
+                //     // ->relationship('subject', 'code')
+                //     // ->options(fn() => Vehicle::pluck('code', 'id'))
+                //     ->preload()
+                //     ->searchable(),
 
                 // group
-                Forms\Components\Select::make('group_id')
+                Forms\Components\Select::make('ticket.group_id')
                     ->label(__('tickets/ticket.form.fields.group'))
-                    ->relationship('group', 'title')
+                    ->relationship('ticket.group', 'title')
                     ->live(),
-                // Forms\Components\TextInput::make('title')
-                //     ->columnSpan(3)
-                //     ->label(__('tickets/ticket.form.fields.title')),
-                // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
-                // Forms\Components\ToggleButtons::make('source_id')
-                //     ->label(__('tickets/ticket.form.fields.source'))
-                //     ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                //     // ->relationship('source', 'title')
-                //     ->inline()
-                //     ->columnSpan(7)
-                //     ->options(fn() => TicketSource::pluck('title', 'id')),
-
-                // Forms\Components\Select::make('source_id')
-                //     ->relationship('source', 'title', null, true)
-                //     ->preload()
-                //     ->searchable()
-                //     ->required(false),
-                Forms\Components\Textarea::make('description')
+                // source
+                Forms\Components\Select::make('source')
+                    ->label(__('tickets/ticket.form.fields.source'))
+                    // ->relationship('source', 'title', null, true)
+                    ->options([
+                        'inspection' => 'Kontrola',
+                        'incident' => 'Dispečing'
+                    ])
+                    ->searchable()
+                    ->required(false),
+                // description
+                Forms\Components\Textarea::make('ticket.description')
                     ->label(__('tickets/ticket.form.fields.description'))
                     ->columnSpanFull(),
-                // Forms\Components\Select::make('parent_id')
-                //     ->relationship('parent', 'title', null, true)
-                //     ->preload()
-                //     ->searchable()
-                //     ->required(false),
-                //department
-                // DepartmentPicker::make('department_id')
-                //     ->label(__('tickets/ticket.form.fields.department'))
-                //     // ->relationship('department', 'title')
-                //     ->getOptionLabelFromRecordUsing(null)
-                //     ->getSearchResultsUsing(null)
-                //     ->searchable()
-                //     ->columnSpan(4)
-                //     // ->default(function(TicketService $ticketService, $record) {
-                //     //return $ticketService->getDepartment($record)->id;
-                //     // return 283;
-                //     // })
-                //     // ->dehydrated(false)
-                //     ->required(),
+
+
                 // vehicle
                 // Forms\Components\MorphToSelect::make('subject')
                 //     ->types([

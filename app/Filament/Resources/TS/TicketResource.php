@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\TS;
 
+use App\Filament\Resources\TS\TicketResource\Forms\TicketAssignmentForm;
 use App\Filament\Resources\TS\TicketResource\Forms\TicketForm;
 use App\Filament\Resources\TS\TicketResource\Pages;
 use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelationManager;
+use App\Filament\Resources\TS\TicketResource\Tables\TicketAssignmentTable;
 use App\Filament\Resources\TS\TicketResource\Tables\TicketTable;
+use App\Models\TicketAssignment;
 use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +16,8 @@ use Filament\Tables\Table;
 
 class TicketResource extends Resource
 {
-    protected static ?string $model = Ticket::class;
+    // protected static ?string $model = Ticket::class;
+    protected static ?string $model = TicketAssignment::class;
 
     public static function getModelLabel(): string
     {
@@ -37,12 +41,14 @@ class TicketResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return TicketForm::make($form);
+        // return TicketForm::make($form);
+        return TicketAssignmentForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return TicketTable::make($table);
+        // return TicketTable::make($table);
+        return TicketAssignmentTable::make($table);
     }
 
     public static function getRelations(): array

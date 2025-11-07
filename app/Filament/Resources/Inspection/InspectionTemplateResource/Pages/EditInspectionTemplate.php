@@ -16,4 +16,12 @@ class EditInspectionTemplate extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    // protected function mutateFormDataBeforeFill(array $data): array
+    // {
+    //     dd($data);
+    //     $data['cnd_distance_treshold'] = auth()->id();
+
+    //     return $data;
+    // }
 }

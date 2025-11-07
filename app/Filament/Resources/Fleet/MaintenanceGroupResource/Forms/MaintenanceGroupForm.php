@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle\MaintenanceGroupResource\Forms;
 
+use Dpb\Package\Fleet\Models\VehicleType;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -28,6 +29,10 @@ class MaintenanceGroupForm
             Forms\Components\ColorPicker::make('color')
                 ->columnSpan(1)
                 ->label(__('fleet/maintenance-group.form.fields.color')),
+            Forms\Components\ToggleButtons::make('vehicle_type_id')
+                ->label(__('fleet/maintenance-group.form.fields.vehicle_type'))
+                ->options(fn() => VehicleType::pluck('title', 'id'))
+                ->inline(),
         ];
     }
 }

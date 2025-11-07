@@ -18,14 +18,14 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
-class TicketTable
+class TicketAssignmentTable
 {
     public static function make(Table $table): Table
     {
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+            ->recordClasses(fn($record) => match ($record->ticket->state?->getValue()) {
                 States\TS\Ticket\Created::$name => 'bg-blue-200',
                 States\TS\Ticket\Closed::$name => 'bg-green-200',
                 States\TS\Ticket\Cancelled::$name => 'bg-gray-50',
@@ -33,35 +33,36 @@ class TicketTable
                 default => null,
             })
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                Tables\Columns\TextColumn::make('ticket.id')
                     ->label(__('tickets/ticket.table.columns.id')),
                 // date
-                Tables\Columns\TextColumn::make('date')->date()
+                Tables\Columns\TextColumn::make('ticket.date')->date()
                     ->label(__('tickets/ticket.table.columns.date')),
                 // subject
-                Tables\Columns\TextColumn::make('subject')
-                    ->label(__('tickets/ticket.table.columns.subject'))
-                    ->state(function ($record, TicketAssignment $svc) {
-                        return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
-                    }),
-                Tables\Columns\TextColumn::make('group.title')
+                Tables\Columns\TextColumn::make('subject.code.code')
+                    ->label(__('tickets/ticket.table.columns.subject')),
+                    // ->state(function ($record, TicketAssignment $svc) {
+                    //     return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
+                    // }),
+                Tables\Columns\TextColumn::make('ticket.group.title')
                     ->label(__('tickets/ticket.table.columns.group')),
                 // Tables\Columns\TextColumn::make('title')
                 //     ->label(__('tickets/ticket.table.columns.title.label')),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('ticket.description')
                     ->label(__('tickets/ticket.table.columns.description'))
                     ->grow(),
-                Tables\Columns\TextColumn::make('state')
+                Tables\Columns\TextColumn::make('ticket.state')
                     ->label(__('tickets/ticket.table.columns.state'))
-                    ->state(fn(Ticket $record) => $record->state->label())
+                    ->state(fn(TicketAssignment $record) => $record->ticket->state->label())
                     // ->state(fn($record) => dd($record)),
                     ->action(
                         Action::make('select')
                             ->requiresConfirmation()
-                            ->action(function (Ticket $record): void {
-                                $record->state == 'created'
-                                    ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
-                                    : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
+                            ->action(function (TicketAssignment $record): void {
+                                $ticket = $record->ticket;
+                                $ticket->state == 'created'
+                                    ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
+                                    : $ticket->state->transition(new InProgressToCancelled($ticket, auth()->guard()->user()));
                             }),
                     ),
                 // TextColumn::make('department.code'),
@@ -87,12 +88,12 @@ class TicketTable
                         //             // return print_r($work?->duration);
                         //         });
                         // });
-                        $activities = $svc->getActivities($record);
+                        $activities = $svc->getActivities($record->ticket);
                         $totalDuration = 0;
                         foreach ($activities as $activity) {
                             $totalDuration += $workService->getTotalDuration($activity);
                         }
-                        $result = $svc->getTotalExpectedDuration($record) . ' min / ' . $totalDuration . ' min';
+                        $result = $svc->getTotalExpectedDuration($record->ticket) . ' min / ' . $totalDuration . ' min';
                         return $result;
                     }),
                 // Tables\Columns\TextColumn::make('expenses')
