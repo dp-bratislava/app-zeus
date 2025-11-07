@@ -35,7 +35,7 @@ class ListTickets extends ListRecords
         $tabs = [];
 
         // Default “all” tab
-        $tabs['all'] = Tab::make('All');
+        $tabs['all'] = Tab::make('Všetky');
 
         // Dynamic tabs
         foreach (TicketGroup::get() as $group) {

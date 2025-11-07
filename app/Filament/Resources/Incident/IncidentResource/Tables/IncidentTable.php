@@ -64,8 +64,8 @@ class IncidentTable
                     })
                     ->visible(function (Incident $record, TicketAssignment $ticketAssignment) {
                         // return $ticketAssignment->whereHasMorph($record, $record->getMorphClass());
-                        return !TicketAssignment::where('subject_type', $record->getMorphClass())
-                            ->where('subject_id', $record->id)
+                        return !TicketAssignment::where('source_type', $record->getMorphClass())
+                            ->where('source_id', $record->id)
                             ->exists();
                     })
             ])

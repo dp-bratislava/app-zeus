@@ -127,7 +127,7 @@
             "source": {
                 "type": "git",
                 "url": "packages/dpb/pkg-incidents",
-                "reference": "07a9637d9ee621530c04d8517067a8bb60c32c40"
+                "reference": "29fef7af80056c31e10cb76471c89f78473ad0dd"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -158,7 +158,7 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "time": "2025-10-29T16:26:08+00:00"
+            "time": "2025-11-07T10:34:31+00:00"
         },
         {
             "name": "andrej-horny/pkg-inspections",
@@ -242,7 +242,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-tickets",
-                "reference": "101354c63327a86b5abedb0814372672bd6d0f66"
+                "reference": "1e1ff2eb46a0a0530c6cd6ca419b36799d8ddf26"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",

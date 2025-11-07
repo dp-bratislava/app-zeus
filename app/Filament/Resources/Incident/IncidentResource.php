@@ -44,13 +44,6 @@ class IncidentResource extends Resource
         return IncidentTable::make($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [

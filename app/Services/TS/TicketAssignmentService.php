@@ -25,6 +25,7 @@ use App\States;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Incidents\Models\Incident;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
+use Dpb\Package\Tickets\Models\TicketGroup;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
 use Illuminate\Contracts\Auth\Guard;
@@ -187,9 +188,10 @@ class TicketAssignmentService
             // create ticket
             $ticket = Ticket::create([
                 'date' => $date,
-                'title' => $incident->type->title . ' - nahlasene z dispec',
+                // 'title' => $incident->type->title . ' - nahlasene z dispec',
                 'state' => States\TS\Ticket\Created::$name,
-                'description' => $incident->description
+                'description' => $incident->description,
+                'group_id' => TicketGroup::byCode($incident->type->code)
             ]);
 
             // create ticket items
