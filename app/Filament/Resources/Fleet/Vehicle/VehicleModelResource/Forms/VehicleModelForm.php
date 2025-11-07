@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Forms;
 
+use App\Filament\Resources\Fleet\Vehicle\BrandResource\Froms\BrandPicker;
+use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Forms\VehicleTypePicker;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -11,17 +13,20 @@ class VehicleModelForm
     {
         return $form
             ->schema([
+                BrandPicker::make('brand_id', $form)
+                    ->relationship('brand', 'title'),
+
+                // title
                 Forms\Components\TextInput::make('title')
                     ->label(__('fleet/vehicle-model.form.fields.title.label')),
+                //year
                 Forms\Components\TextInput::make('year')
                     ->label(__('fleet/vehicle-model.form.fields.year.label'))
                     ->numeric(),
+                // type
+                VehicleTypePicker::make('type_id', $form)
+                    ->relationship('type', 'title'),
 
-                Forms\Components\Select::make('type_id')                
-                    ->label(__('fleet/vehicle-model.form.fields.type.label'))
-                    ->relationship('type', 'title')
-                    ->searchable()
-                    ->preload()
             ]);
     }
 }

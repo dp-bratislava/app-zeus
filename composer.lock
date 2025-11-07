@@ -1874,7 +1874,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-fleet",
-                "reference": "18b2d028d12fff0aee29fd2443c39f52af378b02"
+                "reference": "0502b0a7050d5bd8dd06058e9cd9720eeea540c1"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",

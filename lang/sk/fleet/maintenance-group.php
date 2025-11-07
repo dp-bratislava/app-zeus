@@ -1,9 +1,16 @@
 <?php
 
 return [
+    'components' => [
+        'picker' => [
+            'label' => 'Technická prevádzka',
+            'create_heading' => 'Vytvoriť technickú prevádzku',
+            'update_heading' => 'Upraviť technickú prevádzku: :title',
+        ],
+    ],     
     'form' => [
         'create_heading' => 'Vytvoriť technickú prevádzku',
-        'update_heading' => 'Upraviť Technickú prevádzku: :title',
+        'update_heading' => 'Upraviť technickú prevádzku: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',

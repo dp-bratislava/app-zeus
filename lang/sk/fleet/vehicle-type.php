@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'components' => [
+        'picker' => [
+            'label' => 'Typ vozidla',
+            'create_heading' => 'Vytvoriť typ vozidla',
+            'update_heading' => 'Upraviť typ vozidila: :title',
+        ],
+    ],
     'form' => [
         'create_heading' => 'Vytvoriť typ vozidla',
         'update_heading' => 'Upraviť typ vozidila: :title',
@@ -16,8 +23,7 @@ return [
     'table' => [
         'heading' => 'Typy vozidiel',
         'empty_state_heading' => 'Žiadne typy vozidiel na zobrazenie',
-        'row_groups' => [
-        ],
+        'row_groups' => [],
         'columns' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],

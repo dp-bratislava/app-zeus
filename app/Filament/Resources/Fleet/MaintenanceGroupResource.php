@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Fleet;
 
 use App\Filament\Resources\Fleet\MaintenanceGroupResource\Pages;
+use App\Filament\Resources\Fleet\Vehicle\MaintenanceGroupResource\Forms\MaintenanceGroupForm;
+use App\Filament\Resources\Fleet\Vehicle\MaintenanceGroupResource\Tables\MaintenanceGroupTable;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -36,54 +38,12 @@ class MaintenanceGroupResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->columnSpan(1)
-                    ->label(__('fleet/maintenance-group.form.fields.code.label')),
-                Forms\Components\TextInput::make('title')
-                    ->columnSpan(1)
-                    ->label(__('fleet/maintenance-group.form.fields.title')),
-                Forms\Components\TextInput::make('description')
-                    ->columnSpan(1)
-                    ->label(__('fleet/maintenance-group.form.fields.description')),
-                Forms\Components\ColorPicker::make('color')
-                    ->columnSpan(1)
-                    ->label(__('fleet/maintenance-group.form.fields.color')),
-            ]);
+        return MaintenanceGroupForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('code')
-                    ->label(__('fleet/maintenance-group.table.columns.code')),
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('fleet/maintenance-group.table.columns.title')),
-                Tables\Columns\TextColumn::make('description')
-                    ->label(__('fleet/maintenance-group.table.columns.description')),
-                Tables\Columns\ColorColumn::make('color')
-                    ->label(__('fleet/maintenance-group.table.columns.color')),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
+        return MaintenanceGroupTable::make($table);
     }
 
     public static function getPages(): array

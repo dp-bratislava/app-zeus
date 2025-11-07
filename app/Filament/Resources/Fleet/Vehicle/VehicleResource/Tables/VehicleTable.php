@@ -90,11 +90,12 @@ class VehicleTable
                     // ->color(fn ($record) => $record?->maintenanceGroup?->color),
                 // Tables\Columns\TextColumn::make('dp')
                 //     ->state('1DPA'),
-                Tables\Columns\IconColumn::make('under_warranty')
+                // under warranty
+                Tables\Columns\IconColumn::make('is_under_warranty')
                     ->label(__('fleet/vehicle.table.columns.under_warranty.label'))
                     ->tooltip(__('fleet/vehicle.table.columns.under_warranty.tooltip'))
                     ->boolean()
-                    ->default(false)
+                    ->state(fn($record) => $record->isUnderWarranty())
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('model')
