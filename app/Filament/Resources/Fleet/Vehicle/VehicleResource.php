@@ -76,6 +76,7 @@ class VehicleResource extends Resource
     {
         return [
             'index' => Pages\ListVehicles::route('/'),
+            'list-cards' => Pages\ListVehicleCards::route('/cards'),
             'create' => Pages\CreateVehicle::route('/create'),
             'edit' => Pages\EditVehicle::route('/{record}/edit'),
             'view' => Pages\ViewVehicle::route('/{record}'),

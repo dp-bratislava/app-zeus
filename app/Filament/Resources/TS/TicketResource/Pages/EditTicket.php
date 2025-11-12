@@ -4,6 +4,7 @@ namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
 use App\Models\TicketAssignment;
+use App\Services\TicketAssignmentRepository;
 use App\Services\TicketRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TicketService;
@@ -27,7 +28,7 @@ class EditTicket extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('tickets/ticket.form.update_heading', ['title' => $this->record->title]);
+        return __('tickets/ticket.form.update_heading', ['title' => $this->record->id]);
     }  
     
     protected function mutateFormDataBeforeFill(array $data): array
@@ -35,6 +36,7 @@ class EditTicket extends EditRecord
         // $data['subject_id'] = app(TicketAssignment::class)->whereBelongsTo($this->record)->first()?->subject?->id;
 
         // ticket group
+        $data['ticket']['date'] = $this->record->ticket->date;
         $data['ticket']['group_id'] = $this->record->ticket->group_id;
 
         // activities
@@ -46,9 +48,10 @@ class EditTicket extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $ticketRepo = app(TicketRepository::class);
-        $result = $ticketRepo->update($record, $data);
-
+        // $ticketRepo = app(TicketRepository::class);
+        // $result = $ticketRepo->update($record, $data);
+        $ticketAssignmentRepo = app(TicketAssignmentRepository::class);
+        $result = $ticketAssignmentRepo->update($record, $data);
         return $result;
     }    
 }

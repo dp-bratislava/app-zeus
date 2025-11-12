@@ -13,10 +13,12 @@ use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Fleet\Models\VehicleType;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 
 class TicketAssignmentForm
 {
@@ -41,17 +43,41 @@ class TicketAssignmentForm
                     ->label(__('tickets/ticket.form.fields.subject'))
                     ->columnSpan(1)
                     // ->relationship('source', 'title', null, true)
-                    ->options(fn() => Vehicle::pluck('code_1', 'id'))
-                    ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
+                    ->options(
+                        function (Get $get) {
+                            // $vehicleType = 'A';
+                            $vehicleType = ($get('assigned_to_id') != null) ? MaintenanceGroup::findSole($get('assigned_to_id'))?->vehicleType?->code : null;
+                            // $vehicleType = VehicleType::findSole($get('assigned_to'))?->code;
+                            // print_r($get('assigned_to'));
+
+                            return Vehicle::when($vehicleType != null, function ($qeury, $vehicleType) {
+                                $qeury->byType($vehicleType);
+                            })
+                            ->pluck('code_1', 'id');
+                                // ->get()
+                                // ->mapWithKeys(function ($vehicle) {
+                                //     return [
+                                //         'id' => $vehicle->id,
+                                //         'label' => $vehicle->code->code . ' - ' . $vehicle?->model?->title
+                                //     ];
+                                // });
+                        }
+                    )
+                    // ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
                     ->preload()
                     ->searchable()
                     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                     ->required(false),
                 // assigned to e.g. maintenance group
-                Forms\Components\ToggleButtons::make('assigned_to')
+                Forms\Components\ToggleButtons::make('assigned_to_id')
                     ->label(__('tickets/ticket.form.fields.assigned_to'))
                     ->columnSpan(2)
                     ->options(fn() => MaintenanceGroup::pluck('code', 'id'))
+                    ->live()
+                        ->extraAttributes([
+        'x-data' => '{}',
+        'x-on:input.debounce.500' => 'console.log($event.target.value)',
+    ])
                     ->inline(),
                 // // assigned to
                 // Forms\Components\MorphToSelect::make('assignedTo')

@@ -119,11 +119,19 @@
             "options": {
                 "symlink": true
             }
-        }  
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-comments",
+            "options": {
+                "symlink": true
+            }
+        }          
     ],
     "require": {
         "php": "^8.2",
         "andrej-horny/pkg-activities": "dev-main",
+        "andrej-horny/pkg-comments": "dev-main",
         "andrej-horny/pkg-entity-manager": "dev-main",
         "andrej-horny/pkg-finance": "dev-main",
         "andrej-horny/pkg-incidents": "dev-main",
@@ -145,6 +153,7 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "maatwebsite/excel": "^3.1",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-data": "^4.17",
         "spatie/laravel-model-states": "^2.12",

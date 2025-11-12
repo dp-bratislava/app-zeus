@@ -7,6 +7,7 @@ use App\Models\TicketAssignment;
 use Dpb\Package\Activities\Models\Activity;
 use Dpb\Package\Tickets\Models\Ticket;
 use App\States;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Incidents\Models\Incident;
 use Illuminate\Contracts\Auth\Guard;
@@ -53,6 +54,9 @@ class TicketAssignmentRepository
         // subject TO DO
         $ticketAssignment->subject_id = $data['subject_id'];
         $ticketAssignment->subject_type = 'vehicle';
+        // assigned to TO DO
+        $assignedTo = MaintenanceGroup::findSole($data['assigned_to_id']);
+        $ticketAssignment->assignedTo()->associate($assignedTo);
 
         $ticketAssignment->source()->associate($source);
         $ticketAssignment->author()->associate($author);
@@ -61,48 +65,25 @@ class TicketAssignmentRepository
         return $ticketAssignment;
     }
 
-    public function update($ticket, $data): ?Ticket
+    public function update($ticketAssignment, $data): ?TicketAssignment
     {
         // ticket
-        $ticket->update([
-            'date' => $data['date'],
-            'title' => $data['title'] ?? null,
-            'description' => $data['description'] ?? null,
-            // 'state' => Created::$name
+        $ticketData = $data['ticket'];
+        $ticketAssignment->ticket->update([
+            'date' => $ticketData['date'],
+            'title' => $ticketData['title'] ?? null,
+            'description' => $ticketData['description'] ?? null,
+            'group_id' => $ticketData['group_id'],
+            // 'state' => $ticketData['state'],
         ]);
 
-        // ticket assignmet
-        $author = $this->guard->id();
-        $ticketSubject = Vehicle::find($data['subject_id']);
-        $ticketAssignment = $this->ticketAssignmentModel->whereBelongsTo($ticket, 'ticket')->first();
-        // dd($ticketAssignment);
-        // $ticketAssignment->ticket()->associate($ticket);
-        $ticketAssignment->subject()->associate($ticketSubject);
-        // $ticketAssignment->source()->associate($source);
-        // $ticketAssignment->department()->associate($department);
-        // $ticketAssignment->author()->associate($author);
-        // $ticketAssignment->assignedTo()->associate($assignedTo);
+        // subject TO DO
+        $ticketAssignment->subject_id = $data['subject_id'];
+        // assigned to TO DO
+        $assignedTo = MaintenanceGroup::findSole($data['assigned_to_id']);
+        $ticketAssignment->assignedTo()->associate($assignedTo);        
         $ticketAssignment->save();
 
-        // $this->subjectSvc->setSubject($ticket, Vehicle::find($data['subject_id']));
-
-        // activities        
-        // if (isset($data['activities'])) {
-        //     $activitiesData = $data['activities'];
-        //     foreach ($activitiesData as $activityData) {
-        //         $activity = Activity::create($activityData);
-        //         $activityAssignment = new ActivityAssignment();
-        //         $activityAssignment->activity()->associate($activity);
-        //         $activityAssignment->subject()->associate($ticket);
-        //         $activityAssignment->save();
-        //     }
-        // }
-
-        // services
-        // $materials = $data['materials'];
-        // materials
-        // $services = $data['services'];
-
-        return $ticket;
+        return $ticketAssignment;
     }
 }

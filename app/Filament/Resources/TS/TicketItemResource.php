@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\TS;
 
-use App\Filament\Resources\TS\TicketItemResource\Forms\TicketItemForm;
+use App\Filament\Resources\TS\TicketItemResource\Forms\TicketItemAssignmentForm;
 use App\Filament\Resources\TS\TicketItemResource\Pages;
 use App\Filament\Resources\TS\TicketItemResource\RelationManagers;
+use App\Filament\Resources\TS\TicketItemResource\Tables\TicketItemAssignmentTable;
 use App\Filament\Resources\TS\TicketItemResource\Tables\TicketItemTable;
+use App\Models\TicketItemAssignment;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketItemResource extends Resource
 {
-    protected static ?string $model = TicketItem::class;
+    protected static ?string $model = TicketItemAssignment::class;
 
     public static function getModelLabel(): string
     {
@@ -39,12 +41,13 @@ class TicketItemResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return TicketItemForm::make($form);
+        return TicketItemAssignmentForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return TicketItemTable::make($table);
+        return TicketItemAssignmentTable::make($table);
+        // return TicketItemTable::make($table);
     }
 
     public static function getRelations(): array

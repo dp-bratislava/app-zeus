@@ -13,6 +13,7 @@ use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -113,13 +114,20 @@ class VehicleTable
                         States\Fleet\Vehicle\InService::$name => 'V prevádzke',
                         States\Fleet\Vehicle\UnderRepair::$name => 'V oprave',
                     ]),
-                Tables\Filters\SelectFilter::make('tp')
+                Tables\Filters\SelectFilter::make('maintenanceGroup')
                     ->label(__('fleet/vehicle.table.columns.maintenance_group.label'))
+                    ->relationship('maintenanceGroup', 'title')
                     ->searchable()
+                    ->preload()
                     ->multiple()
                     ->options(fn() => MaintenanceGroup::pluck('title')),
             ])
-            ->headerActions([])
+            // ->headerActions([
+            //     ImportAction::make()
+            //         ->importer(VehicleImporter::class)
+            //         ->csvDelimiter(';')
+            //         // ->visible(auth()->user()->can('fleet.vehicle-model.import'))
+            // ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->visible(auth()->user()->can('fleet.vehicle-model.update')),

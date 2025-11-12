@@ -27,7 +27,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
-class TicketItemTable
+class TicketItemAssignmentTable
 {
     public static function make(Table $table): Table
     {
@@ -35,11 +35,11 @@ class TicketItemTable
             ->heading(__('tickets/ticket.relation_manager.ticket_items.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
-                States\TS\Ticket\Created::$name => 'bg-blue-200',
-                States\TS\Ticket\Closed::$name => 'bg-green-200',
-                States\TS\Ticket\Cancelled::$name => 'bg-gray-50',
-                States\TS\Ticket\InProgress::$name => 'bg-yellow-200',
+            ->recordClasses(fn($record) => match ($record->ticketItem->state?->getValue()) {
+                States\TS\TicketItem\Created::$name => 'bg-blue-200',
+                States\TS\TicketItem\Closed::$name => 'bg-green-200',
+                States\TS\TicketItem\Cancelled::$name => 'bg-gray-50',
+                States\TS\TicketItem\InProgress::$name => 'bg-yellow-200',
                 States\TS\TicketItem\AwaitingParts::$name => 'bg-red-200',
                 default => null,
             })
@@ -56,10 +56,10 @@ class TicketItemTable
                 //     ->tooltip(fn(TicketItem $record) => $record?->ticket?->title)
                 //     ->badge(),
                 // ticket item code id
-                Tables\Columns\TextColumn::make('code')
+                Tables\Columns\TextColumn::make('ticketItem.code')
                     ->label(__('tickets/ticket-item.table.columns.code.label'))
                     ->grow(false),
-                Tables\Columns\TextColumn::make('date')->date()
+                Tables\Columns\TextColumn::make('ticketItem.date')->date()
                     ->label(__('tickets/ticket-item.table.columns.date.label'))
                     ->grow(false),
                 // Tables\Columns\TextColumn::make('parent.id')
@@ -69,12 +69,12 @@ class TicketItemTable
                     ->label(__('tickets/ticket-item.table.columns.group.label')),
                 // Tables\Columns\TextColumn::make('title')
                 //     ->label(__('tickets/ticket-item.table.columns.title.label')),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('ticketItem.description')
                     ->label(__('tickets/ticket-item.table.columns.description.label'))
                     ->grow(),
-                Tables\Columns\TextColumn::make('state')
+                Tables\Columns\TextColumn::make('ticketItem.state')
                     ->label(__('tickets/ticket-item.table.columns.state.label'))
-                    ->state(fn(TicketItem $record) => $record?->state?->label()),
+                    ->state(fn(TicketItemAssignment $record) => $record?->ticketItem?->state?->label()),
                 // ->state(fn($record) => dd($record)),
                 // ->action(
                 //     Action::make('select')
@@ -88,7 +88,7 @@ class TicketItemTable
                 // TextColumn::make('department.code'),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('tickets/ticket-item.table.columns.subject.label'))
-                    ->state(function (TicketItem $record, TicketAssignmentService $svc) {
+                    ->state(function (TicketItemAssignment $record, TicketAssignmentService $svc) {
                         if ($record->ticket !== null) {
                             return $svc->getSubject($record->ticket)?->code?->code;
                         }
@@ -96,22 +96,22 @@ class TicketItemTable
                     ->hiddenOn(TicketItemRelationManager::class),
                 Tables\Columns\TextColumn::make('source')
                     ->label(__('tickets/ticket-item.table.columns.source.label'))
-                    ->state(function (TicketItem $record, TicketAssignmentService $svc) {
+                    ->state(function (TicketItemAssignment $record, TicketAssignmentService $svc) {
                         if ($record->ticket !== null) {
                             return $svc->getSourceLabel($record->ticket);
                         }
                     })
                     ->hiddenOn(TicketItemRelationManager::class)
                     ->badge(),
-                Tables\Columns\TextColumn::make('assigned_to')
+                Tables\Columns\TextColumn::make('assignedTo.code')
                     ->label(__('tickets/ticket-item.table.columns.assigned_to.label'))
-                    ->state(function (TicketItem $record, TicketItemAssignment $ticketItemAssignment) {
-                        return $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->code;
-                    })
+                    // ->state(function (TicketItemAssignment $record, TicketItemAssignment $ticketItemAssignment) {
+                    //     return $ticketItemAssignment->whereBelongsTo($record, 'ticketItem')->first()?->assignedTo?->code;
+                    // })
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
-                        '1TPA' => '#888',
-                        default => '#333'
+                        '1TPA' => 'primary',
+                        default => 'info'
                     }),
                 // Tables\Columns\TextColumn::make('activities')
                 //     ->label(__('tickets/ticket-item.table.columns.activities.label'))
@@ -143,16 +143,17 @@ class TicketItemTable
                 //         return $result;
                 //     }),
 
-                // Tables\Columns\TextColumn::make('expenses')
-                //     ->state(function ($record) {
-                //         $materials = $record->materials->sum(function ($material) {
-                //             return $material->price;
-                //         });
-                //         $services = $record->services->sum(function ($service) {
-                //             return $service->price;
-                //         });
-                //         return $materials + $services;
-                //     }),
+                Tables\Columns\TextColumn::make('expenses')
+                    ->label(__('tickets/ticket-item.table.columns.expenses'))                    
+                    ->state(function ($record) {
+                        $materials = $record->materials?->sum(function ($material) {
+                            return $material->price;
+                        });
+                        $services = $record->services?->sum(function ($service) {
+                            return $service->price;
+                        });
+                        return $materials + $services;
+                    }),
                 // Tables\Columns\TextColumn::make('man_minutes')
                 //     ->state(function ($record) {
                 //         $result = $record->activities->sum('duration');
@@ -165,7 +166,7 @@ class TicketItemTable
             ])
             ->actions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make(),                    
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

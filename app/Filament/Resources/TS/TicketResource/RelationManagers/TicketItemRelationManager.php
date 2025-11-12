@@ -8,6 +8,7 @@ use App\Services\TicketItemRepository;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Table;
@@ -29,11 +30,16 @@ class TicketItemRelationManager extends RelationManager
         return TicketItemTable::make($table)
             ->headerActions([
                 CreateAction::make()
+                    // ->mutateFormDataUsing(function (array $data) {
+                    //     $data['assigned_to'] = 1;
+                    //     return $data;
+                    // })
                     ->using(function (array $data, TicketItemRepository $ticketItemRepo): ?Model {
                         // dd($data);
                         $data['ticket_id'] = $this->getOwnerRecord()->id;
                         return $ticketItemRepo->create($data);
-                    }),
+                    })
+                    ->modalWidth(MaxWidth::class),
             ]);
     }
 }

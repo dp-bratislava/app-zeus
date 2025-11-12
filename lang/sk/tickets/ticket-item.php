@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť zákazku',
-        'update_heading' => 'Upraviť zákazku: :title',
+        'create_heading' => 'Vytvoriť podzákazku',
+        'update_heading' => 'Upraviť podzákazku: :code :subject',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -37,15 +37,18 @@ return [
             'activities' => 'Práca',
             'materials' => 'Materiál',
             'services' => 'Služby',
+            'history' => 'História',
+            'comments' => 'Komentáre',
         ]
     ],
     'table' => [
-        'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne zákazky na zobrazenie',
+        'heading' => 'Podzakázky',
+        'empty_state_heading' => 'Žiadne podzákazky na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'id' => ['label' => 'ID'],
+            'code' => ['label' => 'Kód'],
             'date' => ['label' => 'Dátum'],
             // 'title' => ['label' => 'Názov'],
             'title' => ['label' => 'Detail poruchy'],
@@ -63,6 +66,7 @@ return [
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
             'source' => ['label' => 'Miesto výskytu'],
+            'expenses' => 'Náklady'
         ]
     ],
     'navigation' => [
@@ -78,5 +82,6 @@ return [
         'cancelled' => 'Zrušená',
         'closed' => 'Uzavretá',
         'in-progress' => 'V riešení',
+        'awaiting-parts' => 'Čaká na ND',
     ]
 ];

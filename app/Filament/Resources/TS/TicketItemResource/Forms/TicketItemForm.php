@@ -16,6 +16,8 @@ use App\Services\TS\SubjectService;
 use App\States\TS\TicketItem\Closed;
 use App\States\TS\TicketItem\Created;
 use App\States\TS\TicketItem\InProgress;
+use Awcodes\TableRepeater\Components\TableRepeater;
+use Awcodes\TableRepeater\Header;
 use Dpb\Package\Activities\Models\TemplateGroup as ActivityTemplateGroup;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
@@ -24,6 +26,7 @@ use Dpb\Package\Tickets\Models\TicketItemGroup;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class TicketItemForm
 {
@@ -32,16 +35,16 @@ class TicketItemForm
         return $form
             ->columns(7)
             ->schema([
-                // ticket
-                Forms\Components\Select::make('ticket_id')
-                    ->label(__('tickets/ticket-item.form.fields.ticket'))
-                    ->columnSpanFull()
-                    ->relationship('ticket', 'title', null, true)
-                    // ->getOptionLabelsUsing(fn(Ticket $record, TicketAssignment $ticketAssignment) => "{$record->id} - {$record->title}")
-                    ->preload()
-                    ->searchable()
-                    ->required()
-                    ->hiddenOn(TicketItemRelationManager::class),
+                // // ticket
+                // Forms\Components\Select::make('ticket_id')
+                //     ->label(__('tickets/ticket-item.form.fields.ticket'))
+                //     ->columnSpanFull()
+                //     ->relationship('ticket', 'title', null, true)
+                //     // ->getOptionLabelsUsing(fn(Ticket $record, TicketAssignment $ticketAssignment) => "{$record->id} - {$record->title}")
+                //     ->preload()
+                //     ->searchable()
+                //     ->required()
+                //     ->hiddenOn(TicketItemRelationManager::class),
 
                 // date
                 Forms\Components\DatePicker::make('date')
@@ -77,6 +80,9 @@ class TicketItemForm
                     ->label(__('tickets/ticket-item.form.fields.assigned_to'))
                     ->columnSpan(2)
                     ->options(fn() => MaintenanceGroup::pluck('code', 'id'))
+                    ->default(function (RelationManager $livewire) {
+                        return $livewire->getOwnerRecord()->assignedTo?->id;
+                    })
                     ->inline(),
 
                 // state
@@ -100,13 +106,13 @@ class TicketItemForm
                 // supervised by
 
                 // activities 
-                Forms\Components\Tabs::make('Tabs')
-                    ->columnSpanFull()
+                Forms\Components\Tabs::make('all_tabs')
+                    ->columnSpan(4)
                     ->tabs([
                         // activities
                         Forms\Components\Tabs\Tab::make('activities')
                             ->label(__('tickets/ticket-item.form.tabs.activities'))
-                            ->badge(3)
+                            ->badge(fn ($record) => $record->activities?->count() ?? 0)
                             ->icon('heroicon-m-wrench')
                             ->schema([
                                 ActivityRepeater::make('activities')
@@ -117,7 +123,7 @@ class TicketItemForm
                         Forms\Components\Tabs\Tab::make('materials')
                             ->label(__('tickets/ticket-item.form.tabs.materials'))
                             ->icon('heroicon-m-rectangle-stack')
-                            ->badge(2)
+                            ->badge(fn ($record) => $record->materials?->count() ?? 0)
                             ->schema([
                                 MaterialRepeater::make('materials')
                                 // ->relationship('materials'),
@@ -131,6 +137,49 @@ class TicketItemForm
                                 ServiceRepeater::make('services')
                                 // ->relationship('services'),
                             ])
+                    ]),
+
+                // history / comments
+                Forms\Components\Tabs::make('comments_tabs')
+                    ->columnSpan(3)
+                    ->tabs([
+                        // comments
+                        Forms\Components\Tabs\Tab::make('comments_tab')
+                            ->label(__('tickets/ticket-item.form.tabs.comments'))
+                            ->badge(3)
+                            ->icon('heroicon-m-wrench')
+                            ->schema([
+                                TableRepeater::make('comments')
+                                    ->headers([
+                                        Header::make('created_at')->label(__('tickets/ticket-item.form.fields.activities.date')),
+                                        Header::make('author')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                        Header::make('body')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                    ])
+                                    ->schema([
+                                        Forms\Components\DateTimePicker::make('date1'),
+                                        Forms\Components\RichEditor::make('body')
+                                    ])
+                                    ->deletable(false)
+                                    // ->addable(false)
+                            ]),
+                        // history
+                        Forms\Components\Tabs\Tab::make('history_tab')
+                            ->label(__('tickets/ticket-item.form.tabs.history'))
+                            ->icon('heroicon-m-rectangle-stack')
+                            ->badge(2)
+                            ->schema([
+                                TableRepeater::make('history')
+                                    ->headers([
+                                        Header::make('date')->label(__('tickets/ticket-item.form.fields.activities.date')),
+                                        Header::make('template')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                    ])
+                                    ->schema([
+                                        Forms\Components\DatePicker::make('date'),
+                                        Forms\Components\TextInput::make('title')
+                                    ])
+                                    ->deletable(false)
+                                    ->addable(false)
+                            ]),
                     ]),
             ]);
     }
