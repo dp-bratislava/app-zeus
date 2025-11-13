@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Vehicle\BrandResource\Froms;
+namespace App\Filament\Resources\Fleet\Vehicle\BrandResource\Forms;
 
 use App\Filament\Resources\Fleet\Vehicle\BrandResource\Forms\BrandForm;
 use App\Models\Datahub\EmployeeContract as Contract;

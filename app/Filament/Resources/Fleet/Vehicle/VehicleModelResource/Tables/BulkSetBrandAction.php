@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Tables;
 
-use App\Filament\Resources\Fleet\Vehicle\BrandResource\Froms\BrandPicker;
+use App\Filament\Resources\Fleet\Vehicle\BrandResource\Forms\BrandPicker;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
 

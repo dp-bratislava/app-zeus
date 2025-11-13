@@ -34,6 +34,11 @@ class BrandResource extends Resource
         return __('fleet/brand.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-fleet.navigation.brand') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
         return BrandForm::make($form);
