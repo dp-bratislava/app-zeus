@@ -11,15 +11,10 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'date' => 'Dátum',
-            'title' => 'Názov',
+            'template' => 'Typ kontroly',
+            'subject' => 'Vozidlo',
             'description' => 'Popis',
-            'source' => 'Miesto výskytu',
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
         'heading' => 'Zakázky',

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inspection\InspectionTemplateResource\Pages;
 use App\Filament\Resources\Inspection\InspectionTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListInspectionTemplates extends ListRecords
 {
@@ -17,4 +18,9 @@ class ListInspectionTemplates extends ListRecords
             // Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }    
 }

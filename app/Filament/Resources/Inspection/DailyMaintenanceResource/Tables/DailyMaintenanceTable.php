@@ -27,7 +27,7 @@ class DailyMaintenanceTable
                 Tables\Columns\TextColumn::make('date')->date('j.n.Y')
                     ->label(__('inspections/daily-maintenance.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('subject')
-                    ->label(__('tickets/ticket.table.columns.subject.label'))
+                    ->label(__('inspections/daily-maintenance.table.columns.subject.label'))
                     ->state(function ($record, InspectionAssignmentService $svc) {
                         return $svc->getSubject($record)?->code?->code;
                     }),

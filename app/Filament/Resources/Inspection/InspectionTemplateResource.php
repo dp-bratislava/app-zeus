@@ -2,21 +2,13 @@
 
 namespace App\Filament\Resources\Inspection;
 
-use App\Filament\Imports\Inspection\InspectionTemplateImporter;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Forms\InspectionTemplateForm;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Pages;
-use App\Filament\Resources\Inspection\InspectionTemplateResource\RelationManagers;
 use App\Filament\Resources\Inspection\InspectionTemplateResource\Tables\InspectionTemplateTable;
-use App\Models\Fleet\VehicleModel;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class InspectionTemplateResource extends Resource
 {
@@ -42,6 +34,11 @@ class InspectionTemplateResource extends Resource
         return __('inspections/inspection-template.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-inspections.navigation.inspection-template') ?? 999;
+    }    
+
     public static function form(Form $form): Form
     {
         return InspectionTemplateForm::make($form);
@@ -50,13 +47,6 @@ class InspectionTemplateResource extends Resource
     public static function table(Table $table): Table
     {
         return InspectionTemplateTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

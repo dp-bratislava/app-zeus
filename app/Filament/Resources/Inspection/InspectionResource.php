@@ -2,21 +2,22 @@
 
 namespace App\Filament\Resources\Inspection;
 
+use App\Filament\Resources\Inspection\InspectionResource\Forms\InspectionAssignmentFrom;
 use App\Filament\Resources\Inspection\InspectionResource\Forms\InspectionFrom;
 use App\Filament\Resources\Inspection\InspectionResource\Pages;
-use App\Filament\Resources\Inspection\InspectionResource\RelationManagers;
+use App\Filament\Resources\Inspection\InspectionResource\Tables\InspectionAssignmentTable;
 use App\Filament\Resources\Inspection\InspectionResource\Tables\InspectionTable;
+use App\Models\InspectionAssignment;
 use Dpb\Package\Inspections\Models\Inspection;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class InspectionResource extends Resource
 {
-    protected static ?string $model = Inspection::class;
+    // protected static ?string $model = Inspection::class;
+    protected static ?string $model = InspectionAssignment::class;
 
     public static function getModelLabel(): string
     {
@@ -38,14 +39,21 @@ class InspectionResource extends Resource
         return __('inspections/inspection.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-inspections.navigation.inspection') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
-        return InspectionFrom::make($form);
+        return InspectionAssignmentFrom::make($form);
+        // return InspectionFrom::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return InspectionTable::make($table);
+        return InspectionAssignmentTable::make($table);
+        // return InspectionTable::make($table);
     }
 
     public static function getPages(): array
@@ -55,5 +63,12 @@ class InspectionResource extends Resource
             'create' => Pages\CreateInspection::route('/create'),
             'edit' => Pages\EditInspection::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            // ->byVehicleType('A');
+            ->byMaintenanceGroup('1TPA');
     }
 }

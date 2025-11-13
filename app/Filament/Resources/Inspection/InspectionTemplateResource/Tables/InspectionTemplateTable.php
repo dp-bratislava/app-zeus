@@ -10,6 +10,7 @@ class InspectionTemplateTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('inspections/inspection-template.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
@@ -20,23 +21,27 @@ class InspectionTemplateTable
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('inspections/inspection-template.table.columns.title.label'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('interval_distance')
-                    ->label(__('inspections/inspection-template.table.columns.interval_distance.label'))
+
+                Tables\Columns\TextColumn::make('treshold_distance')
+                    ->label(__('inspections/inspection-template.table.columns.treshold_distance.label'))
+                    ->tooltip(__('inspections/inspection-template.table.columns.treshold_distance.tooltip'))
                     ->state(function ($record) {
-                        return $record->conditions()->where('code', '=', 'treshold')->first()?->value;
+                        return $record->getCondition('treshold', 'distance_traveled')?->value;
                     }),
                 Tables\Columns\TextColumn::make('first_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.first_advance_distance.label'))
+                    ->tooltip(__('inspections/inspection-template.table.columns.first_advance_distance.tooltip'))
                     ->state(function ($record) {
-                        return $record->conditions()->where('code', '=', '1-advance')->first()?->value;
+                        return $record->getCondition('1-advance', 'distance_traveled')?->value;
                     }),
                 Tables\Columns\TextColumn::make('second_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.second_advance_distance.label'))
+                    ->tooltip(__('inspections/inspection-template.table.columns.second_advance_distance.tooltip'))
                     ->state(function ($record) {
-                        return $record->conditions()->where('code', '=', '2-advance')->first()?->value;
+                        return $record->getCondition('2-advance', 'distance_traveled')?->value;
                     }),
-                Tables\Columns\TextColumn::make('interval_time')
-                    ->label(__('inspections/inspection-template.table.columns.interval_time.label')),
+                Tables\Columns\TextColumn::make('treshold_time')
+                    ->label(__('inspections/inspection-template.table.columns.treshold_time.label')),
                 Tables\Columns\TextColumn::make('first_advance_time')
                     ->label(__('inspections/inspection-template.table.columns.first_advance_time.label')),
                 Tables\Columns\TextColumn::make('second_advance_time')
@@ -50,11 +55,14 @@ class InspectionTemplateTable
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
             ]);
-            // ->actions([
-            //     Tables\Actions\ViewAction::make(),
-            //     Tables\Actions\EditAction::make()
-            // ])
             // ->bulkActions([
             //     Tables\Actions\BulkActionGroup::make([
             //         Tables\Actions\DeleteBulkAction::make(),

@@ -8,43 +8,47 @@ use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class InspectionTable
+class InspectionAssignmentTable
 {
     public static function make(Table $table): Table
     {
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+            ->recordClasses(fn($record) => match ($record->inspection->state?->getValue()) {
                 States\Inspection\Upcoming::$name => 'bg-blue-200',
                 States\Inspection\InProgress::$name => 'bg-yellow-200',
                 States\Inspection\Overdue::$name => 'bg-red-200',
                 default => null,
             })
             ->columns([
-                Tables\Columns\TextColumn::make('date')->date()
-                    ->label(__('inspections/inspection.table.columns.date.label')),
-                Tables\Columns\TextColumn::make('subject')
-                    ->label(__('inspections/inspection.table.columns.subject.label'))
-                    ->state(function ($record, InspectionAssignmentService $svc) {
-                        return $svc->getSubject($record)?->code?->code;
-                    }),
-                Tables\Columns\TextColumn::make('template.title')
+                // date
+                Tables\Columns\TextColumn::make('inspection.date')
+                    ->label(__('inspections/inspection.table.columns.date.label'))
+                    ->date(),
+                // subject
+                Tables\Columns\TextColumn::make('subject.code.code')
+                    ->label(__('inspections/inspection.table.columns.subject.label')),
+                // template
+                Tables\Columns\TextColumn::make('inspection.template.title')
                     ->label(__('inspections/inspection.table.columns.template.label')),
-                Tables\Columns\TextColumn::make('state')
-                    ->label(__('inspections/inspection.table.columns.state.label'))
-                    ->state(fn(Inspection $record) => $record->state->label()),
+                // state
+                Tables\Columns\TextColumn::make('inspection.state')
+                    ->label(__('inspections/inspection.table.columns.state.label')),
+                // ->state(fn(Inspection $record) => $record->state->label()),
                 // finished at
                 Tables\Columns\TextColumn::make('finished_at')
                     ->label(__('inspections/inspection.table.columns.finished_at.label')),
                 // maintenance group
                 Tables\Columns\TextColumn::make('subject.maintenanceGroup.code')
-                    ->label(__('inspections/inspection.table.columns.maintenance_group.label'))
-                    ->state(function ($record, InspectionAssignmentService $svc) {
-                        return $svc->getSubject($record)?->maintenanceGroup?->code;
-                    }),
+                    ->label(__('inspections/inspection.table.columns.maintenance_group.label')),
+                // ->state(function ($record, InspectionAssignmentService $svc) {
+                //     return $svc->getSubject($record)?->maintenanceGroup?->code;
+                // }),
+                // note
                 Tables\Columns\TextColumn::make('note')
                     ->label(__('inspections/inspection.table.columns.note.label')),
+                // distance traveled
                 Tables\Columns\TextColumn::make('distance_traveled')
                     ->label(__('inspections/inspection.table.columns.distance_traveled.label')),
             ])

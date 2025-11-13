@@ -14,45 +14,80 @@ return [
         'fields' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
+            'description' => ['label' => 'Popis'],
             'is_periodic' => ['label' => 'Cyklická'],
-            'interval_distance' => ['label' => 'inter km'],
-            'first_advance_distance' => ['label' => '1 pred km'],
-            'second_advance_distance' => ['label' => '2 pred km'],
-            'interval_time' => ['label' => 'inter dni'],
-            'first_advance_time' => ['label' => '1 pred dni'],
-            'second_advance_time' => ['label' => '2 pred dni'],
-            'groups' => ['label' => 'Skupiny'],
+            'treshold_distance' => [
+                'label' => 'Interval km',
+                'hint' => 'počet km',
+            ],
+            'first_advance_distance' => [
+                'label' => 'Prvý predstih km',
+                'hint' => 'počet km (nie stav)',
+            ],
+            'second_advance_distance' => [
+                'label' => 'Druhý predstih km',
+                'hint' => 'počet km (nie stav)',
+            ],
+            'treshold_time' => [
+                'label' => 'Interval',
+                'hint' => 'mesiace',
+            ],
+            'first_advance_time' => [
+                'label' => 'Prvý predstih',
+                'hint' => 'dni',
+            ],
+            'second_advance_time' => [
+                'label' => 'Druhý predstih',
+                'hint' => 'dni',
+            ],
+            'groups' => ['label' => 'Typ údržby'],
+            'templatables' => ['label' => 'Predmety kontroly'],
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
-        'heading' => 'šablóny kontrol',
-        'empty_state_heading' => 'Žiadne šablóny kontrol na zobrazenie',
+        'heading' => 'Typy kontrol',
+        'description' => 'Typy kontrol',
+        'empty_state_heading' => 'Žiadne typy kontrol na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
+            'description' => ['label' => 'Popis'],
             'is_periodic' => ['label' => 'Cyklická'],
-            'interval_distance' => ['label' => 'inter km'],
-            'first_advance_distance' => ['label' => '1 pred km'],
-            'second_advance_distance' => ['label' => '2 pred km'],
-            'interval_time' => ['label' => 'inter dni'],
-            'first_advance_time' => ['label' => '1 pred dni'],
-            'second_advance_time' => ['label' => '2 pred dni'],
-            'groups' => ['label' => 'Skupiny'],
+            'treshold_distance' => [
+                'label' => 'Interval km',
+                'tooltip' => 'počet km',
+            ],
+            'first_advance_distance' => [
+                'label' => 'Prvý predstih km',
+                'tooltip' => 'počet km (nie stav)',
+            ],
+            'second_advance_distance' => [
+                'label' => 'Druhý predstih km',
+                'tooltip' => 'počet km (nie stav)',
+            ],
+            'treshold_time' => [
+                'label' => 'Interval',
+                'tooltip' => 'mesiace',
+            ],
+            'first_advance_time' => [
+                'label' => 'Prvý predstih',
+                'tooltip' => 'dni',
+            ],
+            'second_advance_time' => [
+                'label' => 'Druhý predstih',
+                'tooltip' => 'dni',
+            ],
+            'groups' => ['label' => 'Typ údržby'],
         ]
     ],
     'navigation' => [
-        'label' => 'Šablóny kontrol',
+        'label' => 'Typy kontrol',
         'group' => 'Kontroly',
     ],
     'resource' => [
-        'model_label' => 'Šablóny kontrola',
-        'plural_model_label' => 'Šablóny kontrol',
+        'model_label' => 'Typy kontrola',
+        'plural_model_label' => 'Typy kontrol',
     ],
 ];

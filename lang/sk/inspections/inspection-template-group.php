@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť kontrolu',
-        'update_heading' => 'Upraviť kontrolu: :title',
+        'create_heading' => 'Vytvoriť typ údržby',
+        'update_heading' => 'Upraviť typ údržby: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -13,32 +13,24 @@ return [
             'date' => 'Dátum',
             'title' => 'Názov',
             'description' => 'Popis',
-            'source' => 'Miesto výskytu',
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
-        'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
-        'row_groups' => [
-        ],
+        'heading' => 'Typy údržby',
+        'description' => 'Typy údržby',
+        'empty_state_heading' => 'Žiadne typy údržby na zobrazenie',
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'code' => 'Kód',
+            'title' => 'Názov',
+            'description' => 'Popis',
         ]
     ],
     'navigation' => [
-        'label' => 'Skupiny šablón',
+        'label' => 'Typy údržby',
         'group' => 'Kontroly',
     ],
     'resource' => [
-        'model_label' => 'Skupina šablón',
-        'plural_model_label' => 'Skupiny šablón',
+        'model_label' => 'Typ údržby',
+        'plural_model_label' => 'Typy údržby',
     ],
 ];

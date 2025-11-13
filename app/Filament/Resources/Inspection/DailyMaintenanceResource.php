@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Inspection;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Forms\DailyMaintenanceForm;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Pages;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Tables\DailyMaintenanceTable;
-use App\Models\Inspection\DailyMaintenance;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -35,6 +34,11 @@ class DailyMaintenanceResource extends Resource
     {
         return __('inspections/daily-maintenance.navigation.group');
     }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-inspections.navigation.daily-maintenance') ?? 999;
+    }    
 
     public static function form(Form $form): Form
     {

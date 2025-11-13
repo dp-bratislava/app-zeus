@@ -38,6 +38,11 @@ class InspectionTemplateGroupResource extends Resource
         return __('inspections/inspection-template-group.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-inspections.navigation.inspection-template-group') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

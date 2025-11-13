@@ -3,16 +3,12 @@
 namespace App\Filament\Resources\Inspection;
 
 use App\Filament\Resources\Inspection\UpcomingInspectionResource\Pages;
-use App\Filament\Resources\Inspection\UpcomingInspectionResource\RelationManagers;
 use App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables\UpcomingInspectionTable;
 use Dpb\Package\Inspections\Models\Inspection;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UpcomingInspectionResource extends Resource
 {
@@ -36,6 +32,11 @@ class UpcomingInspectionResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('inspections/upcoming-inspection.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-inspections.navigation.upcomming-inspection') ?? 999;
     }
 
     public static function form(Form $form): Form
