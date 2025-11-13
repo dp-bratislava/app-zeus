@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Activity;
 
-use App\Filament\Resources\Activity\ActivityTemplateGroupResource\Forms\ActivityTemplateGroupForm;
-use App\Filament\Resources\Activity\ActivityTemplateGroupResource\Tables\ActivityTemplateGroupTable;
+use App\Filament\Resources\Activity\TemplateGroupResource\Forms\ActivityTemplateGroupForm;
+use App\Filament\Resources\Activity\TemplateGroupResource\Tables\ActivityTemplateGroupTable;
 use App\Filament\Resources\Activity\TemplateGroupResource\Pages;
 use Dpb\Package\Activities\Models\TemplateGroup;
 use Filament\Forms\Form;
@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 class TemplateGroupResource extends Resource
 {
     protected static ?string $model = TemplateGroup::class;
+
     public static function getModelLabel(): string
     {
         return __('activities/activity-template-group.resource.model_label');
@@ -36,6 +37,11 @@ class TemplateGroupResource extends Resource
     public static function form(Form $form): Form
     {
         return ActivityTemplateGroupForm::make($form);
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-activities.navigation.template-group') ?? 999;
     }
 
     public static function table(Table $table): Table

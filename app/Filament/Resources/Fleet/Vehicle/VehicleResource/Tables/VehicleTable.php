@@ -122,12 +122,12 @@ class VehicleTable
                     ->multiple()
                     ->options(fn() => MaintenanceGroup::pluck('title')),
             ])
-            // ->headerActions([
-            //     ImportAction::make()
-            //         ->importer(VehicleImporter::class)
-            //         ->csvDelimiter(';')
-            //         // ->visible(auth()->user()->can('fleet.vehicle-model.import'))
-            // ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(VehicleImporter::class)
+                    ->csvDelimiter(';')
+                    // ->visible(auth()->user()->can('fleet.vehicle-model.import'))
+            ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->visible(auth()->user()->can('fleet.vehicle-model.update')),

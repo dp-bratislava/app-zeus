@@ -3,40 +3,36 @@
 namespace App\Filament\Resources\Incident\IncidentResource\Tables;
 
 use App\Models\IncidentAssignment;
-use App\Models\TicketAssignment;
-use App\Services\TS\TicketAssignmentService;
 use App\States;
-use Dpb\Package\Incidents\Models\Incident;
-use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class IncidentTable
+class IncidentassignmentTable
 {
     public static function make(Table $table): Table
     {
         return $table
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+            ->recordClasses(fn($record) => match ($record->incident->state?->getValue()) {
                 States\Incident\Created::$name => 'bg-blue-200',
                 States\Incident\Closed::$name => 'bg-green-200',
                 default => null,
             })
             ->columns([
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('incident.date')
                     ->label(__('incidents/incident.table.columns.date.label'))
                     ->date(),
-                Tables\Columns\TextColumn::make('subject')
-                    ->label(__('incidents/incident.table.columns.subject.label'))
-                    ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('subject.code.code')
+                    ->label(__('incidents/incident.table.columns.subject.label')),
+                    // ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
+                Tables\Columns\TextColumn::make('incident.description')
                     ->label(__('incidents/incident.table.columns.description.label')),
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('incidents/incident.table.columns.state.label'))
-                    ->state(fn(Incident $record) => $record?->state?->label())
+                    ->state(fn(IncidentAssignment $record) => $record->incident?->state?->label())
                     ->badge(),
-                Tables\Columns\TextColumn::make('type.title')
+                Tables\Columns\TextColumn::make('incident.type.title')
                     ->label(__('incidents/incident.table.columns.type.label'))
                     ->badge(),
             ])

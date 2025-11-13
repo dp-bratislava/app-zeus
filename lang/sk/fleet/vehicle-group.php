@@ -12,17 +12,17 @@ return [
             ],
             'title' => 'Názov',
             'description' => 'Popis',
+            'vehicles' => 'Vozidlá',
         ],
     ],
     'table' => [
         'heading' => 'Skupiny vozidiel',
         'empty_state_heading' => 'Žiadne skupiny vozidiel na zobrazenie',
-        'row_groups' => [
-        ],
         'columns' => [
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'code' => 'Kód',
+            'title' => 'Názov',
+            'description' => 'Popis',
+            'vehicles' => 'Vozidlá',
         ]
     ],
     'navigation' => [

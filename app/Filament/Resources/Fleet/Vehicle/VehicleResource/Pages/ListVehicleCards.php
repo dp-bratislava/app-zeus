@@ -13,7 +13,7 @@ class ListVehicleCards extends ListRecords
 {
     protected static string $resource = VehicleResource::class;
 
-    protected static string $view = 'filament.resources.fleet.vehicle.vehicle-resources.pages.list-vehicle-cards';    
+    protected static string $view = 'filament.resources.fleet.vehicle.vehicle-resources.pages.list-vehicle-cards';
 
     protected function getHeaderActions(): array
     {
@@ -22,23 +22,23 @@ class ListVehicleCards extends ListRecords
         ];
     }
 
-public function getTabs(): array
-{
-    return [
-        'all' => Tab::make('All customers'),
-        'active' => Tab::make('Active customers')
-            ->modifyQueryUsing(fn (Builder $query) => $query->where('active', true)),
-        'inactive' => Tab::make('Inactive customers')
-            ->modifyQueryUsing(fn (Builder $query) => $query->where('active', false)),
-    ];
-}
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make('All customers'),
+            'active' => Tab::make('Active customers')
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('active', true)),
+            'inactive' => Tab::make('Inactive customers')
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('active', false)),
+        ];
+    }
 
-     // Make the records available to Blade
+    // Make the records available to Blade
     public $vehicles;
 
     public function mount(): void
     {
         // Fetch all vehicles or apply any filter
         $this->vehicles = Vehicle::with('model')->get()->toArray();
-    }   
+    }
 }

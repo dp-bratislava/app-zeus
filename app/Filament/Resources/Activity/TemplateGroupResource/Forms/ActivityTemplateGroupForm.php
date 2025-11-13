@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Activity\ActivityTemplateGroupResource\Forms;
+namespace App\Filament\Resources\Activity\TemplateGroupResource\Forms;
 
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Forms;

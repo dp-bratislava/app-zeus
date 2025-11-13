@@ -7,7 +7,6 @@ use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Tables\VehicleModelTable;
 use App\Filament\Resources\Fleet\Vehicle\VehicleModelResource\Infolists\VehicleModelInfolist;
 use Dpb\Package\Fleet\Models\VehicleModel;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -38,6 +37,11 @@ class VehicleModelResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('fleet/vehicle-model.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-fleet.navigation.vehicle-model') ?? 999;
     }
 
     public static function form(Form $form): Form

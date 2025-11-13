@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Fleet\MaintenanceGroupResource\Pages;
 use App\Filament\Resources\Fleet\MaintenanceGroupResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListMaintenanceGroups extends ListRecords
 {
@@ -13,7 +14,12 @@ class ListMaintenanceGroups extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }      
 }

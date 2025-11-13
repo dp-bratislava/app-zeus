@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Fleet\Vehicle;
 
 use App\Filament\Imports\Fleet\VehicleTypeImporter;
 use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Pages;
-use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\RelationManagers;
 use Dpb\Package\Fleet\Models\VehicleType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,9 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class VehicleTypeResource extends Resource
 {
@@ -39,6 +35,11 @@ class VehicleTypeResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('fleet/vehicle-type.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-fleet.navigation.vehicle-type') ?? 999;
     }
 
     public static function form(Form $form): Form
@@ -69,18 +70,18 @@ class VehicleTypeResource extends Resource
                 ImportAction::make()
                     ->importer(VehicleTypeImporter::class)
                     ->csvDelimiter(';')
-                    // ->visible(auth()->user()->can('fleet.vehicle-type.import'))
+                // ->visible(auth()->user()->can('fleet.vehicle-type.import'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                    // ->visible(auth()->user()->can('fleet.vehicle-type.update')),
+                // ->visible(auth()->user()->can('fleet.vehicle-type.update')),
                 Tables\Actions\DeleteAction::make()
-                    // ->visible(auth()->user()->can('fleet.vehicle-type.delete')),
+                // ->visible(auth()->user()->can('fleet.vehicle-type.delete')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                        // ->visible(auth()->user()->can('fleet.vehicle-type.bulk-delete')),
+                    // ->visible(auth()->user()->can('fleet.vehicle-type.bulk-delete')),
                 ]),
             ]);
     }
@@ -110,7 +111,7 @@ class VehicleTypeResource extends Resource
     // {
     //     return auth()->check() && auth()->user()->can('fleet.vehicle-type.update');
     // }   
-    
+
     // public static function canDelete(Model $record): bool
     // {        
     //     return auth()->check() && auth()->user()->can('fleet.vehicle-type.delete');

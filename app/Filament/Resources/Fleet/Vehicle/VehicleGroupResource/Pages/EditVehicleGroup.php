@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Fleet\Vehicle\VehicleGroupResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleGroupResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditVehicleGroup extends EditRecord
 {
@@ -16,4 +17,9 @@ class EditVehicleGroup extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('fleet/vehicle-group.form.update_heading', ['title' => $this->record->title]);
+    }      
 }

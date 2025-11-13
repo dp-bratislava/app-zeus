@@ -21,6 +21,7 @@ return [
             'description' => 'Popis',
             'color' => 'Farba',
             'vehicle_type' => 'Typ',
+            'vehicles' => 'Vozidlá',
         ],
     ],
     'table' => [
@@ -34,6 +35,7 @@ return [
             'description' => 'Popis',
             'color' => 'Farba',
             'vehicle_type' => 'Typ',
+            'vehicles' => 'Vozidlá',
         ]
     ],
     'navigation' => [

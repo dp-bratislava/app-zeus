@@ -34,6 +34,11 @@ class DispatchGroupResource extends Resource
         return __('fleet/dispatch-group.navigation.group');
     }
 
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+    
     public static function form(Form $form): Form
     {
         return $form

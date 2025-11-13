@@ -10,7 +10,7 @@ use Dpb\Package\Tickets\Models\TicketGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 
-class IncidentForm
+class IncidentAssignmentForm
 {
     public static function make(Form $form): Form
     {
@@ -23,7 +23,7 @@ class IncidentForm
     {
         return [
             // date
-            Forms\Components\DatePicker::make('date')
+            Forms\Components\DatePicker::make('incident.date')
                 ->label(__('incidents/incident.form.fields.date'))
                 ->columnSpan(1)
                 ->default(Carbon::now()),
@@ -81,7 +81,7 @@ class IncidentForm
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 ->required(false),
             // incident type
-            Forms\Components\ToggleButtons::make('type_id')
+            Forms\Components\ToggleButtons::make('incident.type_id')
                 ->label(__('incidents/incident.form.fields.type'))
                 ->inline()
                 ->columnSpan(1)
@@ -90,7 +90,7 @@ class IncidentForm
                     IncidentType::pluck('title', 'id')
                 ),
             // description
-            Forms\Components\Textarea::make('description')
+            Forms\Components\Textarea::make('incident.description')
                 ->label(__('incidents/incident.form.fields.description'))
                 ->columnSpanFull()
                 ->rows(10)

@@ -10,6 +10,10 @@ return [
             'year' => ['label' => 'Rok výroby'],
             'type' => ['label' => 'Typ'],
         ],
+        'tabs' => [
+            'activity-templates' => 'Normy',
+            'parameters' => 'Parametre',
+        ]
     ],
     'table' => [
         'heading' => 'Modely vozidiel',

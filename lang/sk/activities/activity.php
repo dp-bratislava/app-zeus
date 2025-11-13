@@ -2,8 +2,8 @@
 
 return [
     'form' => [
-        'create_heading' => 'Vytvoriť kontrolu',
-        'update_heading' => 'Upraviť kontrolu: :title',
+        'create_heading' => 'Vytvoriť normovanú činnosť',
+        'update_heading' => 'Upraviť normovanú činnosť: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -15,40 +15,28 @@ return [
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
-        'heading' => 'Zakázky',
-        'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
-        'row_groups' => [
-        ],
+        'heading' => 'Normované činnosti',
+        'empty_state_heading' => 'Žiadne normované činnosti na zobrazenie',
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
-            'template' => ['label' => 'Typ kontroly'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'note' => ['label' => 'Poznámka'],
-            'maintenance_group' => ['label' => 'Prevádzka'],
-            'finished_at' => ['label' => 'Ukončená'],
-            'distance_traveled' => ['label' => 'Stav km'],
+            'date' => 'Dátum',
+            'ticket' => 'Zákazka',
+            'template' => 'Norma',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
+            'note' => 'Poznámka',
+            'maintenance_group' => 'Prevádzka',
+            'finished_at' => 'Ukončená',
+            'expected_duration' => 'Očakávané trvanie (min)',
         ]
     ],
     'navigation' => [
-        'label' => 'Kontroly',
-        'group' => 'Kontroly',
+        'label' => 'Normované činnosti',
+        'group' => 'Normy',
     ],
     'resource' => [
-        'model_label' => 'Kontrola',
-        'plural_model_label' => 'Kontroly',
+        'model_label' => 'Normovaná činnosť',
+        'plural_model_label' => 'Normované činnosti',
     ],
-    'states' => [
-        'upcoming' => 'Nadchádzajúca',
-        'overdue' => 'Po termíne',
-        'in-progress' => 'Prebieha',
-    ]
 ];

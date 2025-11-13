@@ -4,6 +4,9 @@ namespace App\Filament\Resources\Activity;
 
 use App\Filament\Resources\Activity\ActivityResource\Pages;
 use App\Filament\Resources\Activity\ActivityResource\RelationManagers;
+use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityAssignmentTable;
+use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityTable;
+use App\Models\ActivityAssignment;
 use App\Services\Activity\Activity\TicketService;
 use Dpb\Package\Activities\Models\Activity;
 use Filament\Forms;
@@ -16,16 +19,32 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ActivityResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = ActivityAssignment::class;
 
-    protected static ?string $navigationLabel = 'Normované činnosti';
-    protected static ?string $pluralModelLabel = 'Normované činnosti';
-    protected static ?string $ModelLabel = 'Normované činnosti';
+    public static function getModelLabel(): string
+    {
+        return __('activities/activity.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('activities/activity.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('activities/activity.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Normy';
-    }    
+        return __('activities/activity.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-activities.navigation.activity') ?? 999;
+    }
 
     public static function form(Form $form): Form
     {
@@ -37,45 +56,8 @@ class ActivityResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('ticket')
-                    ->state(function(TicketService $svc, $record) {
-                        return $svc->getTicket($record)?->description;
-                    }),
-                Tables\Columns\TextColumn::make('date')->date(),
-                Tables\Columns\TextColumn::make('status.title'),
-                Tables\Columns\TextColumn::make('template.title')->label('uloha'),
-                Tables\Columns\TextColumn::make('template.duration')->label('ocakavane trvanie'),
-                // Tables\Columns\TextColumn::make('real_duration')
-                //     ->label('realne trvanie')
-                //     ->state(function ($record) {
-                //         $result = $record->activities->sum('duration');
-                //         return $result;
-                //     }),
-                Tables\Columns\IconColumn::make('template.is_divisible')
-                    ->label('delitelna')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('template.is_standardised')
-                    ->label('normovana')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('template.is_catalogised')
-                    ->label('katalogizovana')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('template.people')
-                    ->label('pocet ludi'),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return ActivityAssignmentTable::make($table);
+        // return ActivityTable::make($table);
     }
 
     public static function getRelations(): array

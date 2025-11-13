@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Activity\ActivityTemplateGroupResource\Tables;
+namespace App\Filament\Resources\Activity\TemplateGroupResource\Tables;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
 use Filament\Tables;

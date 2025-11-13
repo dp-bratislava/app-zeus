@@ -18,13 +18,30 @@ use Filament\Tables\Table;
 class ActivityTemplateResource extends Resource
 {
     protected static ?string $model = ActivityTemplate::class;
-    protected static ?string $navigationLabel = 'Normy';
-    protected static ?string $pluralModelLabel = 'Normy';
-    protected static ?string $ModelLabel = 'Norma';
+
+    public static function getModelLabel(): string
+    {
+        return __('activities/activity-template.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('activities/activity-template.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('activities/activity-template.navigation.label');
+    }
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Normy';
+        return __('activities/activity-template.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-activities.navigation.activity-template') ?? 999;
     }
 
     public static function form(Form $form): Form

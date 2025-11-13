@@ -26,21 +26,47 @@ class VehiclePicker extends Select
         return $this;
     }
 
+    // public function getSearchResultsUsing(?Closure $callback): static
+    // {
+    //     if ($callback !== null) {
+    //         $this->getSearchResultsUsing = $callback;
+    //     } else {
+    //         $this->getSearchResultsUsing = fn($search) => 
+    //             Vehicle::query()
+    //                 ->whereHas('codes', function($q) use ($search) {
+    //                     $q->whereLike('code', "%{$search}%")
+    //                     ->orderByDesc('date_from')
+    //                     ->first();
+    //                 })
+    //                 // ->orWhereLike('title', "%{$search}%")
+    //                 ->get()
+    //                 ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model->title]);
+    //     }
+
+    //     return $this;
+    // }
     public function getSearchResultsUsing(?Closure $callback): static
     {
         if ($callback !== null) {
             $this->getSearchResultsUsing = $callback;
         } else {
-            $this->getSearchResultsUsing = fn($search) => 
-                Vehicle::query()
-                    ->whereHas('codes', function($q) use ($search) {
-                        $q->whereLike('code', "%{$search}%")
-                        ->orderByDesc('date_from')
-                        ->first();
-                    })
-                    // ->orWhereLike('title', "%{$search}%")
-                    ->get()
-                    ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model->title]);
+            $this->getSearchResultsUsing = fn($search) =>
+            Vehicle::query()
+                ->whereHas('codes', function ($q) use ($search) {
+                    $q->where('code', 'like', "%{$search}%");
+                })
+                ->with(['codes' => fn($q) => $q->where('code', 'like', "%{$search}%")->orderByDesc('date_from')])
+                ->get()
+                ->mapWithKeys(function (Vehicle $vehicle) {
+                    $latestCode = $vehicle->codes->first();
+                    if (!$latestCode) {
+                        return []; // important: return empty array if no code
+                    }
+                    return [
+                        $vehicle->id => $latestCode->code . ' - ' . $vehicle->model->title,
+                    ];
+                })
+                ->toArray(); // must return array
         }
 
         return $this;

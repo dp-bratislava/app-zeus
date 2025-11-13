@@ -20,12 +20,12 @@ class EditIncident extends EditRecord
         ];
     }
 
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        $data['subject_id'] = app(IncidentAssignment::class)->whereBelongsTo($this->record)->first()->subject->id;
-        // dd($data);
-        return $data;
-    }
+    // protected function mutateFormDataBeforeFill(array $data): array
+    // {
+    //     // $data['subject_id'] = app(IncidentAssignment::class)->whereBelongsTo($this->record)->first()->subject->id;
+    //     // dd($data);
+    //     return $data;
+    // }
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {

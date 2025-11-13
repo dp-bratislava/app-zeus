@@ -8,8 +8,8 @@ use Dpb\Package\Fleet\Models\LicencePlate;
 use Dpb\Package\Fleet\Models\LicencePlateHistory;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleGroup;
-use Dpb\Packages\Vehicles\Models\VehicleCode;
-use Dpb\Packages\Vehicles\Models\VehicleCodeHistory;
+use Dpb\Package\Fleet\Models\VehicleCode;
+use Dpb\Package\Fleet\Models\VehicleCodeHistory;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
@@ -47,7 +47,7 @@ class VehicleImporter extends Importer
                 ->rules(['max:255']),
             ImportColumn::make('vehicle_group'),
             // department
-            ImportColumn::make('department'),
+            // ImportColumn::make('department'),
         ];
     }
 
@@ -76,9 +76,10 @@ class VehicleImporter extends Importer
     {
         // unset fields from import, that should not be mapped 
         // into dispense model
+        unset($this->data['code']);
         unset($this->data['licence_plate']);
         unset($this->data['vehicle_group']);
-        unset($this->data['department']);
+        // unset($this->data['department']);
         unset($this->data['']);
     }
 
@@ -115,7 +116,8 @@ class VehicleImporter extends Importer
         // vehicle codes
         $vehicleCode = $this->originalData['code'] == '' ? null : Str::trim($this->originalData['code']);         
         
-        if (($vehicleCode !== null) && (!in_array($licencePlate, ['N/A']))) {
+        // if (($vehicleCode !== null) && (!in_array($licencePlate, ['N/A']))) {
+        if ($vehicleCode !== null) {
             $vehicleCodeId = VehicleCode::createOrFirst([
                 'code' => $vehicleCode,                
             ])->id;
@@ -144,9 +146,9 @@ class VehicleImporter extends Importer
         }
        
         // vehicle department
-        $rawDepartment = $this->originalData['department'] == '' ? null : Str::trim($this->originalData['department']);        
-        if (($rawDepartment !== null) && (isset($this->departments[$rawDepartment]))) {            
-            $this->vehicleService->setDepartment($this->record, $this->departments[$rawDepartment]);
-        }        
+        // $rawDepartment = $this->originalData['department'] == '' ? null : Str::trim($this->originalData['department']);        
+        // if (($rawDepartment !== null) && (isset($this->departments[$rawDepartment]))) {            
+        //     $this->vehicleService->setDepartment($this->record, $this->departments[$rawDepartment]);
+        // }        
     }    
 }

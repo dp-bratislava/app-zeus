@@ -54,11 +54,11 @@ class VehicleForm
                     ->searchable(),
                 // ->default(function)
 
-                Forms\Components\ToggleButtons::make('maintenance_group')
+                Forms\Components\ToggleButtons::make('maintenance_group_id')
                     ->columnSpan(2)
                     ->label(__('fleet/vehicle.form.fields.maintenance_group'))
                     ->inline()
-                    ->options(fn() => MaintenanceGroup::pluck('code')),
+                    ->options(fn() => MaintenanceGroup::pluck('code', 'id')),
 
                 Forms\Components\ToggleButtons::make('dispatch_group')
                     ->columnSpan(2)

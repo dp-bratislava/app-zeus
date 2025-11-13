@@ -3,13 +3,11 @@
 namespace App\Filament\Resources\Fleet;
 
 use App\Filament\Resources\Fleet\MaintenanceGroupResource\Pages;
-use App\Filament\Resources\Fleet\Vehicle\MaintenanceGroupResource\Forms\MaintenanceGroupForm;
-use App\Filament\Resources\Fleet\Vehicle\MaintenanceGroupResource\Tables\MaintenanceGroupTable;
+use App\Filament\Resources\Fleet\MaintenanceGroupResource\Forms\MaintenanceGroupForm;
+use App\Filament\Resources\Fleet\MaintenanceGroupResource\Tables\MaintenanceGroupTable;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
 
 class MaintenanceGroupResource extends Resource
@@ -34,6 +32,11 @@ class MaintenanceGroupResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('fleet/maintenance-group.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-fleet.navigation.maintenance-group') ?? 999;
     }
 
     public static function form(Form $form): Form

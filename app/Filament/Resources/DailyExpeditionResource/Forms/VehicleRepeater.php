@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\TS\TicketItemResource\Forms;
+namespace App\Filament\Resources\DailyExpeditionResource\Forms;
 
 use App\Filament\Components\ActivityTemplatePicker;
 use App\Services\TS\ActivityService;
