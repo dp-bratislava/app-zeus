@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inspection;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Forms\DailyMaintenanceForm;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Pages;
 use App\Filament\Resources\Inspection\DailyMaintenanceResource\Tables\DailyMaintenanceTable;
+use App\Models\InspectionAssignment;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class DailyMaintenanceResource extends Resource
 {
-    protected static ?string $model = Inspection::class;
+    protected static ?string $model = InspectionAssignment::class;
 
     public static function getModelLabel(): string
     {
@@ -38,7 +39,7 @@ class DailyMaintenanceResource extends Resource
     public static function getNavigationSort(): ?int
     {
         return config('pkg-inspections.navigation.daily-maintenance') ?? 999;
-    }    
+    }
 
     public static function form(Form $form): Form
     {
@@ -62,6 +63,8 @@ class DailyMaintenanceResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->byTemplateGroup('daily-maintenance');
-    }    
+            ->whereHas('inspection', function ($q) {
+                $q->byTemplateGroup('daily-maintenance');
+            });
+    }
 }

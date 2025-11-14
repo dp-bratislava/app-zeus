@@ -1,15 +1,11 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť kontrolu',
+    'list_heading' => 'Kontroly',
+    'update_heading' => 'Upraviť kontrolu: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť kontrolu',
-        'update_heading' => 'Upraviť kontrolu: :title',
         'fields' => [
-            'code' => [
-                'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-            ],
             'date' => 'Dátum',
             'template' => 'Typ kontroly',
             'subject' => 'Vozidlo',
@@ -19,19 +15,26 @@ return [
     'table' => [
         'heading' => 'Zakázky',
         'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
-        'row_groups' => [
-        ],
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
-            'template' => ['label' => 'Typ kontroly'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'note' => ['label' => 'Poznámka'],
-            'maintenance_group' => ['label' => 'Prevádzka'],
-            'finished_at' => ['label' => 'Ukončená'],
-            'distance_traveled' => ['label' => 'Stav km'],
-        ]
+            'date' => 'Dátum',
+            'subject' => 'Vozidlá',
+            'template' => 'Typ ošetrenia',
+            'state' => 'Stav',
+            'finished_at' => 'Ukončená',
+            'distance_traveled' => 'Stav km',
+            'note' => 'Poznámka',
+            'maintenance_group' => 'Prevádzka',
+            'contracts' => 'Vykonal',
+            'total_time' => 'Celkový čas'
+        ],
+        'filters' => [
+            'date' => 'Dátum',
+            'subject' => 'Vozidlá',
+            'template' => 'Typ ošetrenia',
+            'state' => 'Stav',
+            'maintenance_group' => 'Prevádzka',
+        ],
+
     ],
     'navigation' => [
         'label' => 'Kontroly',

@@ -14,6 +14,7 @@ use App\Models\IncidentAssignment;
 use App\Models\InspectionAssignment;
 use App\Models\InspectionTemplateAssignment;
 use App\Models\TicketAssignment;
+use App\Models\TicketItemAssignment;
 use App\Models\WorkAssignment;
 use App\States\Inspection\InspectionState;
 use Dpb\Package\Activities\Models\Activity;
@@ -22,11 +23,13 @@ use Dpb\Package\Inspections\Models\Inspection;
 use Dpb\Package\Tickets\Models\Ticket;
 use Illuminate\Support\Carbon;
 use App\States;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Incidents\Models\Incident;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Dpb\Package\Tickets\Models\TicketItem;
+use Dpb\Package\Tickets\Models\TicketSource;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
 use Illuminate\Contracts\Auth\Guard;
 use Spatie\LaravelData\DataCollection;
@@ -133,7 +136,13 @@ class TicketAssignmentService
                 $inspectionAssignment->save();
 
                 // create ticket
-                $ticket = $this->createTicket($date, $inspectionTemplate->title);
+                $ticket = Ticket::create([
+                    'date' => $date,
+                    'title' => $inspectionTemplate->title,
+                    'state' => States\TS\Ticket\Created::$name,
+                    'group_id' => TicketGroup::byCode('daily-maintenance')->first()->id,
+                    'source_id' => TicketSource::byCode('planned-maintenance')->first()->id,
+                ]);
 
                 // create ticket items
                 $ticketItem = $this->createTicketItem($ticket);
@@ -176,6 +185,14 @@ class TicketAssignmentService
                 $ticketSubject = InspectionAssignment::whereBelongsTo($inspection, $inspection->getMorphClass())
                     ->first()?->subject;
                 $ticketAssignment = $this->createTicketAssignment($ticket, $inspection, $ticketSubject);
+
+                // craete ticket item assignment
+                $ticketItemAssignment = TicketItemAssignment::create([
+                    'ticket_item_id' => $ticketItem->id,
+                    'assigned_to_id' => $ticketSubject->maintenanceGroup->id,
+                    'assigned_to_type' => app(MaintenanceGroup::class)->getMorphClass(),
+                    'author_id' => $this->guard->id()
+                ]);                
             }
         });
     }

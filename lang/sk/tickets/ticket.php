@@ -1,15 +1,11 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť zákazku',
+    'list_heading' => 'Zákazky',
+    'update_heading' => 'Upraviť zákazku: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť zákazku',
-        'update_heading' => 'Upraviť zákazku: :title',
         'fields' => [
-            'code' => [
-                'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-            ],
             'date' => 'Dátum',
             'title' => 'Názov',
             'description' => 'Popis',
@@ -47,7 +43,14 @@ return [
             'source' => 'Miesto výskytu',
             'parent' => 'Patrí pod',
             'total_expenses' => 'Náklady'
-        ]
+        ],
+        'filters' => [
+            'date' => 'Dátum',
+            'state' => 'Stav',
+            'source' => 'Miesto výskytu',
+            'subject' => 'Vozidlo',
+            'assigned_to' => 'Technická prevádzka',
+        ],
     ],
     'relation_manager' => [
         'ticket_items' => [

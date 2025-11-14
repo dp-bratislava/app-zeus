@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Inspections\Models\Inspection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class InspectionAssignment extends Model
 {
@@ -41,17 +43,20 @@ class InspectionAssignment extends Model
 
     public static function scopeByVehicleType(Builder $query, string|array $type)
     {
-        $query->hasMorph('subject', 'vehicle')
+        $query->hasMorph('subject', app(Vehicle::class)->getMorphClass())
             ->whereHas('subject', function ($q) use ($type) {
                 $q->byType($type);
             });
     }
 
-    public static function scopeByMaintenanceGroup(Builder $query, string|array $maintenanceGroup)
+    public static function scopeBySubjectCode(Builder $query, string|array $subjectMorphClasses, string|array $codes)
     {
-        $query->hasMorph('subject', 'vehicle')
-            ->whereHas('subject', function ($q) use ($maintenanceGroup) {
-                $q->byMaintenanceGroup($maintenanceGroup);
+        $codes = Arr::wrap($codes);
+        $subjectMorphClasses = Arr::wrap($subjectMorphClasses);
+        
+        $query->hasMorph('subject', $subjectMorphClasses)
+            ->whereHas('subject', function ($q) use ($codes) {
+                $q->byMaintenanceGroup($codes);
             });
     }    
 }

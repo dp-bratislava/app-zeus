@@ -1,9 +1,10 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť denné ošetrenie',
+    'list_heading' => 'Denné ošetrenie',
+    'update_heading' => 'Upraviť denné ošetrenie: :title',
     'form' => [
-        'create_heading' => 'Denné ošetrenie',
-        'update_heading' => 'Upraviť denné ošetrenie: :title',
         'fields' => [
             'date' => 'Dátum',
             'vehicles' => 'Vozidlá',
@@ -18,20 +19,24 @@ return [
        ]
     ],
     'table' => [
-        'heading' => 'Kontroly',
+        'heading' => 'Denné ošetrenie',
         'empty_state_heading' => 'Žiadne denné ošetrenie na zobrazenie',
-        'row_groups' => [
-        ],
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
-            'template' => ['label' => 'Typ ošetrenia'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'note' => ['label' => 'Poznámka'],
-            'maintenance_group' => ['label' => 'Prevádzka'],
-            'contracts' => ['label' => 'Vykonal'],
-            'total_time' => ['label' => 'Celkový čas']
+            'date' => 'Dátum',
+            'subject' => 'Vozidlá',
+            'template' => 'Typ ošetrenia',
+            'state' => 'Stav',
+            'note' => 'Poznámka',
+            'maintenance_group' => 'Prevádzka',
+            'contracts' => 'Vykonal',
+            'total_time' => 'Celkový čas'
+        ],
+        'filters' => [
+            'date' => 'Dátum',
+            'subject' => 'Vozidlá',
+            'template' => 'Typ ošetrenia',
+            'state' => 'Stav',
+            'maintenance_group' => 'Prevádzka',
         ],
     ],
     'navigation' => [

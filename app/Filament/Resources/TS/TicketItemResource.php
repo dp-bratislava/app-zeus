@@ -12,8 +12,6 @@ use Dpb\Package\Tickets\Models\TicketItem;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketItemResource extends Resource
 {
@@ -37,6 +35,11 @@ class TicketItemResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('tickets/ticket-item.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-tickets.navigation.ticket-item') ?? 999;
     }
 
     public static function form(Form $form): Form

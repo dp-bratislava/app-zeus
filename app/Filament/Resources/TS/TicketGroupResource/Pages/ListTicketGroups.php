@@ -5,6 +5,7 @@ namespace App\Filament\Resources\TS\TicketGroupResource\Pages;
 use App\Filament\Resources\TS\TicketGroupResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListTicketGroups extends ListRecords
 {
@@ -16,4 +17,9 @@ class ListTicketGroups extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('tickets/ticket-group.list_heading');
+    }      
 }

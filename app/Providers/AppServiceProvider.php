@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Components\VehicleCard;
+use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Components\VehicleModelList;
 use App\Filament\Resources\TS\TicketItemResource\Components\TicketItemActivities;
 use App\Filament\Resources\TS\TicketItemResource\Components\TicketItemMaterials;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -47,5 +49,8 @@ class AppServiceProvider extends ServiceProvider
         // Blade::component('ticket-item-activities', TicketItemActivities::class);
         Livewire::component('ticket-item-activities', TicketItemActivities::class);
         Livewire::component('ticket-item-materials', TicketItemMaterials::class);
+        // fleet
+        Livewire::component('fleet-vehicle-model-list', VehicleModelList::class);
+        Livewire::component('fleet-vehicle-card', VehicleCard::class);
     }
 }

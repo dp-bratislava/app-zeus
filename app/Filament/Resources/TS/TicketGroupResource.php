@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\TS;
 
 use App\Filament\Imports\TS\TicketGroupImporter;
+use App\Filament\Resources\TS\TicketGroupResource\Forms\TicketGroupForm;
 use App\Filament\Resources\TS\TicketGroupResource\Pages;
 use App\Filament\Resources\TS\TicketGroupResource\RelationManagers;
+use App\Filament\Resources\TS\TicketGroupResource\Tables\TicketGroupTable;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -40,41 +42,19 @@ class TicketGroupResource extends Resource
         return __('tickets/ticket-group.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-tickets.navigation.ticket-group') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code'),
-                Forms\Components\TextInput::make('title'),
-            ]);
+        return TicketGroupForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                Tables\Columns\TextColumn::make('code'),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('parent.title'),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                // ImportAction::make()
-                //     ->importer(TicketGroupImporter::class)
-                //     ->csvDelimiter(';')
-            ]) 
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return TicketGroupTable::make($table);
     }
 
     public static function getRelations(): array

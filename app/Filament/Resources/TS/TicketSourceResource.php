@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources\TS;
 
+use App\Filament\Resources\TS\TicketSourceResource\Forms\TicketSourceForm;
 use App\Filament\Resources\TS\TicketSourceResource\Pages;
 use App\Filament\Resources\TS\TicketSourceResource\RelationManagers;
+use App\Filament\Resources\TS\TicketSourceResource\Tables\TicketSourceTable;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketSourceResource extends Resource
 {
@@ -37,43 +37,19 @@ class TicketSourceResource extends Resource
         return __('tickets/ticket-source.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-tickets.navigation.ticket-source') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return TicketSourceForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                Tables\Columns\TextColumn::make('code')
-                    ->label(__('tickets/ticket-source.table.columns.code.label')),
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('tickets/ticket-source.table.columns.title.label')),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
+        return TicketSourceTable::make($table);
     }
 
     public static function getPages(): array

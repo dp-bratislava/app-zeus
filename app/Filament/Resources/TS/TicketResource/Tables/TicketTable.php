@@ -4,6 +4,7 @@ namespace App\Filament\Resources\TS\TicketResource\Tables;
 
 use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
+use App\Services\TicketAssignmentRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;
@@ -13,6 +14,7 @@ use App\StateTransitions\TS\CreatedToInProgress;
 use App\StateTransitions\TS\InProgressToCancelled;
 use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
@@ -104,21 +106,21 @@ class TicketTable
                 //     }),
 
                 Tables\Columns\TextColumn::make('expenses')
-                    ->label(__('tickets/ticket.table.columns.total_expenses'))                    
-                    // ->state(function ($record) {
-                        // $total = 0;
-                        // if ($record->has('materials')) {
-                        //     $total += $record->materials->sum(function ($material) {
-                        //         return $material->price;
-                        //     });
-                        // }
-                        // if ($record->has('services')) {
-                        //     $services = $record->services->sum(function ($service) {
-                        //         return $service->price;
-                        //     });
-                        // }
-                        // return $total;
-                    // }),
+                    ->label(__('tickets/ticket.table.columns.total_expenses'))
+                // ->state(function ($record) {
+                // $total = 0;
+                // if ($record->has('materials')) {
+                //     $total += $record->materials->sum(function ($material) {
+                //         return $material->price;
+                //     });
+                // }
+                // if ($record->has('services')) {
+                //     $services = $record->services->sum(function ($service) {
+                //         return $service->price;
+                //     });
+                // }
+                // return $total;
+                // }),
                 // Tables\Columns\TextColumn::make('man_minutes')
                 //     ->state(function ($record) {
                 //         $result = $record->activities->sum('duration');

@@ -1,17 +1,17 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť skupinu zákazky',
+    'list_heading' => 'Skupiny zákazkok',
+    'update_heading' => 'Upraviť skupinu zákazky: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť skupinu zákazky',
-        'update_heading' => 'Upraviť skupinu zákazky: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'hint' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => 'Názov',
-            'description' => 'Popis',
+            'parent' => 'Patrí pod',
         ],
     ],
     'table' => [
@@ -20,9 +20,12 @@ return [
         'row_groups' => [
         ],
         'columns' => [
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
-            'description' => ['label' => 'Popis'],
+            'code' => [
+                'label' => 'Kód',
+                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+            ],
+            'title' => 'Názov',
+            'parent' => 'Patrí pod',
         ]
     ],
     'navigation' => [

@@ -24,33 +24,33 @@ class InspectionAssignmentTable
             ->columns([
                 // date
                 Tables\Columns\TextColumn::make('inspection.date')
-                    ->label(__('inspections/inspection.table.columns.date.label'))
+                    ->label(__('inspections/inspection.table.columns.date'))
                     ->date(),
                 // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
-                    ->label(__('inspections/inspection.table.columns.subject.label')),
+                    ->label(__('inspections/inspection.table.columns.subject')),
                 // template
                 Tables\Columns\TextColumn::make('inspection.template.title')
-                    ->label(__('inspections/inspection.table.columns.template.label')),
+                    ->label(__('inspections/inspection.table.columns.template')),
                 // state
                 Tables\Columns\TextColumn::make('inspection.state')
-                    ->label(__('inspections/inspection.table.columns.state.label')),
+                    ->label(__('inspections/inspection.table.columns.state')),
                 // ->state(fn(Inspection $record) => $record->state->label()),
                 // finished at
                 Tables\Columns\TextColumn::make('finished_at')
-                    ->label(__('inspections/inspection.table.columns.finished_at.label')),
+                    ->label(__('inspections/inspection.table.columns.finished_at')),
                 // maintenance group
                 Tables\Columns\TextColumn::make('subject.maintenanceGroup.code')
-                    ->label(__('inspections/inspection.table.columns.maintenance_group.label')),
+                    ->label(__('inspections/inspection.table.columns.maintenance_group')),
                 // ->state(function ($record, InspectionAssignmentService $svc) {
                 //     return $svc->getSubject($record)?->maintenanceGroup?->code;
                 // }),
                 // note
                 Tables\Columns\TextColumn::make('note')
-                    ->label(__('inspections/inspection.table.columns.note.label')),
+                    ->label(__('inspections/inspection.table.columns.note')),
                 // distance traveled
                 Tables\Columns\TextColumn::make('distance_traveled')
-                    ->label(__('inspections/inspection.table.columns.distance_traveled.label')),
+                    ->label(__('inspections/inspection.table.columns.distance_traveled')),
             ])
             ->filters([
                 //

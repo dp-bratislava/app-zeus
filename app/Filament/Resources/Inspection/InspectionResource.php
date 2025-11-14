@@ -65,10 +65,10 @@ class InspectionResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            // ->byVehicleType('A');
-            ->byMaintenanceGroup('1TPA');
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()
+    //         // ->byVehicleType('A');
+    //         ->byMaintenanceGroup('1TPA');
+    // }
 }

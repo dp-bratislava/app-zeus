@@ -1,14 +1,14 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť miesto výskytu',
+    'list_heading' => 'Miesta výskytu',
+    'update_heading' => 'Upraviť miesto výskytu: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť miesto výskytu',
-        'update_heading' => 'Upraviť miesto výskytu: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
-                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'hint' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => 'Názov',
         ],
@@ -19,7 +19,10 @@ return [
         'row_groups' => [
         ],
         'columns' => [
-            'code' => ['label' => 'Kód'],
+            'code' => [
+                'label' => 'Kód',
+                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+            ],
             'title' => ['label' => 'Názov'],
         ]
     ],

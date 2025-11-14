@@ -39,6 +39,11 @@ class TicketResource extends Resource
         return __('tickets/ticket.navigation.group');
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-tickets.navigation.ticket') ?? 999;
+    }
+
     public static function form(Form $form): Form
     {
         // return TicketForm::make($form);

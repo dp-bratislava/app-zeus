@@ -5,6 +5,7 @@ namespace App\Filament\Resources\TS\TicketSourceResource\Pages;
 use App\Filament\Resources\TS\TicketSourceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditTicketSource extends EditRecord
 {
@@ -16,4 +17,9 @@ class EditTicketSource extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('tickets/ticket-source.update_heading', ['title' => $this->record->title]);
+    }     
 }

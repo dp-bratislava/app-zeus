@@ -8,6 +8,7 @@ use App\Services\TS\TicketAssignmentService;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Enums\MaxWidth;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListDailyMaintenances extends ListRecords
 {
@@ -16,16 +17,21 @@ class ListDailyMaintenances extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
-                // ->using(function(array $data, DailyMaintenanceService $dmSvc) {
-                //     $dmSvc->create($data);
-                //     // logger()->info('form data before save: ', $data);
-                //     // return $data;
-                // })
-                ->using(function(array $data, TicketAssignmentService $taSvc) {
-                    $taSvc->createFromDailyMaintenance($data);
-                })
-                ->modalWidth(MaxWidth::class),
+            // Actions\CreateAction::make()
+            //     // ->using(function(array $data, DailyMaintenanceService $dmSvc) {
+            //     //     $dmSvc->create($data);
+            //     //     // logger()->info('form data before save: ', $data);
+            //     //     // return $data;
+            //     // })
+            //     ->using(function(array $data, TicketAssignmentService $taSvc) {
+            //         $taSvc->createFromDailyMaintenance($data);
+            //     })
+            //     ->modalWidth(MaxWidth::class),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }      
 }
