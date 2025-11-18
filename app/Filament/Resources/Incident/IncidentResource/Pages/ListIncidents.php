@@ -7,6 +7,7 @@ use Dpb\Package\Incidents\Models\IncidentType;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListIncidents extends ListRecords
@@ -16,9 +17,14 @@ class ListIncidents extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
+            // Actions\CreateAction::make()
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    } 
 
     public function getTabs(): array
     {
@@ -31,11 +37,14 @@ class ListIncidents extends ListRecords
         foreach (IncidentType::get() as $type) {
             $tabs[$type->code] = Tab::make($type->title)
                 ->modifyQueryUsing(
-                    fn(Builder $query) =>
-                    $query->byType($type->code)
+                    function (Builder $query) use ($type) {
+                        $query->whereHas('incident', function ($q) use ($type) {
+                            $q->byType($type->code);
+                        });
+                    }
                 );
         }
 
         return $tabs;
-    }    
+    }
 }

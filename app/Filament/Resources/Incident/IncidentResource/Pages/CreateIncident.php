@@ -3,23 +3,23 @@
 namespace App\Filament\Resources\Incident\IncidentResource\Pages;
 
 use App\Filament\Resources\Incident\IncidentResource;
-use App\Services\IncidentRepository;
-use Filament\Actions;
+use App\Services\IncidentAssignmentRepository;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
 class CreateIncident extends CreateRecord
 {
     protected static string $resource = IncidentResource::class;
 
-    // public function __construct($id = null, $resource = null, private IncidentRepository $incidentRepository)
-    // {
-    //     parent::__construct($id, $resource);
-    // }
+    public function getTitle(): string | Htmlable
+    {
+        return __('incidents/incident.create_heading');
+    } 
 
     protected function handleRecordCreation(array $data): Model
     {
         // return $this->incidentService->createIncident($data);
-        return app(IncidentRepository::class)->create($data);
+        return app(IncidentAssignmentRepository::class)->create($data);
     }
 }

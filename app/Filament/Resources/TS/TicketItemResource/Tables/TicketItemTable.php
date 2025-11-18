@@ -33,6 +33,8 @@ class TicketItemTable
     {
         return $table
             ->heading(__('tickets/ticket.relation_manager.ticket_items.table.heading'))
+            ->emptyStateHeading(__('tickets/ticket.relation_manager.ticket_items.table.empty_state_heading'))
+            ->emptyStateDescription(__('tickets/ticket.relation_manager.ticket_items.table.empty_state_description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->state?->getValue()) {

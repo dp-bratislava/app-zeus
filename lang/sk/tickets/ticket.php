@@ -15,6 +15,9 @@ return [
             'assigned_to' => 'Technická prevádzka',
             'department' => 'Stredisko',
         ],
+        'sections' => [
+            'ticket' => 'Zákazka',
+        ],
         'tabs' => [
             'activities' => 'Práca',
             'materials' => 'Materiál',
@@ -24,8 +27,7 @@ return [
     'table' => [
         'heading' => 'Zakázky',
         'empty_state_heading' => 'Žiadne zákazky na zobrazenie',
-        'row_groups' => [
-        ],
+        'row_groups' => [],
         'columns' => [
             'id' => 'ID',
             'date' => 'Dátum',
@@ -55,7 +57,9 @@ return [
     'relation_manager' => [
         'ticket_items' => [
             'table' => [
-                'heading' => 'Podzákazky'
+                'heading' => 'Podzákazky',
+                'empty_state_heading' => 'Žiadne podzákazky na zobrazenie',
+                'empty_state_description' => 'Pre pokračovanie vytvorte podzákazku',
             ]
         ]
     ],

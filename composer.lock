@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fd9b9ddfcc20538020ea9c7ff17e1e7",
+    "content-hash": "18b0dc80348f0d387015e6768bbd1bde",
     "packages": [
         {
             "name": "andrej-horny/pkg-activities",
@@ -241,24 +241,63 @@
             }
         },
         {
-            "name": "andrej-horny/pkg-tasks",
+            "name": "andrej-horny/pkg-task-ms",
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "packages/dpb/pkg-tasks",
-                "reference": "806c7c8f1720bed3749184e5911cb19db24a14b1"
+                "url": "packages/dpb/pkg-task-ms",
+                "reference": "18421422102a8e10094eb04c0b7d87cdd62070d8"
+            },
+            "require": {
+                "andrej-horny/pkg-tasks": "dev-main"
             },
             "type": "package",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Dpb\\Packages\\Tasks\\Providers\\TaskServiceProvider"
+                        "Dpb\\Package\\TaskMS\\Providers\\TaskMSServiceProvider",
+                        "Dpb\\Package\\TaskMS\\Providers\\RepositoryServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Dpb\\Packages\\Tasks\\": "src/"
+                    "Dpb\\Package\\TaskMS\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Andrej",
+                    "email": "horny.andrej@dpb.sk"
+                }
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "andrej-horny/pkg-tasks",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "packages/dpb/pkg-tasks",
+                "reference": "83f4f3588139833203f266dc394591721443b8f5"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\Package\\Tasks\\Providers\\TaskServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\Package\\Tasks\\": "src/"
                 }
             },
             "license": [
@@ -1992,7 +2031,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-fleet",
-                "reference": "bac4ef968c64516bb87cd4dcda937c4e5d00d103"
+                "reference": "d3642a3a8ef76761fa743bae6f82b54e5e7dc39a"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -13314,6 +13353,7 @@
         "andrej-horny/pkg-finance": 20,
         "andrej-horny/pkg-incidents": 20,
         "andrej-horny/pkg-inspections": 20,
+        "andrej-horny/pkg-task-ms": 20,
         "andrej-horny/pkg-tasks": 20,
         "andrej-horny/pkg-tickets": 20,
         "andrej-horny/pkg-utils": 20,

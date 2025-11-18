@@ -9,10 +9,13 @@ use App\Filament\Resources\TS\TicketResource\RelationManagers\TicketItemRelation
 use App\Filament\Resources\TS\TicketResource\Tables\TicketAssignmentTable;
 use App\Filament\Resources\TS\TicketResource\Tables\TicketTable;
 use App\Models\TicketAssignment;
+use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Tickets\Models\Ticket;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketResource extends Resource
 {
@@ -68,25 +71,40 @@ class TicketResource extends Resource
     {
         return [
             'index' => Pages\ListTickets::route('/'),
-            // 'create' => Pages\CreateTicket::route('/create'),
+            'create' => Pages\CreateTicket::route('/create'),
             // 'view' => Pages\ViewTicket::route('/{record}'),
             'view' => Pages\ViewTicketPage::route('/{record}'),
             'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 
-    // public static function canCreate(): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('tickets.ticket.create');
-    // }
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('subject_type', '=', app(Vehicle::class)->getMorphClass())
+            ->whereHas('subject', function ($q) {
+                $userHandledVehicleTypes = auth()->user()->vehicleTypes();
+                $q->byType($userHandledVehicleTypes);
+            });
+    }
 
-    // public static function canEdit(Model $record): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('tickets.ticket.update');
-    // }   
-    
-    // public static function canDelete(Model $record): bool
-    // {        
-    //     return auth()->check() && auth()->user()->can('tickets.ticket.delete');
-    // }       
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('tickets.ticket.read');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->check() && auth()->user()->can('tickets.ticket.create');
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->check() && auth()->user()->can('tickets.ticket.update');
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->check() && auth()->user()->can('tickets.ticket.delete');
+    }
 }

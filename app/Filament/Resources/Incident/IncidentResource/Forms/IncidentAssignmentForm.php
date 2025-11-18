@@ -72,14 +72,22 @@ class IncidentAssignmentForm
             //             ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model->title]);
             //     })
             VehiclePicker::make('subject_id')
-                ->label(__('tickets/ticket.form.fields.subject'))
+                ->label(__('incidents/incident.form.fields.subject'))
                 ->columnSpan(1)
+                ->options(Vehicle::with(['codes', 'model'])
+                    ->get()
+                    ->mapWithKeys(function($vehicle) {
+                        return [
+                            $vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model?->title
+                        ];
+                    })
+                )
                 ->getOptionLabelFromRecordUsing(null)
                 ->getSearchResultsUsing(null)
                 ->preload()
-                ->searchable()
+                ->searchable(),
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                ->required(false),
+                // ->required(false),
             // incident type
             Forms\Components\ToggleButtons::make('incident.type_id')
                 ->label(__('incidents/incident.form.fields.type'))

@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 // use Filament\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\Page;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
 class BulkCreateDailyExpedition extends Page implements HasForms
@@ -26,6 +27,11 @@ class BulkCreateDailyExpedition extends Page implements HasForms
     // {
     //     return static::$resource::getSlug() . $path;
     // }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('daily-expedition.create_heading');
+    } 
 
     public function mount()
     {

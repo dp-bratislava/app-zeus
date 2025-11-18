@@ -57,6 +57,26 @@ return [
             'option_label' => 'fullNameWithPid',
             'is_readonly' => false,
         ],
+        [
+            'key' => 'fleet-vehicle-type-id',
+            'label' => 'Typ vozidla',
+            'is_multiple' => true,
+            'type' => 'model',
+            'type_detail' => Dpb\Package\Fleet\Models\VehicleType::class,
+            // 'scope' => 'active',
+            'option_label' => 'title',
+            'is_readonly' => false,
+        ],
+        [
+            'key' => 'fleet-maintenance-group-id',
+            'label' => 'Technická prevádzka',
+            'is_multiple' => true,
+            'type' => 'model',
+            'type_detail' => Dpb\Package\Fleet\Models\MaintenanceGroup::class,
+            // 'scope' => 'active',
+            'option_label' => 'title',
+            'is_readonly' => false,
+        ],        
         /*
         [
             'key' => 'value',

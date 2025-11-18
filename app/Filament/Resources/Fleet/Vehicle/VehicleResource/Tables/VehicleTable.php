@@ -22,73 +22,84 @@ class VehicleTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('fleet/vehicle.table.heading'))
+            ->emptyStateHeading(__('fleet/vehicle.table.empty_state_heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->state?->getValue()) {
                 States\Fleet\Vehicle\InService::$name => 'bg-green-100',
                 States\Fleet\Vehicle\UnderRepair::$name => 'bg-yellow-100',
-                States\Fleet\Vehicle\Discarded::$name => 'bg-red-100',
+                States\Fleet\Vehicle\Discarded::$name => 'bg-red-300',
+                States\Fleet\Vehicle\MissingParts::$name => 'bg-red-100',
                 default => null,
             })
             ->columns([
+                // code 
                 Tables\Columns\TextColumn::make('code.code')
                     ->label(__('fleet/vehicle.table.columns.code'))
                     ->searchable(query: function (Builder $query, string $search): Builder {
                         return $query
-                            ->whereHas('codes', function($q) use ($search) {
+                            ->whereHas('codes', function ($q) use ($search) {
                                 $q->whereLike('code', "%$search%");
                             });
                     }),
+                // model
                 Tables\Columns\TextColumn::make('model.title')
                     ->label(__('fleet/vehicle.table.columns.model'))
                     ->searchable(),
+                // licence plate
                 Tables\Columns\TextColumn::make('licencePlate')
                     ->label(__('fleet/vehicle.table.columns.licence_plate'))
                     ->searchable(query: function (Builder $query, string $search): Builder {
                         return $query
-                            ->whereHas('licencePlates', function($q) use ($search) {
+                            ->whereHas('licencePlates', function ($q) use ($search) {
                                 $q->whereLike('code', "%$search%");
                             });
-                    }),                    
+                    }),
                 // Tables\Columns\TextColumn::make('model.type.title')
                 //     ->label(__('fleet/vehicle.table.columns.type')),
                 // Tables\Columns\TextColumn::make('groups.title')
                 //     ->label(__('fleet/vehicle.table.columns.groups')),
                 Tables\Columns\TextColumn::make('department')
-                    ->label(__('fleet/vehicle.table.columns.department'))
-                    ->state(function (VehicleService $svc, $record) {
-                        return $svc->getDepartment($record)?->code;
-                    }),
-                Tables\Columns\TextColumn::make('total_distance')
-                    ->state(function($record, VehicleService $vehicleService) {
-                        return round($vehicleService->getTotalDistanceTraveled($record), 2);
-                    }),
-                Tables\Columns\TextColumn::make('distance_since_inspection')
-                    ->state(function($record, VehicleService $vehicleService) {
-                        return round($vehicleService->getInspectionDistanceTraveled($record), 2);
-                    }),
+                    ->label(__('fleet/vehicle.table.columns.department')),
+                    // ->state(function (VehicleService $svc, $record) {
+                    //     return $svc->getDepartment($record)?->code;
+                    // }),
+                // // total distance traveled since service
+                // Tables\Columns\TextColumn::make('total_distance')
+                //     ->label(__('fleet/vehicle.table.columns.total_distance'))
+                //     ->state(function ($record, VehicleService $vehicleService) {
+                //         return round($vehicleService->getTotalDistanceTraveled($record), 2);
+                //     }),
+                // // total distance traveled since last inspection
+                // Tables\Columns\TextColumn::make('distance_since_inspection')
+                //     ->label(__('fleet/vehicle.table.columns.distance_since_inspection'))
+                //     ->state(function ($record, VehicleService $vehicleService) {
+                //         return round($vehicleService->getInspectionDistanceTraveled($record), 2);
+                //     }),
 
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('fleet/vehicle.table.columns.state'))
                     ->badge()
-                    ->state(fn(Vehicle $record) => $record->state?->label())
-                    ->action(
-                        Action::make('select')
-                            ->requiresConfirmation()
-                            ->action(function (Vehicle $record): void {
-                                // dd($record->state);
-                                $record->state == 'in-service'
-                                    ? $record->state->transition(new InServiceToUnderRepair($record, auth()->guard()->user()))
-                                    : $record->state->transition(new UnderRepairToInService($record, auth()->guard()->user()));
-                                // ? $record->state->transition(new InServiceToDiscarded($record, auth()->guard()->user()))
-                                // : $record->state->transition(new DiscardedToInService($record, auth()->guard()->user()));
-                            }),
-                    ),
+                    ->state(fn(Vehicle $record) => $record->state?->label()),
+                    // ->action(
+                    //     Action::make('select')
+                    //         ->requiresConfirmation()
+                    //         ->action(function (Vehicle $record): void {
+                    //             // dd($record->state);
+                    //             $record->state == 'in-service'
+                    //                 ? $record->state->transition(new InServiceToUnderRepair($record, auth()->guard()->user()))
+                    //                 : $record->state->transition(new UnderRepairToInService($record, auth()->guard()->user()));
+                    //             // ? $record->state->transition(new InServiceToDiscarded($record, auth()->guard()->user()))
+                    //             // : $record->state->transition(new DiscardedToInService($record, auth()->guard()->user()));
+                    //         }),
+                    // ),
+                // maintenance group
                 Tables\Columns\TextColumn::make('maintenanceGroup.code')
                     ->label(__('fleet/vehicle.table.columns.maintenance_group.label'))
                     ->tooltip(__('fleet/vehicle.table.columns.maintenance_group.tooltip'))
                     ->badge(),
-                    // ->color(fn ($record) => $record?->maintenanceGroup?->color),
+                // ->color(fn ($record) => $record?->maintenanceGroup?->color),
                 // Tables\Columns\TextColumn::make('dp')
                 //     ->state('1DPA'),
                 // under warranty
@@ -96,50 +107,34 @@ class VehicleTable
                     ->label(__('fleet/vehicle.table.columns.under_warranty.label'))
                     ->tooltip(__('fleet/vehicle.table.columns.under_warranty.tooltip'))
                     ->boolean()
-                    ->state(fn($record) => $record->isUnderWarranty())
+                    ->state(fn($record) => $record->isUnderWarranty()),
+                // type
+                Tables\Columns\TextColumn::make('model.type.title')
+                    ->label(__('fleet/vehicle.table.columns.type')),
             ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('model')
-                    ->label(__('fleet/vehicle.table.columns.model'))
-                    ->relationship('model', 'title')
-                    ->searchable()
-                    ->multiple()
-                    ->preload(),
-                Tables\Filters\SelectFilter::make('state')
-                    ->label(__('fleet/vehicle.table.columns.state'))
-                    ->searchable()
-                    ->multiple()
-                    ->preload()
-                    ->options([
-                        States\Fleet\Vehicle\InService::$name => 'V prevádzke',
-                        States\Fleet\Vehicle\UnderRepair::$name => 'V oprave',
-                    ]),
-                Tables\Filters\SelectFilter::make('maintenanceGroup')
-                    ->label(__('fleet/vehicle.table.columns.maintenance_group.label'))
-                    ->relationship('maintenanceGroup', 'title')
-                    ->searchable()
-                    ->preload()
-                    ->multiple()
-                    ->options(fn() => MaintenanceGroup::pluck('title')),
-            ])
+            ->filters(VehicleTableFilters::make())
             ->headerActions([
                 ImportAction::make()
                     ->importer(VehicleImporter::class)
                     ->csvDelimiter(';')
-                    // ->visible(auth()->user()->can('fleet.vehicle-model.import'))
+                    ->visible(auth()->user()->can('fleet.vehicle.import'))
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                ->visible(auth()->user()->can('fleet.vehicle.create'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->visible(auth()->user()->can('fleet.vehicle-model.update')),
+                    ->visible(auth()->user()->can('fleet.vehicle.update')),
                 Tables\Actions\ViewAction::make()
-                    ->visible(auth()->user()->can('fleet.vehicle-model.read')),
+                    ->visible(auth()->user()->can('fleet.vehicle.read')),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(auth()->user()->can('fleet.vehicle-model.delete')),
+                    ->visible(auth()->user()->can('fleet.vehicle.delete')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                        ->visible(auth()->user()->can('fleet.vehicle-model.bulk-delete')),
+                        ->visible(auth()->user()->can('fleet.vehicle.bulk-delete')),
                 ]),
             ]);
     }

@@ -44,6 +44,11 @@ class InspectionResource extends Resource
         return config('pkg-inspections.navigation.inspection') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('inspections.inspection.read');
+    }
+
     public static function form(Form $form): Form
     {
         return InspectionAssignmentFrom::make($form);

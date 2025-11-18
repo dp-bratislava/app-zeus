@@ -39,6 +39,11 @@ class MaintenanceGroupResource extends Resource
         return config('pkg-fleet.navigation.maintenance-group') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('fleet.maintenance-group.read');
+    }
+
     public static function form(Form $form): Form
     {
         return MaintenanceGroupForm::make($form);

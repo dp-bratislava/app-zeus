@@ -126,7 +126,14 @@
             "options": {
                 "symlink": true
             }
-        }          
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-task-ms",
+            "options": {
+                "symlink": true
+            }
+        }         
     ],
     "require": {
         "php": "^8.2",
@@ -136,6 +143,7 @@
         "andrej-horny/pkg-finance": "dev-main",
         "andrej-horny/pkg-incidents": "dev-main",
         "andrej-horny/pkg-inspections": "dev-main",
+        "andrej-horny/pkg-task-ms": "dev-main",
         "andrej-horny/pkg-tasks": "dev-main",
         "andrej-horny/pkg-tickets": "dev-main",
         "andrej-horny/pkg-utils": "dev-main",

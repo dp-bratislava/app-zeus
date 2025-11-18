@@ -7,13 +7,10 @@ use App\Filament\Resources\Fleet\Vehicle\VehicleGroupResource\Forms\VehicleGroup
 use App\Filament\Resources\Fleet\Vehicle\VehicleGroupResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleGroupResource\Tables\VehicleGroupTable;
 use Dpb\Package\Fleet\Models\VehicleGroup;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Actions\ImportAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class VehicleGroupResource extends Resource
 {
@@ -44,6 +41,11 @@ class VehicleGroupResource extends Resource
         return config('pkg-fleet.navigation.vehicle-group') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('fleet.vehicle-group.read');
+    }
+
     public static function form(Form $form): Form
     {
         return VehicleGroupForm::make($form);
@@ -63,18 +65,18 @@ class VehicleGroupResource extends Resource
         ];
     }
 
-    // public static function canCreate(): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.create');
-    // }
+    public static function canCreate(): bool
+    {
+        return auth()->check() && auth()->user()->can('fleet.vehicle-group.create');
+    }
 
-    // public static function canEdit(Model $record): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.update');
-    // }   
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->check() && auth()->user()->can('fleet.vehicle-group.update');
+    }   
     
-    // public static function canDelete(Model $record): bool
-    // {        
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.delete');
-    // }       
+    public static function canDelete(Model $record): bool
+    {        
+        return auth()->check() && auth()->user()->can('fleet.vehicle-group.delete');
+    }       
 }

@@ -28,7 +28,7 @@ class EditTicket extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('tickets/ticket.form.update_heading', ['title' => $this->record->id]);
+        return __('tickets/ticket.update_heading', ['title' => $this->record->id]);
     }  
     
     protected function mutateFormDataBeforeFill(array $data): array
@@ -48,10 +48,7 @@ class EditTicket extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        // $ticketRepo = app(TicketRepository::class);
-        // $result = $ticketRepo->update($record, $data);
         $ticketAssignmentRepo = app(TicketAssignmentRepository::class);
-        $result = $ticketAssignmentRepo->update($record, $data);
-        return $result;
+        return $ticketAssignmentRepo->update($record, $data);
     }    
 }

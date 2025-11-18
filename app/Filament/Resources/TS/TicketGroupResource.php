@@ -2,21 +2,13 @@
 
 namespace App\Filament\Resources\TS;
 
-use App\Filament\Imports\TS\TicketGroupImporter;
 use App\Filament\Resources\TS\TicketGroupResource\Forms\TicketGroupForm;
 use App\Filament\Resources\TS\TicketGroupResource\Pages;
-use App\Filament\Resources\TS\TicketGroupResource\RelationManagers;
 use App\Filament\Resources\TS\TicketGroupResource\Tables\TicketGroupTable;
 use Dpb\Package\Tickets\Models\TicketGroup;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Actions\ImportAction;
-use Filament\Tables\Columns;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TicketGroupResource extends Resource
 {
@@ -47,6 +39,11 @@ class TicketGroupResource extends Resource
         return config('pkg-tickets.navigation.ticket-group') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('tickets.ticket-group.read');
+    }
+
     public static function form(Form $form): Form
     {
         return TicketGroupForm::make($form);
@@ -55,13 +52,6 @@ class TicketGroupResource extends Resource
     public static function table(Table $table): Table
     {
         return TicketGroupTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

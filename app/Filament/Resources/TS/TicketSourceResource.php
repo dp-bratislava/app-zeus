@@ -42,6 +42,11 @@ class TicketSourceResource extends Resource
         return config('pkg-tickets.navigation.ticket-source') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('tickets.ticket-source.read');
+    }
+
     public static function form(Form $form): Form
     {
         return TicketSourceForm::make($form);

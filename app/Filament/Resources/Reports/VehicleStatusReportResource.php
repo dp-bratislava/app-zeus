@@ -3,18 +3,10 @@
 namespace App\Filament\Resources\Reports;
 
 use App\Filament\Resources\Reports\VehicleStatusReportResource\Pages;
-use App\Filament\Resources\Reports\VehicleStatusReportResource\RelationManagers;
 // use App\Models\Reports\VehicleStatusReport;
-use Carbon\Carbon;
 use Dpb\Package\Fleet\Models\Vehicle;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class VehicleStatusReportResource extends Resource
 {
@@ -40,12 +32,9 @@ class VehicleStatusReportResource extends Resource
         return __('reports/vehicle-status-report.navigation.group');
     }
 
-    public static function form(Form $form): Form
+    public static function canViewAny(): bool
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return auth()->user()->can('reports.vehicle-status-reports');
     }
 
     // public static function vehicleStatusTable(Table $table): Table
@@ -109,13 +98,6 @@ class VehicleStatusReportResource extends Resource
     //             ]),
     //         ]);
     // }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

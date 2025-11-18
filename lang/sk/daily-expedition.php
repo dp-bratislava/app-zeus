@@ -1,11 +1,13 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť štrkáč',
+    'list_heading' => 'Vytvoriť štrkáč',
+    'update_heading' => 'Upraviť štrkáč: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť štrkáč',
-        'update_heading' => 'Upraviť štrkáč: :title',
         'fields' => [
             'date' => 'Dátum',
+            'vehicles_repeater' => 'Vozidlá',
             'vehicles' => [
                 'state' => 'Stav',
                 'service' => 'Služba',
@@ -17,6 +19,7 @@ return [
     'table' => [
         'heading' => 'Štrkáč',
         'empty_state_heading' => 'Žiadny štrkáč na zobrazenie',
+        'empty_state_description' => 'Žiadny štrkáč na zobrazenie',
         'columns' => [
             'date' => 'Dátum',
             'state' => 'Stav',

@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Incident;
 use App\Filament\Resources\Incident\IncidentResource\Forms\IncidentAssignmentForm;
 use App\Filament\Resources\Incident\IncidentResource\Forms\IncidentForm;
 use App\Filament\Resources\Incident\IncidentResource\Pages;
-use App\Filament\Resources\Incident\IncidentResource\Tables\IncidentassignmentTable;
+use App\Filament\Resources\Incident\IncidentResource\Tables\IncidentAssignmentTable;
 use App\Filament\Resources\Incident\IncidentResource\Tables\IncidentTable;
 use App\Models\IncidentAssignment;
 use Dpb\Package\Incidents\Models\Incident;
@@ -38,6 +38,11 @@ class IncidentResource extends Resource
         return __('incidents/incident.navigation.group');
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('incidents.incident.read');
+    }
+
     public static function form(Form $form): Form
     {
         return IncidentAssignmentForm::make($form);
@@ -46,7 +51,7 @@ class IncidentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return IncidentassignmentTable::make($table);
+        return IncidentAssignmentTable::make($table);
         // return IncidentTable::make($table);
     }
 

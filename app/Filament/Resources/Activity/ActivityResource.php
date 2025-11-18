@@ -7,15 +7,9 @@ use App\Filament\Resources\Activity\ActivityResource\RelationManagers;
 use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityAssignmentTable;
 use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityTable;
 use App\Models\ActivityAssignment;
-use App\Services\Activity\Activity\TicketService;
-use Dpb\Package\Activities\Models\Activity;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ActivityResource extends Resource
 {
@@ -44,6 +38,11 @@ class ActivityResource extends Resource
     public static function getNavigationSort(): ?int
     {
         return config('pkg-activities.navigation.activity') ?? 999;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('activities.activity.read');
     }
 
     public static function form(Form $form): Form

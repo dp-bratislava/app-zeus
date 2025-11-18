@@ -3,24 +3,27 @@
 namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
+use App\Services\TicketAssignmentRepository;
 use App\Services\TicketService;
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Package\Vehicles\Models\Vehicle;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateTicket extends CreateRecord
 {
     protected static string $resource = TicketResource::class;
 
-    // protected function afterCreate(): void
-    // {
-    //     $data = $this->form->getState();
-    //     $department = Department::findOrFail($data['department_id']);
+    public function getTitle(): string | Htmlable
+    {
+        return __('tickets/ticket.create_heading');
+    } 
 
-    //     app(TicketService::class)->assignDepartment($this->record, $department);
-
-    //     $vehicle = Vehicle::findOrFail($data['vehicle_id']);
-
-    //     app(TicketService::class)->assignVehicle($this->record, $vehicle);
-    // }
+    protected function handleRecordCreation(array $data): Model
+    {
+        // dd($data);
+        $ticketAssignmentRepo = app(TicketAssignmentRepository::class);
+        return $ticketAssignmentRepo->create($data);
+    } 
 }

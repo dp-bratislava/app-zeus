@@ -3,9 +3,9 @@
     <form wire:submit="create">
         {{ $this->form }}
         
-        <button type="submit">
+        <x-filament::button type="submit">
             Submit
-        </button>
+        </x-filament::button>
     </form>
     
     <x-filament-actions::modals />

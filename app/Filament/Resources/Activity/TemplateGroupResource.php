@@ -44,16 +44,14 @@ class TemplateGroupResource extends Resource
         return config('pkg-activities.navigation.template-group') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('activities.activity-template-group.read');
+    }
+
     public static function table(Table $table): Table
     {
         return ActivityTemplateGroupTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

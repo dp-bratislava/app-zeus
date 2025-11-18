@@ -7,10 +7,12 @@ use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Infolists\VehicleInfoli
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Pages;
 use App\Filament\Resources\Fleet\Vehicle\VehicleResource\Tables\VehicleTable;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Fleet\Models\VehicleType;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class VehicleResource extends Resource
 {
@@ -41,6 +43,12 @@ class VehicleResource extends Resource
         return config('pkg-fleet.navigation.vehicle') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        // return auth()->user()->can('fleet.vehicle.read');
+        return true;
+    }
+
     public static function form(Form $form): Form
     {
         return VehicleForm::make($form);
@@ -51,17 +59,10 @@ class VehicleResource extends Resource
         return VehicleTable::make($table);
     }
 
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return VehicleInfolist::make($infolist);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            // RelationManagers\TicketsRelationManager::class,
-        ];
-    }
+    // public static function infolist(Infolist $infolist): Infolist
+    // {
+    //     return VehicleInfolist::make($infolist);
+    // }
 
     public static function getPages(): array
     {
@@ -73,4 +74,13 @@ class VehicleResource extends Resource
             'view' => Pages\ViewVehicle::route('/{record}'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+        ->when(!auth()->user()->hasRole('super-admin'), function($q) {
+                $userHandledVehicleTypes = auth()->user()->vehicleTypes();
+                $q->byType($userHandledVehicleTypes);
+            });
+    }    
 }

@@ -35,6 +35,11 @@ class IncidentTypeResource extends Resource
         return __('incidents/incident-type.navigation.group');
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('incidents.incident-type.read');
+    }    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -67,13 +72,6 @@ class IncidentTypeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

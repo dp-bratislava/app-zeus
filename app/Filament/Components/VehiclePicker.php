@@ -21,7 +21,7 @@ class VehiclePicker extends Select
         if ($callback !== null) {
             $this->getOptionLabelFromRecordUsing = $callback;
         } else {
-            $this->getOptionLabelFromRecordUsing = fn(Vehicle $record) => "{$record->code->code} {$record->model->title}";
+            $this->getOptionLabelFromRecordUsing = fn(Vehicle $record) => "{$record->code->code} {$record->model?->title}";
         }
         return $this;
     }
@@ -63,7 +63,7 @@ class VehiclePicker extends Select
                         return []; // important: return empty array if no code
                     }
                     return [
-                        $vehicle->id => $latestCode->code . ' - ' . $vehicle->model->title,
+                        $vehicle->id => $latestCode->code . ' - ' . $vehicle->model?->title,
                     ];
                 })
                 ->toArray(); // must return array

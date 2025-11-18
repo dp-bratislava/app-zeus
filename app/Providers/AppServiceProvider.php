@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {    
         // app()->register(EventServiceProvider::class);    
     }
-
+    
     /**
      * Bootstrap any application services.
      */

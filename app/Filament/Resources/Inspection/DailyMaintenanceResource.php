@@ -41,6 +41,11 @@ class DailyMaintenanceResource extends Resource
         return config('pkg-inspections.navigation.daily-maintenance') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('inspections.daily-maintenance.read');
+    }
+
     public static function form(Form $form): Form
     {
         return DailyMaintenanceForm::make($form);

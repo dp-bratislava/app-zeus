@@ -51,7 +51,8 @@ class DailyExpeditionForm
                     ->default(Carbon::now()),
                 // vehicles
                 // VehicleRepeater::make('vehicles', $vehicles),
-                VehicleRepeater::make('vehicles'),
+                VehicleRepeater::make('vehicles')
+                    ->label(__('daily-expedition.form.fields.vehicles_repeater')),
             ]);
     }
 }

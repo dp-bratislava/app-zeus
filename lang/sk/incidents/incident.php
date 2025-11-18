@@ -1,33 +1,35 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť udalosť',
+    'list_heading' => 'Udalosti',
+    'update_heading' => 'Upraviť udalosť: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť udalosť',
-        'update_heading' => 'Upraviť udalosť: :title',
         'fields' => [
             'date' => 'Dátum',
             'description' => 'Popis',
             'type' => 'Typ',
+            'subject' => 'Vozidlo',
         ],
-        'tabs' => [
-            'activities' => 'Činnosti / normy',
-            'materials' => 'Materiál',
-            'services' => 'Služby',
-        ]
     ],
     'table' => [
         'heading' => 'Udalosti',
         'empty_state_heading' => 'Žiadne udalosti na zobrazenie',
-        'row_groups' => [
-        ],
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'date' => ['label' => 'Dátum'],
-            'description' => ['label' => 'Popis'],
-            'type' => ['label' => 'Typ'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
+            'id' => 'ID',
+            'date' => 'Dátum',
+            'description' => 'Popis',
+            'type' => 'Typ',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
         ],
+        'filters' => [
+            'date' => 'Dátum',
+            'description' => 'Popis',
+            'type' => 'Typ',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
+        ],        
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
         ]

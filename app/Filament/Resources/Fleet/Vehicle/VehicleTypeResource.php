@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class VehicleTypeResource extends Resource
 {
@@ -40,6 +41,11 @@ class VehicleTypeResource extends Resource
     public static function getNavigationSort(): ?int
     {
         return config('pkg-fleet.navigation.vehicle-type') ?? 999;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('fleet.vehicle-type.read');
     }
 
     public static function form(Form $form): Form
@@ -86,13 +92,6 @@ class VehicleTypeResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
@@ -102,18 +101,18 @@ class VehicleTypeResource extends Resource
         ];
     }
 
-    // public static function canCreate(): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-type.create');
-    // }
+    public static function canCreate(): bool
+    {
+        return auth()->check() && auth()->user()->can('fleet.vehicle-type.create');
+    }
 
-    // public static function canEdit(Model $record): bool
-    // {
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-type.update');
-    // }   
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->check() && auth()->user()->can('fleet.vehicle-type.update');
+    }   
 
-    // public static function canDelete(Model $record): bool
-    // {        
-    //     return auth()->check() && auth()->user()->can('fleet.vehicle-type.delete');
-    // }    
+    public static function canDelete(Model $record): bool
+    {        
+        return auth()->check() && auth()->user()->can('fleet.vehicle-type.delete');
+    }    
 }

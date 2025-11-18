@@ -4,11 +4,9 @@ namespace App\Filament\Resources\TS;
 
 use App\Filament\Resources\TS\TicketItemResource\Forms\TicketItemAssignmentForm;
 use App\Filament\Resources\TS\TicketItemResource\Pages;
-use App\Filament\Resources\TS\TicketItemResource\RelationManagers;
 use App\Filament\Resources\TS\TicketItemResource\Tables\TicketItemAssignmentTable;
 use App\Filament\Resources\TS\TicketItemResource\Tables\TicketItemTable;
 use App\Models\TicketItemAssignment;
-use Dpb\Package\Tickets\Models\TicketItem;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -40,6 +38,11 @@ class TicketItemResource extends Resource
     public static function getNavigationSort(): ?int
     {
         return config('pkg-tickets.navigation.ticket-item') ?? 999;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('tickets.ticket-item.read');
     }
 
     public static function form(Form $form): Form

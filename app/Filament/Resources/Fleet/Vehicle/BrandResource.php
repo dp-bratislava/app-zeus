@@ -39,6 +39,11 @@ class BrandResource extends Resource
         return config('pkg-fleet.navigation.brand') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('fleet.vehicle-brand.read');
+    }
+
     public static function form(Form $form): Form
     {
         return BrandForm::make($form);

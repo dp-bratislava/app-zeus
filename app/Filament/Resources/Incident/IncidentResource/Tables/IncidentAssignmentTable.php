@@ -7,11 +7,12 @@ use App\States;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class IncidentassignmentTable
+class IncidentAssignmentTable
 {
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('incidents/incident.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->incident->state?->getValue()) {
@@ -21,23 +22,25 @@ class IncidentassignmentTable
             })
             ->columns([
                 Tables\Columns\TextColumn::make('incident.date')
-                    ->label(__('incidents/incident.table.columns.date.label'))
+                    ->label(__('incidents/incident.table.columns.date'))
                     ->date(),
                 Tables\Columns\TextColumn::make('subject.code.code')
-                    ->label(__('incidents/incident.table.columns.subject.label')),
-                    // ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
+                    ->label(__('incidents/incident.table.columns.subject')),
+                // ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
                 Tables\Columns\TextColumn::make('incident.description')
-                    ->label(__('incidents/incident.table.columns.description.label')),
+                    ->label(__('incidents/incident.table.columns.description'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('state')
-                    ->label(__('incidents/incident.table.columns.state.label'))
+                    ->label(__('incidents/incident.table.columns.state'))
                     ->state(fn(IncidentAssignment $record) => $record->incident?->state?->label())
                     ->badge(),
                 Tables\Columns\TextColumn::make('incident.type.title')
-                    ->label(__('incidents/incident.table.columns.type.label'))
+                    ->label(__('incidents/incident.table.columns.type'))
                     ->badge(),
             ])
-            ->filters([
-                //
+            ->filters(IncidentTableFilters::make())
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
             ])
             ->actions([
                 Tables\Actions\EditAction::make()

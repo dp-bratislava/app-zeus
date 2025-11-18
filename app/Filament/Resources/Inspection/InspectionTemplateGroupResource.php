@@ -43,6 +43,11 @@ class InspectionTemplateGroupResource extends Resource
         return config('pkg-inspections.navigation.inspection-template-group') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('inspections.inspection-template-group.read');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

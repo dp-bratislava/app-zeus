@@ -11,9 +11,7 @@ use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class VehicleModelResource extends Resource
 {
@@ -44,6 +42,11 @@ class VehicleModelResource extends Resource
         return config('pkg-fleet.navigation.vehicle-model') ?? 999;
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('fleet.vehicle-model.read');
+    }
+
     public static function form(Form $form): Form
     {
         return VehicleModelForm::make($form);
@@ -57,13 +60,6 @@ class VehicleModelResource extends Resource
     public static function table(Table $table): Table
     {
         return VehicleModelTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

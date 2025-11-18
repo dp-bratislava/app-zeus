@@ -1,9 +1,10 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť vozidlo',
+    'list_heading' => 'Vozidlá',
+    'update_heading' => 'Upraviť vozidlo: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť vozidlo',
-        'update_heading' => 'Upraviť vozidlo: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -17,13 +18,28 @@ return [
             'model' => 'Model',
             'department' => 'Stredisko',
             'groups' => 'Skupiny',
+            'construction_year' => 'Rok výroby',
+            'warranty_initial_date' => [
+                'label' => 'Záruka platí od',
+                'hint' => '',
+            ],            
+            'warranty_months' => [
+                'label' => 'Záruka',
+                'hint' => 'V mesiacoch',
+            ],
+            'warranty_initial_km' => [
+                'label' => 'Záruka platí od km',
+                'hint' => '',
+            ],            
+            'warranty_km' => [
+                'label' => 'Záruka',
+                'hint' => 'V km',
+            ]            
         ],
     ],
     'table' => [
         'heading' => 'Vozidlá',
         'empty_state_heading' => 'Žiadne vozidlá na zobrazenie',
-        'row_groups' => [
-        ],
         'columns' => [
             'code' => 'Kód',
             'vin' => 'VIN',
@@ -34,6 +50,8 @@ return [
             'department' => 'SAP Stredisko',
             'state' => 'Stav',
             'dispatch_group' => 'Dopravná prevádzka',
+            'total_distance' => '',
+            'distance_since_inspection' => '',
             'under_warranty' => [
                 'label' => 'Zár',
                 'tooltip' => 'V záruke',

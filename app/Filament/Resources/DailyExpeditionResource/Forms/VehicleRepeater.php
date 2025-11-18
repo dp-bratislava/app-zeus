@@ -18,10 +18,10 @@ class VehicleRepeater
 {
     public static function make(string $uri, Collection|null $options = null): Component
     {
-        return TableRepeater::make($uri)
-            ->grid(2)
+        return TableRepeater::make($uri)            
+            ->grid(4)
             ->columnSpanFull()
-            // ->columnSpan(3)
+            // ->columnSpan(4)
             ->headers([
                 Header::make('vehicle')->label(__('daily-expedition.form.fields.vehicles.vehicle')),
                 Header::make('state')->label(__('daily-expedition.form.fields.vehicles.state')),
@@ -29,10 +29,12 @@ class VehicleRepeater
                 Header::make('note')->label(__('daily-expedition.form.fields.vehicles.note'))
 
             ])
+            ->columns(4)
             ->schema([
                 // vehicle
                 Forms\Components\Hidden::make('vehicle_id'),
                 Forms\Components\TextInput::make('vehicle_title')
+                    ->columnSpan(1)
                     ->readOnly(),
                 // Forms\Components\Select::make('vehicle')
                 //     ->label(__('tickets/ticket-item.form.fields.title'))
@@ -55,7 +57,7 @@ class VehicleRepeater
                     ->options([
                         'ok' => 'Jazdí',
                         'split' => 'Delená',
-                        'no' => 'Odstavený',
+                        'no' => 'Odstavené',
                     ])
                     ->colors([
                         'ok' => 'success',
@@ -64,11 +66,12 @@ class VehicleRepeater
                     ])
                     ->default('ok')
                     ->inline()
+                    ->grouped()
                     ->columnSpan(1),
                 Forms\Components\TextInput::make('service')
-                    ->columnSpan(2),
+                    ->columnSpan(1),
                 Forms\Components\TextInput::make('note')
-                    ->columnSpan(2),
+                    ->columnSpan(1),
             ])
             ->default($options)
             ->addable(false)
