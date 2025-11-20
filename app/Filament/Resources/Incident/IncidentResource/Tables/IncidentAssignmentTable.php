@@ -55,6 +55,7 @@ class IncidentAssignmentTable
                         return $data;
                     }),
                 Tables\Actions\DeleteAction::make(),
+                CreateTaskAction::make('create_task'),
                 CreateTicketAction::make('create_ticket'),
             ])
             ->bulkActions([

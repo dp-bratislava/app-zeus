@@ -39,10 +39,10 @@ class ActivityTemplateResource extends Resource
         return config('pkg-activities.navigation.activity-template') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('activities.activity-template.read');
-    }    
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('activities.activity-template.read');
+    // }    
 
     public static function form(Form $form): Form
     {

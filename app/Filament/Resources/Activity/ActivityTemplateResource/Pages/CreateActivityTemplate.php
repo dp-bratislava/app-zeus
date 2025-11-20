@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use App\Filament\Resources\Activity\ActivityTemplateResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -15,4 +14,6 @@ class CreateActivityTemplate extends CreateRecord
     {
         return __('activities/activity-template.form.create_heading');
     }     
+
+  
 }

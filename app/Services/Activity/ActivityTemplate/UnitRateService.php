@@ -5,7 +5,6 @@ namespace App\Services\Activity\ActivityTemplate;
 use App\Models\UnitRate;
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Package\Activities\Models\ActivityTemplate;
-use Dpb\PkgEntityManager\Services\EntityRelationService;
 use Dpb\PkgTickets\Models\Ticket;
 use Dpb\Packages\Vehicles\Models\Vehicle;
 
@@ -13,8 +12,6 @@ use Dpb\Packages\Vehicles\Models\Vehicle;
 
 class UnitRateService
 {
-    // public function __construct(protected EntityRelationService $erService) {}
-
     // public function assignUnitRate(ActivityTemplate $tempalte, UnitRate $unitRate)
     // {
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');

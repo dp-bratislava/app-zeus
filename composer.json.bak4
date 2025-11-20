@@ -43,45 +43,89 @@
             "url": "git@github.com:dp-bratislava/pkg-eav.git"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-tickets.git"
+            "type": "path",
+            "url": "packages/dpb/pkg-tickets",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-tasks",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-activities",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-work-log",
+            "options": {
+                "symlink": true
+            }
+        },
+
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-entity-manager",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-inspections",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-finance",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-utils",
+            "options": {
+                "symlink": true
+            }
         },
         {
             "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-tasks.git"
+            "url": "packages/dpb/ext-spatie-model-states",
+            "options": {
+                "symlink": true
+            }
         },
         {
             "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-activities.git"
+            "url": "packages/dpb/pkg-incidents",
+            "options": {
+                "symlink": true
+            }
+        },        
+        {
+            "type": "path",
+            "url": "packages/dpb/pkg-fleet",
+            "options": {
+                "symlink": true
+            }
         },
-        {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-work-log.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-inspections.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-utils.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/ext-spatie-model-states.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/andrej-horny/pkg-incidents.git"
-        },       
-        {
-            "type": "vcs",
-            "url": "https://github.com/dp-bratislava/pkg-fleet.git"
-        }
     ],
     "require": {
         "php": "^8.2",
         "andrej-horny/pkg-activities": "dev-main",
+        "andrej-horny/pkg-entity-manager": "dev-main",
+        "andrej-horny/pkg-finance": "dev-main",
         "andrej-horny/pkg-incidents": "dev-main",
         "andrej-horny/pkg-inspections": "dev-main",
         "andrej-horny/pkg-tasks": "dev-main",

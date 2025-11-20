@@ -44,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
             'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,
             'maintenance-group' => \Dpb\Package\Fleet\Models\MaintenanceGroup::class,
+            //
+
         ]);
 
         // Blade::component('ticket-item-activities', TicketItemActivities::class);
