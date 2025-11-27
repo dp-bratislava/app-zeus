@@ -44,13 +44,13 @@ class UpcomingInspectionResource extends Resource
         return auth()->user()->can('inspections.upcomming-inspection.read');
     }
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
+    // public static function form(Form $form): Form
+    // {
+    //     return $form
+    //         ->schema([
+    //             //
+    //         ]);
+    // }
 
     public static function table(Table $table): Table
     {

@@ -78,15 +78,15 @@ class TicketResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->where('subject_type', '=', app(Vehicle::class)->getMorphClass())
-            ->whereHas('subject', function ($q) {
-                $userHandledVehicleTypes = auth()->user()->vehicleTypes();
-                $q->byType($userHandledVehicleTypes);
-            });
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+        // return parent::getEloquentQuery()
+        //     ->where('subject_type', '=', app(Vehicle::class)->getMorphClass())
+        //     ->whereHas('subject', function ($q) {
+        //         $userHandledVehicleTypes = auth()->user()->vehicleTypes();
+        //         $q->byType($userHandledVehicleTypes);
+        //     });
+    // }
 
     public static function canViewAny(): bool
     {

@@ -27,10 +27,12 @@ class DailyMaintenanceTable
                 States\Inspection\InProgress::$name => 'bg-yellow-200',
                 default => null,
             })
+            ->defaultSort('inspection.date', 'desc')
             ->columns([
                 // date
                 Tables\Columns\TextColumn::make('inspection.date')->date('j.n.Y')
-                    ->label(__('inspections/daily-maintenance.table.columns.date')),
+                    ->label(__('inspections/daily-maintenance.table.columns.date'))
+                    ->sortable(),
                 // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
                     ->label(__('inspections/daily-maintenance.table.columns.subject')),
@@ -62,9 +64,15 @@ class DailyMaintenanceTable
             ->filters(DailyMaintenanceTableFilters::make())
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->using(function (array $data, TicketAssignmentService $taSvc) {
+                    ->model(InspectionAssignment::class)
+                    // ->using(function (array $data, TicketAssignmentService $taSvc) {
+                    //     $taSvc->createFromDailyMaintenance($data);
+                    //     return null;
+                    // })
+                    ->action(function (array $data, TicketAssignmentService $taSvc) {
                         $taSvc->createFromDailyMaintenance($data);
-                    })
+                        // return null;
+                    })                    
                     ->modalWidth(MaxWidth::class)
                     ->modalHeading(__('inspections/daily-maintenance.create_heading')),
             ]);

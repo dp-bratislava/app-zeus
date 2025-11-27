@@ -26,7 +26,7 @@ class IncidentTable
             ->columns([
                 Tables\Columns\TextColumn::make('date')
                     ->label(__('incidents/incident.table.columns.date.label'))
-                    ->date(),
+                    ->date('j.n.Y'),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('incidents/incident.table.columns.subject.label'))
                     ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),

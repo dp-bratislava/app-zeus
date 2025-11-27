@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inspection;
 
+use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Forms\InspectionTempalteGroupFrom;
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Pages;
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\RelationManagers;
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Tables\InspectionTemplateGroupTable;
@@ -50,10 +51,7 @@ class InspectionTemplateGroupResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return InspectionTempalteGroupFrom::make($form);
     }
 
     public static function table(Table $table): Table

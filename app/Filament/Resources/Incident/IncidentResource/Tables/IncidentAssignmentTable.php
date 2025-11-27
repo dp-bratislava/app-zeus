@@ -23,7 +23,7 @@ class IncidentAssignmentTable
             ->columns([
                 Tables\Columns\TextColumn::make('incident.date')
                     ->label(__('incidents/incident.table.columns.date'))
-                    ->date(),
+                    ->date('j.n.Y'),
                 Tables\Columns\TextColumn::make('subject.code.code')
                     ->label(__('incidents/incident.table.columns.subject')),
                 // ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
@@ -55,7 +55,7 @@ class IncidentAssignmentTable
                         return $data;
                     }),
                 Tables\Actions\DeleteAction::make(),
-                CreateTaskAction::make('create_task'),
+                // CreateTaskAction::make('create_task'),
                 CreateTicketAction::make('create_ticket'),
             ])
             ->bulkActions([

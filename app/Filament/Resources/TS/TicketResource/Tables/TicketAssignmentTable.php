@@ -59,18 +59,18 @@ class TicketAssignmentTable
                 // state
                 Tables\Columns\TextColumn::make('ticket.state')
                     ->label(__('tickets/ticket.table.columns.state'))
-                    ->state(fn(TicketAssignment $record) => $record->ticket->state->label())
+                    ->state(fn(TicketAssignment $record) => $record->ticket->state->label()),
                     // ->state(fn($record) => dd($record)),
-                    ->action(
-                        Action::make('select')
-                            ->requiresConfirmation()
-                            ->action(function (TicketAssignment $record): void {
-                                $ticket = $record->ticket;
-                                $ticket->state == 'created'
-                                    ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
-                                    : $ticket->state->transition(new InProgressToCancelled($ticket, auth()->guard()->user()));
-                            }),
-                    ),
+                    // ->action(
+                    //     Action::make('select')
+                    //         ->requiresConfirmation()
+                    //         ->action(function (TicketAssignment $record): void {
+                    //             $ticket = $record->ticket;
+                    //             $ticket->state == 'created'
+                    //                 ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
+                    //                 : $ticket->state->transition(new InProgressToCancelled($ticket, auth()->guard()->user()));
+                    //         }),
+                    // ),
                 // assigned to / maintenance group
                 Tables\Columns\TextColumn::make('assignedTo.code')
                     ->badge()

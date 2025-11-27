@@ -13,7 +13,7 @@ return [
         ],
     ],
     'table' => [
-        'heading' => 'Zakázky',
+        'heading' => 'Kontroly',
         'empty_state_heading' => 'Žiadne kontroly na zobrazenie',
         'columns' => [
             'date' => 'Dátum',

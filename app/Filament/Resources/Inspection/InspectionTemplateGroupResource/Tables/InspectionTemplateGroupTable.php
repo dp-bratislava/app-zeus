@@ -11,7 +11,7 @@ class InspectionTemplateGroupTable
     {
         return $table
             ->heading(__('inspections/inspection-template-group.table.heading'))
-            ->description(__('inspections/inspection-template-group.table.description'))
+            // ->description(__('inspections/inspection-template-group.table.description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
@@ -39,7 +39,7 @@ class InspectionTemplateGroupTable
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

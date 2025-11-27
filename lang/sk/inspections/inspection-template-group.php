@@ -7,7 +7,7 @@ return [
         'fields' => [
             'code' => [
                 'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'hint' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'date' => 'Dátum',

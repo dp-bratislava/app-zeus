@@ -37,25 +37,54 @@ class DailyMaintenanceForm
                     ->options(
                         fn() =>
                         InspectionTemplate::byGroup('daily-maintenance')
-                        // InspectionTemplate::whereIn('title', [
-                        //     'Odstavná plocha',
-                        //     'Pristavovanie vozidla',
-                        //     'Programovanie',
-                        //     'Strojové čistenie vozidla',
-                        // ])
+                            // InspectionTemplate::whereIn('title', [
+                            //     'Odstavná plocha',
+                            //     'Pristavovanie vozidla',
+                            //     'Programovanie',
+                            //     'Strojové čistenie vozidla',
+                            // ])
                             ->pluck('title', 'id')
                     )
                     ->live()
                     ->columnSpan(5),
+
+                Forms\Components\ToggleButtons::make('assigned_to_id')
+                    ->label(__('tickets/ticket.form.fields.assigned_to'))
+                    ->columnSpan(2)
+                    ->options(
+                        fn() =>
+                        MaintenanceGroup::when(!auth()->user()->hasRole('super-admin'), function ($q) {
+                            $userHandledVehicleTypes = auth()->user()->vehicleTypes();
+                            $q->byVehicleType($userHandledVehicleTypes);
+                        })
+                            ->pluck('code', 'id')
+                    )
+                    ->dehydrated()
+                    ->live()
+                    ->inline(),
+
                 Forms\Components\Split::make([
                     // vehicles
                     Forms\Components\Section::make([
                         Forms\Components\CheckboxList::make('vehicles')
                             ->label(__('inspections/daily-maintenance.form.fields.vehicles'))
-                            ->options(fn() => Vehicle::limit(10)->pluck('code_1', 'id'))
+                            ->options(function (Get $get) {
+                                $mgId = $get('assigned_to_id');
+                                $mgCode = null;
+
+                                if ($mgId !== null) {
+                                    $mgCode = MaintenanceGroup::findSole($get('assigned_to_id'))?->code; //'1TPA';
+                                }
+
+                                // dd($mgCode);
+                                if ($mgCode !== null) {
+                                    return Vehicle::byMaintenanceGroup($mgCode)->pluck('code_1', 'id');
+                                }
+                                return [];
+                            })
                             ->searchable()
                             ->bulkToggleable()
-                            ->columns(3)
+                            ->columns(4)
                             ->columnSpan(2),
                     ]),
                     // contracts
@@ -65,7 +94,7 @@ class DailyMaintenanceForm
                             ->options(fn(): Collection => EmployeeContract::workers()->byDepartment('2516')->pluck('pid', 'id'))
                             ->searchable()
                             ->bulkToggleable()
-                            ->columns(3)
+                            ->columns(4)
                             ->columnSpan(2),
                     ]),
                     // activites

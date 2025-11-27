@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inspection\InspectionResource\Tables;
 
+use App\Models\InspectionAssignment;
 use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
 use App\States;
 use Dpb\Package\Inspections\Models\Inspection;
@@ -13,6 +14,7 @@ class InspectionAssignmentTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('inspections/inspection.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->inspection->state?->getValue()) {
@@ -25,7 +27,7 @@ class InspectionAssignmentTable
                 // date
                 Tables\Columns\TextColumn::make('inspection.date')
                     ->label(__('inspections/inspection.table.columns.date'))
-                    ->date(),
+                    ->date('j.n.Y'),
                 // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
                     ->label(__('inspections/inspection.table.columns.subject')),
@@ -34,8 +36,8 @@ class InspectionAssignmentTable
                     ->label(__('inspections/inspection.table.columns.template')),
                 // state
                 Tables\Columns\TextColumn::make('inspection.state')
-                    ->label(__('inspections/inspection.table.columns.state')),
-                // ->state(fn(Inspection $record) => $record->state->label()),
+                    ->label(__('inspections/inspection.table.columns.state'))
+                    ->state(fn(InspectionAssignment $record) => $record->inspection->state->label()),
                 // finished at
                 Tables\Columns\TextColumn::make('finished_at')
                     ->label(__('inspections/inspection.table.columns.finished_at')),

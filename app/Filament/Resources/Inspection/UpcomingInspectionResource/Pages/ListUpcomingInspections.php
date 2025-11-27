@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Pages;
 use App\Filament\Resources\Inspection\UpcomingInspectionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListUpcomingInspections extends ListRecords
 {
@@ -16,4 +17,9 @@ class ListUpcomingInspections extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }     
 }

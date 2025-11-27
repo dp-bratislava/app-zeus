@@ -9,6 +9,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Filament\Resources\Components\Tab;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListVehicleStatusReportsPage extends Page implements HasTable
@@ -23,7 +24,12 @@ class ListVehicleStatusReportsPage extends Page implements HasTable
     // {
     //     return VehicleStatusReportTable::make($table);
     // } 
-    
+
+        public function getTitle(): string | Htmlable
+    {
+        return __('reports/vehicle-status-report.list_heading');
+    }
+
     public function table(Table $table): Table
     {
         return VehicleStatusReportTable::make($table);

@@ -22,7 +22,7 @@ return [
         ]
     ],
     'table' => [
-        'heading' => 'Kontroly',
+        'heading' => 'Nadchádzajúce kontroly',
         'empty_state_heading' => 'Žiadne nadchádzajúce kontroly na zobrazenie',
         'row_groups' => [
         ],
@@ -42,6 +42,7 @@ return [
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
+            'bulk_create_tickets' => 'Vyvoriť zákazky',
         ]
     ],
     'navigation' => [

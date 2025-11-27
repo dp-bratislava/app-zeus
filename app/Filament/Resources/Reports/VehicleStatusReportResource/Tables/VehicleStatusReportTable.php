@@ -17,31 +17,40 @@ class VehicleStatusReportTable
             ->defaultPaginationPageOption(100)
             ->columns([
                 Tables\Columns\TextColumn::make('TP')
+                    ->label(__('reports/vehicle-status-report.table.columns.maintenance_group.label'))
+                    ->tooltip(__('reports/vehicle-status-report.table.columns.maintenance_group.tooltip'))
                     ->state(function ($record) {
                         return $record->code->code[0] . 'TP';
                     }),
+                    // model
                 Tables\Columns\TextColumn::make('model.title')
+                    ->label(__('reports/vehicle-status-report.table.columns.model'))
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code.code'),
+                    // vehicle code
+                Tables\Columns\TextColumn::make('code.code')
+                    ->label(__('reports/vehicle-status-report.table.columns.code')),
                 Tables\Columns\TextColumn::make('porucha'),
+                // date from
                 Tables\Columns\TextColumn::make('date_from')
-                    ->tooltip('datum zaradenia do spravky')
-                    ->date()
-                    ->state(fn() => '2025-05-' . rand(10, 30)),
+                    ->label(__('reports/vehicle-status-report.table.columns.date_from.label'))
+                    ->tooltip(__('reports/vehicle-status-report.table.columns.date_from.tooltip'))
+                    ->date(),
+                //     ->state(fn() => '2025-05-' . rand(10, 30)),
                 Tables\Columns\TextColumn::make('activity'),
-                Tables\Columns\TextColumn::make('predp cena')
-                    ->state('7000,30 EUR'),
+                Tables\Columns\TextColumn::make('predp cena'),
+                    // ->state('7000,30 EUR'),
                 Tables\Columns\TextColumn::make('ziad vyst dat')
-                    ->date()
-                    ->state('2025-05-03'),
-                Tables\Columns\TextColumn::make('ziad cislo')
-                    ->state('16/2025'),
-                Tables\Columns\TextColumn::make('v spravke dni')
-                    ->state(function () {
-                        return floor(Carbon::parse('2025-05-01')->diffInDays());
-                        // return rand(1, 3);
-                    })
+                    ->date(),
+                    // ->state('2025-05-03'),
+                Tables\Columns\TextColumn::make('ziad cislo'),
+                    // ->state('16/2025'),
+                Tables\Columns\TextColumn::make('days_out_of_service')
+                    ->label(__('reports/vehicle-status-report.table.columns.days_out_of_service.label'))
+                    // ->state(function () {
+                    //     return floor(Carbon::parse('2025-05-01')->diffInDays());
+                    //     // return rand(1, 3);
+                    // })
                     ->badge()
                     ->color(fn($state) => match ($state) {
                         2 => 'warning',
@@ -50,13 +59,15 @@ class VehicleStatusReportTable
                         default => 'secondary',
                     }),
 
-                Tables\Columns\TextColumn::make('rds'),
-                Tables\Columns\TextColumn::make('ocl'),
+                Tables\Columns\TextColumn::make('rds')
+                    ->label(__('reports/vehicle-status-report.table.columns.rds')),
+                Tables\Columns\TextColumn::make('ocl')
+                    ->label(__('reports/vehicle-status-report.table.columns.ocl')),
                 Tables\Columns\TextColumn::make('plan dodania'),
                 Tables\Columns\TextColumn::make('pozn'),
                 Tables\Columns\TextColumn::make('stk/ek')
-                    ->date()
-                    ->state('2025-05-05'),
+                    ->date('j.n.Y'),
+                    // ->state('2025-05-05'),
 
             ])
             ->filters([

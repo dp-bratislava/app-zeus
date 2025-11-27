@@ -17,6 +17,7 @@ class UpcomingInspectionTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('inspections/upcoming-inspection.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->state?->getValue()) {
@@ -28,7 +29,7 @@ class UpcomingInspectionTable
                 Tables\Columns\TextColumn::make('date')->date('j.n.Y')
                     ->label(__('inspections/upcoming-inspection.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('subject')
-                    ->label(__('tickets/ticket.table.columns.subject.label'))
+                    ->label(__('inspections/upcoming-inspection.table.columns.subject.label'))
                     ->state(function ($record, InspectionAssignmentService $svc) {
                         return $svc->getSubject($record)?->code?->code;
                     }),
@@ -70,6 +71,7 @@ class UpcomingInspectionTable
                         $ticketAssignmentService->createFromInspection($record);
                     })
                     ->disabled()
+                    ->button()
                 // ->action(function ($record, CreateTicketService $createTicketService) {
                 //     $createTicketService->createTicket($record);
                 // })

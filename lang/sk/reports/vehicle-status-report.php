@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'list_heading' => 'Správka',
     'table' => [
         'heading' => 'Vozidlá',
-        'empty_state_heading' => 'Žiadne vozidlá na zobrazenie',
         'row_groups' => [
         ],
         'columns' => [
@@ -15,8 +15,21 @@ return [
             'groups' => 'Skupiny',
             'department' => 'SAP Stredisko',
             'state' => 'Stav',
+            'rds' => 'RDS',
+            'ocl' => 'OCL',
             'dispatch_group' => 'Dopravná prevádzka',
-            'maintenance_group' => 'Technciká prevádzka',
+            'maintenance_group' => [
+                'label' => 'TP',
+                'tooltip' => 'Technciká prevádzka',
+            ],
+            'date_from' => [
+                'label' => 'V správke od',
+                'tooltip' => 'Dátum zaradenia do správky',
+            ],
+            'days_out_of_service' => [
+                'label' => 'V správke dní',
+                'tooltip' => '',
+            ],            
         ]
     ],
     'navigation' => [
