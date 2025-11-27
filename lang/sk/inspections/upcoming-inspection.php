@@ -33,12 +33,19 @@ return [
             'state' => ['label' => 'Stav'],
             'subject' => ['label' => 'Vozidlo'],
             'note' => ['label' => 'Poznámka'],
-            'maintenance_group' => ['label' => 'Prevádzka'],
+            'maintenance_group' => [
+                'label' => 'TP',
+                'tooltip' => 'Technciká prevádzka',
+            ],
             'distance_traveled' => ['label' => 'Stav km'],
             'due_distance' => ['label' => 'Kontrola pri stave km'],
             'km_to_due_distance' => ['label' => 'Km do kontroly'],
             'due_date' => ['label' => 'Dátum kontroly'],
             'days_to_due_date' => ['label' => 'Dní do kontroly'],
+        ],
+        'filters' => [
+            'date' => 'Dátum',
+            'subject' => 'Vozidlo',
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',

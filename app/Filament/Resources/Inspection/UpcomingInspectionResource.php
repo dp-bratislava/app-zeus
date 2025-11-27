@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\Inspection;
 
 use App\Filament\Resources\Inspection\UpcomingInspectionResource\Pages;
+use App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables\UpcomingInspectionAssignmentTable;
 use App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables\UpcomingInspectionTable;
+use App\Models\InspectionAssignment;
 use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UpcomingInspectionResource extends Resource
 {
-    protected static ?string $model = Inspection::class;
+    protected static ?string $model = InspectionAssignment::class;
 
     public static function getModelLabel(): string
     {
@@ -54,7 +56,8 @@ class UpcomingInspectionResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return UpcomingInspectionTable::make($table);
+        return UpcomingInspectionAssignmentTable::make($table);
+        // return UpcomingInspectionTable::make($table);
     }
 
     public static function getRelations(): array
@@ -76,6 +79,8 @@ class UpcomingInspectionResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->where('state', 'upcoming');
+            ->whereHas('inspection', function($q) {
+                $q->where('state', '=', 'upcoming');
+            });
     }
 }

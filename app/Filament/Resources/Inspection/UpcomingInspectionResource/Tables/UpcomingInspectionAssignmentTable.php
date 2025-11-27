@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
 
+use App\Models\InspectionAssignment;
 use App\Services\Fleet\VehicleService;
 use App\Services\Inspection\CreateTicketService;
 use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
@@ -12,7 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
 
-class UpcomingInspectionTable
+class UpcomingInspectionAssignmentTable
 {
     public static function make(Table $table): Table
     {
@@ -27,32 +28,33 @@ class UpcomingInspectionTable
             })
             ->columns([
                 // date
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('inspection.date')
                     ->date('j.n.Y')
                     ->label(__('inspections/upcoming-inspection.table.columns.date.label')),
                 // subject
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__('inspections/upcoming-inspection.table.columns.subject.label'))
                     ->state(function ($record, InspectionAssignmentService $svc) {
-                        return $svc->getSubject($record)?->code?->code;
+                        return $svc->getSubject($record->inspection)?->code?->code;
                     }),
                 // inspection template
-                Tables\Columns\TextColumn::make('template.title')
+                Tables\Columns\TextColumn::make('inspection.template.title')
                     ->label(__('inspections/upcoming-inspection.table.columns.template.label')),
                 // Tables\Columns\TextColumn::make('state')
                 //     ->label(__('inspections/upcoming-inspection.table.columns.state.label'))
                 // ->state(fn(Inspection $record) => $record?->state?->label()),
                 // maintenance group
-                Tables\Columns\TextColumn::make('subject.maintenanceGroup.title')
-                    ->label(__('inspections/upcoming-inspection.table.columns.maintenance_group.label')),
+                Tables\Columns\TextColumn::make('subject.maintenanceGroup.code')
+                    ->label(__('inspections/upcoming-inspection.table.columns.maintenance_group.label'))
+                    ->tooltip(__('inspections/upcoming-inspection.table.columns.maintenance_group.tooltip')),
                 // note
-                Tables\Columns\TextColumn::make('note')
+                Tables\Columns\TextColumn::make('inspection.note')
                     ->label(__('inspections/upcoming-inspection.table.columns.note.label')),
                 // distance traveled
                 Tables\Columns\TextColumn::make('distance_traveled')
                     ->label(__('inspections/upcoming-inspection.table.columns.distance_traveled.label'))
                     ->state(function ($record, VehicleService $vehicleSvc, InspectionAssignmentService $assignmentSvc) {
-                        $vehicle = $assignmentSvc->getSubject($record);
+                        $vehicle = $assignmentSvc->getSubject($record->inspection);
                         if ($vehicle !== null) {
                             return round($vehicleSvc->getInspectionDistanceTraveled($vehicle), 2);
                         }
@@ -66,16 +68,14 @@ class UpcomingInspectionTable
                 Tables\Columns\TextColumn::make('days_to_due_date')
                     ->label(__('inspections/upcoming-inspection.table.columns.days_to_due_date.label')),
             ])
-            ->filters([
-                //
-            ])
+            ->filters(UpcomingInspectionAssignmentTableFilters::make())
             ->actions([
                 // Tables\Actions\ViewAction::make(),
                 // Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('create_ticket')
                     ->label(__('inspections/upcoming-inspection.table.actions.create_ticket'))
-                    ->action(function (Inspection $record, TicketAssignmentService $ticketAssignmentService) {
-                        $ticketAssignmentService->createFromInspection($record);
+                    ->action(function (InspectionAssignment $record, TicketAssignmentService $ticketAssignmentService) {
+                        $ticketAssignmentService->createFromInspection($record->inspection);
                     })
                     ->disabled()
                     ->button()
