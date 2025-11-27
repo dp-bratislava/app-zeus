@@ -7,7 +7,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 
-class VehicleStatusReportTable
+class DailyExpeditionStatusReportTable
 {
     public static function make(Table $table): Table
     {
@@ -33,7 +33,7 @@ class VehicleStatusReportTable
                     ->sortable(),
                 Tables\Columns\TextColumn::make('porucha'),
                 // out of service from date
-                Tables\Columns\TextColumn::make('date_from')
+                Tables\Columns\TextColumn::make('outOfServiceFrom')
                     ->label(__('reports/vehicle-status-report.table.columns.date_from.label'))
                     ->tooltip(__('reports/vehicle-status-report.table.columns.date_from.tooltip'))
                     ->date('j.m.Y'),
@@ -54,14 +54,10 @@ class VehicleStatusReportTable
                     //     // return rand(1, 3);
                     // })
                     ->badge()
-                    ->color(function ($state) {
-                        if ($state > 30) {
-                            return 'danger';
-                        } elseif (($state > 10)) {
-                            return 'warning';
-                        } elseif (($state <= 10)) {
-                            return 'success';
-                        }
+                    ->color(function($state) {
+                        if ($state > 30) { return 'danger'; }
+                        elseif (($state > 10)) { return 'warning'; }
+                        elseif (($state <= 10)) { return 'success'; }
 
                         return null;
                     }),

@@ -15,7 +15,7 @@ class ListDailyExpeditions extends ListRecords
         return [
             // Actions\CreateAction::make(),
             Actions\Action::make('bulkCreate')
-                ->label('Create Daily Expeditions')
+                ->label('Vytvoriť')
                 ->color('primary')
                 ->icon('heroicon-o-plus')
                 ->url(DailyExpeditionResource::getUrl('bulk-create')),

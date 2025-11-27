@@ -13,6 +13,7 @@ class IncidentAssignmentTable
     {
         return $table
             ->heading(__('incidents/incident.table.heading'))
+            ->description(__('incidents/incident.table.description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->incident->state?->getValue()) {
@@ -60,7 +61,7 @@ class IncidentAssignmentTable
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

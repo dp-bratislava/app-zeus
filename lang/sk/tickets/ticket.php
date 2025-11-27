@@ -35,7 +35,10 @@ return [
             'description' => 'Popis',
             'state' => 'Stav',
             'subject' => 'Vozidlo',
-            'assigned_to' => 'Technická prevádzka',
+            'assigned_to' => [
+                'label' => 'TP',
+                'tooltip' => 'Technická prevádzka',
+            ],
             'department' => 'Stredisko',
             'group' => 'Typ zákazky',
             'activities' => [

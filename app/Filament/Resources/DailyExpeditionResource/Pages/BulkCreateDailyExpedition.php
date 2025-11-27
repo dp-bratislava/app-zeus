@@ -43,7 +43,7 @@ class BulkCreateDailyExpedition extends Page implements HasForms
 
     public function form(Form $form): Form
     {
-        return DailyExpeditionForm::make($form)
+        return DailyExpeditionForm::make($form)        
             ->statePath('data');;
     }
 

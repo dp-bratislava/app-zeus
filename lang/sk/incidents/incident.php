@@ -14,6 +14,7 @@ return [
     ],
     'table' => [
         'heading' => 'Udalosti',
+        'description' => 'Nahlasované dispečingom. Ak ešte neexistuje zákazka, dá sa vytvoriť zataiľ manuálne, časom by sa mala automaticky',
         'empty_state_heading' => 'Žiadne udalosti na zobrazenie',
         'columns' => [
             'id' => 'ID',

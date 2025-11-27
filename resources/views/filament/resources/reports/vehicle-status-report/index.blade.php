@@ -9,6 +9,9 @@
         {{-- <div>
             <h2 class="text-xl font-semibold mb-2">Vehicles</h2>
         </div> --}}
+
+        <x-filament::tabs>
+        </x-filament::tabs>
         {{ $this->table }}
 
     </div>

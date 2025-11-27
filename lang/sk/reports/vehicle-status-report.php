@@ -3,7 +3,8 @@
 return [
     'list_heading' => 'Správka',
     'table' => [
-        'heading' => 'Vozidlá',
+        'heading' => 'Správka',
+        'description' => 'ZATIAĽ: Vozy čo majú v štrkáči ako posledné, že sú odstavené',
         'row_groups' => [
         ],
         'columns' => [
@@ -15,6 +16,7 @@ return [
             'groups' => 'Skupiny',
             'department' => 'SAP Stredisko',
             'state' => 'Stav',
+            'note' => 'Pozn.',
             'rds' => 'RDS',
             'ocl' => 'OCL',
             'dispatch_group' => 'Dopravná prevádzka',
@@ -29,6 +31,10 @@ return [
             'days_out_of_service' => [
                 'label' => 'V správke dní',
                 'tooltip' => '',
+            ],            
+            'closest_inspections' => [
+                'label' => 'STK/EK',
+                'tooltip' => 'Najbližšie plánované kontroly',
             ],            
         ]
     ],

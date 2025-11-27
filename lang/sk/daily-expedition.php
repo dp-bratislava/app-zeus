@@ -26,6 +26,7 @@ return [
             'service' => 'Služba',
             'note' => 'Poznámka',
             'vehicle' => 'Vozidlo',
+            'vehicle_model' => 'Model',
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť štrkáč',
@@ -40,9 +41,8 @@ return [
         'plural_model_label' => 'Štrkáč',
     ],
     'states' => [
-        'created' => 'Nová',
-        'cancelled' => 'Zrušená',
-        'closed' => 'Uzavretá',
-        'in-progress' => 'V riešení',
+        'in-service' => 'Jazdí',
+        'split-service' => 'Delená',
+        'out-of-service' => 'Odstavený',
     ]
 ];

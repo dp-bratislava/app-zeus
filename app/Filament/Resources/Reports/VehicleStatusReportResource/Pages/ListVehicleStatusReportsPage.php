@@ -25,7 +25,7 @@ class ListVehicleStatusReportsPage extends Page implements HasTable
     //     return VehicleStatusReportTable::make($table);
     // } 
 
-        public function getTitle(): string | Htmlable
+    public function getTitle(): string | Htmlable
     {
         return __('reports/vehicle-status-report.list_heading');
     }
@@ -33,7 +33,7 @@ class ListVehicleStatusReportsPage extends Page implements HasTable
     public function table(Table $table): Table
     {
         return VehicleStatusReportTable::make($table);
-    } 
+    }
 
     public function getTabs(): array
     {
@@ -44,5 +44,5 @@ class ListVehicleStatusReportsPage extends Page implements HasTable
             'inactive' => Tab::make('2TP')
                 ->modifyQueryUsing(fn(Builder $query) => $query->whereLike('code_1', '2%')),
         ];
-    }     
+    }
 }

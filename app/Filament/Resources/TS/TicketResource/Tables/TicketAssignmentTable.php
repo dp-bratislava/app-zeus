@@ -39,7 +39,8 @@ class TicketAssignmentTable
                 Tables\Columns\TextColumn::make('ticket.id')
                     ->label(__('tickets/ticket.table.columns.id')),
                 // date
-                Tables\Columns\TextColumn::make('ticket.date')->date()
+                Tables\Columns\TextColumn::make('ticket.date')
+                    ->date('j.n.Y')
                     ->label(__('tickets/ticket.table.columns.date')),
                 // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
@@ -57,24 +58,33 @@ class TicketAssignmentTable
                     ->searchable()
                     ->grow(),
                 // state
-                Tables\Columns\TextColumn::make('ticket.state')
+                Tables\Columns\SelectColumn::make('ticket.state')
                     ->label(__('tickets/ticket.table.columns.state'))
-                    ->state(fn(TicketAssignment $record) => $record->ticket->state->label()),
-                    // ->state(fn($record) => dd($record)),
-                    // ->action(
-                    //     Action::make('select')
-                    //         ->requiresConfirmation()
-                    //         ->action(function (TicketAssignment $record): void {
-                    //             $ticket = $record->ticket;
-                    //             $ticket->state == 'created'
-                    //                 ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
-                    //                 : $ticket->state->transition(new InProgressToCancelled($ticket, auth()->guard()->user()));
-                    //         }),
-                    // ),
+                    ->options([
+                        States\TS\Ticket\Created::$name => __('tickets/ticket.states.created'),
+                        States\TS\Ticket\Closed::$name => __('tickets/ticket.states.closed'),
+                        States\TS\Ticket\Cancelled::$name => __('tickets/ticket.states.cancelled'),
+                        States\TS\Ticket\InProgress::$name => __('tickets/ticket.states.in-progress'),
+                    ]),
+                // Tables\Columns\TextColumn::make('ticket.state')
+                //     ->label(__('tickets/ticket.table.columns.state'))
+                //     ->state(fn(TicketAssignment $record) => $record->ticket->state->label()),
+                // ->state(fn($record) => dd($record)),
+                // ->action(
+                //     Action::make('select')
+                //         ->requiresConfirmation()
+                //         ->action(function (TicketAssignment $record): void {
+                //             $ticket = $record->ticket;
+                //             $ticket->state == 'created'
+                //                 ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
+                //                 : $ticket->state->transition(new InProgressToCancelled($ticket, auth()->guard()->user()));
+                //         }),
+                // ),
                 // assigned to / maintenance group
                 Tables\Columns\TextColumn::make('assignedTo.code')
                     ->badge()
-                    ->label(__('tickets/ticket.table.columns.assigned_to')),
+                    ->label(__('tickets/ticket.table.columns.assigned_to.label'))
+                    ->tooltip(__('tickets/ticket.table.columns.assigned_to.tooltip')),
                 // place of occurance / ticket source
                 Tables\Columns\TextColumn::make('ticket.source.title')
                     ->label(__('tickets/ticket.table.columns.source')),
@@ -149,14 +159,14 @@ class TicketAssignmentTable
                         dd('hh');
                         return $ticketAssignmentRepository->create($data);
                     }),
-            ])            
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 EditAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
