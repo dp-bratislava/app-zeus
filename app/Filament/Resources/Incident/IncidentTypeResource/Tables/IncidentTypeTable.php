@@ -10,7 +10,7 @@ class IncidentTypeTable
     public static function make(Table $table): Table
     {
         return $table
-            ->heading(__('inspections/inspection-template.table.heading'))
+            ->heading(__('incidents/incident-type.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([

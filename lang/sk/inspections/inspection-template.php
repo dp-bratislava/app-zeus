@@ -9,7 +9,7 @@ return [
             'create_heading' => 'Vytvoriť šablónu kontroly',
             'update_heading' => 'Upraviť šablónu kontroly: :title',
         ],
-    ],    
+    ],
     'form' => [
         'fields' => [
             'code' => ['label' => 'Kód'],
@@ -41,15 +41,24 @@ return [
                 'hint' => 'dni',
             ],
             'groups' => ['label' => 'Typ údržby'],
-            'templatables' => ['label' => 'Predmety kontroly'],
+            'templatables' => [
+                'label' => 'Predmety kontroly',
+                'hint' => 'Modley vozidiel, ktorých sa daná kontrola týka'
+            ],
+            'vehicle_models' => 'Modely vozidiel',
+            'ticket_item_groups' => 'Typy podzákazok',
         ],
+        'tabs' => [
+            // 'activity-templates' => 'Normy',
+            'ticket_item_groups' => 'Typy podzákazok',
+            'vehicle_models' => 'Modely vozidiel',
+        ]
     ],
     'table' => [
         'heading' => 'Typy kontrol',
         'description' => 'Typy kontrol',
         'empty_state_heading' => 'Žiadne typy kontrol na zobrazenie',
-        'row_groups' => [
-        ],
+        'row_groups' => [],
         'columns' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],

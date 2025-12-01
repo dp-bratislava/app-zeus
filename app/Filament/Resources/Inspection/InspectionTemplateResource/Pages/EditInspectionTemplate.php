@@ -38,7 +38,7 @@ class EditInspectionTemplate extends EditRecord
         // $data['cnd_time_1adv'] = $this->record->getCondition('1-advance', 'days_in_service')?->value;
         // $data['cnd_time_2adv'] = $this->record->getCondition('2-advance', 'days_in_service')?->value;
 
-        // vehicle models
+        // tempalables / vehicle models
         $vehicleModelMorphClass = app(VehicleModel::class)->getMorphClass();
         $vehicleModels = InspectionTemplateAssignment::whereBelongsTo($this->record, 'template')
             ->whereMorphedTo('subject', $vehicleModelMorphClass)

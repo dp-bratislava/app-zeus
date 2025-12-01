@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť typ údržby',
+    'update_heading' => 'Upraviť typ údržby: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť typ údržby',
-        'update_heading' => 'Upraviť typ údržby: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
