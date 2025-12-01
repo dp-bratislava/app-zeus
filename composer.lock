@@ -109,12 +109,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:andrej-horny/pkg-inspections.git",
-                "reference": "8406d25b9dd5b0bdda656d19b510f46ddc7b800e"
+                "reference": "edcbf98e8d8c77d69741aabd5b35a68c8cd9626c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrej-horny/pkg-inspections/zipball/8406d25b9dd5b0bdda656d19b510f46ddc7b800e",
-                "reference": "8406d25b9dd5b0bdda656d19b510f46ddc7b800e",
+                "url": "https://api.github.com/repos/andrej-horny/pkg-inspections/zipball/edcbf98e8d8c77d69741aabd5b35a68c8cd9626c",
+                "reference": "edcbf98e8d8c77d69741aabd5b35a68c8cd9626c",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "source": "https://github.com/andrej-horny/pkg-inspections/tree/main",
                 "issues": "https://github.com/andrej-horny/pkg-inspections/issues"
             },
-            "time": "2025-11-14T16:14:24+00:00"
+            "time": "2025-12-01T10:43:51+00:00"
         },
         {
             "name": "andrej-horny/pkg-tasks",
@@ -13293,5 +13293,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

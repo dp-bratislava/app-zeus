@@ -24,22 +24,22 @@ class InspectionTemplateTable
 
                 Tables\Columns\TextColumn::make('treshold_distance')
                     ->label(__('inspections/inspection-template.table.columns.treshold_distance.label'))
-                    ->tooltip(__('inspections/inspection-template.table.columns.treshold_distance.tooltip'))
-                    ->state(function ($record) {
-                        return $record->getCondition('treshold', 'distance_traveled')?->value;
-                    }),
+                    ->tooltip(__('inspections/inspection-template.table.columns.treshold_distance.tooltip')),
+                    // ->state(function ($record) {
+                    //     return $record->getCondition('treshold', 'distance_traveled')?->value;
+                    // }),
                 Tables\Columns\TextColumn::make('first_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.first_advance_distance.label'))
-                    ->tooltip(__('inspections/inspection-template.table.columns.first_advance_distance.tooltip'))
-                    ->state(function ($record) {
-                        return $record->getCondition('1-advance', 'distance_traveled')?->value;
-                    }),
+                    ->tooltip(__('inspections/inspection-template.table.columns.first_advance_distance.tooltip')),
+                    // ->state(function ($record) {
+                    //     return $record->getCondition('1-advance', 'distance_traveled')?->value;
+                    // }),
                 Tables\Columns\TextColumn::make('second_advance_distance')
                     ->label(__('inspections/inspection-template.table.columns.second_advance_distance.label'))
-                    ->tooltip(__('inspections/inspection-template.table.columns.second_advance_distance.tooltip'))
-                    ->state(function ($record) {
-                        return $record->getCondition('2-advance', 'distance_traveled')?->value;
-                    }),
+                    ->tooltip(__('inspections/inspection-template.table.columns.second_advance_distance.tooltip')),
+                    // ->state(function ($record) {
+                    //     return $record->getCondition('2-advance', 'distance_traveled')?->value;
+                    // }),
                 Tables\Columns\TextColumn::make('treshold_time')
                     ->label(__('inspections/inspection-template.table.columns.treshold_time.label')),
                 Tables\Columns\TextColumn::make('first_advance_time')

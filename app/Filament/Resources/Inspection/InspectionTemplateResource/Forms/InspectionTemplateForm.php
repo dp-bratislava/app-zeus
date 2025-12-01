@@ -29,29 +29,35 @@ class InspectionTemplateForm
                 ->label(__('inspections/inspection-template.form.fields.description.label'))
                 ->columnSpan(3),
             // conditions - distance
-            Forms\Components\TextInput::make('cnd_distance_treshold')
+            // Forms\Components\TextInput::make('cnd_distance_treshold')
+            Forms\Components\TextInput::make('treshold_distance')
                 ->label(__('inspections/inspection-template.form.fields.treshold_distance.label'))
                 ->hint(__('inspections/inspection-template.form.fields.treshold_distance.hint'))
                 ->columnSpan(1),
-            Forms\Components\TextInput::make('cnd_distance_1adv')
+            // Forms\Components\TextInput::make('cnd_distance_1adv')
+            Forms\Components\TextInput::make('first_advance_distance')
                 ->label(__('inspections/inspection-template.form.fields.first_advance_distance.label'))
                 ->hint(__('inspections/inspection-template.form.fields.first_advance_distance.hint'))
                 ->columnSpan(1),
-            Forms\Components\TextInput::make('cnd_distance_2adv')
+            // Forms\Components\TextInput::make('cnd_distance_2adv')
+            Forms\Components\TextInput::make('second_advance_distance')
                 ->label(__('inspections/inspection-template.form.fields.second_advance_distance.label'))
                 ->hint(__('inspections/inspection-template.form.fields.second_advance_distance.hint'))
                 ->columnSpan(1),
 
             // conditions - time
-            Forms\Components\TextInput::make('cnd_time_treshold')
+            // Forms\Components\TextInput::make('cnd_time_treshold')
+            Forms\Components\TextInput::make('treshold_time')
                 ->label(__('inspections/inspection-template.form.fields.treshold_time.label'))
                 ->hint(__('inspections/inspection-template.form.fields.treshold_time.hint'))
                 ->columnSpan(1),
-            Forms\Components\TextInput::make('cnd_time_1adv')
+            // Forms\Components\TextInput::make('cnd_time_1adv')
+            Forms\Components\TextInput::make('first_advance_time')
                 ->label(__('inspections/inspection-template.form.fields.first_advance_time.label'))
                 ->hint(__('inspections/inspection-template.form.fields.first_advance_time.hint'))
                 ->columnSpan(1),
-            Forms\Components\TextInput::make('cnd_time_2adv')
+            // Forms\Components\TextInput::make('cnd_time_2adv')
+            Forms\Components\TextInput::make('second_advance_time')
                 ->label(__('inspections/inspection-template.form.fields.second_advance_time.label'))
                 ->hint(__('inspections/inspection-template.form.fields.second_advance_time.hint'))
                 ->columnSpan(1),

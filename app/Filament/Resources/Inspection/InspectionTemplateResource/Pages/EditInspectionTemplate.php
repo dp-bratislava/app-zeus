@@ -22,21 +22,21 @@ class EditInspectionTemplate extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('inspections/inspection-template.form.update_heading', ['title' => $this->record->title]);
+        return __('inspections/inspection-template.update_heading', ['title' => $this->record->title]);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
         // dd($data);
-        // distance conditions
-        $data['cnd_distance_treshold'] = $this->record->getCondition('treshold', 'distance_traveled')?->value;
-        $data['cnd_distance_1adv'] = $this->record->getCondition('1-advance', 'distance_traveled')?->value;
-        $data['cnd_distance_2adv'] = $this->record->getCondition('2-advance', 'distance_traveled')?->value;
+        // // distance conditions
+        // $data['cnd_distance_treshold'] = $this->record->getCondition('treshold', 'distance_traveled')?->value;
+        // $data['cnd_distance_1adv'] = $this->record->getCondition('1-advance', 'distance_traveled')?->value;
+        // $data['cnd_distance_2adv'] = $this->record->getCondition('2-advance', 'distance_traveled')?->value;
 
-        // time conditions
-        $data['cnd_time_treshold'] = $this->record->getCondition('treshold', 'days_in_service')?->value;
-        $data['cnd_time_1adv'] = $this->record->getCondition('1-advance', 'days_in_service')?->value;
-        $data['cnd_time_2adv'] = $this->record->getCondition('2-advance', 'days_in_service')?->value;
+        // // time conditions
+        // $data['cnd_time_treshold'] = $this->record->getCondition('treshold', 'days_in_service')?->value;
+        // $data['cnd_time_1adv'] = $this->record->getCondition('1-advance', 'days_in_service')?->value;
+        // $data['cnd_time_2adv'] = $this->record->getCondition('2-advance', 'days_in_service')?->value;
 
         // vehicle models
         $vehicleModelMorphClass = app(VehicleModel::class)->getMorphClass();

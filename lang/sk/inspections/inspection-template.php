@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť šablónu kontroly',
+    'update_heading' => 'Upraviť šablónu kontroly: :title',
     'components' => [
         'picker' => [
             'label' => 'Šablóna kontroly',
@@ -9,8 +11,6 @@ return [
         ],
     ],    
     'form' => [
-        'create_heading' => 'Vytvoriť šablónu kontroly',
-        'update_heading' => 'Upraviť šablónu kontroly: :title',
         'fields' => [
             'code' => ['label' => 'Kód'],
             'title' => ['label' => 'Názov'],
