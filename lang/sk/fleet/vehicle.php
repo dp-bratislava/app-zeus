@@ -16,7 +16,10 @@ return [
             'maintenance_group' => 'Technciká prevádzka',
             'vin' => 'VIN',
             'model' => 'Model',
-            'department' => 'Stredisko',
+            'department' => [
+               'label' => 'Stredisko',
+               'hint' => 'Nákladové stredisko v SAPe',
+            ],
             'groups' => 'Skupiny',
             'construction_year' => 'Rok výroby',
             'warranty_initial_date' => [

@@ -13,6 +13,6 @@ class CreateVehicleGroup extends CreateRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('fleet/vehicle-group.form.create_heading');
+        return __('fleet/vehicle-group.create_heading');
     }     
 }

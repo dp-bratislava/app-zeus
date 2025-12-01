@@ -22,17 +22,17 @@ class EditMaintenanceGroup extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('fleet/maintenance-group.form.update_heading', ['title' => $this->record->code]);
+        return __('fleet/maintenance-group.update_heading', ['title' => $this->record->code]);
     }  
     
-    // protected function mutateFormDataBeforeFill(array $data): array
-    // {
-    //     // vehicles
-    //     $data['vehicles'] = $this->record->with(['vehicles'])->vehicles->pluck('id')->toArray();
-    //     dd($this->record->vehicles);
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // vehicles
+        $data['vehicles'] = $this->record->vehicles->pluck('id');
+        // dd($this->record->vehicles);
 
-    //     return $data;
-    // }
+        return $data;
+    }
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {

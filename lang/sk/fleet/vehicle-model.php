@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť model vozidla',
+    'update_heading' => 'Upraviť model vozidila: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť model vozidla',
-        'update_heading' => 'Upraviť model vozidila: :title',
         'fields' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
@@ -13,6 +13,7 @@ return [
         'tabs' => [
             'activity-templates' => 'Normy',
             'parameters' => 'Parametre',
+            'vehicles' => 'Vozidlá',
         ]
     ],
     'table' => [

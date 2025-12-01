@@ -15,6 +15,7 @@ class VehicleModelTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('fleet/vehicle-model.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([

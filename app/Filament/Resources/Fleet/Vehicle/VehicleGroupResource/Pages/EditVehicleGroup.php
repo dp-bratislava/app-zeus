@@ -18,8 +18,17 @@ class EditVehicleGroup extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // vehicles
+        $data['vehicles'] = $this->record->vehicles->pluck('id');
+        // dd($this->record->vehicles);
+
+        return $data;
+    }
+
     public function getTitle(): string | Htmlable
     {
-        return __('fleet/vehicle-group.form.update_heading', ['title' => $this->record->title]);
+        return __('fleet/vehicle-group.update_heading', ['title' => $this->record->title]);
     }      
 }

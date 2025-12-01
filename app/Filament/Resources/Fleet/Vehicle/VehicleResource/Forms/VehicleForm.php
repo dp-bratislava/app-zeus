@@ -17,26 +17,27 @@ class VehicleForm
         return $form
             ->columns(6)
             ->schema([
-                // vin
-                Forms\Components\TextInput::make('vin')
-                    ->columnSpan(1)
-                    ->label(__('fleet/vehicle.form.fields.vin')),
-                // licence plate
-                Forms\Components\TextInput::make('licence_plate')
-                    ->columnSpan(1)
-                    ->label(__('fleet/vehicle.form.fields.licence_plate'))
-                    ->formatStateUsing(fn($record) => $record?->licencePlate),
                 // code
                 Forms\Components\TextInput::make('code')
                     ->columnSpan(1)
                     ->label(__('fleet/vehicle.form.fields.code.label'))
                     ->formatStateUsing(fn($record) => $record?->code?->code),
+                // licence plate
+                Forms\Components\TextInput::make('licence_plate')
+                    ->columnSpan(1)
+                    ->label(__('fleet/vehicle.form.fields.licence_plate'))
+                    ->formatStateUsing(fn($record) => $record?->licencePlate),
+                // vin
+                Forms\Components\TextInput::make('vin')
+                    ->columnSpan(1)
+                    ->label(__('fleet/vehicle.form.fields.vin')),
                 // model
                 Forms\Components\Select::make('model_id')
                     ->columnSpan(3)
                     ->label(__('fleet/vehicle.form.fields.model'))
                     ->relationship('model', 'title')
                     ->preload()
+                    ->live()
                     ->searchable(),
                 // construction year
                 Forms\Components\TextInput::make('construction_year')
@@ -63,38 +64,43 @@ class VehicleForm
                     ->label(__('fleet/vehicle.form.fields.warranty_km.label'))
                     ->hint(__('fleet/vehicle.form.fields.warranty_km.hint')),
 
-                // department
-                DepartmentPicker::make('department')
-                    ->columnSpan(2)
-                    ->label(__('fleet/vehicle.form.fields.department'))
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable(),
-                // ->default(function)
-                // maintenance group
-                Forms\Components\ToggleButtons::make('maintenance_group_id')
-                    ->columnSpan(2)
-                    ->label(__('fleet/vehicle.form.fields.maintenance_group'))
-                    ->inline()
-                    ->options(
-                        fn(Vehicle $record) =>
-                        MaintenanceGroup::byVehicleType($record->model?->type?->code)
-                            ->pluck('code', 'id')
-                    ),
-                // vehicle greoups
-                Forms\Components\Select::make('groups')
-                    ->columnSpan(2)
-                    ->label(__('fleet/vehicle.form.fields.groups'))
-                    ->relationship('groups', 'title')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
-                // // dispatch group
-                //                 Forms\Components\ToggleButtons::make('dispatch_group')
-                //                     ->columnSpan(2)
-                //                     ->label(__('fleet/vehicle.form.fields.dispatch_group'))
-                //                     ->inline()
-                //                     ->options(fn() => DispatchGroup::pluck('code')),
+                Forms\Components\Section::make('zaradenie')
+                    ->columns(3)
+                    ->schema([
+                        // maintenance group
+                        Forms\Components\ToggleButtons::make('maintenance_group_id')
+                            ->columnSpan(1)
+                            ->label(__('fleet/vehicle.form.fields.maintenance_group'))
+                            ->inline()
+                            ->options(
+                                fn(Vehicle $record) =>
+                                MaintenanceGroup::byVehicleType($record->model?->type?->code)
+                                    ->pluck('code', 'id')
+                            ),
+                        // department
+                        DepartmentPicker::make('department')
+                            ->columnSpan(1)
+                            ->label(__('fleet/vehicle.form.fields.department.label'))
+                            ->hint(__('fleet/vehicle.form.fields.department.hint'))
+                            ->getOptionLabelFromRecordUsing(null)
+                            ->getSearchResultsUsing(null)
+                            ->searchable(),
+                        // ->default(function)
+                        // vehicle greoups
+                        Forms\Components\Select::make('groups')
+                            ->columnSpan(1)
+                            ->label(__('fleet/vehicle.form.fields.groups'))
+                            ->relationship('groups', 'title')
+                            ->multiple()
+                            ->preload()
+                            ->searchable(),
+                        // // dispatch group
+                        //                 Forms\Components\ToggleButtons::make('dispatch_group')
+                        //                     ->columnSpan(2)
+                        //                     ->label(__('fleet/vehicle.form.fields.dispatch_group'))
+                        //                     ->inline()
+                        //                     ->options(fn() => DispatchGroup::pluck('code')),
+                    ]),
             ])
         ;
     }

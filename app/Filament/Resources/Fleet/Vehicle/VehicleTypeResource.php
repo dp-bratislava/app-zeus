@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\Fleet\Vehicle;
 
 use App\Filament\Imports\Fleet\VehicleTypeImporter;
+use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Forms\VehicleTypeForm;
 use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Pages;
+use App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Tables\VehicleTypeTable;
 use Dpb\Package\Fleet\Models\VehicleType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -43,53 +45,19 @@ class VehicleTypeResource extends Resource
         return config('pkg-fleet.navigation.vehicle-type') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('fleet.vehicle-type.read');
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('fleet.vehicle-type.read');
+    // }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->label(__('fleet/vehicle-type.form.fields.code.label')),
-                Forms\Components\TextInput::make('title')
-                    ->label(__('fleet/vehicle-type.form.fields.title')),
-            ]);
+        return VehicleTypeForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('code')->label(__('fleet/vehicle-type.table.columns.code.label')),
-                TextColumn::make('title')->label(__('fleet/vehicle-type.table.columns.title.label')),
-
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(VehicleTypeImporter::class)
-                    ->csvDelimiter(';')
-                // ->visible(auth()->user()->can('fleet.vehicle-type.import'))
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                // ->visible(auth()->user()->can('fleet.vehicle-type.update')),
-                Tables\Actions\DeleteAction::make()
-                // ->visible(auth()->user()->can('fleet.vehicle-type.delete')),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                    // ->visible(auth()->user()->can('fleet.vehicle-type.bulk-delete')),
-                ]),
-            ]);
+        return VehicleTypeTable::make($table);
     }
 
     public static function getPages(): array

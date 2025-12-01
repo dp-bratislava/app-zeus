@@ -41,10 +41,10 @@ class VehicleGroupResource extends Resource
         return config('pkg-fleet.navigation.vehicle-group') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('fleet.vehicle-group.read');
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('fleet.vehicle-group.read');
+    // }
 
     public static function form(Form $form): Form
     {
@@ -65,18 +65,18 @@ class VehicleGroupResource extends Resource
         ];
     }
 
-    public static function canCreate(): bool
-    {
-        return auth()->check() && auth()->user()->can('fleet.vehicle-group.create');
-    }
+    // public static function canCreate(): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.create');
+    // }
 
-    public static function canEdit(Model $record): bool
-    {
-        return auth()->check() && auth()->user()->can('fleet.vehicle-group.update');
-    }   
+    // public static function canEdit(Model $record): bool
+    // {
+    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.update');
+    // }   
     
-    public static function canDelete(Model $record): bool
-    {        
-        return auth()->check() && auth()->user()->can('fleet.vehicle-group.delete');
-    }       
+    // public static function canDelete(Model $record): bool
+    // {        
+    //     return auth()->check() && auth()->user()->can('fleet.vehicle-group.delete');
+    // }       
 }

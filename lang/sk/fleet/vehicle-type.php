@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť typ vozidla',
+    'update_heading' => 'Upraviť typ vozidila: :title',
     'components' => [
         'picker' => [
             'label' => 'Typ vozidla',
@@ -9,8 +11,6 @@ return [
         ],
     ],
     'form' => [
-        'create_heading' => 'Vytvoriť typ vozidla',
-        'update_heading' => 'Upraviť typ vozidila: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',

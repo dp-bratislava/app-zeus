@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Filament\Resources\Fleet\Vehicle\BrandResource\Tables;
+namespace App\Filament\Resources\Fleet\Vehicle\VehicleTypeResource\Tables;
 
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class BrandTable
+class VehicleTypeTable
 {
     public static function make(Table $table): Table
     {
         return $table
-            ->heading(__('fleet/brand.table.heading'))
+            ->heading(__('fleet/vehicle-type.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
+                // code
+                Tables\Columns\TextColumn::make('code')
+                    ->label(__('fleet/vehicle-type.table.columns.code.label')),
+                // title
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('fleet/brand.table.columns.title'))
-                    ->searchable(),
+                    ->label(__('fleet/vehicle-type.table.columns.title.label')),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť technickú prevádzku',
+    'update_heading' => 'Upraviť technickú prevádzku: :title',
     'components' => [
         'picker' => [
             'label' => 'Technická prevádzka',
@@ -9,8 +11,6 @@ return [
         ],
     ],     
     'form' => [
-        'create_heading' => 'Vytvoriť technickú prevádzku',
-        'update_heading' => 'Upraviť technickú prevádzku: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',

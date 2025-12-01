@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť skupinu vozidiel',
+    'update_heading' => 'Upraviť skupinu vozidiel: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť skupinu vozidiel',
-        'update_heading' => 'Upraviť skupinu vozidiel: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
