@@ -16,10 +16,10 @@ class VehicleTypeTable
             ->columns([
                 // code
                 Tables\Columns\TextColumn::make('code')
-                    ->label(__('fleet/vehicle-type.table.columns.code.label')),
+                    ->label(__('fleet/vehicle-type.table.columns.code')),
                 // title
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('fleet/vehicle-type.table.columns.title.label')),
+                    ->label(__('fleet/vehicle-type.table.columns.title')),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),

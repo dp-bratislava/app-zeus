@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Incident\IncidentTypeResource\Pages;
 use App\Filament\Resources\Incident\IncidentTypeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditIncidentType extends EditRecord
 {
@@ -16,4 +17,9 @@ class EditIncidentType extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('incidents/incident-type.update_heading', ['title' => $this->record->title]);
+    }        
 }

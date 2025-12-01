@@ -18,6 +18,7 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => 'Názov',
+            'models' => 'Modely vozidiel',
         ],
     ],
     'table' => [
@@ -25,8 +26,9 @@ return [
         'empty_state_heading' => 'Žiadne typy vozidiel na zobrazenie',
         'row_groups' => [],
         'columns' => [
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
+            'code' => 'Kód',
+            'title' => 'Názov',
+            'models' => 'Modely vozidiel',
         ]
     ],
     'navigation' => [

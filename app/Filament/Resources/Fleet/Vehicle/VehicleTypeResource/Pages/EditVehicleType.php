@@ -21,5 +21,13 @@ class EditVehicleType extends EditRecord
     public function getTitle(): string | Htmlable
     {
         return __('fleet/vehicle-type.update_heading', ['title' => $this->record->title]);
-    }      
+    }     
+    
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // vehicles
+        $data['models'] = $this->record->models?->pluck('id');
+
+        return $data;
+    }    
 }

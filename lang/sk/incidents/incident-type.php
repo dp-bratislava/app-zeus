@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť typ udalosti',
+    'update_heading' => 'Upraviť typ udalosti: :title',
     'form' => [
-        'create_heading' => 'Vytvoriť typ udalosti',
-        'update_heading' => 'Upraviť typ udalosti: :title',
         'fields' => [
             'code' => [
                 'label' => 'Kód',

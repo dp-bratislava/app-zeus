@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Incident\IncidentResource\Forms;
 
 use App\Filament\Components\VehiclePicker;
+use App\Filament\Resources\Incident\IncidentTypeResource\Forms\IncidentTypePicker;
 use Carbon\Carbon;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Incidents\Models\IncidentType;
@@ -89,14 +90,15 @@ class IncidentAssignmentForm
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 // ->required(false),
             // incident type
-            Forms\Components\ToggleButtons::make('incident.type_id')
-                ->label(__('incidents/incident.form.fields.type'))
-                ->inline()
-                ->columnSpan(1)
-                ->options(
-                    fn() =>
-                    IncidentType::pluck('title', 'id')
-                ),
+            IncidentTypePicker::make('incident.type_id'),
+            // Forms\Components\ToggleButtons::make('incident.type_id')
+            //     ->label(__('incidents/incident.form.fields.type'))
+            //     ->inline()
+            //     ->columnSpan(1)
+            //     ->options(
+            //         fn() =>
+            //         IncidentType::pluck('title', 'id')
+            //     ),
             // description
             Forms\Components\Textarea::make('incident.description')
                 ->label(__('incidents/incident.form.fields.description'))

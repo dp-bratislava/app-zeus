@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\Incident;
 
+use App\Filament\Resources\Incident\IncidentTypeResource\Forms\IncidentTypeForm;
+use App\Filament\Resources\Incident\IncidentTypeResource\Forms\IncidentTypeTable;
 use App\Filament\Resources\Incident\IncidentTypeResource\Pages;
+use App\Filament\Resources\Incident\IncidentTypeResource\Tables\IncidentTypeTable as TablesIncidentTypeTable;
 use Dpb\Package\Incidents\Models\IncidentType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -35,43 +38,19 @@ class IncidentTypeResource extends Resource
         return __('incidents/incident-type.navigation.group');
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('incidents.incident-type.read');
-    }    
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('incidents.incident-type.read');
+    // }    
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->label(__('incidents/incident-type.form.fields.code.label')),
-                Forms\Components\TextInput::make('title')
-                    ->label(__('incidents/incident-type.form.fields.title.label')),
-            ]);
+        return IncidentTypeForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('code')->label(__('incidents/incident-type.table.columns.code.label')),
-                TextColumn::make('title')->label(__('incidents/incident-type.table.columns.title.label')),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return TablesIncidentTypeTable::make($table);
     }
 
     public static function getPages(): array
