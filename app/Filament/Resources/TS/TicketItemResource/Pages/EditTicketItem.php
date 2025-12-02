@@ -20,8 +20,8 @@ class EditTicketItem extends EditRecord
     public function getTitle(): string | Htmlable
     {
         $subjectCode = null;
-        // $subjectCode = app(TicketAssignment::class)->whereBelongsTo($this->record->ticket, 'ticket')->first()->subject->code->code;
-        return __('tickets/ticket-item.form.update_heading', ['code' => $subjectCode]);
+        // $subjectCode = app(TicketAssignment::class)->whereBelongsTo($this->record->ticket, 'ticket')->first()->subject?->code?->code;
+        return __('tickets/ticket-item.update_heading', ['code' => $subjectCode, 'subject' => '']);
     }  
 
     protected function getHeaderActions(): array

@@ -11,6 +11,7 @@ use App\States\TS\TicketItem\InProgress;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
+use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketItemGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -23,6 +24,13 @@ class TicketItemAssignmentForm
         return $form
             ->columns(7)
             ->schema([
+                // ticket
+                Forms\Components\Select::make('ticket')
+                    ->label(__('tickets/ticket-item.form.fields.ticket'))
+                    ->columnSpan(3)
+                    ->relationship('ticket', 'title'),
+                    // ->getOptionLabelFromRecordUsing(fn (Ticket $record) => "{$record->}"),
+                    
                 // date
                 Forms\Components\DatePicker::make('date')
                     ->label(__('tickets/ticket-item.form.fields.date'))
@@ -57,10 +65,10 @@ class TicketItemAssignmentForm
                     ->label(__('tickets/ticket-item.form.fields.assigned_to'))
                     ->columnSpan(2)
                     ->options(fn() => MaintenanceGroup::pluck('code', 'id'))
-                    ->default(function (RelationManager $livewire) {
+                    // ->default(function (RelationManager $livewire) {
 
-                        return $livewire->getOwnerRecord()->assignedTo?->id;
-                    })
+                    //     return $livewire->getOwnerRecord()->assignedTo?->id;
+                    // })
                     ->inline(),
 
                 // // state

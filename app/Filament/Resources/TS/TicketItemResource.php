@@ -42,7 +42,8 @@ class TicketItemResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->can('tickets.ticket-item.read');
+        // return auth()->user()->can('tickets.ticket-item.read');
+        return false;
     }
 
     public static function form(Form $form): Form

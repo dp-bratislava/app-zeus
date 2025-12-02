@@ -164,6 +164,9 @@ class TicketItemAssignmentTable
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 ViewAction::make(),
                 EditAction::make(),                    

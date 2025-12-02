@@ -112,7 +112,7 @@ class TicketItemForm
                         // activities
                         Forms\Components\Tabs\Tab::make('activities')
                             ->label(__('tickets/ticket-item.form.tabs.activities'))
-                            ->badge(fn ($record) => $record->activities?->count() ?? 0)
+                            // ->badge(fn ($record) => $record->activities?->count() ?? 0)
                             ->icon('heroicon-m-wrench')
                             ->schema([
                                 ActivityRepeater::make('activities')
@@ -123,7 +123,7 @@ class TicketItemForm
                         Forms\Components\Tabs\Tab::make('materials')
                             ->label(__('tickets/ticket-item.form.tabs.materials'))
                             ->icon('heroicon-m-rectangle-stack')
-                            ->badge(fn ($record) => $record->materials?->count() ?? 0)
+                            // ->badge(fn ($record) => $record->materials?->count() ?? 0)
                             ->schema([
                                 MaterialRepeater::make('materials')
                                 // ->relationship('materials'),
@@ -140,47 +140,52 @@ class TicketItemForm
                     ]),
 
                 // history / comments
-                Forms\Components\Tabs::make('comments_tabs')
+
+                Forms\Components\Section::make('TO DO')
+                    ->description('TO DO: toto zatiaľ nefunguje. ')
                     ->columnSpan(3)
-                    ->tabs([
-                        // comments
-                        Forms\Components\Tabs\Tab::make('comments_tab')
-                            ->label(__('tickets/ticket-item.form.tabs.comments'))
-                            ->badge(3)
-                            ->icon('heroicon-m-wrench')
-                            ->schema([
-                                TableRepeater::make('comments')
-                                    ->headers([
-                                        Header::make('created_at')->label(__('tickets/ticket-item.form.fields.activities.date')),
-                                        Header::make('author')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                        Header::make('body')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                    ])
+                    ->schema([
+                        Forms\Components\Tabs::make('comments_tabs')
+                            ->tabs([
+                                // comments
+                                Forms\Components\Tabs\Tab::make('comments_tab')
+                                    ->label(__('tickets/ticket-item.form.tabs.comments'))
+                                    ->badge(3)
+                                    ->icon('heroicon-m-wrench')
                                     ->schema([
-                                        Forms\Components\DateTimePicker::make('date1'),
-                                        Forms\Components\RichEditor::make('body')
-                                    ])
-                                    ->deletable(false)
-                                    // ->addable(false)
-                            ]),
-                        // history
-                        Forms\Components\Tabs\Tab::make('history_tab')
-                            ->label(__('tickets/ticket-item.form.tabs.history'))
-                            ->icon('heroicon-m-rectangle-stack')
-                            ->badge(2)
-                            ->schema([
-                                TableRepeater::make('history')
-                                    ->headers([
-                                        Header::make('date')->label(__('tickets/ticket-item.form.fields.activities.date')),
-                                        Header::make('template')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                    ])
+                                        TableRepeater::make('comments')
+                                            ->headers([
+                                                Header::make('created_at')->label(__('tickets/ticket-item.form.fields.activities.date')),
+                                                Header::make('author')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                                Header::make('body')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                            ])
+                                            ->schema([
+                                                Forms\Components\DateTimePicker::make('date1'),
+                                                Forms\Components\RichEditor::make('body')
+                                            ])
+                                            ->deletable(false)
+                                        // ->addable(false)
+                                    ]),
+                                // history
+                                Forms\Components\Tabs\Tab::make('history_tab')
+                                    ->label(__('tickets/ticket-item.form.tabs.history'))
+                                    ->icon('heroicon-m-rectangle-stack')
+                                    ->badge(2)
                                     ->schema([
-                                        Forms\Components\DatePicker::make('date'),
-                                        Forms\Components\TextInput::make('title')
-                                    ])
-                                    ->deletable(false)
-                                    ->addable(false)
+                                        TableRepeater::make('history')
+                                            ->headers([
+                                                Header::make('date')->label(__('tickets/ticket-item.form.fields.activities.date')),
+                                                Header::make('template')->label(__('tickets/ticket-item.form.fields.activities.template')),
+                                            ])
+                                            ->schema([
+                                                Forms\Components\DatePicker::make('date'),
+                                                Forms\Components\TextInput::make('title')
+                                            ])
+                                            ->deletable(false)
+                                            ->addable(false)
+                                    ]),
                             ]),
-                    ]),
+                    ])
             ]);
     }
 }

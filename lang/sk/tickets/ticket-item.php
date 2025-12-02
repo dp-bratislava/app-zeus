@@ -1,9 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť podzákazku',
+    'update_heading' => 'Upraviť podzákazku: :code :subject',
     'form' => [
-        'create_heading' => 'Vytvoriť podzákazku',
-        'update_heading' => 'Upraviť podzákazku: :code :subject',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
