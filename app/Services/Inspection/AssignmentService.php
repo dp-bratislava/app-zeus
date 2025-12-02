@@ -40,4 +40,13 @@ class AssignmentService
             ->first()
             ?->subject;
     }
+
+    public function update(Model $model, array $data): Model|null
+    {        
+        $model->subject_id = $data['subject_id'];
+        $model->inspection->date = $data['inspection_date'];
+
+        $model->push();
+        return $model;
+    }    
 }

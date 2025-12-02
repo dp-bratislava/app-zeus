@@ -22,11 +22,12 @@ class InspectionAssignmentFrom
     {
         return [
             // date
-            Forms\Components\DatePicker::make('inspection.date')
+            Forms\Components\DatePicker::make('inspection_date')
                 ->label(__('inspections/inspection.form.fields.date'))
                 ->default(Carbon::now()),
             // template
-            InspectionTemplatePicker::make('inspection.template_id')
+            
+            InspectionTemplatePicker::make('inspection_template')
                 ->label(__('inspections/inspection.form.fields.template'))
                 ->relationship('inspection.template', 'title'),
             // subject
