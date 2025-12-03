@@ -28,7 +28,8 @@ class EditTicket extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('tickets/ticket.update_heading', ['title' => $this->record->id]);
+        // return __('tickets/ticket.update_heading', ['title' => $this->record->id]);
+        return __('tickets/ticket.update_heading', ['title' => $this->record->getTitleAttribute()]);
     }  
     
     protected function mutateFormDataBeforeFill(array $data): array

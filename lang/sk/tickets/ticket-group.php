@@ -2,7 +2,7 @@
 
 return [
     'create_heading' => 'Vytvoriť skupinu zákazky',
-    'list_heading' => 'Skupiny zákazkok',
+    'list_heading' => 'Skupiny zákazok',
     'update_heading' => 'Upraviť skupinu zákazky: :title',
     'form' => [
         'fields' => [
@@ -15,7 +15,7 @@ return [
         ],
     ],
     'table' => [
-        'heading' => 'Zakázky',
+        'heading' => 'Skupiny zákazok',
         'empty_state_heading' => 'Žiadne skupiny zákazok na zobrazenie',
         'row_groups' => [
         ],

@@ -28,6 +28,7 @@ return [
         'ticket' => 1,
         'ticket-item' => 2,
         'ticket-group' => 3,
-        'ticket-source' => 4,
+        'ticket-item-group' => 4,
+        'ticket-source' => 5,
     ], 
 ];

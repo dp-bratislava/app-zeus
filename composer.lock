@@ -201,12 +201,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:andrej-horny/pkg-tickets.git",
-                "reference": "67a8d44413e1b50066c3628c8e1cf87ddd91c091"
+                "reference": "8728567beb8dc415442b6b33a477cc31b086f1e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrej-horny/pkg-tickets/zipball/67a8d44413e1b50066c3628c8e1cf87ddd91c091",
-                "reference": "67a8d44413e1b50066c3628c8e1cf87ddd91c091",
+                "url": "https://api.github.com/repos/andrej-horny/pkg-tickets/zipball/8728567beb8dc415442b6b33a477cc31b086f1e7",
+                "reference": "8728567beb8dc415442b6b33a477cc31b086f1e7",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +242,7 @@
                 "source": "https://github.com/andrej-horny/pkg-tickets/tree/main",
                 "issues": "https://github.com/andrej-horny/pkg-tickets/issues"
             },
-            "time": "2025-11-14T16:13:38+00:00"
+            "time": "2025-12-03T13:51:14+00:00"
         },
         {
             "name": "andrej-horny/pkg-utils",

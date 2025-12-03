@@ -9,7 +9,7 @@
 
     {{-- Date filter --}}
     <input type="date" wire:model="filterDate" class="border p-2" />
-
+{{-- {{ dd($dailyExpeditions) }} --}}
     {{-- Display filtered data --}}
     @foreach ($dailyExpeditions as $vehicleModel => $dailyExpedition)
         <div class="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -19,9 +19,9 @@
                     @foreach ($dailyExpedition as $dailyExpeditionData)
                         {{-- {{ dd($dailyExpeditionData) }} --}}
                         <div @class([
-                            'bg-green-200' => $dailyExpeditionData['state'] === 'ok',
-                            'bg-yellow-200' => $dailyExpeditionData['state'] === 'split',
-                            'bg-red-200' => $dailyExpeditionData['state'] === 'no',
+                            'bg-green-200' => $dailyExpeditionData['state'] === 'in-service',
+                            'bg-yellow-200' => $dailyExpeditionData['state'] === 'split-servie',
+                            'bg-red-200' => $dailyExpeditionData['state'] === 'out-of-service',
                         ])>
                             <div class="inline">{{ $dailyExpeditionData['vehicle']['codes'][0]['code'] }}</div>
                             <div class="inline">{{ $dailyExpeditionData['service'] }}</div>

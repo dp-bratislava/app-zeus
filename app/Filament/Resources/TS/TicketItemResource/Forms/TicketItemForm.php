@@ -4,6 +4,7 @@ namespace App\Filament\Resources\TS\TicketItemResource\Forms;
 
 use App\Filament\Components\DepartmentPicker;
 use App\Filament\Components\VehiclePicker;
+use App\Filament\Resources\TS\TicketItemGroupResource\Forms\TicketItemGroupPicker;
 use App\Filament\Resources\TS\TicketItemResource\Forms\ActivityRepeater;
 use App\Filament\Resources\TS\TicketResource\Components\MaterialRepeater;
 use App\Filament\Resources\TS\TicketResource\Components\ServiceRepeater;
@@ -75,15 +76,17 @@ class TicketItemForm
             //     ->hiddenOn(TicketItemRelationManager::class),
 
             // title
-            Forms\Components\Select::make('group_id')
-                ->relationship('group', 'title')
-                ->label(__('tickets/ticket-item.form.fields.title'))
-                ->columnSpan(2)
-                // ->options(fn() => ActivityTemplateGroup::has('parent')->pluck('title', 'id'))
+            TicketItemGroupPicker::make('group_id')
                 ->getOptionLabelFromRecordUsing(fn(TicketItemGroup $record) => "{$record->code} {$record->title}")
-                ->searchable()
-                ->preload()
+                ->relationship('group', 'title')
+                ->columnSpan(2)
                 ->live(),
+            // Forms\Components\Select::make('group_id')
+            //     ->label(__('tickets/ticket-item.form.fields.title'))
+            //     // ->options(fn() => ActivityTemplateGroup::has('parent')->pluck('title', 'id'))
+            //     ->searchable()
+            //     ->preload()
+            //     ->live(),
 
             // assigned to e.g. maintenance group
             Forms\Components\ToggleButtons::make('assigned_to')
@@ -116,49 +119,61 @@ class TicketItemForm
             // supervised by
 
             // activities 
-            Forms\Components\Tabs::make('all_tabs')
-                ->columnSpan(4)
-                ->tabs([
-                    // activities
-                    Forms\Components\Tabs\Tab::make('activities')
-                        ->label(__('tickets/ticket-item.form.tabs.activities'))
-                        // ->badge(fn ($record) => $record->activities?->count() ?? 0)
-                        ->icon('heroicon-m-wrench')
-                        ->schema([
-                            ActivityRepeater::make('activities')
-                                ->label(__('tickets/ticket-item.form.fields.activities.title'))
-                            // ->relationship('activities'),
-                        ]),
-                    // materials
-                    Forms\Components\Tabs\Tab::make('materials')
-                        ->label(__('tickets/ticket-item.form.tabs.materials'))
-                        ->icon('heroicon-m-rectangle-stack')
-                        // ->badge(fn ($record) => $record->materials?->count() ?? 0)
-                        ->schema([
-                            MaterialRepeater::make('materials')
-                            // ->relationship('materials'),
-                        ]),
-                    // services
-                    Forms\Components\Tabs\Tab::make('services')
-                        ->label(__('tickets/ticket-item.form.tabs.services'))
-                        ->badge(0)
-                        ->icon('heroicon-m-user-group')
-                        ->schema([
-                            ServiceRepeater::make('services')
-                            // ->relationship('services'),
-                        ])
-                ]),
+            self::tabsSection(),
 
             // history / comments
             self::historySection()
-            ->columnSpan(2),
+                ->columnSpan(2),
         ];
     }
 
+    private static function tabsSection()
+    {
+        return Forms\Components\Tabs::make('all_tabs')
+            ->columnSpan(4)
+            ->tabs([
+                // activities
+                Forms\Components\Tabs\Tab::make('activities')
+                    ->label(__('tickets/ticket-item.form.tabs.activities'))
+                    // ->badge(fn ($record) => $record->activities?->count() ?? 0)
+                    ->icon('heroicon-m-wrench')
+                    ->schema([
+                        ActivityRepeater::make('activities')
+                            ->label(__('tickets/ticket-item.form.fields.activities.title'))
+                        // ->relationship('activities'),
+                    ]),
+                // materials
+                Forms\Components\Tabs\Tab::make('materials')
+                    ->label(__('tickets/ticket-item.form.tabs.materials'))
+                    ->icon('heroicon-m-rectangle-stack')
+                    // ->badge(fn ($record) => $record->materials?->count() ?? 0)
+                    ->schema([
+                        Forms\Components\Section::make('TO DO')
+                            ->description('TO DO: pripravujeme')
+                            ->schema([
+                                MaterialRepeater::make('materials')
+                                // ->relationship('materials'),
+                            ]),
+                    ]),
+                // services
+                Forms\Components\Tabs\Tab::make('services')
+                    ->label(__('tickets/ticket-item.form.tabs.services'))
+                    ->badge(0)
+                    ->icon('heroicon-m-user-group')
+                    ->schema([
+                        Forms\Components\Section::make('TO DO')
+                            ->description('TO DO: pripravujeme')
+                            ->schema([
+                                ServiceRepeater::make('services')
+                                // ->relationship('services'),
+                            ]),
+                    ])
+            ]);
+    }
     private static function historySection(): Forms\Components\Section
     {
         return Forms\Components\Section::make('TO DO')
-            ->description('TO DO: pripravujeme. ')            
+            ->description('TO DO: pripravujeme. ')
             ->schema([
                 Forms\Components\Tabs::make('comments_tabs')
                     ->tabs([

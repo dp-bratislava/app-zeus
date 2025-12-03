@@ -32,10 +32,12 @@ class CustomListDailyExpeditions extends Page
     public function updatedFilterDate()
     {
         $this->loadFilteredData();
+        print_r($this->filterDate);
     }
 
     public function loadFilteredData()
     {
+        print_r($this->filterDate);
         $this->dailyExpeditions = app(DailyExpedition::class)
             ->with(['vehicle.model', 'vehicle.codes'])
             ->where('date', '=', $this->filterDate)

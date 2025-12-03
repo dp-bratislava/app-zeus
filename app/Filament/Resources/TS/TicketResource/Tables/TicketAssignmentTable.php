@@ -48,8 +48,12 @@ class TicketAssignmentTable
                 // ->state(function ($record, TicketAssignment $svc) {
                 //     return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
                 // }),
+                // group type 
                 Tables\Columns\TextColumn::make('ticket.group.title')
                     ->label(__('tickets/ticket.table.columns.group')),
+                // title
+                Tables\Columns\TextColumn::make('title')
+                    ->label(__('tickets/ticket.table.columns.title')),
                 // Tables\Columns\TextColumn::make('title')
                 //     ->label(__('tickets/ticket.table.columns.title.label')),
                 // deacription
