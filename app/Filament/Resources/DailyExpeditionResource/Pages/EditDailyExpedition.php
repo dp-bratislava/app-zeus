@@ -5,6 +5,7 @@ namespace App\Filament\Resources\DailyExpeditionResource\Pages;
 use App\Filament\Resources\DailyExpeditionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditDailyExpedition extends EditRecord
 {
@@ -16,4 +17,9 @@ class EditDailyExpedition extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    
+    public function getTitle(): string | Htmlable
+    {
+        return __('daily-expedition.update_heading', ['title' => $this->record->id]);
+    }  
 }

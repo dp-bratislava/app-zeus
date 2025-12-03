@@ -67,6 +67,12 @@ return [
             ],
             'source' => ['label' => 'Miesto výskytu'],
             'expenses' => 'Náklady'
+        ],
+        'filters' => [
+            'date' => 'Dátum',
+            'group' => 'Detail poruchy',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
         ]
     ],
     'navigation' => [

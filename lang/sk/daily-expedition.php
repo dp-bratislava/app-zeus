@@ -7,13 +7,15 @@ return [
     'form' => [
         'fields' => [
             'date' => 'Dátum',
-            'vehicles_repeater' => 'Vozidlá',
-            'vehicles' => [
-                'state' => 'Stav',
-                'service' => 'Služba',
-                'note' => 'Poznámka',
-                'vehicle' => 'Vozidlo',
-            ],
+            'vehicles_repeater' => [
+                'label' => 'Vozidlá',
+                'fields' => [
+                    'state' => 'Stav',
+                    'service' => 'Služba',
+                    'note' => 'Poznámka',
+                    'vehicle' => 'Vozidlo',
+                ],
+            ]
         ],
     ],
     'table' => [

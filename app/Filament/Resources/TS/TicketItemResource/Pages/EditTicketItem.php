@@ -21,7 +21,8 @@ class EditTicketItem extends EditRecord
     {
         $subjectCode = null;
         // $subjectCode = app(TicketAssignment::class)->whereBelongsTo($this->record->ticket, 'ticket')->first()->subject?->code?->code;
-        return __('tickets/ticket-item.update_heading', ['code' => $subjectCode, 'subject' => '']);
+        // return __('tickets/ticket-item.update_heading', ['title' => $this->record->ticketItem->ticket->get, 'subject' => '']);
+        return '';
     }  
 
     protected function getHeaderActions(): array

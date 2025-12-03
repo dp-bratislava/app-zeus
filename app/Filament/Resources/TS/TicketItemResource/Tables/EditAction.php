@@ -19,7 +19,7 @@ class EditAction
     {
         return ActionsEditAction::make()
             ->modalWidth(MaxWidth::class)
-            // ->modalHeading(fn($record) => dd($record->ticke))
+            ->modalHeading(__('tickets/ticket-item.update_heading', ['code' => '', 'subject' => '']))
             ->mutateRecordDataUsing(function (
                 $record,
                 array $data,

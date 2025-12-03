@@ -40,11 +40,11 @@ class TicketItemResource extends Resource
         return config('pkg-tickets.navigation.ticket-item') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        // return auth()->user()->can('tickets.ticket-item.read');
-        return false;
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     // return auth()->user()->can('tickets.ticket-item.read');
+    //     return false;
+    // }
 
     public static function form(Form $form): Form
     {

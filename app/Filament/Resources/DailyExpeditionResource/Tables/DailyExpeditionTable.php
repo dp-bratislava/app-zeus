@@ -2,23 +2,17 @@
 
 namespace App\Filament\Resources\DailyExpeditionResource\Tables;
 
-use App\Models\DispatchReport;
-use App\Services\Fleet\VehicleService;
-use App\Services\Inspection\CreateTicketService;
-use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
-use App\Services\TS\TicketAssignmentService;
-use App\States;
-use Dpb\Package\Inspections\Models\Inspection;
+use App\Filament\Resources\DailyExpeditionResource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
 
 class DailyExpeditionTable
 {
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('daily-expedition.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->state) {
@@ -31,10 +25,10 @@ class DailyExpeditionTable
                 // date
                 Tables\Columns\TextColumn::make('date')->date('j.n.Y')
                     ->label(__('daily-expedition.table.columns.date')),
-                    // vehicle code
+                // vehicle code
                 Tables\Columns\TextColumn::make('vehicle.code.code')
                     ->label(__('daily-expedition.table.columns.vehicle')),
-                    // vehicle model
+                // vehicle model
                 Tables\Columns\TextColumn::make('vehicle.model.title')
                     ->label(__('daily-expedition.table.columns.vehicle_model')),
 
@@ -69,6 +63,20 @@ class DailyExpeditionTable
                     ->label(__('daily-expedition.table.columns.note'))
                     ->grow(),
             ])
-            ->filters(DailyExpeditionTableFilters::make());
+            ->filters(DailyExpeditionTableFilters::make())
+            ->headerActions([
+                Tables\Actions\Action::make('bulkCreate')
+                    ->label('Vytvoriť')
+                    ->color('primary')
+                    ->icon('heroicon-o-plus')
+                    ->url(DailyExpeditionResource::getUrl('bulk-create')),
+
+                Tables\Actions\Action::make('bulkCreate2')
+                    ->label('Vytvoriť 2')
+                    ->color('primary')
+                    ->icon('heroicon-o-plus')
+                    ->url(DailyExpeditionResource::getUrl('bulk-create-2')),
+
+            ]);
     }
 }

@@ -10,15 +10,16 @@ use Dpb\Package\Activities\Models\ActivityTemplate;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Forms\Components\Component;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\Collection;
 
 class VehicleRepeater
 {
-    public static function make(string $uri, Collection|null $options = null): Component
+    public static function make1(string $uri, Collection|null $options = null): Component
     {
-        return TableRepeater::make($uri)            
+        return TableRepeater::make($uri)
             ->grid(4)
             ->columnSpanFull()
             // ->columnSpan(4)
@@ -74,6 +75,75 @@ class VehicleRepeater
                     ->columnSpan(1),
             ])
             ->default($options)
+            ->addable(false)
+            ->deletable(false);
+    }
+
+    public static function make(string $uri, Collection|null $options = null): Component
+    {
+        return Repeater::make($uri)
+            ->grid(4)
+            ->columnSpanFull()
+            // ->columnSpan(4)
+            ->columns(4)
+            ->schema([
+                // vehicle
+                Forms\Components\Hidden::make('vehicle_id'),
+                Forms\Components\TextInput::make('vehicle_title')
+                    ->hiddenLabel()
+                    ->columnSpan(1)
+                    ->readOnly(),
+                // Forms\Components\Select::make('vehicle')
+                //     ->label(__('tickets/ticket-item.form.fields.title'))
+                //     ->columnSpan(3)
+                //     // ->options(fn() => Vehicle::pluck('code_1', 'id'))
+                //     ->options(
+                //         fn() => Vehicle::with('model')
+                //         ->limit(10)
+                //         ->get()
+                //         ->map(function ($record) {
+                //             return [
+                //                 'id' => $record->id,
+                //                 'label' => $record->code->code . ' - ' . $record?->model?->title
+                //             ];
+                //         })
+                //     )
+                //     ->searchable(),
+                // state 
+                Forms\Components\ToggleButtons::make('state')
+                    ->hiddenLabel()
+                    ->options([
+                        'ok' => 'Jazdí',
+                        'split' => 'Delená',
+                        'no' => 'Odstavené',
+                    ])
+                    ->colors([
+                        'ok' => 'success',
+                        'split' => 'warning',
+                        'no' => 'danger',
+                    ])
+                    ->default('ok')
+                    ->inline()
+                    ->grouped()
+                    ->columnSpan(3),
+                    // service
+                // Forms\Components\TextInput::make('service')
+                //     ->hiddenLabel()
+                //     ->placeholder(__('daily-expedition.form.fields.vehicles_repeater.fields.service'))
+                //     ->columnSpan(1),
+                // note
+                // Forms\Components\Section::make('')
+                //     ->collapsible()
+                //     ->collapsed()
+                //     ->schema([
+                //         Forms\Components\TextInput::make('note')
+                //             ->hiddenLabel()
+                //             ->placeholder(__('daily-expedition.form.fields.vehicles_repeater.fields.note'))
+                //             ->columnSpan(3),
+                //     ])
+            ])
+            ->default($options)
+            ->reorderable(false)
             ->addable(false)
             ->deletable(false);
     }

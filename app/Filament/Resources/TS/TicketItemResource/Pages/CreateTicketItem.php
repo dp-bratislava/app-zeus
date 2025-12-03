@@ -15,7 +15,7 @@ class CreateTicketItem extends CreateRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('tickets/ticket.create_heading');
+        return __('tickets/ticket-item.create_heading');
     } 
 
     protected function handleRecordCreation(array $data): Model

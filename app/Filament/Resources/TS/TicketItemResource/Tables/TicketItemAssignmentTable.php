@@ -33,6 +33,7 @@ class TicketItemAssignmentTable
     {
         return $table
             ->heading(__('tickets/ticket.relation_manager.ticket_items.table.heading'))
+            ->description('Pridávanie a editácia zatiaľ len cez zákazku')
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->ticketItem->state?->getValue()) {
@@ -65,8 +66,9 @@ class TicketItemAssignmentTable
                 // Tables\Columns\TextColumn::make('parent.id')
                 //     ->label(__('tickets/ticket-item.table.columns.parent.label')),
                 // title 
-                Tables\Columns\TextColumn::make('group.title')
+                Tables\Columns\TextColumn::make('ticketItem.group.title')
                     ->label(__('tickets/ticket-item.table.columns.group.label')),
+                // ->state(fn($record) => print_r($record->group)),
                 // Tables\Columns\TextColumn::make('title')
                 //     ->label(__('tickets/ticket-item.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('ticketItem.description')
@@ -86,11 +88,11 @@ class TicketItemAssignmentTable
                 //         }),
                 // ),
                 // TextColumn::make('department.code'),
-                Tables\Columns\TextColumn::make('subject')
+                Tables\Columns\TextColumn::make('ticketItem.ticket.subject')
                     ->label(__('tickets/ticket-item.table.columns.subject.label'))
                     ->state(function (TicketItemAssignment $record, TicketAssignmentService $svc) {
-                        if ($record->ticket !== null) {
-                            return $svc->getSubject($record->ticket)?->code?->code;
+                        if ($record->ticketItem->ticket !== null) {
+                            return $svc->getSubject($record->ticketItem->ticket)?->code?->code;
                         }
                     })
                     ->hiddenOn(TicketItemRelationManager::class),
@@ -161,20 +163,18 @@ class TicketItemAssignmentTable
                 //     }),
 
             ])
-            ->filters([
-                //
-            ])
+            ->filters(TicketItemAssignmentTableFilters::make())
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),                    
-                Tables\Actions\DeleteAction::make(),
+                // ViewAction::make(),
+                // EditAction::make(),                    
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

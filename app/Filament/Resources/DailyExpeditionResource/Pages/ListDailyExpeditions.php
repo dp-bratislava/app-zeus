@@ -5,6 +5,7 @@ namespace App\Filament\Resources\DailyExpeditionResource\Pages;
 use App\Filament\Resources\DailyExpeditionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListDailyExpeditions extends ListRecords
 {
@@ -21,4 +22,9 @@ class ListDailyExpeditions extends ListRecords
                 ->url(DailyExpeditionResource::getUrl('bulk-create')),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }      
 }

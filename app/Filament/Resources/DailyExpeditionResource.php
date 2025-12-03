@@ -63,6 +63,7 @@ class DailyExpeditionResource extends Resource
             'custom-index' => Pages\CustomListDailyExpeditions::route('/custom-index'),
             // 'create' => Pages\CreateDailyExpedition::route('/create'),
             'bulk-create' => Pages\BulkCreateDailyExpedition::route('/bulk-create'),
+            'bulk-create-2' => Pages\BulkCreateDailyExpedition2::route('/bulk-create-2'),
             'edit' => Pages\EditDailyExpedition::route('/{record}/edit'),
         ];
     }
