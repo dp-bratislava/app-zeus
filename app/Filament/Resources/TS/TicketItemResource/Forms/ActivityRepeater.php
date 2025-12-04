@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\TS\TicketItemResource\Forms;
 
 use App\Filament\Components\ActivityTemplatePicker;
+use App\Models\ActivityTemplatable;
 use App\Services\TS\ActivityService;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
@@ -28,9 +29,9 @@ class ActivityRepeater
                 // Header::make('e1'),
                 // Header::make('e2'),
             ])
-            ->schema([                
+            ->schema([
                 //date
-                Forms\Components\DatePicker::make('date')                
+                Forms\Components\DatePicker::make('date')
                     ->columnSpan(1)
                     ->default(now()),
                 // activity template
@@ -42,7 +43,7 @@ class ActivityRepeater
                     //     ->pluck('title', 'id')
                     // )
                     ->options(fn() => ActivityTemplate::pluck('title', 'id'))
-                    ->searchable(),                      
+                    ->searchable(),
                 // Forms\Components\Select::make('activity_template_id')
                 //     ->label(__('tickets/ticket-item.form.fields.title'))
                 //     ->columnSpan(5)
@@ -79,11 +80,12 @@ class ActivityRepeater
         return Repeater::make($uri)
             ->defaultItems(0)
             ->cloneable()
+            ->reorderable(false)
             ->columns(5)
             ->columnSpanFull()
-            ->schema([                
+            ->schema([
                 //date
-                Forms\Components\DatePicker::make('date')                
+                Forms\Components\DatePicker::make('date')
                     ->label(__('tickets/ticket-item.form.fields.date'))
                     ->columnSpan(1)
                     ->default(now()),
@@ -92,11 +94,22 @@ class ActivityRepeater
                     // ->relationship('template', 'title')
                     ->label(__('tickets/ticket-item.form.fields.title'))
                     ->columnSpan(4)
-                    // ->options(fn(Get $get) => ActivityTemplate::where('template_group_id', $get('../activity_template_group_id'))
-                    //     ->pluck('title', 'id')
-                    // )
-                    ->options(fn() => ActivityTemplate::pluck('title', 'id'))
-                    ->searchable(),                      
+                    ->options(
+                        function (Get $get) {
+                            // ActivityTemplate::where('template_group_id', $get('../activity_template_group_id'))
+                            //     ->pluck('title', 'id')
+                            $vehicleModelId = '128';
+                            $ticketItemGroupId = '1';
+                            return ActivityTemplatable::byTemplatable('vehicle-model', $vehicleModelId)
+                                ->byTemplatable('ticket-item-group', $ticketItemGroupId)
+                                ->get()
+                                ->mapWithKeys(fn($templatable) => [
+                                    $templatable->template->id => "{$templatable->template->title} {$templatable->template->duration}" 
+                                ]);
+                        }
+                    )
+                    // ->options(fn() => ActivityTemplate::pluck('title', 'id'))
+                    ->searchable(),
                 // Forms\Components\Select::make('activity_template_id')
                 //     ->label(__('tickets/ticket-item.form.fields.title'))
                 //     ->columnSpan(5)

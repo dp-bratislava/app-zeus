@@ -11,9 +11,11 @@ class DailyExpeditionForm
 {
     public static function defaultVehicles(): array
     {
-        return Vehicle::whereHas('model', fn($q) => 
-                $q->whereLike('title', 'SOR%')
-            )
+        return Vehicle::whereHas(
+            'model',
+            fn($q) =>
+            $q->whereLike('title', 'SOR%')
+        )
             ->limit(10)
             ->get()
             ->map(fn($vehicle) => [
@@ -25,7 +27,7 @@ class DailyExpeditionForm
             ])
             ->toArray();
     }
-    
+
     public static function make(Form $form): Form
     {
         return $form
@@ -36,14 +38,18 @@ class DailyExpeditionForm
     public static function schema(): array
     {
         return [
-                // date
-                Forms\Components\DatePicker::make('date')
-                    ->label(__('daily-expedition.form.fields.date'))
-                    ->default(Carbon::now()),
-                // vehicles
-                // VehicleRepeater::make('vehicles', $vehicles),
-                VehicleRepeater::make('vehicles')
-                    ->label(__('daily-expedition.form.fields.vehicles_repeater.label')),
+            Forms\Components\Section::make('TO DO')
+                ->description('TO DO: pripravujeme. Náhľad č. 1')
+                ->schema([
+                    // date
+                    Forms\Components\DatePicker::make('date')
+                        ->label(__('daily-expedition.form.fields.date'))
+                        ->default(Carbon::now()),
+                    // vehicles
+                    // VehicleRepeater::make('vehicles', $vehicles),
+                    VehicleRepeater::make('vehicles')
+                        ->label(__('daily-expedition.form.fields.vehicles_repeater.label')),
+                ])
         ];
     }
 }

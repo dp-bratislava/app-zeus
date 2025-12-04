@@ -54,8 +54,9 @@ class InspectionAssignmentTable
                 Tables\Columns\TextColumn::make('distance_traveled')
                     ->label(__('inspections/inspection.table.columns.distance_traveled')),
             ])
-            ->filters([
-                //
+            ->filters(InspectionTableFilters::make())
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -77,7 +78,7 @@ class InspectionAssignmentTable
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

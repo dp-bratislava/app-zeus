@@ -25,6 +25,7 @@ class MaterialRepeater
                 Header::make('VAT'),
                 Header::make('attachments'),
             ])
+            ->addable(false)            
             ->schema([
                 Forms\Components\DatePicker::make('date')
                     ->columnSpan(1)

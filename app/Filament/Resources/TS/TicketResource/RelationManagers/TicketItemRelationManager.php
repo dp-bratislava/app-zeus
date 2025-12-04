@@ -34,6 +34,7 @@ class TicketItemRelationManager extends RelationManager
                     //     $data['assigned_to'] = 1;
                     //     return $data;
                     // })
+                    ->modalHeading(__('tickets/ticket-item.create_heading'))
                     ->using(function (array $data, TicketItemRepository $ticketItemRepo): ?Model {
                         // dd($data);
                         $data['ticket_id'] = $this->getOwnerRecord()->id;

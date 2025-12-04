@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Activity\ActivityTemplateResource\Tables;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
-use App\Models\ActivityTemplateAssignment;
+use App\Models\ActivityTemplatable;
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -14,6 +14,7 @@ class ActivityTemplateTable
     public static function make(Table $table): Table
     {
         return $table
+                    ->heading(__('activities/activity-template.table.heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
@@ -41,9 +42,14 @@ class ActivityTemplateTable
 
                 //         return $svc->getUnitRate($record)?->formatted_rate;
                 //     }),
-                Tables\Columns\TextColumn::make('subject')
+                // templatable
+                Tables\Columns\TextColumn::make('templatable')
                     ->label('subj')
-                    ->state(fn($record, ActivityTemplateAssignment $activityTemplateAssignment) => $activityTemplateAssignment->where('template_id', '=', $record->id)->with('subject')->get()->pluck('subject.title'))
+                    ->state(fn($record, ActivityTemplatable $templatable) => $templatable
+                        ->where('template_id', '=', $record->id)
+                        ->with('templatable')
+                        ->get()
+                        ->pluck('templatable.title'))
             ])
             ->filters([
                 // Tables\Filters\SelectFilter::make('subject')
@@ -54,9 +60,10 @@ class ActivityTemplateTable
                 //     ->multiple()
             ])
             ->headerActions([
-                Tables\Actions\ImportAction::make()
-                    ->importer(ActivityTemplateImporter::class)
-                    ->csvDelimiter(';')
+                // Tables\Actions\ImportAction::make()
+                //     ->importer(ActivityTemplateImporter::class)
+                //     ->csvDelimiter(';')
+                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

@@ -47,24 +47,7 @@ class VehicleStatusReportTable
                 // Tables\Columns\TextColumn::make('ziad cislo'),
                 // ->state('16/2025'),
                 // days out of service
-                Tables\Columns\TextColumn::make('outOfServiceDays')
-                    ->label(__('reports/vehicle-status-report.table.columns.days_out_of_service.label'))
-                    // ->state(function () {
-                    //     return floor(Carbon::parse('2025-05-01')->diffInDays());
-                    //     // return rand(1, 3);
-                    // })
-                    ->badge()
-                    ->color(function ($state) {
-                        if ($state > 30) {
-                            return 'danger';
-                        } elseif (($state > 10)) {
-                            return 'warning';
-                        } elseif (($state <= 10)) {
-                            return 'success';
-                        }
-
-                        return null;
-                    }),
+                self::outOfServiceDaysColumn(),
 
                 // Tables\Columns\TextColumn::make('rds')
                 //     ->label(__('reports/vehicle-status-report.table.columns.rds')),
@@ -82,9 +65,7 @@ class VehicleStatusReportTable
                 // ->state('2025-05-05'),
 
             ])
-            ->filters([
-                //
-            ])
+            ->filters(VehicleStatusReportTableFilters::make())
             ->actions([
                 // Tables\Actions\EditAction::make(),
             ])
@@ -93,5 +74,27 @@ class VehicleStatusReportTable
                     // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    private static function outOfServiceDaysColumn()
+    {
+        return Tables\Columns\TextColumn::make('outOfServiceDays')
+            ->label(__('reports/vehicle-status-report.table.columns.days_out_of_service.label'))
+            // ->state(function () {
+            //     return floor(Carbon::parse('2025-05-01')->diffInDays());
+            //     // return rand(1, 3);
+            // })
+            ->badge()
+            ->color(function ($state) {
+                if ($state > 30) {
+                    return 'danger';
+                } elseif (($state > 10)) {
+                    return 'warning';
+                } elseif (($state <= 10)) {
+                    return 'success';
+                }
+
+                return null;
+            });
     }
 }

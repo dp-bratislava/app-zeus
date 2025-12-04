@@ -34,7 +34,7 @@ class TicketItemForm
     public static function make(Form $form): Form
     {
         return $form
-            ->columns(6)
+            ->columns(7)
             ->schema(static::schema());
         // ->schema([
 
@@ -46,34 +46,11 @@ class TicketItemForm
     public static function schema(): array
     {
         return [
-            // // ticket
-            // Forms\Components\Select::make('ticket_id')
-            //     ->label(__('tickets/ticket-item.form.fields.ticket'))
-            //     ->columnSpanFull()
-            //     ->relationship('ticket', 'title', null, true)
-            //     // ->getOptionLabelsUsing(fn(Ticket $record, TicketAssignment $ticketAssignment) => "{$record->id} - {$record->title}")
-            //     ->preload()
-            //     ->searchable()
-            //     ->required()
-            //     ->hiddenOn(TicketItemRelationManager::class),
-
             // date
             Forms\Components\DatePicker::make('date')
                 ->label(__('tickets/ticket-item.form.fields.date'))
                 ->columnSpan(1)
                 ->default(now()),
-            // // subject
-            // Forms\Components\Select::make('subject_id')
-            //     ->label(__('tickets/ticket-item.form.fields.subject'))
-            //     ->columnSpan(1)
-            //     // ->relationship('source', 'title', null, true)
-            //     ->options(fn() => Vehicle::pluck('code_1', 'id'))
-            //     ->getOptionLabelsUsing(fn($record) => "{$record->code->code} - {$record->model->title}")
-            //     ->preload()
-            //     ->searchable()
-            //     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-            //     ->required(false)
-            //     ->hiddenOn(TicketItemRelationManager::class),
 
             // title
             TicketItemGroupPicker::make('group_id')
@@ -119,7 +96,8 @@ class TicketItemForm
             // supervised by
 
             // activities 
-            self::tabsSection(),
+            self::tabsSection()
+                ->columnSpan(5),
 
             // history / comments
             self::historySection()
@@ -130,7 +108,6 @@ class TicketItemForm
     private static function tabsSection()
     {
         return Forms\Components\Tabs::make('all_tabs')
-            ->columnSpan(4)
             ->tabs([
                 // activities
                 Forms\Components\Tabs\Tab::make('activities')
@@ -138,8 +115,10 @@ class TicketItemForm
                     // ->badge(fn ($record) => $record->activities?->count() ?? 0)
                     ->icon('heroicon-m-wrench')
                     ->schema([
-                        ActivityRepeater::make('activities')
-                            ->label(__('tickets/ticket-item.form.fields.activities.title'))
+                        Forms\Components\Section::make('TO DO')
+                             ->description('TO DO: pripravujeme. Toto bude integrované s fondom pracovného času')
+                        // ActivityRepeater::make('activities')
+                        //     ->label(__('tickets/ticket-item.form.fields.activities.title'))
                         // ->relationship('activities'),
                     ]),
                 // materials
@@ -183,17 +162,9 @@ class TicketItemForm
                             ->badge(3)
                             ->icon('heroicon-m-wrench')
                             ->schema([
-                                TableRepeater::make('comments')
-                                    ->headers([
-                                        Header::make('created_at')->label(__('tickets/ticket-item.form.fields.activities.date')),
-                                        Header::make('author')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                        Header::make('body')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                    ])
-                                    ->schema([
-                                        Forms\Components\DateTimePicker::make('date1'),
-                                        Forms\Components\RichEditor::make('body')
-                                    ])
-                                    ->deletable(false)
+                                Forms\Components\TextInput::make('h1')->readOnly()->placeholder('...')->hiddenLabel(),
+                                Forms\Components\TextInput::make('h2')->readOnly()->placeholder('...')->hiddenLabel(),
+                                Forms\Components\RichEditor::make('body')->disabled()->hiddenLabel(),
                                 // ->addable(false)
                             ]),
                         // history
@@ -202,17 +173,9 @@ class TicketItemForm
                             ->icon('heroicon-m-rectangle-stack')
                             ->badge(2)
                             ->schema([
-                                TableRepeater::make('history')
-                                    ->headers([
-                                        Header::make('date')->label(__('tickets/ticket-item.form.fields.activities.date')),
-                                        Header::make('template')->label(__('tickets/ticket-item.form.fields.activities.template')),
-                                    ])
-                                    ->schema([
-                                        Forms\Components\DatePicker::make('date'),
-                                        Forms\Components\TextInput::make('title')
-                                    ])
-                                    ->deletable(false)
-                                    ->addable(false)
+                                Forms\Components\TextInput::make('h1')->readOnly()->placeholder('...')->hiddenLabel(),
+                                Forms\Components\TextInput::make('h2')->readOnly()->placeholder('...')->hiddenLabel(),
+                                Forms\Components\TextInput::make('h3')->readOnly()->placeholder('...')->hiddenLabel(),
                             ]),
                     ]),
             ]);

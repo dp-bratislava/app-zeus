@@ -5,8 +5,7 @@ return [
     'table' => [
         'heading' => 'Správka',
         'description' => 'ZATIAĽ: Vozy čo majú v štrkáči ako posledné, že sú odstavené',
-        'row_groups' => [
-        ],
+        'row_groups' => [],
         'columns' => [
             'code' => 'Kód',
             'vin' => 'VIN',
@@ -31,12 +30,15 @@ return [
             'days_out_of_service' => [
                 'label' => 'V správke dní',
                 'tooltip' => '',
-            ],            
+            ],
             'closest_inspections' => [
                 'label' => 'STK/EK',
                 'tooltip' => 'Najbližšie plánované kontroly',
-            ],            
-        ]
+            ],
+        ],
+        'filters' => [
+            'model' => 'Model',
+        ],
     ],
     'navigation' => [
         'label' => 'Správka',
@@ -50,5 +52,5 @@ return [
         'in-service' => 'V prevádzke',
         'under-repair' => 'V oprave',
         'discarded' => 'Vyradené',
-    ]     
+    ]
 ];

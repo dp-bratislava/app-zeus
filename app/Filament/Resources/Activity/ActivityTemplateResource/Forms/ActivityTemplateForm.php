@@ -32,8 +32,8 @@ class ActivityTemplateForm
                     ->visible(fn(Get $get) => $get('is_divisible')),
 
                 // subject
-                Forms\Components\Select::make('subject_id')
-                    ->label(__('activities/activity-template.form.fields.subject'))
+                Forms\Components\Select::make('templatable_id')
+                    ->label(__('activities/activity-template.form.fields.templatable'))
                     ->options(fn() => VehicleModel::pluck('title', 'id'))
                     ->preload()
                     ->searchable(),

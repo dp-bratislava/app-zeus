@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Inspection\DailyMaintenanceResource\Tables;
+namespace App\Filament\Resources\Inspection\InspectionResource\Tables;
 
 use App\Filament\Components\VehiclePicker;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
@@ -12,7 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\ToggleButtons;
 use App\States;
 
-class DailyMaintenanceTableFilters
+class InspectionTableFilters
 {
     public static function make(): array
     {
@@ -21,7 +21,7 @@ class DailyMaintenanceTableFilters
             Tables\Filters\Filter::make('date')
                 ->form([
                     DatePicker::make('date')
-                        ->label(__('inspections/daily-maintenance.table.filters.date')),
+                        ->label(__('inspections/inspection.table.filters.date')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -81,7 +81,7 @@ class DailyMaintenanceTableFilters
                         ->getOptionLabelFromRecordUsing(null)
                         ->searchable()
                         ->multiple()
-                        ->label(__('inspections/daily-maintenance.table.filters.subject')),
+                        ->label(__('inspections/inspection.table.filters.subject')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query

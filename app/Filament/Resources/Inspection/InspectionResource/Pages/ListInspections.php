@@ -36,18 +36,18 @@ class ListInspections extends ListRecords
                         $q->byTemplateGroup('daily-maintenance');
                     })
                 ),
-            'stk' => Tab::make('STK')
+            'planned-maintenance' => Tab::make('STK / EK / RK')
                 ->modifyQueryUsing(
                     fn(Builder $query) => $query->whereHas('inspection', function ($q) {
                         $q->byTemplateGroup('planned-maintenance');
                     })
                 ),
-            'ek' => Tab::make('EK')
-                ->modifyQueryUsing(
-                    fn(Builder $query) => $query->whereHas('inspection', function ($q) {
-                        $q->byTemplateGroup('ek');
-                    })
-                ),
+            // 'ek' => Tab::make('EK')
+            //     ->modifyQueryUsing(
+            //         fn(Builder $query) => $query->whereHas('inspection', function ($q) {
+            //             $q->byTemplateGroup('ek');
+            //         })
+            //     ),
         ];
     }
 }

@@ -41,10 +41,15 @@ class DailyExpeditionForm2
     public static function schema(): array
     {
         return [
-            // maintenance group
-            self::maintenanceGroupField(),
-            // vehicles
-            self::vehiclesField(),
+            Forms\Components\Section::make('TO DO')
+                ->description('TO DO: pripravujeme. Náhľad č. 2')
+                ->schema([
+
+                    // maintenance group
+                    self::maintenanceGroupField(),
+                    // vehicles
+                    self::vehiclesField(),
+                ])
         ];
     }
 

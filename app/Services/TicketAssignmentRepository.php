@@ -85,7 +85,7 @@ class TicketAssignmentRepository
 
         // source TO DO
         $source = null;
-        if ($data['source'] == 'incident') {
+        if (isset($data['source']) && $data['source'] == 'incident') {
             $source = $this->incidentRepository->createFromTicket([
                 'date' => $ticketData['date'],
                 'description' => $ticketData['description'] ?? null,
@@ -93,8 +93,8 @@ class TicketAssignmentRepository
                 'subject_id' => $data['subject_id']
             ]);
         }
-        else if (!isset($data['source'])) {
-            
+        else {
+            $source = TicketSource::byCode('during-maintenance')->first();
         }
 
         $author = $this->guard->id();

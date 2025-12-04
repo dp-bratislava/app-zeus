@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
             'inspection-template' => \Dpb\Package\Inspections\Models\InspectionTemplate::class,
             'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
             'ticket-item' => \Dpb\Package\Tickets\Models\TicketItem::class,
+            'ticket-item-group' => \Dpb\Package\Tickets\Models\TicketItemGroup::class,
             'user' => \App\Models\User::class,
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
             'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,

@@ -16,7 +16,7 @@ class TicketAssignmentForm
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('tickets/ticket.form.sections.ticket'))
+                Forms\Components\Section::make(fn(string $operation, $record) => __('tickets/ticket.form.sections.ticket', ['title' => $operation === 'view' ? $record->title : '']))
                     ->columns(7)
                     ->schema([
                         // date
@@ -34,14 +34,16 @@ class TicketAssignmentForm
                             ->relationship('ticket.group', 'title')
                             ->live(),
                         // source
-                        self::sourceField(),
+                        // self::sourceField(),
                         // description
                         Forms\Components\Textarea::make('ticket.description')
                             ->label(__('tickets/ticket.form.fields.description'))
                             ->columnSpanFull(),
 
                         // summary
-                        self::summarySection(),
+                        // self::summarySection()
+                        //     ->columns(2)
+                        //     ->visible(fn(string $operation) => $operation === 'edit')
                     ])
             ]);
     }
@@ -50,7 +52,6 @@ class TicketAssignmentForm
     {
         return Forms\Components\Section::make('TO DO')
             ->description('TO DO: pripravujeme')
-            ->columns(2)
             ->schema([
                 Forms\Components\TextInput::make('cas')
                     ->hiddenLabel()
@@ -127,15 +128,16 @@ class TicketAssignmentForm
             ->searchable()
             // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
             ->required()
-            ->afterStateUpdated(
-                fn(Set $set, $state) =>
-                dd($state)
-                // $set(
-                //     'assigned_to_id',
-                //     Vehicle::with('maintenanceGroup')
-                //         ->findSole($state)
-                //         ->maintenance_group_id ?? null
-                // )
-            );
+            // ->afterStateUpdated(
+            // fn(Set $set, $state) =>
+            // dd($state)
+            // $set(
+            //     'assigned_to_id',
+            //     Vehicle::with('maintenanceGroup')
+            //         ->findSole($state)
+            //         ->maintenance_group_id ?? null
+            // )
+            // );
+        ;
     }
 }

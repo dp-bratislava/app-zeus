@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use App\Filament\Resources\Activity\ActivityTemplateResource;
-use App\Models\ActivityTemplateAssignment;
+use App\Models\ActivityTemplatable;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -21,14 +21,14 @@ class EditActivityTemplate extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template.form.update_heading');
+        return __('activities/activity-template.form.update_heading', ['title' => $this->record->title]);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $subjectId = ActivityTemplateAssignment::whereBelongsTo($this->record, 'template')->first()?->subject?->id;
+        $subjectId = ActivityTemplatable::whereBelongsTo($this->record, 'template')->first()?->subject?->id;
 
-        $data['subject_id'] = $subjectId;
+        $data['templatable_id'] = $subjectId;
         return $data;
     }
 }

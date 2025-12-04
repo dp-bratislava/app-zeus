@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Activity\ActivityResource\Tables;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
-use App\Models\ActivityTemplateAssignment;
+use App\Models\ActivityTemplatable;
 use App\Services\TicketService;
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Tables;

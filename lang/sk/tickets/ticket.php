@@ -2,6 +2,7 @@
 
 return [
     'create_heading' => 'Vytvoriť zákazku',
+    'view_heading' => 'Zákazka: :title',
     'list_heading' => 'Zákazky',
     'update_heading' => 'Upraviť zákazku: :title',
     'form' => [
@@ -16,7 +17,7 @@ return [
             'department' => 'Stredisko',
         ],
         'sections' => [
-            'ticket' => 'Zákazka',
+            'ticket' => 'Zákazka: :title',
         ],
         'tabs' => [
             'activities' => 'Práca',

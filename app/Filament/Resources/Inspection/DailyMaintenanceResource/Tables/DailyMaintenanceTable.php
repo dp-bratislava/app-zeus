@@ -20,6 +20,7 @@ class DailyMaintenanceTable
     {
         return $table
             ->heading(__('inspections/daily-maintenance.table.heading'))
+            ->emptyStateHeading(__('inspections/daily-maintenance.table.empty_state_heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->inspection?->state?->getValue()) {
