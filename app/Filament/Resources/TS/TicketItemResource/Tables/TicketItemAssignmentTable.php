@@ -52,10 +52,9 @@ class TicketItemAssignmentTable
             ->defaultGroup(TicketItemRelationManager::class ? null : 'ticket_id')
             ->columns([
                 // ticket id
-                // Tables\Columns\TextColumn::make('ticket.id')
-                //     ->label(__('tickets/ticket-item.table.columns.ticket.label'))
-                //     ->tooltip(fn(TicketItem $record) => $record?->ticket?->title)
-                //     ->badge(),
+                // Tables\Columns\TextColumn::make('ticketItem.ticket.title')
+                //     ->label(__('tickets/ticket-item.table.columns.ticket.label')),
+                    // ->tooltip(fn(TicketItem $record) => $record?->ticket?->title),
                 // ticket item code id
                 Tables\Columns\TextColumn::make('ticketItem.code')
                     ->label(__('tickets/ticket-item.table.columns.code.label'))
@@ -73,6 +72,7 @@ class TicketItemAssignmentTable
                 //     ->label(__('tickets/ticket-item.table.columns.title.label')),
                 Tables\Columns\TextColumn::make('ticketItem.description')
                     ->label(__('tickets/ticket-item.table.columns.description.label'))
+                    // ->state(fn($record) => print_r($record->ticketItem->ticket))
                     ->grow(),
                 Tables\Columns\TextColumn::make('ticketItem.state')
                     ->label(__('tickets/ticket-item.table.columns.state.label'))

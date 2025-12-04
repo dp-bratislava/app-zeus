@@ -3,10 +3,7 @@
 namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
-use App\Services\TicketAssignmentRepository;
-use App\Services\TicketService;
-use Dpb\DatahubSync\Models\Department;
-use Dpb\Package\Vehicles\Models\Vehicle;
+use App\UseCases\TicketAssignment\CreateTicketAssignmentUseCase;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +20,7 @@ class CreateTicket extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         // dd($data);
-        $ticketAssignmentRepo = app(TicketAssignmentRepository::class);
-        return $ticketAssignmentRepo->create($data);
-    } 
+        $uc = app(CreateTicketAssignmentUseCase::class);
+        return $uc->execute($data);
+    }
 }

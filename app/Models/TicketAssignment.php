@@ -52,7 +52,7 @@ class TicketAssignment extends Model
             'id',          // Ticket primary key
             'ticket_id',   // TicketItem FK
             'ticket_id',   // TicketAssignment FK to Ticket
-            'id'           // Ticket PK
+            // 'id'           // Ticket PK
         );
     }
 

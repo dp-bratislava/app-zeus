@@ -46,16 +46,16 @@ class TicketItemRepository
         ]);
 
         // ticket item assignment
-        if (isset($data['assigned_to'])) {
+        // if (isset($data['assigned_to'])) {
             $author = $this->guard->id();
-            $assignedTo = MaintenanceGroup::find($data['assigned_to']);
+            $assignedTo = MaintenanceGroup::findSole($data['assigned_to']) ?? null;
             $tiAssignmet = $this->ticketItemAssignmentRepo->newInstance();
             $tiAssignmet->ticketItem()->associate($ticketItem);
             $tiAssignmet->assignedTo()->associate($assignedTo);
             $tiAssignmet->author()->associate($author);
             $tiAssignmet->save();
             // dd($tiAssignmet);
-        }
+        // }
 
         // ticket item activities
         // if (isset($data['activities'])) {
@@ -88,7 +88,7 @@ class TicketItemRepository
         // $materials = $data['materials'];
         // materials
         // $services = $data['services'];
-
+// dd($ticketItem);
         return $ticketItem;
     }
 

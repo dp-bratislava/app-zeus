@@ -41,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
             'ticket' => \Dpb\Package\Tickets\Models\Ticket::class,
             'ticket-item' => \Dpb\Package\Tickets\Models\TicketItem::class,
             'ticket-item-group' => \Dpb\Package\Tickets\Models\TicketItemGroup::class,
+            'ticket-source' => \Dpb\Package\Tickets\Models\TicketSource::class,
             'user' => \App\Models\User::class,
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
             'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,
