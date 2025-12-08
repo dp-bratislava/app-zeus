@@ -8,8 +8,6 @@ use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
 use App\Models\WorkAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketItemRepository;
-use App\Services\TicketRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;

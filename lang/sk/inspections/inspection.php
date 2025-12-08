@@ -27,6 +27,9 @@ return [
             'contracts' => 'Vykonal',
             'total_time' => 'Celkový čas'
         ],
+        'actions' => [
+            'create_ticket' => 'Vyvoriť zákazku',
+        ],
         'filters' => [
             'date' => 'Dátum',
             'subject' => 'Vozidlá',

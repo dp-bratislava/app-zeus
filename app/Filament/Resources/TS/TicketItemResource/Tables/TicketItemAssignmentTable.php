@@ -8,8 +8,6 @@ use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
 use App\Models\WorkAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketItemRepository;
-use App\Services\TicketRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;
@@ -98,11 +96,11 @@ class TicketItemAssignmentTable
                     ->hiddenOn(TicketItemRelationManager::class),
                 Tables\Columns\TextColumn::make('source')
                     ->label(__('tickets/ticket-item.table.columns.source.label'))
-                    ->state(function (TicketItemAssignment $record, TicketAssignmentService $svc) {
-                        if ($record->ticket !== null) {
-                            return $svc->getSourceLabel($record->ticket);
-                        }
-                    })
+                    // ->state(function (TicketItemAssignment $record, TicketAssignmentService $svc) {
+                    //     if ($record->ticket !== null) {
+                    //         return $svc->getSourceLabel($record->ticket);
+                    //     }
+                    // })
                     ->hiddenOn(TicketItemRelationManager::class)
                     ->badge(),
                 Tables\Columns\TextColumn::make('assignedTo.code')

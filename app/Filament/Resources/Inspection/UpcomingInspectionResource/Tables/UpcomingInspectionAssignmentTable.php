@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
 
+use App\Filament\Resources\TS\TicketResource;
 use App\Models\InspectionAssignment;
 use App\Services\Fleet\VehicleService;
 use App\Services\Inspection\CreateTicketService;
@@ -67,35 +68,18 @@ class UpcomingInspectionAssignmentTable
                     ->label(__('inspections/upcoming-inspection.table.columns.due_date.label')),
                 Tables\Columns\TextColumn::make('days_to_due_date')
                     ->label(__('inspections/upcoming-inspection.table.columns.days_to_due_date.label')),
+                // link to ticket
+                // Tables\Columns\TextColumn::make('ticket')
+                //     ->label('ticket')
+                //     ->formatStateUsing(fn ($state) => $state?->title)
+                //     ->url(fn ($record) => $record
+                //     ? TicketResource::getUrl('edit', ['record' => 1])
+                //     : null
+                // ),
             ])
             ->filters(UpcomingInspectionAssignmentTableFilters::make())
             ->actions([
-                // Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('create_ticket')
-                    ->label(__('inspections/upcoming-inspection.table.actions.create_ticket'))
-                    ->action(function (InspectionAssignment $record, TicketAssignmentService $ticketAssignmentService) {
-                        $ticketAssignmentService->createFromInspection($record->inspection);
-                    })
-                    ->disabled()
-                    ->button()
-                // ->action(function ($record, CreateTicketService $createTicketService) {
-                //     $createTicketService->createTicket($record);
-                // })
-                // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
-                //         ->(function (ActivityService $svc, array $data, Ticket $record) {
-                //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
-
-                // $data['activities'] = $activities;
-                // dd($activities);
-                // })
-                // ->after(function (TicketService $ticketService, Department $departmentHdl, array $data, Ticket $record) {
-                // ->after(function ($action, $record) {
-                //     // $department = $departmentHdl->findOrFail($data['department_id']);
-                //     dd($action);
-                //     $ticketService->assignDepartment($record, $department);
-                // }),
-                // Tables\Actions\ReplicateAction::make(),
+                CreateTicketAction::make('create_ticket')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -54,13 +54,13 @@ class InspectionAssignmentTable
                 Tables\Columns\TextColumn::make('distance_traveled')
                     ->label(__('inspections/inspection.table.columns.distance_traveled')),
             ])
-            ->filters(InspectionTableFilters::make())
+            ->filters(InspectionAssignmentTableFilters::make())
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()
+                Tables\Actions\EditAction::make(),
                 // ->mutateFormDataUsing(function (ActivityService $svc, array $data, Ticket $record) {
                 //         ->(function (ActivityService $svc, array $data, Ticket $record) {
                 //                     $activities = app(ActivityService::class)->getActivities($record)->toArray();
@@ -75,6 +75,7 @@ class InspectionAssignmentTable
                 //     $ticketService->assignDepartment($record, $department);
                 // }),
                 // Tables\Actions\ReplicateAction::make(),
+                CreateTicketAction::make('create_ticket')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

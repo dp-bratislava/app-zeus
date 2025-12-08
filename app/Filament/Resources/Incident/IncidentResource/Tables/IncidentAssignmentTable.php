@@ -22,22 +22,27 @@ class IncidentAssignmentTable
                 default => null,
             })
             ->columns([
+                // date
                 Tables\Columns\TextColumn::make('incident.date')
                     ->label(__('incidents/incident.table.columns.date'))
                     ->date('j.n.Y'),
+                // type
+                Tables\Columns\TextColumn::make('incident.type.title')
+                    ->label(__('incidents/incident.table.columns.type'))
+                    ->badge(),
+                // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
                     ->label(__('incidents/incident.table.columns.subject')),
                 // ->state(fn(Incident $record, IncidentAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
-                Tables\Columns\TextColumn::make('incident.description')
-                    ->label(__('incidents/incident.table.columns.description'))
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('incidents/incident.table.columns.state'))
                     ->state(fn(IncidentAssignment $record) => $record->incident?->state?->label())
                     ->badge(),
-                Tables\Columns\TextColumn::make('incident.type.title')
-                    ->label(__('incidents/incident.table.columns.type'))
-                    ->badge(),
+                // description
+                Tables\Columns\TextColumn::make('incident.description')
+                    ->label(__('incidents/incident.table.columns.description'))
+                    ->grow()
+                    ->searchable(),
             ])
             ->filters(IncidentTableFilters::make())
             ->headerActions([

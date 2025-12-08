@@ -3,11 +3,13 @@
 namespace App\Services\Inspection;
 
 use App\Services\Fleet\VehicleService;
+use App\UseCases\InspectionAssignment\CreateInspectionAssignmentUseCase;
 use Dpb\Package\Inspections\Models\Inspection;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class UpcommingInspectionService
 {
@@ -15,7 +17,7 @@ class UpcommingInspectionService
         protected Vehicle $vehicleRepo,
         protected VehicleModel $vehicleModelRepo,
         protected VehicleService $vehicleService,
-        protected CreateInspectionService $inspectionSvc,
+        protected CreateInspectionAssignmentUseCase $createInspectionAssignmentUseCase,
         protected InspectionTemplate $templateRepo,
         protected TemplateAssignmentService $templateAssignmentSvc
     ) {}
@@ -34,10 +36,19 @@ class UpcommingInspectionService
             if ($templates->isEmpty()) {
                 continue;
             }
+
+            // for all vehicles of this model 
             foreach ($vehicleModel->vehicles as $vehicle) {
                 foreach ($templates as $template) {
+                    // if inspection template is eligible for creation
                     if ($this->inspectionTresholdReached($vehicle, $template)) {
-                        $this->inspectionSvc->create($vehicle, $template);
+                        $data = [
+                            'date' => Carbon::now()->format('Y-m-d'),
+                            'template_id' => $template->id,
+                            'subject_id' => $vehicle->id
+                        ];
+
+                        $this->createInspectionAssignmentUseCase->execute($data);
                     }
                 }
             }

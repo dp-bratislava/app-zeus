@@ -12,7 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\ToggleButtons;
 use App\States;
 
-class InspectionTableFilters
+class InspectionAssignmentTableFilters
 {
     public static function make(): array
     {

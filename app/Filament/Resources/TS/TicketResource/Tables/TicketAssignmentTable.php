@@ -4,20 +4,11 @@ namespace App\Filament\Resources\TS\TicketResource\Tables;
 
 use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketAssignmentRepository;
 use App\Services\TS\ActivityService;
 use App\States;
-use App\StateTransitions\TS\CreatedToInProgress;
-use App\StateTransitions\TS\InProgressToCancelled;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\Tickets\Models\Ticket;
-use Filament\Forms\Components\DatePicker;
-use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class TicketAssignmentTable
@@ -152,20 +143,9 @@ class TicketAssignmentTable
             ->filters(TicketTableFilters::make())
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->modalWidth(MaxWidth::MaxContent) // options: sm, md, lg, xl, 2xl
-                    // ->using(function (array $data, string $model, SubjectService $ticketSubjectSvc, HeaderService $ticketHeaderService): ?Model {
-                    // ->using(function (array $data, string $model, CreateTicketService $ticketSvc): ?Model {
-                    //     dd('hh');
-                    //     return $ticketSvc->create($data);
-                    // })
-
-                    ->using(function (array $data, TicketAssignmentRepository $ticketAssignmentRepository): ?Model {
-                        dd('hh');
-                        return $ticketAssignmentRepository->create($data);
-                    }),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 EditAction::make()
             ])
             ->bulkActions([

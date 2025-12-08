@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\TS\TicketResource\Pages;
 
 use App\Filament\Resources\TS\TicketResource;
-use App\Services\TicketAssignmentRepository;
 use App\Services\TS\CreateTicketService;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketGroup;

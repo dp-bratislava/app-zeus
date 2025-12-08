@@ -3,9 +3,7 @@
 namespace App\Mappers\Ticket;
 
 use App\Data\Ticket\TicketAssignmentData;
-use App\Data\Ticket\TicketData;
 use App\Models\TicketAssignment;
-use Dpb\Package\Tickets\Models\Ticket;
 
 // use Illuminate\Database\Eloquent\Collection;
 

@@ -4,9 +4,7 @@ namespace App\Filament\Resources\Incident\IncidentResource\Tables;
 
 use App\Models\IncidentAssignment;
 use App\Models\TicketAssignment;
-use App\Services\TicketAssignmentRepository;
-use App\Services\TS\TicketAssignmentService;
-use Dpb\Package\Incidents\Models\Incident;
+use App\UseCases\TicketAssignment\CreateFromIncidentUseCase;
 use Filament\Tables\Actions\Action;
 
 class CreateTicketAction
@@ -16,8 +14,11 @@ class CreateTicketAction
         return Action::make($uri)
             ->label(__('incidents/incident.table.actions.create_ticket'))
             ->button()
-            ->action(function (IncidentAssignment $record, TicketAssignmentRepository $ticketAssignmentRepository) {
-                $ticketAssignmentRepository->createFromIncidentAssignment($record);
+            // ->action(function (IncidentAssignment $record, TicketAssignmentRepository $ticketAssignmentRepository) {
+            //     $ticketAssignmentRepository->createFromIncidentAssignment($record);
+            // })
+            ->action(function (IncidentAssignment $record, CreateFromIncidentUseCase $createFromIncidentUseCase) {
+                $createFromIncidentUseCase->execute($record);
             })
             ->visible(function (IncidentAssignment $record, TicketAssignment $ticketAssignment) {
                 // return true;

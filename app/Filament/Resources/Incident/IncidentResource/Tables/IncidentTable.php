@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Incident\IncidentResource\Tables;
 
 use App\Models\IncidentAssignment;
 use App\Models\TicketAssignment;
-use App\Services\TS\TicketAssignmentService;
 use App\States;
 use Dpb\Package\Incidents\Models\Incident;
 use Dpb\Package\Inspections\Models\Inspection;

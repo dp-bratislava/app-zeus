@@ -4,16 +4,11 @@ namespace App\Filament\Resources\Inspection;
 
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Forms\InspectionTempalteGroupFrom;
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Pages;
-use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\RelationManagers;
 use App\Filament\Resources\Inspection\InspectionTemplateGroupResource\Tables\InspectionTemplateGroupTable;
 use Dpb\Package\Inspections\Models\InspectionTemplateGroup;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class InspectionTemplateGroupResource extends Resource
 {
@@ -58,14 +53,7 @@ class InspectionTemplateGroupResource extends Resource
     {
         return InspectionTemplateGroupTable::make($table);
     }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
+    
     public static function getPages(): array
     {
         return [

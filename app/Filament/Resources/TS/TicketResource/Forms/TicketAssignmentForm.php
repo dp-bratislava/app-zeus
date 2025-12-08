@@ -32,6 +32,7 @@ class TicketAssignmentForm
                         Forms\Components\Select::make('ticket.group_id')
                             ->label(__('tickets/ticket.form.fields.group'))
                             ->relationship('ticket.group', 'title')
+                            ->required()
                             ->live(),
                         // source
                         // self::sourceField(),

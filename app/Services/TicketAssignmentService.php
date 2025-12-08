@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Ticket;
+namespace App\Services;
 
 use App\Data\Ticket\TicketAssignmentData;
 use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
-use App\Repositories\Ticket\TicketAssignmentRepository;
+use App\Repositories\TicketAssignmentRepository;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Illuminate\Database\ConnectionInterface;
 
@@ -20,9 +20,9 @@ class TicketAssignmentService
         return $this->ticketAssignmentRepository->save($ticketAssignmentData);
     }
 
-    public function update($ticketAssignment): ?TicketAssignment
+    public function update(TicketAssignmentData $ticketAssignmentData): ?TicketAssignment
     {
-        return $this->ticketAssignmentRepository->save($ticketAssignment);
+        return $this->ticketAssignmentRepository->save($ticketAssignmentData);
     }
 
     public function addTicketItem(array $payload): ?TicketItem

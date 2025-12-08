@@ -79,7 +79,7 @@ class IncidentForm
                 ->preload()
                 ->searchable()
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                ->required(false),
+                ->required(),
             // incident type
             Forms\Components\ToggleButtons::make('type_id')
                 ->label(__('incidents/incident.form.fields.type'))

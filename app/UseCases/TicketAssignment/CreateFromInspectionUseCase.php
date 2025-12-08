@@ -4,7 +4,7 @@ namespace App\UseCases\TicketAssignment;
 
 use App\Data\Ticket\TicketAssignmentData;
 use App\Data\Ticket\TicketData;
-use App\Models\IncidentAssignment;
+use App\Models\InspectionAssignment;
 use App\Models\TicketAssignment;
 use App\Services\TicketAssignmentService;
 use Illuminate\Contracts\Auth\Guard;
@@ -12,7 +12,7 @@ use App\States;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Illuminate\Support\Carbon;
 
-class CreateFromIncidentUseCase
+class CreateFromInspectionUseCase
 {
     public function __construct(
         private TicketAssignmentService $ticketAssignmentSvc,
@@ -20,7 +20,7 @@ class CreateFromIncidentUseCase
         private Guard $guard,
     ) {}
 
-    public function execute(IncidentAssignment $incidentAssignment): ?TicketAssignment
+    public function execute(InspectionAssignment $inspectionAssignment): ?TicketAssignment
     {
         // ticket item
         $date = Carbon::now();
@@ -30,8 +30,8 @@ class CreateFromIncidentUseCase
             null,
             $date,
             States\TS\Ticket\Created::$name,
-            $incidentAssignment->incident->description,
-            TicketGroup::byCode($incidentAssignment->incident->type->code)->first()->id,
+            $inspectionAssignment->inspection->template->title,
+            TicketGroup::byCode('inspection')->first()->id,
             States\TS\Ticket\Created::$name,
             // TicketSource::byCode('in-service-dispatch')->first()->id
         );
@@ -40,13 +40,13 @@ class CreateFromIncidentUseCase
         $taData = new TicketAssignmentData(
             null,
             $ticketData,
-            $incidentAssignment->subject->id,
-            $incidentAssignment->subject->getMorphClass(),
-            $incidentAssignment->incident->id,
-            $incidentAssignment->incident->getMorphClass(),
+            $inspectionAssignment->subject->id,
+            $inspectionAssignment->subject->getMorphClass(),
+            $inspectionAssignment->inspection->id,
+            $inspectionAssignment->inspection->getMorphClass(),
             $this->guard->id(),
-            $incidentAssignment->subject->maintenanceGroup?->id,
-            $incidentAssignment->subject->maintenanceGroup?->getMorphClass(),
+            $inspectionAssignment->subject->maintenanceGroup?->id,
+            $inspectionAssignment->subject->maintenanceGroup?->getMorphClass(),
         );
 
         return $this->ticketAssignmentSvc->create($taData);

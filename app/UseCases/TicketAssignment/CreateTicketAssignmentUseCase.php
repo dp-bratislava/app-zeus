@@ -5,7 +5,7 @@ namespace App\UseCases\TicketAssignment;
 use App\Data\Ticket\TicketAssignmentData;
 use App\Data\Ticket\TicketData;
 use App\Models\TicketAssignment;
-use App\Services\Ticket\TicketAssignmentService;
+use App\Services\TicketAssignmentService;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
@@ -33,11 +33,11 @@ class CreateTicketAssignmentUseCase
             $formTicketData['group_id'],
             States\TS\Ticket\Created::$name,
         );
-
+        
         // source TO DO
         $source = TicketSource::byCode('during-maintenance')->first();
         // assigned to TO DO
-        $assignedTo = MaintenanceGroup::findSole($data['assigned_to_id']);
+        $assignedTo = MaintenanceGroup::find($data['assigned_to_id'])?->first();
 
         // create ticket assignment
         $taData = new TicketAssignmentData(
@@ -48,8 +48,8 @@ class CreateTicketAssignmentUseCase
             $source->id,
             $source->getMorphClass(),
             $this->guard->id(),
-            $assignedTo->id,
-            $assignedTo->getMorphClass(),
+            $assignedTo !== null ? $assignedTo->id : null,
+            $assignedTo !== null ? $assignedTo->getMorphClass() : null,
         );
 
         return $this->ticketAssignmentSvc->create($taData);

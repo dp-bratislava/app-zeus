@@ -4,7 +4,6 @@ namespace App\Filament\Resources\TS\TicketResource\Tables;
 
 use App\Models\TicketAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketAssignmentRepository;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService;
 use App\Services\TS\HeaderService;

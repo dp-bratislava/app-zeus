@@ -3,16 +3,11 @@
 namespace App\Filament\Resources\Inspection\DailyMaintenanceResource\Tables;
 
 use App\Models\InspectionAssignment;
-use App\Services\Fleet\VehicleService;
-use App\Services\Inspection\CreateTicketService;
-use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
-use App\Services\TS\TicketAssignmentService;
 use App\States;
-use Dpb\Package\Inspections\Models\Inspection;
+use App\UseCases\DailyMaintenance\CreateDailyMaintenanceUseCase;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Collection;
 
 class DailyMaintenanceTable
 {
@@ -65,16 +60,13 @@ class DailyMaintenanceTable
             ->filters(DailyMaintenanceTableFilters::make())
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->model(InspectionAssignment::class)
-                    // ->using(function (array $data, TicketAssignmentService $taSvc) {
-                    //     $taSvc->createFromDailyMaintenance($data);
-                    //     return null;
-                    // })
-                    ->action(function (array $data, TicketAssignmentService $taSvc) {
-                        $taSvc->createFromDailyMaintenance($data);
+                    ->model(InspectionAssignment::class)                  
+                    ->action(function (array $data, CreateDailyMaintenanceUseCase $uc) {
+                        $uc->execute($data);
                         // return null;
                     })                    
                     ->modalWidth(MaxWidth::class)
+                    ->modalDescription('TO DO: toto by malo do budúcna prepojené s fondom pracovného času')
                     ->modalHeading(__('inspections/daily-maintenance.create_heading')),
             ]);
     }

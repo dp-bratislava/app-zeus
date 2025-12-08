@@ -12,7 +12,7 @@ class InspectionTemplatePicker
             ->label(__('inspections/inspection-template.components.picker.label'))
             ->searchable()
             ->preload()
-            ->createOptionForm(InspectionTemplateForm::schema())
+            ->createOptionForm(InspectionTemplateForm::schema())            
             ->createOptionModalHeading(__('inspections/inspection-template.components.picker.create_heading'))
             ->editOptionForm(InspectionTemplateForm::schema())
             ->editOptionModalHeading(__('inspections/inspection-template.components.picker.update_heading'));

@@ -17,8 +17,29 @@ class InspectionAssignmentFrom
         return $form->schema(static::schema());
     }
 
-
     public static function schema(): array
+    {
+        return [
+            // date
+            Forms\Components\DatePicker::make('date')
+                ->label(__('inspections/inspection.form.fields.date'))
+                ->default(Carbon::now()),
+            // template
+            InspectionTemplatePicker::make('template_id')
+                ->label(__('inspections/inspection.form.fields.template'))
+                ->relationship('inspection.template', 'title'),
+            // subject
+            Forms\Components\Select::make('subject_id')
+                ->label(__('inspections/inspection.form.fields.subject'))
+                ->options(Vehicle::with(['codes', 'model'])
+                    ->get()
+                    ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model?->title])
+                )
+                ->searchable(),
+        ];
+    }
+
+    public static function schema1(): array
     {
         return [
             // date
@@ -26,7 +47,6 @@ class InspectionAssignmentFrom
                 ->label(__('inspections/inspection.form.fields.date'))
                 ->default(Carbon::now()),
             // template
-            
             InspectionTemplatePicker::make('inspection_template')
                 ->label(__('inspections/inspection.form.fields.template'))
                 ->relationship('inspection.template', 'title'),

@@ -34,31 +34,28 @@ class IncidentTableFilters
                         );
                 }),
 
-            // ticket state
-            // Tables\Filters\Filter::make('state')
-            //     ->form([
-            //         ToggleButtons::make('state')
-            //             ->options([
-            //                 States\TS\Incident\Created::$name => __('tickets/ticket.states.created'),
-            //                 States\TS\TicketItem\Closed::$name => __('tickets/ticket.states.closed'),
-            //                 States\TS\TicketItem\Cancelled::$name => __('tickets/ticket.states.cancelled'),
-            //                 States\TS\TicketItem\InProgress::$name => __('tickets/ticket.states.in-progress'),
-            //                 States\TS\TicketItem\AwaitingParts::$name => __('tickets/ticket-item.states.awaiting-parts'),
-            //             ])
-            //             ->multiple()
-            //             ->inline()
-            //             ->label(__('incidents/incident.table.filters.state')),
-            //     ])
-            //     ->query(function (Builder $query, array $data): Builder {
-            //         return $query
-            //             ->when(
-            //                 $data['state'],
-            //                 fn(Builder $query, $state): Builder =>
-            //                 $query->whereHas('ticket', function ($q) use ($state) {
-            //                     $q->whereIn('state', $state);
-            //                 })
-            //             );
-            //     }),
+            // incident state
+            Tables\Filters\Filter::make('state')
+                ->form([
+                    ToggleButtons::make('state')
+                        ->options([
+                            States\Incident\Created::$name => __('incidents/incident.states.created'),
+                            States\Incident\Closed::$name => __('incidents/incident.states.closed'),
+                        ])
+                        ->multiple()
+                        ->inline()
+                        ->label(__('incidents/incident.table.filters.state')),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['state'],
+                            fn(Builder $query, $state): Builder =>
+                            $query->whereHas('incident', function ($q) use ($state) {
+                                $q->whereIn('state', $state);
+                            })
+                        );
+                }),
             // subject
             Tables\Filters\Filter::make('subject')
                 ->form([

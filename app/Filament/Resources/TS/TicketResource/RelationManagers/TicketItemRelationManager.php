@@ -4,7 +4,6 @@ namespace App\Filament\Resources\TS\TicketResource\RelationManagers;
 
 use App\Filament\Resources\TS\TicketItemResource\Forms\TicketItemForm;
 use App\Filament\Resources\TS\TicketItemResource\Tables\TicketItemTable;
-use App\Services\TicketItemRepository;
 use App\UseCases\TicketAssignment\AddTicketItemUseCase;
 use Filament\Forms;
 use Filament\Forms\Form;

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Inspection\InspectionResource\Pages;
 
 use App\Filament\Resources\Inspection\InspectionResource;
 use App\Services\Inspection\AssignmentService;
+use App\UseCases\InspectionAssignment\UpdateInspectionAssignmentUseCase;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -40,17 +41,14 @@ class EditInspection extends EditRecord
         // $assignedToId = TicketItemAssignment::whereBelongsTo($this->record, 'ticketItem')->first()?->assignedTo?->id;
         // $data['assigned_to'] = $assignedToId;
 
-        $data['inspection_template'] = $this->record->inspection->template_id;
-        $data['inspection_date'] = $this->record->inspection->date;
+        $data['template_id'] = $this->record->inspection->template_id;
+        $data['date'] = $this->record->inspection->date;
         // dd($data);
         return $data;
     }
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $assignmentSvc = app(AssignmentService::class);
-        $result = $assignmentSvc->update($record, $data);
-
-        return $result;
+        return app(UpdateInspectionAssignmentUseCase::class)->execute($record, $data);
     }    
 }

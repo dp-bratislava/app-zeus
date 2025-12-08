@@ -11,19 +11,19 @@ use App\States;
 use App\UseCases\TicketAssignment\CreateFromIncidentUseCase;
 use Illuminate\Support\Carbon;
 
-class CreateIncidentAssignmentUseCase
+class UpdateIncidentAssignmentUseCase
 {
     public function __construct(
         private IncidentAssignmentService $incidentAssignmentSvc,
-        private CreateFromIncidentUseCase $createTicketAssignmentUseCase,
+        // private CreateFromIncidentUseCase $createTicketAssignmentUseCase,
         private Guard $guard,
     ) {}
 
-    public function execute(array $data): ?IncidentAssignment
+    public function execute(IncidentAssignment $incidentAssignment, array $data): ?IncidentAssignment
     {
         // incident item
         $incidentData = new IncidentData(
-            null,
+            $incidentAssignment->incident->id,
             Carbon::parse($data['date']),
             $data['description'] ?? null,
             $data['type_id'],
@@ -31,8 +31,8 @@ class CreateIncidentAssignmentUseCase
         );
         
         // create incident assignment
-        $taData = new IncidentAssignmentData(
-            null,
+        $iaData = new IncidentAssignmentData(
+            $incidentAssignment->id,
             $incidentData,
             $data['subject_id'],
             'vehicle',
@@ -40,10 +40,10 @@ class CreateIncidentAssignmentUseCase
         );
 
         // create incident
-        $incident = $this->incidentAssignmentSvc->create($taData);
+        $incident = $this->incidentAssignmentSvc->update($iaData);
 
-        // crete ticket assignment
-        $this->createTicketAssignmentUseCase->execute($incident);
+        // // crete ticket assignment
+        // $this->createTicketAssignmentUseCase->execute($incident);
 
         return $incident;
     }

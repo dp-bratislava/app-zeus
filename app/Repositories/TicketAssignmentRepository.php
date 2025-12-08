@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Ticket;
+namespace App\Repositories;
 
 use App\Data\Ticket\TicketAssignmentData;
 use App\Mappers\Ticket\TicketAssignmentMapper;
