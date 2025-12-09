@@ -108,7 +108,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/andrej/tmp-pkg-task-ms",
-                "reference": "036ee98f095771bba9eeb660025d2242eb0af6a1"
+                "reference": "8ba37d7d4f3826da45e899809b8c38438718b760"
             },
             "require": {
                 "dpb/pkg-activities": "dev-main",
@@ -1802,12 +1802,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "1397e8c4de9f90df97085d3aa993892d9f80fc3a"
+                "reference": "3f2ff064ed464d174023cd515d10c9e0df089a07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/1397e8c4de9f90df97085d3aa993892d9f80fc3a",
-                "reference": "1397e8c4de9f90df97085d3aa993892d9f80fc3a",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/3f2ff064ed464d174023cd515d10c9e0df089a07",
+                "reference": "3f2ff064ed464d174023cd515d10c9e0df089a07",
                 "shasum": ""
             },
             "require": {
@@ -1844,7 +1844,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2025-12-06T20:34:43+00:00"
+            "time": "2025-12-09T13:36:50+00:00"
         },
         {
             "name": "dpb/pkg-inspections",

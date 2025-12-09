@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'classes' => [
-        'vehicle_state_class' => '\App\States\Fleet\Vehicle\VehicleState::class',
+        'vehicle_state_class' => '\Dpb\Package\TaskMS\States\Fleet\Vehicle\VehicleState::class',
     ],    
 
     /*

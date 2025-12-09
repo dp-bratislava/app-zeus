@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'classes' => [
-        'inspection_state_class' => '\App\States\Inspection\InspectionState::class',
+        'inspection_state_class' => '\Dpb\Package\TaskMS\States\Inspection\InspectionState::class',
     ],
 
     /*
