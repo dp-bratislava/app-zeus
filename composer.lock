@@ -108,7 +108,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/andrej/tmp-pkg-task-ms",
-                "reference": "8ba37d7d4f3826da45e899809b8c38438718b760"
+                "reference": "cec5602346797bddbcca157614acc923d33bdd67"
             },
             "require": {
                 "dpb/pkg-activities": "dev-main",
@@ -1802,12 +1802,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "3f2ff064ed464d174023cd515d10c9e0df089a07"
+                "reference": "8f43a6a46e3a0bafdc2b85dc202d401b5c54839f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/3f2ff064ed464d174023cd515d10c9e0df089a07",
-                "reference": "3f2ff064ed464d174023cd515d10c9e0df089a07",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/8f43a6a46e3a0bafdc2b85dc202d401b5c54839f",
+                "reference": "8f43a6a46e3a0bafdc2b85dc202d401b5c54839f",
                 "shasum": ""
             },
             "require": {
@@ -1844,7 +1844,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2025-12-09T13:36:50+00:00"
+            "time": "2025-12-10T14:44:51+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -1950,12 +1950,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tickets.git",
-                "reference": "7172c95219a17c226027e201b212cf8bbc72463b"
+                "reference": "e040db5494d4efc34de9c7f2b7bbdafcd33232c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/7172c95219a17c226027e201b212cf8bbc72463b",
-                "reference": "7172c95219a17c226027e201b212cf8bbc72463b",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/e040db5494d4efc34de9c7f2b7bbdafcd33232c9",
+                "reference": "e040db5494d4efc34de9c7f2b7bbdafcd33232c9",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +1991,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-tickets/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
             },
-            "time": "2025-12-06T15:08:24+00:00"
+            "time": "2025-12-10T14:07:03+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",

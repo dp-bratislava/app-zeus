@@ -7,7 +7,7 @@ return [
         'fields' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
+            'year' => ['label' => 'Rokčník'],
             'type' => ['label' => 'Typ'],
         ],
         'tabs' => [
@@ -24,14 +24,15 @@ return [
         'columns' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
+            'year' => ['label' => 'Rokčník'],
             'length' => ['label' => 'Dĺžka m'],
             'type' => ['label' => 'Typ'],
+            'fuel_consumption' => ['label' => 'Spotreba'],
         ],
         'filters' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
+            'year' => ['label' => 'Rokčník'],
             'length' => ['label' => 'Dĺžka m'],
             'type' => ['label' => 'Typ'],
         ],
