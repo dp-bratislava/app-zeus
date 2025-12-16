@@ -70,18 +70,12 @@
             "url": "git@github.com:dp-bratislava/pkg-fleet.git"
         },
         {
-            "type": "path",
-            "url": "packages/andrej/tmp-pkg-task-ms",
-            "options": {
-                "symlink": true
-            }
+            "type": "vcs",
+            "url": "git@github.com:andrej-horny/tmp-pkg-task-ms.git"
         },
         {
-            "type": "path",
-            "url": "packages/andrej/tmp-pkg-task-ms-ui",
-            "options": {
-                "symlink": true
-            }
+            "type": "vcs",
+            "url": "git@github.com:andrej-horny/tmp-pkg-task-ms-ui.git"
         },
         {
             "type": "vcs",

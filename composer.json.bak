@@ -11,130 +11,87 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/filament-admin-panel.git"
-        },        
-        {
-            "type": "vcs",
-            "url": "https://github.com/dp-bratislava/laravel-user-admin.git"
+            "url": "git@github.com:dp-bratislava/filament-admin-panel.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/laravel-datahub-sync.git"
+            "url": "git@github.com:dp-bratislava/laravel-user-admin.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/dpb-employee-manager.git"
+            "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/dpb-utils.git"
+            "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/dpb-work-time-fund.git"
+            "url": "git@github.com:dp-bratislava/dpb-utils.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dp-bratislava/dpb-work-time-fund-filament.git"
+            "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:dp-bratislava/pkg-fleet.git"
-        },        
+            "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git"
+        },
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/pkg-eav.git"
         },
         {
+            "type": "vcs",
+            "url": "git@github.com:dp-bratislava/pkg-tickets.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:dp-bratislava/pkg-tasks.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:dp-bratislava/pkg-activities.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:andrej-horny/pkg-work-log.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:dp-bratislava/pkg-inspections.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:andrej-horny/ext-spatie-model-states.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:dp-bratislava/pkg-fleet.git"
+        },
+        {
             "type": "path",
-            "url": "packages/dpb/pkg-tickets",
+            "url": "packages/andrej/tmp-pkg-task-ms",
             "options": {
                 "symlink": true
             }
         },
         {
             "type": "path",
-            "url": "packages/dpb/pkg-tasks",
+            "url": "packages/andrej/tmp-pkg-task-ms-ui",
             "options": {
                 "symlink": true
             }
         },
         {
-            "type": "path",
-            "url": "packages/dpb/pkg-activities",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-work-log",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-vehicles",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-entity-manager",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-inspections",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-finance",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-utils",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/ext-spatie-model-states",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "packages/dpb/pkg-eav",
-            "options": {
-                "symlink": true
-            }
-        }  
+            "type": "vcs",
+            "url": "git@github.com:andrej-horny/dev-tools.git"
+        }
     ],
     "require": {
         "php": "^8.2",
-        "andrej-horny/ext-spatie-model-states": "dev-main",
-        "andrej-horny/pkg-activities": "dev-main",
-        "andrej-horny/pkg-entity-manager": "dev-main",
-        "andrej-horny/pkg-finance": "dev-main",
-        "andrej-horny/pkg-inspections": "dev-main",
-        "andrej-horny/pkg-tasks": "dev-main",
-        "andrej-horny/pkg-tickets": "dev-main",
-        "andrej-horny/pkg-utils": "dev-main",
-        "andrej-horny/pkg-vehicles": "dev-main",
         "andrej-horny/pkg-work-log": "dev-main",
+        "andrej-horny/tmp-pkg-task-ms-ui": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-employee-manager": "^1.0",
@@ -144,10 +101,10 @@
         "dpb/filament-admin-panel": "^12.0",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
-        "dpb/pkg-fleet": "^1.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "maatwebsite/excel": "^3.1",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-data": "^4.17",
         "spatie/laravel-model-states": "^2.12",
@@ -156,6 +113,7 @@
         "symfony/dotenv": "^7.1"
     },
     "require-dev": {
+        "andrej-horny/dev-tools": "dev-main",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9d6ba9d2d5959930fe4e6a4d9c9402d",
+    "content-hash": "3ffdbd0be6c9fff3ce7207bb7d9b71cb",
     "packages": [
         {
             "name": "andrej-horny/pkg-work-log",
@@ -57,10 +57,16 @@
         {
             "name": "andrej-horny/tmp-pkg-task-ms",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrej-horny/tmp-pkg-task-ms.git",
+                "reference": "4a85ddad3e30430d3d0539f25850202d1f9f64e7"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/andrej/tmp-pkg-task-ms",
-                "reference": "100815163550fd326b4b22ba7e2140b38f7ffaa0"
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrej-horny/tmp-pkg-task-ms/zipball/4a85ddad3e30430d3d0539f25850202d1f9f64e7",
+                "reference": "4a85ddad3e30430d3d0539f25850202d1f9f64e7",
+                "shasum": ""
             },
             "require": {
                 "dpb/pkg-activities": "dev-main",
@@ -72,6 +78,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -94,18 +101,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/andrej-horny/tmp-pkg-task-ms/tree/main",
+                "issues": "https://github.com/andrej-horny/tmp-pkg-task-ms/issues"
+            },
+            "time": "2025-12-16T17:47:22+00:00"
         },
         {
             "name": "andrej-horny/tmp-pkg-task-ms-ui",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrej-horny/tmp-pkg-task-ms-ui.git",
+                "reference": "3090e703b4cbae07e6a868401617a2a99c241ea6"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/andrej/tmp-pkg-task-ms-ui",
-                "reference": "8929ddbd6684fb8a16d0aa9d9fe31d1fce72eb1f"
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrej-horny/tmp-pkg-task-ms-ui/zipball/3090e703b4cbae07e6a868401617a2a99c241ea6",
+                "reference": "3090e703b4cbae07e6a868401617a2a99c241ea6",
+                "shasum": ""
             },
             "require": {
                 "andrej-horny/tmp-pkg-task-ms": "dev-main",
@@ -113,6 +127,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -135,10 +150,11 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/andrej-horny/tmp-pkg-task-ms-ui/tree/main",
+                "issues": "https://github.com/andrej-horny/tmp-pkg-task-ms-ui/issues"
+            },
+            "time": "2025-12-16T17:29:11+00:00"
         },
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3309,16 +3325,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.42.0",
+            "version": "v12.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "509b33095564c5165366d81bbaa0afaac28abe75"
+                "reference": "9f875fad08f5d409b4c33293eca34f7af36e8ecf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/509b33095564c5165366d81bbaa0afaac28abe75",
-                "reference": "509b33095564c5165366d81bbaa0afaac28abe75",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9f875fad08f5d409b4c33293eca34f7af36e8ecf",
+                "reference": "9f875fad08f5d409b4c33293eca34f7af36e8ecf",
                 "shasum": ""
             },
             "require": {
@@ -3527,7 +3543,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-12-09T15:51:23+00:00"
+            "time": "2025-12-16T15:27:26+00:00"
         },
         {
             "name": "laravel/prompts",
