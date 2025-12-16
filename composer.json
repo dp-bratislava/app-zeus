@@ -12,7 +12,7 @@
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/filament-admin-panel.git"
-        },        
+        },
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/laravel-user-admin.git"
@@ -36,7 +36,7 @@
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git"
-        },     
+        },
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/pkg-eav.git"
@@ -63,16 +63,8 @@
         },
         {
             "type": "vcs",
-            "url": "git@github.com:andrej-horny/pkg-utils.git"
-        },
-        {
-            "type": "vcs",
             "url": "git@github.com:andrej-horny/ext-spatie-model-states.git"
         },
-        {
-            "type": "vcs",
-            "url": "git@github.com:andrej-horny/pkg-incidents.git"
-        },       
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/pkg-fleet.git"
@@ -83,17 +75,23 @@
             "options": {
                 "symlink": true
             }
-        },       
+        },
+        {
+            "type": "path",
+            "url": "packages/andrej/tmp-pkg-task-ms-ui",
+            "options": {
+                "symlink": true
+            }
+        },
         {
             "type": "vcs",
             "url": "git@github.com:andrej-horny/dev-tools.git"
-        }          
+        }
     ],
     "require": {
         "php": "^8.2",
-        "andrej-horny/pkg-utils": "dev-main",
         "andrej-horny/pkg-work-log": "dev-main",
-        "andrej-horny/tmp-pkg-task-ms": "dev-main",
+        "andrej-horny/tmp-pkg-task-ms-ui": "dev-main",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-employee-manager": "^1.0",
@@ -103,7 +101,6 @@
         "dpb/filament-admin-panel": "^12.0",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^12.0",
-        "dpb/pkg-fleet": "dev-main",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
