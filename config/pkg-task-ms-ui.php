@@ -3,6 +3,21 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Filament pages
+    |--------------------------------------------------------------------------
+    */
+    'filament_pages' => [
+        'tickets' => [
+            // 'navigation_label' => 'Pracovné príkazy',
+            // 'slug' => 'work-orders',
+            // 'view' => 'dpb-wtf-tms-bridge::filament.pages.work-order-page',
+            // 'navigation_icon' => 'heroicon-o-clipboard-document-list',
+            'navigation_group' => 'Ostatné',
+        ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Navigation items order
     |--------------------------------------------------------------------------
     */
