@@ -13,7 +13,7 @@ $dotenv = new Dotenv;
 $dotenv->load(__DIR__ . '/.env');
 
 // Global Config
-set('repository', 'git@github.com:dp-bratislava/app-wtf.git');
+set('repository', 'git@github.com:dp-bratislava/app-zeus.git');
 set('php_fpm_version', '8.2');
 set('keep_releases', 3);
 set('nvm', 'source $HOME/.nvm/nvm.sh &&');
