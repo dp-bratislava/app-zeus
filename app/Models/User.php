@@ -17,4 +17,33 @@ class User extends BaseUser
 
         return [];
     }
+
+
+    /**
+     * Get array of maintenance group ids set in user properties
+     * 
+     * @return array
+     */
+    public function getMaintenanceGroupIds(): array
+    {
+        if (isset($this->properties['fleet-maintenance-group-id'])) {
+            return $this->properties['fleet-maintenance-group-id'];
+        }
+
+        return [];
+    }  
+    
+    /**
+     * Get array of vehicle type ids set in user properties
+     * 
+     * @return array
+     */
+    public function getVehicleTypeIds(): array
+    {
+        if (isset($this->properties['fleet-vehicle-type-id'])) {
+            return $this->properties['fleet-vehicle-type-id'];
+        }
+
+        return [];
+    }     
 }
