@@ -21,6 +21,8 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketTypeResource;
+use Dpb\UserAdmin\Filament\Resources\RoleResource;
+use Dpb\UserAdmin\Filament\Resources\UserResource;
 use Dpb\UserAdmin\UserAdminPlugin;
 use Dpb\WorkTimeFund\Filament\Pages\WorktimeSchedulePlannerPage;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
@@ -67,6 +69,13 @@ return [
                     AttributeResource::class,
                     AttributeGroupResource::class,
                     TaskItemGroupResource::class,
+                ],
+            ],
+            [
+                'title' => 'User Admin',
+                'items' => [
+                    UserResource::class,
+                    RoleResource::class,
                 ],
             ],
         ],
