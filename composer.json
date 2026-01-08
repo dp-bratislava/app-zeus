@@ -9,22 +9,10 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:dp-bratislava/filament-admin-panel.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:dp-bratislava/laravel-user-admin.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"
-        },
+        { "type": "vcs", "url": "git@github.com:dp-bratislava/filament-admin-panel.git" },
+        { "type": "vcs", "url": "git@github.com:dp-bratislava/laravel-user-admin.git" },
+        { "type": "vcs", "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git" },
+        { "type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git" },
         {
             "type": "vcs",
             "url": "git@github.com:dp-bratislava/dpb-utils.git"
@@ -93,10 +81,7 @@
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/dpb-auditing.git"
         },
-        {
-            "type": "vcs",
-            "url": "https://github.com/dp-bratislava/dpb-departments.git"
-        },
+        { "type": "vcs", "url": "https://github.com/dp-bratislava/dpb-departments.git" },
         {
             "type": "vcs",
             "url": "https://github.com/dp-bratislava/dpb-master-permission-guard.git"
@@ -124,7 +109,7 @@
         "deployer/deployer": "^7.4",
         "dpb/filament-admin-panel": "12.1.0",
         "dpb/laravel-datahub-sync": "^12.0",
-        "dpb/laravel-user-admin": "^12.0",
+        "dpb/laravel-user-admin": "^3.0",
         "dpb/dpb-wtf-tms-bridge": "dev-staging",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
