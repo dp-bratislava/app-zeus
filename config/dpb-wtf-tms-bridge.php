@@ -24,5 +24,6 @@ return [
     'filament_resources' => [
         // tasks
         Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource::class,
+        Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource::class,
     ],
 ];

@@ -36,7 +36,7 @@ return [
         Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketTypeResource::class,
         // inspections
         Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource::class,
+        // Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource::class,
         Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource::class,
         Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource::class,
         Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\UpcomingInspectionResource::class,
