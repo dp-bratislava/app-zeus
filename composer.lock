@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce353285fdc730dc7de1a345e749ca07",
+    "content-hash": "6bee18d388a0050831fcb3829e4cedfa",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1418,12 +1418,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "22ac9ac2ccde24f917ff807155233551cc12fa89"
+                "reference": "079bfb10d5b82e78dd76741dab583aecea2bff0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/22ac9ac2ccde24f917ff807155233551cc12fa89",
-                "reference": "22ac9ac2ccde24f917ff807155233551cc12fa89",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/079bfb10d5b82e78dd76741dab583aecea2bff0c",
+                "reference": "079bfb10d5b82e78dd76741dab583aecea2bff0c",
                 "shasum": ""
             },
             "require": {
@@ -1467,7 +1467,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/staging",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2025-12-30T16:37:16+00:00"
+            "time": "2026-01-13T13:31:14+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -13578,7 +13578,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.2.0"
+        "php": "8.3.0"
     },
     "plugin-api-version": "2.6.0"
 }
