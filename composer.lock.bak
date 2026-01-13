@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce353285fdc730dc7de1a345e749ca07",
+    "content-hash": "ffaa20abc85da01f3cdaa0bf49e8763e",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1185,16 +1185,10 @@
         {
             "name": "dpb/dpb-departments",
             "version": "dev-staging",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dp-bratislava/dpb-departments.git",
-                "reference": "03b0ed4bf8375ecfc738c7efb0d597b61dba463d"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-departments/zipball/03b0ed4bf8375ecfc738c7efb0d597b61dba463d",
-                "reference": "03b0ed4bf8375ecfc738c7efb0d597b61dba463d",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/dpb-departments",
+                "reference": "48339653731615e1637a473932d75fe6fa3ed463"
             },
             "require": {
                 "dpb/dpb-utils": "dev-staging",
@@ -1225,11 +1219,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-departments/tree/staging",
-                "issues": "https://github.com/dp-bratislava/dpb-departments/issues"
-            },
-            "time": "2026-01-13T09:08:00+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-employee-manager",
@@ -1415,16 +1408,10 @@
         {
             "name": "dpb/dpb-work-time-fund",
             "version": "dev-staging",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "22ac9ac2ccde24f917ff807155233551cc12fa89"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/22ac9ac2ccde24f917ff807155233551cc12fa89",
-                "reference": "22ac9ac2ccde24f917ff807155233551cc12fa89",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/dpb-work-time-fund",
+                "reference": "22ac9ac2ccde24f917ff807155233551cc12fa89"
             },
             "require": {
                 "dpb/dpb-auditing": "dev-staging",
@@ -1463,25 +1450,18 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/staging",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2025-12-30T16:37:16+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
             "version": "dev-staging-tms",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "83c88af25c35c4573117d21ea4c9f029700b08a2"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/83c88af25c35c4573117d21ea4c9f029700b08a2",
-                "reference": "83c88af25c35c4573117d21ea4c9f029700b08a2",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/dpb-work-time-fund-filament",
+                "reference": "98b73c9602d3093f5f3497bc8951c7265b9b25d8"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "dev-staging",
@@ -1510,25 +1490,18 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/staging-tms",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-01-13T11:35:14+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
             "version": "dev-staging",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "ab513261f8ac115af46e09e7917612c7a0263255"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/ab513261f8ac115af46e09e7917612c7a0263255",
-                "reference": "ab513261f8ac115af46e09e7917612c7a0263255",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/dpb-wtf-tms-bridge",
+                "reference": "ab513261f8ac115af46e09e7917612c7a0263255"
             },
             "require": {
                 "dpb/dpb-work-time-fund-filament": "dev-staging-tms",
@@ -1556,11 +1529,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/staging",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-01-12T15:40:32+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -1850,16 +1822,10 @@
         {
             "name": "dpb/pkg-devices",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-devices.git",
-                "reference": "e176835fb30aca17610581f42dcbed01608eee96"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-devices/zipball/e176835fb30aca17610581f42dcbed01608eee96",
-                "reference": "e176835fb30aca17610581f42dcbed01608eee96",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-devices",
+                "reference": "e176835fb30aca17610581f42dcbed01608eee96"
             },
             "require": {
                 "dpb/pkg-eav": "^1.0",
@@ -1867,7 +1833,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -1890,11 +1855,10 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-devices/tree/main",
-                "issues": "https://github.com/dp-bratislava/pkg-devices/issues"
-            },
-            "time": "2025-09-27T20:14:11+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-eav",
@@ -1946,16 +1910,10 @@
         {
             "name": "dpb/pkg-fleet",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "d6592b030d11db29bcd9f68962370105fa4b17a7"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/d6592b030d11db29bcd9f68962370105fa4b17a7",
-                "reference": "d6592b030d11db29bcd9f68962370105fa4b17a7",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-fleet",
+                "reference": "d6592b030d11db29bcd9f68962370105fa4b17a7"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -1964,7 +1922,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -1987,25 +1944,18 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
-                "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
-            },
-            "time": "2026-01-05T10:03:35+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-inspections",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-inspections.git",
-                "reference": "c5dfe601467ff0d09f7ce4e5ecd26c6f7140f81d"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-inspections/zipball/c5dfe601467ff0d09f7ce4e5ecd26c6f7140f81d",
-                "reference": "c5dfe601467ff0d09f7ce4e5ecd26c6f7140f81d",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-inspections",
+                "reference": "c5dfe601467ff0d09f7ce4e5ecd26c6f7140f81d"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -2013,7 +1963,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2036,25 +1985,18 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-inspections/tree/main",
-                "issues": "https://github.com/dp-bratislava/pkg-inspections/issues"
-            },
-            "time": "2025-12-06T20:35:22+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-task-ms",
             "version": "dev-wtf-tms-bridge",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
-                "reference": "a3eae5321f925d0dbb0a86a126bf104b7f56f79f"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/a3eae5321f925d0dbb0a86a126bf104b7f56f79f",
-                "reference": "a3eae5321f925d0dbb0a86a126bf104b7f56f79f",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-task-ms",
+                "reference": "dc2e2ad9f81ac09d4980079ba7bbe03c1b10a251"
             },
             "require": {
                 "dpb/dpb-departments": "dev-staging",
@@ -2089,25 +2031,18 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/wtf-tms-bridge",
-                "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
-            },
-            "time": "2026-01-13T10:28:39+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-task-ms-ui",
             "version": "dev-wtf-tms-bridge",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "2dc624759d0bb593d960e6186442ed78de3b055c"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/2dc624759d0bb593d960e6186442ed78de3b055c",
-                "reference": "2dc624759d0bb593d960e6186442ed78de3b055c",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-task-ms-ui",
+                "reference": "85ab9b6e691143a6f560013faa1777bdf1ddcc8c"
             },
             "require": {
                 "dpb/pkg-task-ms": "dev-wtf-tms-bridge",
@@ -2137,25 +2072,18 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/wtf-tms-bridge",
-                "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
-            },
-            "time": "2026-01-13T10:29:18+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-tasks",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "f716dccdae32cc7dc7735acd6a16b64b119d52a2"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/f716dccdae32cc7dc7735acd6a16b64b119d52a2",
-                "reference": "f716dccdae32cc7dc7735acd6a16b64b119d52a2",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-tasks",
+                "reference": "f716dccdae32cc7dc7735acd6a16b64b119d52a2"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -2163,7 +2091,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2186,25 +2113,18 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/main",
-                "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
-            },
-            "time": "2025-12-30T16:36:02+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-tickets",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-tickets.git",
-                "reference": "e040db5494d4efc34de9c7f2b7bbdafcd33232c9"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/e040db5494d4efc34de9c7f2b7bbdafcd33232c9",
-                "reference": "e040db5494d4efc34de9c7f2b7bbdafcd33232c9",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-tickets",
+                "reference": "e040db5494d4efc34de9c7f2b7bbdafcd33232c9"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^1.0",
@@ -2212,7 +2132,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2235,11 +2154,10 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tickets/tree/main",
-                "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
-            },
-            "time": "2025-12-10T14:07:03+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/spotlight",
