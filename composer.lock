@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87e638828c9d9f17178d4aa4d3d82907",
+    "content-hash": "ffaa20abc85da01f3cdaa0bf49e8763e",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1501,7 +1501,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "5f9849bf8f0abad4d9799619a214d30c28021f55"
+                "reference": "ab513261f8ac115af46e09e7917612c7a0263255"
             },
             "require": {
                 "dpb/dpb-work-time-fund-filament": "dev-staging-tms",
@@ -2162,10 +2162,16 @@
         {
             "name": "dpb/spotlight",
             "version": "dev-staging",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-spotlight.git",
+                "reference": "a149089ff9711c23d6a2e9c6d278a29498b94280"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/dpb/dpb-spotlight",
-                "reference": "d9144837fed2ba572b8922cf0bc2f9e9876f742b"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-spotlight/zipball/a149089ff9711c23d6a2e9c6d278a29498b94280",
+                "reference": "a149089ff9711c23d6a2e9c6d278a29498b94280",
+                "shasum": ""
             },
             "require": {
                 "dpb/dpb-master-permission-guard": "dev-staging"
@@ -2192,10 +2198,11 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/staging",
+                "issues": "https://github.com/dp-bratislava/dpb-spotlight/issues"
+            },
+            "time": "2026-01-12T15:36:49+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13488,5 +13495,8 @@
         "php": "^8.3"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-overrides": {
+        "php": "8.2.0"
+    },
+    "plugin-api-version": "2.6.0"
 }
