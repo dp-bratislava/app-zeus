@@ -50,6 +50,9 @@ return [
         Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource::class,
         // reports
         Dpb\Package\TaskMS\UI\Filament\Resources\Reports\VehicleStatusReportResource::class,
+        // HR
+        Dpb\Package\TaskMS\UI\Filament\Resources\HR\DepartmentAssignmentResource::class,
+
     ],
 
     /*

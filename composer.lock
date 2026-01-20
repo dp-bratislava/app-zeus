@@ -1949,12 +1949,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "d6592b030d11db29bcd9f68962370105fa4b17a7"
+                "reference": "4a3fddae7de77330ca87ac52246b5448148c72aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/d6592b030d11db29bcd9f68962370105fa4b17a7",
-                "reference": "d6592b030d11db29bcd9f68962370105fa4b17a7",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/4a3fddae7de77330ca87ac52246b5448148c72aa",
+                "reference": "4a3fddae7de77330ca87ac52246b5448148c72aa",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +1991,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-01-05T10:03:35+00:00"
+            "time": "2026-01-20T14:47:23+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -2149,12 +2149,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "f716dccdae32cc7dc7735acd6a16b64b119d52a2"
+                "reference": "581ffa4ee199b51a7230b1e3e4c9d36c2be4b175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/f716dccdae32cc7dc7735acd6a16b64b119d52a2",
-                "reference": "f716dccdae32cc7dc7735acd6a16b64b119d52a2",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/581ffa4ee199b51a7230b1e3e4c9d36c2be4b175",
+                "reference": "581ffa4ee199b51a7230b1e3e4c9d36c2be4b175",
                 "shasum": ""
             },
             "require": {
@@ -2190,7 +2190,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-tasks/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2025-12-30T16:36:02+00:00"
+            "time": "2026-01-20T11:36:42+00:00"
         },
         {
             "name": "dpb/pkg-tickets",
