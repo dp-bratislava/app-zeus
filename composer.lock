@@ -1418,12 +1418,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "e7e31ef5d83e6b9d7c5519d8b8f9c2c59b9d3625"
+                "reference": "a5c50b487c1a348ab49e9112c6bb5334664c576c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/e7e31ef5d83e6b9d7c5519d8b8f9c2c59b9d3625",
-                "reference": "e7e31ef5d83e6b9d7c5519d8b8f9c2c59b9d3625",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/a5c50b487c1a348ab49e9112c6bb5334664c576c",
+                "reference": "a5c50b487c1a348ab49e9112c6bb5334664c576c",
                 "shasum": ""
             },
             "require": {
