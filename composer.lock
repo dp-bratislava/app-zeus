@@ -1734,16 +1734,16 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "56dd9872fb8dd1c69cffc9d96be418e2bd46dd39"
+                "reference": "bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/56dd9872fb8dd1c69cffc9d96be418e2bd46dd39",
-                "reference": "56dd9872fb8dd1c69cffc9d96be418e2bd46dd39",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd",
+                "reference": "bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd",
                 "shasum": ""
             },
             "require": {
