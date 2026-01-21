@@ -2101,12 +2101,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "1140b12bd2b6e7eb34658607c255e7900ef86458"
+                "reference": "c56ab9c24f38dea5b4c75dd8e99476bcc099c05a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/1140b12bd2b6e7eb34658607c255e7900ef86458",
-                "reference": "1140b12bd2b6e7eb34658607c255e7900ef86458",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/c56ab9c24f38dea5b4c75dd8e99476bcc099c05a",
+                "reference": "c56ab9c24f38dea5b4c75dd8e99476bcc099c05a",
                 "shasum": ""
             },
             "require": {
@@ -2141,7 +2141,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/wtf-tms-bridge",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-01-21T12:50:01+00:00"
+            "time": "2026-01-21T13:34:09+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
