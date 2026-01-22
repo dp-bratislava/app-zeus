@@ -79,6 +79,7 @@ return [
             'place-of-origin',
             'task-group',
             'task-item-group',
+            'department-assignments',
         ],
     ],
 ];

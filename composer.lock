@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "72e134b1aeba227a268466f105278c85bde886c0"
+                "reference": "1187679e85f30e1c90b9ceaf33a64a369946579a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/72e134b1aeba227a268466f105278c85bde886c0",
-                "reference": "72e134b1aeba227a268466f105278c85bde886c0",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/1187679e85f30e1c90b9ceaf33a64a369946579a",
+                "reference": "1187679e85f30e1c90b9ceaf33a64a369946579a",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/staging",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-01-22T12:07:35+00:00"
+            "time": "2026-01-22T17:10:45+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2101,12 +2101,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "f47d9cab7dd22b7cf29ce2b1958ce31f4715b83c"
+                "reference": "bc2014c600e9888f121b22620662bb3f8d2a2079"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/f47d9cab7dd22b7cf29ce2b1958ce31f4715b83c",
-                "reference": "f47d9cab7dd22b7cf29ce2b1958ce31f4715b83c",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/bc2014c600e9888f121b22620662bb3f8d2a2079",
+                "reference": "bc2014c600e9888f121b22620662bb3f8d2a2079",
                 "shasum": ""
             },
             "require": {
@@ -2141,7 +2141,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/wtf-tms-bridge",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-01-22T13:59:00+00:00"
+            "time": "2026-01-22T17:04:12+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
