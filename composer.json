@@ -9,14 +9,6 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "path",
-            "url": "packages/dpb/*",
-            "canonical": false,
-            "options": {
-                "symlink": true
-            }
-        },
 
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
