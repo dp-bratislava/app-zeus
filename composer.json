@@ -9,6 +9,7 @@
     ],
     "license": "MIT",
     "repositories": [
+
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
