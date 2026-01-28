@@ -1679,20 +1679,20 @@
         },
         {
             "name": "dpb/laravel-datahub-sync",
-            "version": "v12.1.0",
+            "version": "v12.4.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "927e928d4bb0c858472dcf92f0853f2583bf7cdd"
+                "reference": "1e6951c371a0447f5ca42f017dc1d0a9025ceb09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/927e928d4bb0c858472dcf92f0853f2583bf7cdd",
-                "reference": "927e928d4bb0c858472dcf92f0853f2583bf7cdd",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/1e6951c371a0447f5ca42f017dc1d0a9025ceb09",
+                "reference": "1e6951c371a0447f5ca42f017dc1d0a9025ceb09",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "^11.0 || ^12.0",
+                "laravel/framework": "^12.0",
                 "spatie/laravel-activitylog": "^4.7",
                 "spatie/laravel-package-tools": "^1.92"
             },
@@ -1709,6 +1709,14 @@
                 "psr-4": {
                     "Dpb\\DatahubSync\\": "src"
                 }
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "@php artisan datahub-sync:install"
+                ],
+                "post-update-cmd": [
+                    "@php artisan datahub-sync:install"
+                ]
             },
             "license": [
                 "MIT"
@@ -1727,10 +1735,10 @@
                 "dpb"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v12.1.0",
+                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v12.4.0",
                 "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
             },
-            "time": "2025-07-22T12:24:05+00:00"
+            "time": "2026-01-27T15:39:17+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
