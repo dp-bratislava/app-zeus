@@ -29,15 +29,12 @@ host('testing')
     ->set('branch', env('DEPLOYER_TESTING_BRANCH'))
     ->set('use_nvm', true);
 
-/*
-To be specified
 host('staging')
     ->setHostname(env('DEPLOYER_STAGING_HOSTNAME'))
     ->setRemoteUser(env('DEPLOYER_STAGING_REMOTE_USER'))
     ->setDeployPath(env('DEPLOYER_STAGING_DEPLOY_PATH'))
     ->set('branch', env('DEPLOYER_STAGING_BRANCH'))
     ->set('use_nvm', true);
-*/
 
 host('production')
     ->setHostname(env('DEPLOYER_PRODUCTION_HOSTNAME'))
