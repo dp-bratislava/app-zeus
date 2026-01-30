@@ -32,7 +32,8 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-batchable.git"}
     ],
     "require": {
         "php": "^8.3",
