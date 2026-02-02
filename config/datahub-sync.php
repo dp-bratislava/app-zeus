@@ -1,68 +1,92 @@
 <?php
 
+use Dpb\DatahubSync\Models;
+
 return [
     'server' => [
         'host' => env('DATAHUB_HOST', 'https://datahub.dpb.sk'),
         'token' => env('DATAHUB_ACCESS_TOKEN', ''),
     ],
 
-    'columns' => [
-        'employees' => [
-            'first_name',
-            'last_name',
-            'prefix_titles',
-            'suffix_titles',
-            'hash',
-            'gender',
+    /**
+     * Define the models that should be updated, along with the specific columns
+     * that are subject to synchronization or tracking.
+     * The array should use model class names as keys and an array of column names as values.
+     * IMPORTANT: Dont change order of models
+     */
+    'models' => [
+
+        Models\Location::class => [
+            'enabled' => false,
+            'columns' => '*',
         ],
 
-        'materials' => [
-            'matnr',
-            'maktx',
-            'mtart',
+        Models\Hierarchy::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'professions' => [
-            'code',
-            'title',
+        Models\Material::class => [
+            'enabled' => false,
+            'columns' => [
+                'code',
+                'title',
+                'measure_unit',
+                'type',
+            ],
         ],
 
-        'hierarchies' => [
-            'code',
-            'description',
-            'datahub_hierarchy_id',
+        Models\ContractType::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'contract-types' => [
-            'uri',
-            'title',
+        Models\Department::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'contracts' => [
-            'pid',
-            'datahub_employee_id',
-            'datahub_department_id',
-            'datahub_profession_id',
-            'datahub_contract_type_id',
-            'circuit_id',
-            'valid_from',
-            'is_active',
-            'is_primary',
+        Models\EmployeeCircuit::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'locations' => [
-            'title',
-            'is_active',
+        Models\Employee::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'departments' => [
-            'code',
-            'title',
-            'datahub_hierarchy_id',
+        Models\Profession::class => [
+            'enabled' => true,
+            'columns' => '*',
         ],
 
-        'employee-circuits' => [
-            'code',
+        Models\EmployeeContract::class => [
+            'enabled' => true,
+            'columns' => '*',
+        ],
+
+        /**
+         * Attendance
+         */
+        Models\Attendance\Group::class => [
+            'enabled' => false,
+            'columns' => '*',
+        ],
+
+        Models\Attendance\Shift::class => [
+            'enabled' => true,
+            'columns' => '*',
+        ],
+
+        Models\Attendance\AbsenceType::class => [
+            'enabled' => false,
+            'columns' => '*',
+        ],
+
+        Models\Attendance\Attendance::class => [
+            'enabled' => false,
+            'columns' => '*',
         ],
     ],
 ];

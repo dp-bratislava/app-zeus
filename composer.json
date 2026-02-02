@@ -25,6 +25,7 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/laravel-user-admin.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-activities.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-batchable.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-devices.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-eav.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-fleet.git"},
