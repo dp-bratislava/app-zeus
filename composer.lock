@@ -1612,16 +1612,16 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v12.1.0",
+            "version": "v12.1.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "00fc4010f6067bdca395e32ea991337fc740ca37"
+                "reference": "1f45ced867f6de0e7e72d4aad57f9a47188e84c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/00fc4010f6067bdca395e32ea991337fc740ca37",
-                "reference": "00fc4010f6067bdca395e32ea991337fc740ca37",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/1f45ced867f6de0e7e72d4aad57f9a47188e84c8",
+                "reference": "1f45ced867f6de0e7e72d4aad57f9a47188e84c8",
                 "shasum": ""
             },
             "require": {
@@ -1742,16 +1742,16 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd"
+                "reference": "6cc2c62d90d6b181de28d80a951c264ea4c2686f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd",
-                "reference": "bb59f4ba6cd4d6f6cdcfffe590ce1d9c2c7df3dd",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/6cc2c62d90d6b181de28d80a951c264ea4c2686f",
+                "reference": "6cc2c62d90d6b181de28d80a951c264ea4c2686f",
                 "shasum": ""
             },
             "require": {
