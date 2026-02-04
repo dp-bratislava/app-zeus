@@ -1414,7 +1414,7 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-staging",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
