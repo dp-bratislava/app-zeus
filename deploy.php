@@ -22,6 +22,13 @@ set('bin/php', '/usr/bin/php8.2');
 set('bin/composer', '/usr/bin/php8.2 /usr/local/bin/composer');
 
 // Hosts
+host('testing')
+    ->setHostname(env('DEPLOYER_TESTING_HOSTNAME'))
+    ->setRemoteUser(env('DEPLOYER_TESTING_REMOTE_USER'))
+    ->setDeployPath(env('DEPLOYER_TESTING_DEPLOY_PATH'))
+    ->set('branch', env('DEPLOYER_TESTING_BRANCH'))
+    ->set('use_nvm', true);
+
 host('staging')
     ->setHostname(env('DEPLOYER_STAGING_HOSTNAME'))
     ->setRemoteUser(env('DEPLOYER_STAGING_REMOTE_USER'))
@@ -55,15 +62,3 @@ task('artisan:view:cache', function () {
 after('deploy:failed', 'deploy:unlock');
 after('deploy:symlink', 'build');
 after('deploy', 'artisan:cache:clear');
-
-task('deploy', [
-    'deploy:prepare',
-    'deploy:vendors',
-    'artisan:storage:link',
-    'artisan:config:cache',
-    'artisan:route:cache',
-    'artisan:view:cache',
-    'artisan:event:cache',
-    'artisan:migrate',
-    'deploy:publish',
-]);
