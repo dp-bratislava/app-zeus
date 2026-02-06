@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78ba50eb66a53146a59edd469883acff",
+    "content-hash": "dca6d403046bc06175972ba9b1f6d0be",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1139,16 +1139,16 @@
         },
         {
             "name": "dpb/dpb-auditing",
-            "version": "dev-staging",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-auditing.git",
-                "reference": "32f401bfa5bd1678344776e43dc5f3b8f7beae77"
+                "reference": "f0bc0f343a57a2097bdbe8250038348ef96f6521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-auditing/zipball/32f401bfa5bd1678344776e43dc5f3b8f7beae77",
-                "reference": "32f401bfa5bd1678344776e43dc5f3b8f7beae77",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-auditing/zipball/f0bc0f343a57a2097bdbe8250038348ef96f6521",
+                "reference": "f0bc0f343a57a2097bdbe8250038348ef96f6521",
                 "shasum": ""
             },
             "require": {
@@ -1177,27 +1177,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-auditing/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-auditing/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/dpb-auditing/issues"
             },
-            "time": "2025-11-12T12:14:55+00:00"
+            "time": "2026-02-05T09:37:03+00:00"
         },
         {
             "name": "dpb/dpb-departments",
-            "version": "dev-staging",
+            "version": "v12.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-departments.git",
-                "reference": "03b0ed4bf8375ecfc738c7efb0d597b61dba463d"
+                "reference": "dde97c8271c29ec2a7daac448b5e17cf2efdbc62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-departments/zipball/03b0ed4bf8375ecfc738c7efb0d597b61dba463d",
-                "reference": "03b0ed4bf8375ecfc738c7efb0d597b61dba463d",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-departments/zipball/dde97c8271c29ec2a7daac448b5e17cf2efdbc62",
+                "reference": "dde97c8271c29ec2a7daac448b5e17cf2efdbc62",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-utils": "dev-staging",
+                "dpb/dpb-utils": "^12.0",
                 "dpb/filament-admin-panel": "^12.0",
                 "dpb/laravel-user-admin": "^3.0",
                 "filament/filament": "^3.2",
@@ -1226,28 +1226,28 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-departments/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-departments/tree/v12.0.4",
                 "issues": "https://github.com/dp-bratislava/dpb-departments/issues"
             },
-            "time": "2026-01-13T09:08:00+00:00"
+            "time": "2026-02-05T15:19:33+00:00"
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "dev-staging",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "3ae780822f46f433ed3d38db1e84f8656d8727b1"
+                "reference": "8b08d4e1caebd8bfe4265fbdb8da602121b96178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/3ae780822f46f433ed3d38db1e84f8656d8727b1",
-                "reference": "3ae780822f46f433ed3d38db1e84f8656d8727b1",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/8b08d4e1caebd8bfe4265fbdb8da602121b96178",
+                "reference": "8b08d4e1caebd8bfe4265fbdb8da602121b96178",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-master-permission-guard": "dev-staging",
-                "dpb/dpb-utils": "dev-staging"
+                "dpb/dpb-master-permission-guard": "^12.0",
+                "dpb/dpb-utils": "^12.0"
             },
             "type": "library",
             "extra": {
@@ -1272,23 +1272,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
             },
-            "time": "2026-01-30T11:09:48+00:00"
+            "time": "2026-02-05T15:20:48+00:00"
         },
         {
             "name": "dpb/dpb-insights",
-            "version": "dev-staging",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-insights.git",
-                "reference": "9774c4544d41d815409d4f9d1f137d0bf9463da2"
+                "reference": "b72aa2ddf917822008ff421a3ed74e31e0d0fb1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-insights/zipball/9774c4544d41d815409d4f9d1f137d0bf9463da2",
-                "reference": "9774c4544d41d815409d4f9d1f137d0bf9463da2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-insights/zipball/b72aa2ddf917822008ff421a3ed74e31e0d0fb1e",
+                "reference": "b72aa2ddf917822008ff421a3ed74e31e0d0fb1e",
                 "shasum": ""
             },
             "require": {
@@ -1318,27 +1318,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-insights/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-insights/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/dpb-insights/issues"
             },
-            "time": "2025-11-28T15:11:15+00:00"
+            "time": "2026-02-05T10:03:12+00:00"
         },
         {
             "name": "dpb/dpb-master-permission-guard",
-            "version": "dev-staging",
+            "version": "v12.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-master-permission-guard.git",
-                "reference": "d128d3518dff72d50216b0115879c603c82e756e"
+                "reference": "f9ee28e6e22429b04ea7cec8148d68678229cf96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-master-permission-guard/zipball/d128d3518dff72d50216b0115879c603c82e756e",
-                "reference": "d128d3518dff72d50216b0115879c603c82e756e",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-master-permission-guard/zipball/f9ee28e6e22429b04ea7cec8148d68678229cf96",
+                "reference": "f9ee28e6e22429b04ea7cec8148d68678229cf96",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-utils": "dev-staging",
+                "dpb/dpb-utils": "^12.0",
                 "php": "^8.2",
                 "spatie/laravel-permission": "^6.21"
             },
@@ -1365,23 +1365,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/v12.0.4",
                 "issues": "https://github.com/dp-bratislava/dpb-master-permission-guard/issues"
             },
-            "time": "2025-12-03T10:45:41+00:00"
+            "time": "2026-02-05T15:21:57+00:00"
         },
         {
             "name": "dpb/dpb-utils",
-            "version": "dev-staging",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-utils.git",
-                "reference": "cd08830e0cd6a966b4ac4bd4cb0688e046c76e38"
+                "reference": "f467a44af316df005cc69df3bfda73d7f29a6216"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-utils/zipball/cd08830e0cd6a966b4ac4bd4cb0688e046c76e38",
-                "reference": "cd08830e0cd6a966b4ac4bd4cb0688e046c76e38",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-utils/zipball/f467a44af316df005cc69df3bfda73d7f29a6216",
+                "reference": "f467a44af316df005cc69df3bfda73d7f29a6216",
                 "shasum": ""
             },
             "type": "library",
@@ -1407,35 +1407,35 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-utils/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-utils/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
             },
-            "time": "2025-12-01T09:40:15+00:00"
+            "time": "2026-02-05T10:25:09+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-staging",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "d6e45a8833b755ff2ef8eed83624f473f39cc872"
+                "reference": "7a897d48abdee7dd93ff8a2355a135989f720443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/d6e45a8833b755ff2ef8eed83624f473f39cc872",
-                "reference": "d6e45a8833b755ff2ef8eed83624f473f39cc872",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/7a897d48abdee7dd93ff8a2355a135989f720443",
+                "reference": "7a897d48abdee7dd93ff8a2355a135989f720443",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-auditing": "dev-staging",
-                "dpb/dpb-departments": "dev-staging",
-                "dpb/dpb-employee-manager": "dev-staging",
-                "dpb/dpb-insights": "dev-staging",
-                "dpb/dpb-master-permission-guard": "dev-staging",
-                "dpb/dpb-utils": "dev-staging",
-                "dpb/pkg-devices": "dev-main",
-                "dpb/pkg-fleet": "dev-main",
-                "dpb/spotlight": "dev-staging",
+                "dpb/dpb-auditing": "^12.0",
+                "dpb/dpb-departments": "^12.0",
+                "dpb/dpb-employee-manager": "^12.0",
+                "dpb/dpb-insights": "^12.0",
+                "dpb/dpb-master-permission-guard": "^12.0",
+                "dpb/dpb-utils": "^12.0",
+                "dpb/pkg-devices": "^12.0",
+                "dpb/pkg-fleet": "^12.0",
+                "dpb/spotlight": "^12.0",
                 "phpoffice/phpspreadsheet": "^2.1",
                 "saade/filament-fullcalendar": "^3.0",
                 "staudenmeir/laravel-adjacency-list": "^1.9"
@@ -1464,27 +1464,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-02-04T12:53:13+00:00"
+            "time": "2026-02-05T15:24:33+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-staging-tms",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "aed90dfc7d1289307350c93727fa22a850aa678a"
+                "reference": "8ddb13f870e9647d2f8e91f08e301e87d49f8e1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/aed90dfc7d1289307350c93727fa22a850aa678a",
-                "reference": "aed90dfc7d1289307350c93727fa22a850aa678a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/8ddb13f870e9647d2f8e91f08e301e87d49f8e1d",
+                "reference": "8ddb13f870e9647d2f8e91f08e301e87d49f8e1d",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-work-time-fund": "dev-staging",
+                "dpb/dpb-work-time-fund": "^12.0",
                 "php": "^8.2",
                 "saade/filament-fullcalendar": "^3.0"
             },
@@ -1511,28 +1511,28 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/staging-tms",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-01-30T09:32:09+00:00"
+            "time": "2026-02-05T15:25:16+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-staging",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "2a3a2ea56458ab2b5655741c54841d749cc1f701"
+                "reference": "24450d50c21dfe5ca94c62dd210a2e16687be8ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/2a3a2ea56458ab2b5655741c54841d749cc1f701",
-                "reference": "2a3a2ea56458ab2b5655741c54841d749cc1f701",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/24450d50c21dfe5ca94c62dd210a2e16687be8ce",
+                "reference": "24450d50c21dfe5ca94c62dd210a2e16687be8ce",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-work-time-fund-filament": "dev-staging-tms",
-                "dpb/pkg-task-ms-ui": "dev-wtf-tms-bridge"
+                "dpb/dpb-work-time-fund-filament": "^12.0",
+                "dpb/pkg-task-ms-ui": "^3.0"
             },
             "type": "library",
             "extra": {
@@ -1557,14 +1557,14 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-02-03T12:28:30+00:00"
+            "time": "2026-02-05T15:25:55+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
-            "version": "v1.0.0",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/ext-spatie-model-states.git",
@@ -1605,7 +1605,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/ext-spatie-model-states/tree/v1.0.0",
+                "source": "https://github.com/dp-bratislava/ext-spatie-model-states/tree/v12.0.0",
                 "issues": "https://github.com/dp-bratislava/ext-spatie-model-states/issues"
             },
             "time": "2025-10-09T07:30:55+00:00"
@@ -1672,10 +1672,10 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v12.1.0",
+                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v12.1.1",
                 "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
             },
-            "time": "2026-01-02T08:02:59+00:00"
+            "time": "2026-02-04T13:47:29+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
@@ -1802,14 +1802,14 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v3.0.1",
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v3.0.3",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2026-01-21T13:56:32+00:00"
+            "time": "2026-02-05T09:02:00+00:00"
         },
         {
             "name": "dpb/pkg-activities",
-            "version": "dev-main",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-activities.git",
@@ -1826,7 +1826,6 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -1857,7 +1856,7 @@
         },
         {
             "name": "dpb/pkg-batchable",
-            "version": "v1.0.1",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-batchable.git",
@@ -1897,32 +1896,31 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-batchable/tree/v1.0.1",
+                "source": "https://github.com/dp-bratislava/pkg-batchable/tree/v12.0.0",
                 "issues": "https://github.com/dp-bratislava/pkg-batchable/issues"
             },
             "time": "2026-01-27T09:10:00+00:00"
         },
         {
             "name": "dpb/pkg-devices",
-            "version": "dev-main",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-devices.git",
-                "reference": "ee333200bde557e9dc4c2a1ed5224b2cdccd7a63"
+                "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-devices/zipball/ee333200bde557e9dc4c2a1ed5224b2cdccd7a63",
-                "reference": "ee333200bde557e9dc4c2a1ed5224b2cdccd7a63",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-devices/zipball/919c859f315b42b637f7a2edbad1a0411972e0fc",
+                "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc",
                 "shasum": ""
             },
             "require": {
-                "dpb/pkg-eav": "^1.0",
+                "dpb/pkg-eav": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -1946,14 +1944,14 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-devices/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-devices/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-devices/issues"
             },
-            "time": "2026-01-23T11:37:58+00:00"
+            "time": "2026-02-04T14:53:02+00:00"
         },
         {
             "name": "dpb/pkg-eav",
-            "version": "v1.0.1",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-eav.git",
@@ -1993,33 +1991,32 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-eav/tree/v1.0.1",
+                "source": "https://github.com/dp-bratislava/pkg-eav/tree/v12.0.0",
                 "issues": "https://github.com/dp-bratislava/pkg-eav/issues"
             },
             "time": "2025-09-23T09:35:22+00:00"
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "dev-main",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "1dadd9d881629ea18d185212fbc93587f3d82575"
+                "reference": "a8f2d01252aa4667ddc5947c8b83c58b5181fefe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/1dadd9d881629ea18d185212fbc93587f3d82575",
-                "reference": "1dadd9d881629ea18d185212fbc93587f3d82575",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/a8f2d01252aa4667ddc5947c8b83c58b5181fefe",
+                "reference": "a8f2d01252aa4667ddc5947c8b83c58b5181fefe",
                 "shasum": ""
             },
             "require": {
-                "dpb/ext-spatie-model-states": "^1.0",
-                "dpb/pkg-eav": "^1.0",
+                "dpb/ext-spatie-model-states": "^12.0",
+                "dpb/pkg-eav": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2043,32 +2040,31 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-01-23T11:48:58+00:00"
+            "time": "2026-02-04T14:44:36+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
-            "version": "dev-main",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-inspections.git",
-                "reference": "6b9803ae7da2418eb201830c286218e8027e577a"
+                "reference": "49d2b5773237d510148d37d9e76741b8e88d6c97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-inspections/zipball/6b9803ae7da2418eb201830c286218e8027e577a",
-                "reference": "6b9803ae7da2418eb201830c286218e8027e577a",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-inspections/zipball/49d2b5773237d510148d37d9e76741b8e88d6c97",
+                "reference": "49d2b5773237d510148d37d9e76741b8e88d6c97",
                 "shasum": ""
             },
             "require": {
-                "dpb/ext-spatie-model-states": "^1.0",
+                "dpb/ext-spatie-model-states": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2092,32 +2088,32 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-inspections/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-inspections/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-inspections/issues"
             },
-            "time": "2026-01-23T11:29:15+00:00"
+            "time": "2026-02-04T14:41:18+00:00"
         },
         {
             "name": "dpb/pkg-task-ms",
-            "version": "dev-wtf-tms-bridge",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
-                "reference": "f0de3faf270d4e54168173a2c8bc4a88ba699dc2"
+                "reference": "7acc6ef762e02e2e0f56318b382e20d965ead651"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/f0de3faf270d4e54168173a2c8bc4a88ba699dc2",
-                "reference": "f0de3faf270d4e54168173a2c8bc4a88ba699dc2",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/7acc6ef762e02e2e0f56318b382e20d965ead651",
+                "reference": "7acc6ef762e02e2e0f56318b382e20d965ead651",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-departments": "dev-staging",
-                "dpb/pkg-activities": "dev-main",
-                "dpb/pkg-fleet": "dev-main",
-                "dpb/pkg-inspections": "dev-main",
-                "dpb/pkg-tasks": "dev-main",
-                "dpb/pkg-tickets": "dev-main",
+                "dpb/dpb-departments": "^12.0",
+                "dpb/pkg-activities": "^12.0",
+                "dpb/pkg-fleet": "^12.0",
+                "dpb/pkg-inspections": "^12.0",
+                "dpb/pkg-tasks": "^12.0",
+                "dpb/pkg-tickets": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -2146,27 +2142,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
             },
-            "time": "2026-01-27T09:53:46+00:00"
+            "time": "2026-02-04T15:00:01+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "dev-wtf-tms-bridge",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "6e49ddb8048e2ebe99ee6f1d920018653de1084b"
+                "reference": "53abeb6f21f0e2c5bd252f346802acfef3917620"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/6e49ddb8048e2ebe99ee6f1d920018653de1084b",
-                "reference": "6e49ddb8048e2ebe99ee6f1d920018653de1084b",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/53abeb6f21f0e2c5bd252f346802acfef3917620",
+                "reference": "53abeb6f21f0e2c5bd252f346802acfef3917620",
                 "shasum": ""
             },
             "require": {
-                "dpb/pkg-task-ms": "dev-wtf-tms-bridge",
+                "dpb/pkg-task-ms": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -2194,33 +2190,32 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/wtf-tms-bridge",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v3.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-02-02T15:05:36+00:00"
+            "time": "2026-02-04T15:05:01+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "dev-main",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "92bdcdb9fa1b9a2c398e38b7d099bc8f6f5dbc89"
+                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/92bdcdb9fa1b9a2c398e38b7d099bc8f6f5dbc89",
-                "reference": "92bdcdb9fa1b9a2c398e38b7d099bc8f6f5dbc89",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/b853a2adcb40ef7cc05b6a61db06e81b56fea132",
+                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132",
                 "shasum": ""
             },
             "require": {
-                "dpb/ext-spatie-model-states": "^1.0",
-                "dpb/pkg-batchable": "^1.0",
+                "dpb/ext-spatie-model-states": "^12.0",
+                "dpb/pkg-batchable": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2244,32 +2239,31 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2026-01-30T09:03:58+00:00"
+            "time": "2026-02-04T14:43:30+00:00"
         },
         {
             "name": "dpb/pkg-tickets",
-            "version": "dev-main",
+            "version": "v12.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tickets.git",
-                "reference": "d1abc6cb5cfc3298d9bd06c4aa1fa39fcc2afbeb"
+                "reference": "ddf8d3069787f6ec303568eab9b6776e4263b2da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/d1abc6cb5cfc3298d9bd06c4aa1fa39fcc2afbeb",
-                "reference": "d1abc6cb5cfc3298d9bd06c4aa1fa39fcc2afbeb",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/ddf8d3069787f6ec303568eab9b6776e4263b2da",
+                "reference": "ddf8d3069787f6ec303568eab9b6776e4263b2da",
                 "shasum": ""
             },
             "require": {
-                "dpb/ext-spatie-model-states": "^1.0",
+                "dpb/ext-spatie-model-states": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
-            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2293,27 +2287,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tickets/tree/v12.0.0",
+                "source": "https://github.com/dp-bratislava/pkg-tickets/tree/v12.0.1",
                 "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
             },
-            "time": "2026-01-23T12:30:12+00:00"
+            "time": "2026-02-04T14:32:54+00:00"
         },
         {
             "name": "dpb/spotlight",
-            "version": "dev-staging",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-spotlight.git",
-                "reference": "a149089ff9711c23d6a2e9c6d278a29498b94280"
+                "reference": "32042b36d04a33a2db70a874c9e75638816a72e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-spotlight/zipball/a149089ff9711c23d6a2e9c6d278a29498b94280",
-                "reference": "a149089ff9711c23d6a2e9c6d278a29498b94280",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-spotlight/zipball/32042b36d04a33a2db70a874c9e75638816a72e6",
+                "reference": "32042b36d04a33a2db70a874c9e75638816a72e6",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-master-permission-guard": "dev-staging"
+                "dpb/dpb-master-permission-guard": "^12.0"
             },
             "type": "library",
             "extra": {
@@ -2338,10 +2332,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/staging",
+                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/dpb-spotlight/issues"
             },
-            "time": "2026-01-12T15:36:49+00:00"
+            "time": "2026-02-05T15:22:55+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13636,9 +13630,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "dpb/dpb-wtf-tms-bridge": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

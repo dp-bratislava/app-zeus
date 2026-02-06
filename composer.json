@@ -9,7 +9,6 @@
     ],
     "license": "MIT",
     "repositories": [
-
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
@@ -39,10 +38,10 @@
         "php": "^8.3",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
-        "dpb/filament-admin-panel": "12.1.1",
+        "dpb/dpb-wtf-tms-bridge": "^12.0",
+        "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "^12.0",
-        "dpb/laravel-user-admin": "3.0.2",
-        "dpb/dpb-wtf-tms-bridge": "dev-staging",
+        "dpb/laravel-user-admin": "^3.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
