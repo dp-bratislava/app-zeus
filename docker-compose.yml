@@ -20,6 +20,7 @@ services:
             GITHUB_TOKEN: '${GITHUB_TOKEN}'
         volumes:
             - '.:/var/www/html'
+            - '${PACKAGES_PATH:-~/code/packages}:/var/www/packages'
         networks:
             - sail
         depends_on:
