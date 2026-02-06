@@ -1,4 +1,4 @@
-# Makefile pre Laravel 11 s Laravel Sail
+# Makefile pre Laravel 12 s Laravel Sail
 
 # Premenné
 SHELL := /bin/bash
