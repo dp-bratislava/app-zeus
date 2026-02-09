@@ -47,7 +47,7 @@
         "deployer/deployer": "^7.4",
         "dpb/dpb-wtf-tms-bridge": "^12.0",
         "dpb/filament-admin-panel": "^12.1",
-        "dpb/laravel-datahub-sync": "^12.0",
+        "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^3.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
