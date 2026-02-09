@@ -9,7 +9,14 @@
     ],
     "license": "MIT",
     "repositories": [
-
+        {
+            "type": "path",
+            "url": "packages/dpb/*",
+            "canonical": false,
+            "options": {
+                "symlink": true
+            }
+        },
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
@@ -20,10 +27,12 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/ext-spatie-model-states.git"},
+
         {"type": "vcs", "url": "git@github.com:dp-bratislava/filament-admin-panel.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/laravel-user-admin.git"},
+        
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/ext-spatie-model-states.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-activities.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-batchable.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-devices.git"},
@@ -33,16 +42,18 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"}
     ],
     "require": {
         "php": "^8.3",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
-        "dpb/filament-admin-panel": "12.1.0",
+        "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^3.0",
-        "dpb/dpb-wtf-tms-bridge": "dev-staging",
+        "dpb/dpb-wtf-tms-bridge": "dev-main as 12.0.1",
+        "dpb/pkg-task-ms-ui": "dev-main as 3.0.1",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
@@ -70,7 +81,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Database\\Factories\\": "database/factories/"
         }
     },
     "scripts": {

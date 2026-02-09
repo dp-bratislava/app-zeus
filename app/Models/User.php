@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Dpb\Package\Fleet\Models\VehicleType;
 use Dpb\UserAdmin\Models\User as BaseUser;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends BaseUser
 {
+    use HasFactory;
+    
     public function vehicleTypes(): array
     {
         if (isset($this->properties['fleet-vehicle-type-id'])) {

@@ -6,6 +6,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/packages
 /db_backups
 /local-dev
 .env
