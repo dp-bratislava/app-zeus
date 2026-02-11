@@ -1679,16 +1679,16 @@
         },
         {
             "name": "dpb/laravel-datahub-sync",
-            "version": "v12.4.3",
+            "version": "v12.4.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "3cc6d12a95d672b94d1188b594ef7f8a55c20643"
+                "reference": "2e02eab3ec8b0b6bd573af3cc8068e24d428404b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/3cc6d12a95d672b94d1188b594ef7f8a55c20643",
-                "reference": "3cc6d12a95d672b94d1188b594ef7f8a55c20643",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/2e02eab3ec8b0b6bd573af3cc8068e24d428404b",
+                "reference": "2e02eab3ec8b0b6bd573af3cc8068e24d428404b",
                 "shasum": ""
             },
             "require": {
