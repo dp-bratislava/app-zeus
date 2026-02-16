@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76af564ce17e11484fa0c3abc75edd41",
+    "content-hash": "0909bdf7342d6e22e1fe764ed1dfa436",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2094,16 +2094,16 @@
         },
         {
             "name": "dpb/pkg-task-ms",
-            "version": "v12.0.1",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
-                "reference": "7acc6ef762e02e2e0f56318b382e20d965ead651"
+                "reference": "7dd5eed8465f8ed467a57526b308ac255b11a512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/7acc6ef762e02e2e0f56318b382e20d965ead651",
-                "reference": "7acc6ef762e02e2e0f56318b382e20d965ead651",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/7dd5eed8465f8ed467a57526b308ac255b11a512",
+                "reference": "7dd5eed8465f8ed467a57526b308ac255b11a512",
                 "shasum": ""
             },
             "require": {
@@ -2113,6 +2113,7 @@
                 "dpb/pkg-inspections": "^12.0",
                 "dpb/pkg-tasks": "^12.0",
                 "dpb/pkg-tickets": "^12.0",
+                "dpb/pkg-work-log": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -2141,10 +2142,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.1",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
             },
-            "time": "2026-02-04T15:00:01+00:00"
+            "time": "2026-02-16T16:02:58+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
@@ -2196,16 +2197,16 @@
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "v12.0.1",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132"
+                "reference": "af401dfe788e1f5cd039f32a532cf5013176aa79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/b853a2adcb40ef7cc05b6a61db06e81b56fea132",
-                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/af401dfe788e1f5cd039f32a532cf5013176aa79",
+                "reference": "af401dfe788e1f5cd039f32a532cf5013176aa79",
                 "shasum": ""
             },
             "require": {
@@ -2238,10 +2239,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.1",
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.2",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2026-02-04T14:43:30+00:00"
+            "time": "2026-02-16T16:01:07+00:00"
         },
         {
             "name": "dpb/pkg-tickets",
@@ -2290,6 +2291,53 @@
                 "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
             },
             "time": "2026-02-04T14:32:54+00:00"
+        },
+        {
+            "name": "dpb/pkg-work-log",
+            "version": "v12.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-work-log.git",
+                "reference": "485670f3e9a12f91cb70fb412d29d42e1ce090bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-work-log/zipball/485670f3e9a12f91cb70fb412d29d42e1ce090bb",
+                "reference": "485670f3e9a12f91cb70fb412d29d42e1ce090bb",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^11.0 || ^12.0",
+                "spatie/laravel-package-tools": "^1.92",
+                "spatie/laravel-permission": "^6.3"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\Packages\\WorkLog\\Providers\\WorkLogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\Packages\\WorkLog\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Andrej",
+                    "email": "horny.andrej@dpb.sk"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-work-log/tree/v12.0.1",
+                "issues": "https://github.com/dp-bratislava/pkg-work-log/issues"
+            },
+            "time": "2026-02-05T09:25:33+00:00"
         },
         {
             "name": "dpb/spotlight",
