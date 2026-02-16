@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76af564ce17e11484fa0c3abc75edd41",
+    "content-hash": "be42f4b9d691baf92b5847bc4a22fa26",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1187,7 +1187,7 @@
             "version": "v12.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/dpb-departments.git",
+                "url": "git@github.com:dp-bratislava/dpb-departments.git",
                 "reference": "dde97c8271c29ec2a7daac448b5e17cf2efdbc62"
             },
             "dist": {
@@ -1233,16 +1233,16 @@
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "v12.0.3",
+            "version": "dev-fix/employee-page",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "8b08d4e1caebd8bfe4265fbdb8da602121b96178"
+                "reference": "d921c3907d84279a66b67eb6ae41424f2ca725c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/8b08d4e1caebd8bfe4265fbdb8da602121b96178",
-                "reference": "8b08d4e1caebd8bfe4265fbdb8da602121b96178",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/d921c3907d84279a66b67eb6ae41424f2ca725c4",
+                "reference": "d921c3907d84279a66b67eb6ae41424f2ca725c4",
                 "shasum": ""
             },
             "require": {
@@ -1271,11 +1271,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.0.3",
-                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
-            },
-            "time": "2026-02-05T15:20:48+00:00"
+            "time": "2026-02-13T13:47:05+00:00"
         },
         {
             "name": "dpb/dpb-insights",
@@ -1328,7 +1324,7 @@
             "version": "v12.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/dpb-master-permission-guard.git",
+                "url": "git@github.com:dp-bratislava/dpb-master-permission-guard.git",
                 "reference": "f9ee28e6e22429b04ea7cec8148d68678229cf96"
             },
             "dist": {
@@ -1414,16 +1410,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.0.2",
+            "version": "dev-fix/vehicle-report-page",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "7a897d48abdee7dd93ff8a2355a135989f720443"
+                "reference": "0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/7a897d48abdee7dd93ff8a2355a135989f720443",
-                "reference": "7a897d48abdee7dd93ff8a2355a135989f720443",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882",
+                "reference": "0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882",
                 "shasum": ""
             },
             "require": {
@@ -1463,24 +1459,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2026-02-05T15:24:33+00:00"
+            "time": "2026-02-12T13:47:55+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.0.4",
+            "version": "dev-fix/hide-inactive-employees",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "d0eca28accc240ced20408667a3b47e482a255e3"
+                "reference": "fbcc5c0e77aea2a8626d00141f42caaef6d7bd38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/d0eca28accc240ced20408667a3b47e482a255e3",
-                "reference": "d0eca28accc240ced20408667a3b47e482a255e3",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/fbcc5c0e77aea2a8626d00141f42caaef6d7bd38",
+                "reference": "fbcc5c0e77aea2a8626d00141f42caaef6d7bd38",
                 "shasum": ""
             },
             "require": {
@@ -1510,24 +1502,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-02-13T11:54:02+00:00"
+            "time": "2026-02-16T08:35:13+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.0.2",
+            "version": "dev-fix/vehicle-reports",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2"
+                "reference": "11a583c2ed916143f11ba59712bd3db3a1925cc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2",
-                "reference": "ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/11a583c2ed916143f11ba59712bd3db3a1925cc4",
+                "reference": "11a583c2ed916143f11ba59712bd3db3a1925cc4",
                 "shasum": ""
             },
             "require": {
@@ -1556,18 +1544,14 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-02-09T14:43:15+00:00"
+            "time": "2026-02-10T14:26:57+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/ext-spatie-model-states.git",
+                "url": "git@github.com:dp-bratislava/ext-spatie-model-states.git",
                 "reference": "f4cf1295f813524cc35226c305e4ca06049aa265"
             },
             "dist": {
@@ -1858,7 +1842,7 @@
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-batchable.git",
+                "url": "git@github.com:dp-bratislava/pkg-batchable.git",
                 "reference": "80236092a23d1d8f6bd8b45da198a8fe26d7323a"
             },
             "dist": {
@@ -1905,7 +1889,7 @@
             "version": "v12.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-devices.git",
+                "url": "git@github.com:dp-bratislava/pkg-devices.git",
                 "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc"
             },
             "dist": {
@@ -1953,7 +1937,7 @@
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-eav.git",
+                "url": "git@github.com:dp-bratislava/pkg-eav.git",
                 "reference": "7e11c9eb6db3fd9385f3c83d4017465b84420bb0"
             },
             "dist": {
@@ -2000,7 +1984,7 @@
             "version": "v12.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-fleet.git",
+                "url": "git@github.com:dp-bratislava/pkg-fleet.git",
                 "reference": "a8f2d01252aa4667ddc5947c8b83c58b5181fefe"
             },
             "dist": {
@@ -13732,9 +13716,39 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/dpb-employee-manager",
+            "version": "dev-fix/employee-page",
+            "alias": "12.0.3",
+            "alias_normalized": "12.0.3.0"
+        },
+        {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-fix/vehicle-report-page",
+            "alias": "12.0.2",
+            "alias_normalized": "12.0.2.0"
+        },
+        {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-fix/hide-inactive-employees",
+            "alias": "12.0.4",
+            "alias_normalized": "12.0.4.0"
+        },
+        {
+            "package": "dpb/dpb-wtf-tms-bridge",
+            "version": "dev-fix/vehicle-reports",
+            "alias": "12.0.2",
+            "alias_normalized": "12.0.2.0"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "dpb/dpb-employee-manager": 20,
+        "dpb/dpb-work-time-fund": 20,
+        "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/dpb-wtf-tms-bridge": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -13744,5 +13758,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

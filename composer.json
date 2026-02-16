@@ -9,13 +9,6 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "path",
-            "url": "./packages/*",
-            "options": {
-                "symlink": true
-            }
-        },
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
@@ -45,7 +38,10 @@
         "php": "^8.2",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
-        "dpb/dpb-wtf-tms-bridge": "^12.0",
+        "dpb/dpb-employee-manager": "dev-fix/employee-page as 12.0.3",
+        "dpb/dpb-work-time-fund": "dev-fix/vehicle-report-page as 12.0.2",
+        "dpb/dpb-work-time-fund-filament": "dev-fix/hide-inactive-employees as 12.0.4",
+        "dpb/dpb-wtf-tms-bridge": "dev-fix/vehicle-reports as 12.0.2",
         "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^3.0",
