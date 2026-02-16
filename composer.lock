@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00cf88101027e63b828b44854a1bb846",
+    "content-hash": "1ed3157b5a8dcd698d4b22b0c2abc6d2",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2169,17 +2169,11 @@
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "v12.0.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132"
-            },
+            "version": "dev-main",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/b853a2adcb40ef7cc05b6a61db06e81b56fea132",
-                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/dpb/pkg-tasks",
+                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
@@ -2210,11 +2204,10 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
-            },
-            "time": "2026-02-04T14:43:30+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/pkg-tickets",
@@ -13680,6 +13673,12 @@
             "version": "dev-main",
             "alias": "3.0.1",
             "alias_normalized": "3.0.1.0"
+        },
+        {
+            "package": "dpb/pkg-tasks",
+            "version": "dev-main",
+            "alias": "12.0.1",
+            "alias_normalized": "12.0.1.0"
         }
     ],
     "minimum-stability": "dev",
@@ -13687,7 +13686,8 @@
         "dpb/dpb-insights": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-task-ms": 20,
-        "dpb/pkg-task-ms-ui": 20
+        "dpb/pkg-task-ms-ui": 20,
+        "dpb/pkg-tasks": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

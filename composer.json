@@ -53,6 +53,7 @@
         "dpb/laravel-datahub-sync": "^12.0",
         "dpb/laravel-user-admin": "^3.0",
         "dpb/dpb-wtf-tms-bridge": "dev-main as 12.0.1",
+        "dpb/pkg-tasks": "dev-main as 12.0.1",
         "dpb/pkg-task-ms": "dev-main as 12.0.2",
         "dpb/pkg-task-ms-ui": "dev-main as 3.0.1",
         "dpb/dpb-insights": "dev-main as 12.0.2",
