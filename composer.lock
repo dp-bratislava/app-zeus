@@ -1283,7 +1283,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/dpb-insights",
-                "reference": "b72aa2ddf917822008ff421a3ed74e31e0d0fb1e"
+                "reference": "d6f4b08cc95831a8af7204ea08636d857595a483"
             },
             "require": {
                 "malzariey/filament-daterangepicker-filter": "^3.4",
@@ -2084,7 +2084,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-task-ms",
-                "reference": "a2ac0eca8d24d80a34e85d333b3f5863d29552d3"
+                "reference": "0813b0bf87286b3ec3c0407eab50a051ca183974"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
