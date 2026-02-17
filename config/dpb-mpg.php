@@ -9,6 +9,7 @@ use Dpb\Spotlight\Components\Livewire\SpotlightTriggerComponent;
 use Dpb\Spotlight\Models\SpotlightStep;
 use Dpb\WorkTimeFund\Filament\Pages\DeferredTasksManagement\DeferredTasksManagementPage;
 use Dpb\WorkTimeFund\Filament\Pages\OperationsCategoryManagementPage;
+use Dpb\WorkTimeFund\Filament\Pages\WorktimeOverviewPage;
 use Dpb\WorkTimeFund\Filament\Pages\WorktimeSchedulePlannerPage;
 use Dpb\WorkTimeFund\Models\Absence;
 use Dpb\WorkTimeFund\Models\ActivityRecord;
@@ -37,6 +38,7 @@ return [
                 WorktimeSchedulePlannerPage::getAccessPermission(),
                 WorkOrderPage::getAccessPermission(),
                 DailyMaintenanceWorkOrdersPage::getAccessPermission(),
+                WorktimeOverviewPage::getAccessPermission(),
                 // Components
                 DepartmentSwitcherComponent::getAccessPermission(),
                 SpotlightTriggerComponent::getAccessPermission(),
