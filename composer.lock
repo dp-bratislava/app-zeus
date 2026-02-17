@@ -2084,7 +2084,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-task-ms",
-                "reference": "0813b0bf87286b3ec3c0407eab50a051ca183974"
+                "reference": "7dd5eed8465f8ed467a57526b308ac255b11a512"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
@@ -2173,7 +2173,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-tasks",
-                "reference": "b853a2adcb40ef7cc05b6a61db06e81b56fea132"
+                "reference": "af401dfe788e1f5cd039f32a532cf5013176aa79"
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
