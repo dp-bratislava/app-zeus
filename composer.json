@@ -39,10 +39,11 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"}
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-wtf-tms-bridge": "^12.0",
@@ -105,7 +106,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.3.0"
+            "php": "8.2.0"
         },        
         "optimize-autoloader": true,
         "preferred-install": "dist",
