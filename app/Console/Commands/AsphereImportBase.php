@@ -228,6 +228,8 @@ abstract class AsphereImportBase extends Command
                         'department_id' => $departmentId,
                         'created_at' => $date,
                         'updated_at' => $date,
+                        'maintainable_type' => 'Dpb\\WorkTimeFund\\Models\\Maintainables\\Vehicle',
+                        'maintainable_id' => $record->vehicle_id,
                     ]);
                     $this->batchService->logBatchRecord($batchId, $workTaskId, 'dpb_worktimefund_model_task');
 
