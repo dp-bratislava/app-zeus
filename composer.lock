@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be42f4b9d691baf92b5847bc4a22fa26",
+    "content-hash": "440ede35bfeca109ed2068b2ba58aef6",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1176,10 +1176,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-auditing/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-auditing/issues"
-            },
             "time": "2026-02-05T09:37:03+00:00"
         },
         {
@@ -1225,10 +1221,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-departments/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/dpb-departments/issues"
-            },
             "time": "2026-02-05T15:19:33+00:00"
         },
         {
@@ -1313,10 +1305,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-insights/tree/v12.0.3",
-                "issues": "https://github.com/dp-bratislava/dpb-insights/issues"
-            },
             "time": "2026-02-10T08:06:38+00:00"
         },
         {
@@ -1360,10 +1348,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/dpb-master-permission-guard/issues"
-            },
             "time": "2026-02-05T15:21:57+00:00"
         },
         {
@@ -1402,24 +1386,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-utils/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
-            },
             "time": "2026-02-05T10:25:09+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-fix/vehicle-report-page",
+            "version": "dev-wip/from-v12.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882"
+                "reference": "7a60cbeb1dd4c28ce97facdada3fecd33c040ee0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882",
-                "reference": "0de3a5c8ee1262e1ca51a2ed29fc5c64f66ae882",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/7a60cbeb1dd4c28ce97facdada3fecd33c040ee0",
+                "reference": "7a60cbeb1dd4c28ce97facdada3fecd33c040ee0",
                 "shasum": ""
             },
             "require": {
@@ -1459,7 +1439,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-02-12T13:47:55+00:00"
+            "time": "2026-02-17T15:16:21+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -1588,10 +1568,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/ext-spatie-model-states/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/ext-spatie-model-states/issues"
-            },
             "time": "2025-10-09T07:30:55+00:00"
         },
         {
@@ -1926,10 +1902,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-devices/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-devices/issues"
-            },
             "time": "2026-02-04T14:53:02+00:00"
         },
         {
@@ -1973,10 +1945,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-eav/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/pkg-eav/issues"
-            },
             "time": "2025-09-23T09:35:22+00:00"
         },
         {
@@ -2022,10 +1990,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
-            },
             "time": "2026-02-04T14:44:36+00:00"
         },
         {
@@ -2314,10 +2278,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-spotlight/issues"
-            },
             "time": "2026-02-05T15:22:55+00:00"
         },
         {
@@ -13725,7 +13685,7 @@
         },
         {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-fix/vehicle-report-page",
+            "version": "dev-wip/from-v12.0.2",
             "alias": "12.0.2",
             "alias_normalized": "12.0.2.0"
         },
