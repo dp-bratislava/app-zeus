@@ -45,6 +45,8 @@ host('production')
 
 // Tasks
 task('build', function () {
+    artisan('filament:assets');
+
     $useNvm = get('use_nvm');
     if ($useNvm) {
         run('cd {{release_path}} && {{nvm}} npm install && {{nvm}} npm run build');
