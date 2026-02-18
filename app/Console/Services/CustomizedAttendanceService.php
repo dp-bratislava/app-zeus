@@ -148,6 +148,7 @@ class CustomizedAttendanceService
             'filter' => [
                 'date' => $this->getStartDate(),
                 'datahub_contract_id' => $contracts->pluck('id')->toArray(),
+                'contract_circuit_code' => implode(',', config('dpb-em.allowed_circuit_codes')),
             ],
         ];
     }
@@ -173,6 +174,7 @@ class CustomizedAttendanceService
             ->with('employee:id,first_name,last_name')
             ->select('id', 'pid', 'datahub_employee_id', 'datahub_department_id')
             ->where('datahub_department_id', $this->departmentId)
+            ->where('is_active', 1)
             ->get()
             ->keyBy('id');
     }
