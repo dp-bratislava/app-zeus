@@ -1471,16 +1471,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.0.4",
+            "version": "v12.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "d0eca28accc240ced20408667a3b47e482a255e3"
+                "reference": "1818a412c359e08e0c58424e0b0ad806476a4f3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/d0eca28accc240ced20408667a3b47e482a255e3",
-                "reference": "d0eca28accc240ced20408667a3b47e482a255e3",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/1818a412c359e08e0c58424e0b0ad806476a4f3a",
+                "reference": "1818a412c359e08e0c58424e0b0ad806476a4f3a",
                 "shasum": ""
             },
             "require": {
