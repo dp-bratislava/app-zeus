@@ -1515,11 +1515,15 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2"
+                "reference": "3da364d25dd3f5ccf408976928cbec55f4e35fd5"
             },
             "require": {
+                "dpb/dpb-utils": "^12.0",
                 "dpb/dpb-work-time-fund-filament": "^12.0",
-                "dpb/pkg-task-ms-ui": "^3.0"
+                "dpb/pkg-fleet": "^12.0",
+                "dpb/pkg-task-ms": "^12.0",
+                "dpb/pkg-task-ms-ui": "^3.0",
+                "dpb/pkg-tasks": "^12.0"
             },
             "type": "library",
             "extra": {
@@ -2084,7 +2088,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-task-ms",
-                "reference": "7dd5eed8465f8ed467a57526b308ac255b11a512"
+                "reference": "3ede03ecc86dd205b5520a2fcd733f9ff7bc0a19"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
@@ -2132,9 +2136,10 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-task-ms-ui",
-                "reference": "53abeb6f21f0e2c5bd252f346802acfef3917620"
+                "reference": "5d9e2e5da24b960c72314fe1587c17bc1c397111"
             },
             "require": {
+                "dpb/dpb-utils": "^12.0",
                 "dpb/pkg-task-ms": "^12.0",
                 "laravel/framework": "^11.0 || ^12.0",
                 "spatie/laravel-package-tools": "^1.92",
