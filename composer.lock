@@ -1679,7 +1679,7 @@
         },
         {
             "name": "dpb/laravel-datahub-sync",
-            "version": "v12.4.4",
+            "version": "v12.4.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
