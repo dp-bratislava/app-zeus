@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "440ede35bfeca109ed2068b2ba58aef6",
+    "content-hash": "0dca9b3c96c66556d7726a43701e5057",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1225,16 +1225,16 @@
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "dev-fix/employee-page",
+            "version": "dev-prepared-for-v12.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "d921c3907d84279a66b67eb6ae41424f2ca725c4"
+                "reference": "752b0108998c351c73a9945da1b4545e6dba5efc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/d921c3907d84279a66b67eb6ae41424f2ca725c4",
-                "reference": "d921c3907d84279a66b67eb6ae41424f2ca725c4",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/752b0108998c351c73a9945da1b4545e6dba5efc",
+                "reference": "752b0108998c351c73a9945da1b4545e6dba5efc",
                 "shasum": ""
             },
             "require": {
@@ -1263,7 +1263,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-02-13T13:47:05+00:00"
+            "time": "2026-02-24T12:23:57+00:00"
         },
         {
             "name": "dpb/dpb-insights",
@@ -1390,16 +1390,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-wip/from-v12.0.2",
+            "version": "dev-prepared-for-v12.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "7a60cbeb1dd4c28ce97facdada3fecd33c040ee0"
+                "reference": "1c84e8a6f7d72f29a6153264ce029f77a57a2c3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/7a60cbeb1dd4c28ce97facdada3fecd33c040ee0",
-                "reference": "7a60cbeb1dd4c28ce97facdada3fecd33c040ee0",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/1c84e8a6f7d72f29a6153264ce029f77a57a2c3b",
+                "reference": "1c84e8a6f7d72f29a6153264ce029f77a57a2c3b",
                 "shasum": ""
             },
             "require": {
@@ -1439,20 +1439,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-02-17T15:16:21+00:00"
+            "time": "2026-02-23T16:50:02+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-fix/hide-inactive-employees",
+            "version": "dev-prepared-for-v12.0.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "fbcc5c0e77aea2a8626d00141f42caaef6d7bd38"
+                "reference": "e5c038ffaeaa33ea387acb82e0aba3115d88d5a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/fbcc5c0e77aea2a8626d00141f42caaef6d7bd38",
-                "reference": "fbcc5c0e77aea2a8626d00141f42caaef6d7bd38",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/e5c038ffaeaa33ea387acb82e0aba3115d88d5a6",
+                "reference": "e5c038ffaeaa33ea387acb82e0aba3115d88d5a6",
                 "shasum": ""
             },
             "require": {
@@ -1482,11 +1482,11 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-02-16T08:35:13+00:00"
+            "time": "2026-02-23T16:43:39+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-fix/vehicle-reports",
+            "version": "dev-prepared-for-v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
@@ -2279,6 +2279,44 @@
                 }
             ],
             "time": "2026-02-05T15:22:55+00:00"
+        },
+        {
+            "name": "dpb/wtf-ui",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
+                "reference": "98616495c515baf5d140c790956a1a3f8437cb73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/98616495c515baf5d140c790956a1a3f8437cb73",
+                "reference": "98616495c515baf5d140c790956a1a3f8437cb73",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\WtfUi\\Providers\\WtfUiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\WtfUi\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "time": "2026-02-23T15:35:53+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13679,27 +13717,27 @@
     "aliases": [
         {
             "package": "dpb/dpb-employee-manager",
-            "version": "dev-fix/employee-page",
+            "version": "dev-prepared-for-v12.0.4",
             "alias": "12.0.3",
             "alias_normalized": "12.0.3.0"
         },
         {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-wip/from-v12.0.2",
-            "alias": "12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
-            "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-fix/hide-inactive-employees",
+            "version": "dev-prepared-for-v12.0.4",
             "alias": "12.0.4",
             "alias_normalized": "12.0.4.0"
         },
         {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-prepared-for-v12.0.6",
+            "alias": "12.0.5",
+            "alias_normalized": "12.0.5.0"
+        },
+        {
             "package": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-fix/vehicle-reports",
-            "alias": "12.0.2",
-            "alias_normalized": "12.0.2.0"
+            "version": "dev-prepared-for-v12.0.3",
+            "alias": "12.0.3",
+            "alias_normalized": "12.0.3.0"
         }
     ],
     "minimum-stability": "dev",
