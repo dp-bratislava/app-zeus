@@ -1229,12 +1229,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "752b0108998c351c73a9945da1b4545e6dba5efc"
+                "reference": "95de2f6bdd0c75cbd09515335793a8d2ec4b3008"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/752b0108998c351c73a9945da1b4545e6dba5efc",
-                "reference": "752b0108998c351c73a9945da1b4545e6dba5efc",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/95de2f6bdd0c75cbd09515335793a8d2ec4b3008",
+                "reference": "95de2f6bdd0c75cbd09515335793a8d2ec4b3008",
                 "shasum": ""
             },
             "require": {
@@ -1263,7 +1263,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-02-24T12:23:57+00:00"
+            "time": "2026-02-25T10:29:29+00:00"
         },
         {
             "name": "dpb/dpb-insights",
