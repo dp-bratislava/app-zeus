@@ -1518,16 +1518,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.0.2",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2"
+                "reference": "95e4409dbe71a99c91c91f547362f31ba0c43644"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2",
-                "reference": "ff3ccf467ea9610e0a5b62b524bbb00805bfb3b2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/95e4409dbe71a99c91c91f547362f31ba0c43644",
+                "reference": "95e4409dbe71a99c91c91f547362f31ba0c43644",
                 "shasum": ""
             },
             "require": {
@@ -1997,16 +1997,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.1",
+            "version": "v12.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "a8f2d01252aa4667ddc5947c8b83c58b5181fefe"
+                "reference": "ab0276da127345668084d10168638eb3814d508d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/a8f2d01252aa4667ddc5947c8b83c58b5181fefe",
-                "reference": "a8f2d01252aa4667ddc5947c8b83c58b5181fefe",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/ab0276da127345668084d10168638eb3814d508d",
+                "reference": "ab0276da127345668084d10168638eb3814d508d",
                 "shasum": ""
             },
             "require": {
