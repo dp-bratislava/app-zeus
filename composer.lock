@@ -1518,16 +1518,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.0.3",
+            "version": "v12.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "95e4409dbe71a99c91c91f547362f31ba0c43644"
+                "reference": "61f0192af6e1395d7ca5eb693a709187611b8abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/95e4409dbe71a99c91c91f547362f31ba0c43644",
-                "reference": "95e4409dbe71a99c91c91f547362f31ba0c43644",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/61f0192af6e1395d7ca5eb693a709187611b8abb",
+                "reference": "61f0192af6e1395d7ca5eb693a709187611b8abb",
                 "shasum": ""
             },
             "require": {
