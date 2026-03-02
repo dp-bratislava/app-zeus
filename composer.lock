@@ -2386,16 +2386,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.0.2",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "220857e9d73b5c61862f9c24dc4174fdd136671b"
+                "reference": "5f45dd84d1eadd17b05a98bcf7890964db1e1130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/220857e9d73b5c61862f9c24dc4174fdd136671b",
-                "reference": "220857e9d73b5c61862f9c24dc4174fdd136671b",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/5f45dd84d1eadd17b05a98bcf7890964db1e1130",
+                "reference": "5f45dd84d1eadd17b05a98bcf7890964db1e1130",
                 "shasum": ""
             },
             "require": {
@@ -2423,11 +2423,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
-            },
-            "time": "2026-02-27T14:54:48+00:00"
+            "time": "2026-03-02T10:50:01+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13965,5 +13961,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
