@@ -24,7 +24,6 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketTypeResource;
 use Dpb\UserAdmin\Filament\Resources\RoleResource;
 use Dpb\UserAdmin\Filament\Resources\UserResource;
 use Dpb\UserAdmin\UserAdminPlugin;
-use Dpb\WorkTimeFund\Filament\Pages\WorktimeSchedulePlannerPage;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
@@ -42,7 +41,6 @@ return [
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             WorktimeManagementPage::class,
-            WorktimeSchedulePlannerPage::class,
         ],
         'groups' => [
             [
