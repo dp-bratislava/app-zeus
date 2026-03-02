@@ -61,6 +61,6 @@ task('artisan:view:cache', function () {
 });
 
 // Hooks
+after('deploy:vendors', 'build');
+after('deploy:symlink', 'artisan:cache:clear');
 after('deploy:failed', 'deploy:unlock');
-after('deploy:symlink', 'build');
-after('deploy', 'artisan:cache:clear');
