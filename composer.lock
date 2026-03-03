@@ -1233,16 +1233,16 @@
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "v12.0.4",
+            "version": "v12.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "95de2f6bdd0c75cbd09515335793a8d2ec4b3008"
+                "reference": "57099535135c170726cc463e9151551965f8db29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/95de2f6bdd0c75cbd09515335793a8d2ec4b3008",
-                "reference": "95de2f6bdd0c75cbd09515335793a8d2ec4b3008",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/57099535135c170726cc463e9151551965f8db29",
+                "reference": "57099535135c170726cc463e9151551965f8db29",
                 "shasum": ""
             },
             "require": {
@@ -1272,10 +1272,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.0.4",
+                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.0.5",
                 "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
             },
-            "time": "2026-02-25T10:29:29+00:00"
+            "time": "2026-03-03T10:00:03+00:00"
         },
         {
             "name": "dpb/dpb-insights",
@@ -2145,16 +2145,16 @@
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "c6a35134cc8ddb8ab7fd6701102feaca0cfa5b25"
+                "reference": "77b11dd744378827802ea99a0058d95f490a5093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/c6a35134cc8ddb8ab7fd6701102feaca0cfa5b25",
-                "reference": "c6a35134cc8ddb8ab7fd6701102feaca0cfa5b25",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/77b11dd744378827802ea99a0058d95f490a5093",
+                "reference": "77b11dd744378827802ea99a0058d95f490a5093",
                 "shasum": ""
             },
             "require": {
@@ -2186,10 +2186,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v3.0.3",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v3.0.5",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-02-17T11:51:55+00:00"
+            "time": "2026-03-03T10:22:07+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
