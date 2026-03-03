@@ -1233,16 +1233,16 @@
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "v12.0.5",
+            "version": "v12.0.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "57099535135c170726cc463e9151551965f8db29"
+                "reference": "89fb14e1e9d053f88b5fb13eb15b2e02c6e1bf23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/57099535135c170726cc463e9151551965f8db29",
-                "reference": "57099535135c170726cc463e9151551965f8db29",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/89fb14e1e9d053f88b5fb13eb15b2e02c6e1bf23",
+                "reference": "89fb14e1e9d053f88b5fb13eb15b2e02c6e1bf23",
                 "shasum": ""
             },
             "require": {
@@ -1271,11 +1271,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.0.5",
-                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
-            },
-            "time": "2026-03-03T10:00:03+00:00"
+            "time": "2026-03-03T11:22:39+00:00"
         },
         {
             "name": "dpb/dpb-insights",
