@@ -1410,16 +1410,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.0.6",
+            "version": "v12.0.7",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "cf74ce675bd26bb296246dabcb2a7439ad70fb3d"
+                "reference": "b5a5d6109b2a43a86bd1aea216f40e69232a89e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/cf74ce675bd26bb296246dabcb2a7439ad70fb3d",
-                "reference": "cf74ce675bd26bb296246dabcb2a7439ad70fb3d",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/b5a5d6109b2a43a86bd1aea216f40e69232a89e0",
+                "reference": "b5a5d6109b2a43a86bd1aea216f40e69232a89e0",
                 "shasum": ""
             },
             "require": {
@@ -1460,10 +1460,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.0.6",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.0.7",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-03-03T13:41:43+00:00"
+            "time": "2026-03-04T13:09:26+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
