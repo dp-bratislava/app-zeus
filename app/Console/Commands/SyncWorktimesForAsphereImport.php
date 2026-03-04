@@ -2,22 +2,20 @@
 
 namespace App\Console\Commands;
 
-
-
-use App\Console\Services\CustomizedAttendanceService;
+use Dpb\WorkTimeFund\Services\AttendanceService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
-class SyncWorktimes extends Command{
+class SyncWorktimesForAsphereImport extends Command{
 
     // private $tables = ['Temporary_Kontroly_autobusy', 'Temporary_Poruchy_autobusy','Temporary_poruchy_elektrika','Temporary_kontroly_elektrika'];   
     private $tables = ['combined_table_kontroly', 'combined_table_poruchy'];
 
-    protected $signature = 'app:sync-worktimes-using-date';
+    protected $signature = 'app:sync-worktimes-asphere-import';
 
-    public function handle()
+    public function handle(AttendanceService $attendanceService)
     {
         $allEmployeeContractIds = collect();
 
@@ -41,7 +39,7 @@ class SyncWorktimes extends Command{
         
         foreach ($uniqueDepartmentIds as $departmentId) {
             $this->info("Syncing worktimes for department ID: {$departmentId}...");
-            app(CustomizedAttendanceService::class)->prefillEmployeeAttendance(departmentId: $departmentId, customDate: '2026-01-01');
+            $attendanceService->prefillEmployeeAttendance(departmentId: $departmentId, customDate: '2026-01-01');
         }
     }
 
