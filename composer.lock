@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7d71ad7e63ab390fd37356231aa722f",
+    "content-hash": "3a52cdf871eb2486da3b2ad92198c9fd",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1443,16 +1443,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-perf/optimize-vehicle-loading",
+            "version": "dev-release/v12.0.12",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "3d9c79bfa5463cfdad826fe179aea83ab543f954"
+                "reference": "60a9020d53a8849fad34ae930926726e77b2d4e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/3d9c79bfa5463cfdad826fe179aea83ab543f954",
-                "reference": "3d9c79bfa5463cfdad826fe179aea83ab543f954",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/60a9020d53a8849fad34ae930926726e77b2d4e7",
+                "reference": "60a9020d53a8849fad34ae930926726e77b2d4e7",
                 "shasum": ""
             },
             "require": {
@@ -1482,7 +1482,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-06T11:02:32+00:00"
+            "time": "2026-03-09T14:41:47+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -13894,7 +13894,7 @@
     "aliases": [
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-perf/optimize-vehicle-loading",
+            "version": "dev-release/v12.0.12",
             "alias": "12.1.0",
             "alias_normalized": "12.1.0.0"
         },
