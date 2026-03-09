@@ -52,7 +52,7 @@
         "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^3.0",
-        "dpb/wtf-ui": "^12.0",
+        "dpb/wtf-ui": "dev-release/v12.0.5 as 12.0.5",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/nightwatch": "^1.22",

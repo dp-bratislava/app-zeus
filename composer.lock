@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0256bdc308c9c210a643058e57c8f6d2",
+    "content-hash": "f7d71ad7e63ab390fd37356231aa722f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2326,16 +2326,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.0.4",
+            "version": "dev-release/v12.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "18b1945a55b44ea6f55fa760aac311c0c171913a"
+                "reference": "e5440e7823511a32e432411188cf83b1bc4dcb07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/18b1945a55b44ea6f55fa760aac311c0c171913a",
-                "reference": "18b1945a55b44ea6f55fa760aac311c0c171913a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/e5440e7823511a32e432411188cf83b1bc4dcb07",
+                "reference": "e5440e7823511a32e432411188cf83b1bc4dcb07",
                 "shasum": ""
             },
             "require": {
@@ -2363,11 +2363,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
-            },
-            "time": "2026-03-03T14:46:41+00:00"
+            "time": "2026-03-09T09:56:58+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13901,11 +13897,18 @@
             "version": "dev-perf/optimize-vehicle-loading",
             "alias": "12.1.0",
             "alias_normalized": "12.1.0.0"
+        },
+        {
+            "package": "dpb/wtf-ui",
+            "version": "dev-release/v12.0.5",
+            "alias": "12.0.5",
+            "alias_normalized": "12.0.5.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dpb/dpb-work-time-fund-filament": 20
+        "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
