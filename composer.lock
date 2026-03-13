@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a52cdf871eb2486da3b2ad92198c9fd",
+    "content-hash": "b16670c9d5b1b07eccc38b018e6849ba",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1639,16 +1639,16 @@
         },
         {
             "name": "dpb/laravel-datahub-sync",
-            "version": "v12.4.5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-datahub-sync.git",
-                "reference": "3e586b4d64167609b8d36b816be877d8e2b6e688"
+                "reference": "fe30aa6b0a15ba64b212e970b69e1f5ffc421028"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/3e586b4d64167609b8d36b816be877d8e2b6e688",
-                "reference": "3e586b4d64167609b8d36b816be877d8e2b6e688",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-datahub-sync/zipball/fe30aa6b0a15ba64b212e970b69e1f5ffc421028",
+                "reference": "fe30aa6b0a15ba64b212e970b69e1f5ffc421028",
                 "shasum": ""
             },
             "require": {
@@ -1693,11 +1693,7 @@
                 "datahub",
                 "dpb"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v12.4.4",
-                "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
-            },
-            "time": "2026-02-11T09:34:11+00:00"
+            "time": "2026-03-12T15:17:28+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
@@ -11650,73 +11646,6 @@
                 "source": "https://github.com/laravel/pail"
             },
             "time": "2026-02-09T13:44:54+00:00"
-        },
-        {
-            "name": "laravel/pint",
-            "version": "v1.27.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/pint.git",
-                "reference": "54cca2de13790570c7b6f0f94f37896bee4abcb5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/54cca2de13790570c7b6f0f94f37896bee4abcb5",
-                "reference": "54cca2de13790570c7b6f0f94f37896bee4abcb5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-tokenizer": "*",
-                "ext-xml": "*",
-                "php": "^8.2.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.93.1",
-                "illuminate/view": "^12.51.0",
-                "larastan/larastan": "^3.9.2",
-                "laravel-zero/framework": "^12.0.5",
-                "mockery/mockery": "^1.6.12",
-                "nunomaduro/termwind": "^2.3.3",
-                "pestphp/pest": "^3.8.5"
-            },
-            "bin": [
-                "builds/pint"
-            ],
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "App\\": "app/",
-                    "Database\\Seeders\\": "database/seeders/",
-                    "Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "An opinionated code formatter for PHP.",
-            "homepage": "https://laravel.com",
-            "keywords": [
-                "dev",
-                "format",
-                "formatter",
-                "lint",
-                "linter",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/pint/issues",
-                "source": "https://github.com/laravel/pint"
-            },
-            "time": "2026-02-10T20:00:20+00:00"
         },
         {
             "name": "laravel/sail",

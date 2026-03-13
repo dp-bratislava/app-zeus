@@ -1,6 +1,23 @@
 <?php
 
-use Dpb\DatahubSync\Models;
+use Dpb\DatahubSync\Models\Attendance\{
+    Absence,
+    AbsenceType,
+    Attendance,
+    Group,
+    Shift
+};
+use Dpb\DatahubSync\Models\{
+    ContractType,
+    Department,
+    Employee,
+    EmployeeCircuit,
+    EmployeeContract,
+    Hierarchy,
+    Location,
+    Material,
+    Profession
+};
 
 return [
     'server' => [
@@ -16,77 +33,21 @@ return [
      */
     'models' => [
 
-        Models\Location::class => [
-            'enabled' => false,
-            'columns' => '*',
-        ],
+        Location::class => ['enabled' => false, 'columns' => '*'],
+        Hierarchy::class => ['enabled' => true, 'columns' => '*'],
+        Material::class => ['enabled' => false, 'columns' => ['code', 'title', 'measure_unit', 'type']],
+        ContractType::class => ['enabled' => true, 'columns' => '*'],
+        Department::class => ['enabled' => true, 'columns' => '*'],
+        EmployeeCircuit::class => ['enabled' => true, 'columns' => '*'],
+        Employee::class => ['enabled' => true, 'columns' => '*'],
+        Profession::class => ['enabled' => true, 'columns' => '*'],
+        EmployeeContract::class => ['enabled' => true, 'columns' => '*'],
 
-        Models\Hierarchy::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\Material::class => [
-            'enabled' => false,
-            'columns' => [
-                'code',
-                'title',
-                'measure_unit',
-                'type',
-            ],
-        ],
-
-        Models\ContractType::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\Department::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\EmployeeCircuit::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\Employee::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\Profession::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\EmployeeContract::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        /**
-         * Attendance
-         */
-        Models\Attendance\Group::class => [
-            'enabled' => false,
-            'columns' => '*',
-        ],
-
-        Models\Attendance\Shift::class => [
-            'enabled' => true,
-            'columns' => '*',
-        ],
-
-        Models\Attendance\AbsenceType::class => [
-            'enabled' => false,
-            'columns' => '*',
-        ],
-
-        Models\Attendance\Attendance::class => [
-            'enabled' => false,
-            'columns' => '*',
-        ],
+        /** Attendance */
+        Group::class => ['enabled' => true, 'columns' => '*'],
+        Shift::class => ['enabled' => true, 'columns' => '*'],
+        AbsenceType::class => ['enabled' => true, 'columns' => '*'],
+        Attendance::class => ['enabled' => false, 'columns' => '*'],
+        Absence::class => ['enabled' => true, 'columns' => '*'],
     ],
 ];
