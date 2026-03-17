@@ -2,7 +2,7 @@
 php8.2 artisan app:check-existing-work-times
 ```
 ```
-php8.2 artisan app:sync-worktimes-using-date
+app:sync-worktimes-asphere-import
 ```
 ```
 php8.2 artisan app:create-missing-asphere-operations
