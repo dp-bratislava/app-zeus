@@ -41,17 +41,20 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/ui-components.git"}
     ],
     "require": {
         "php": "^8.2",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
-        "dpb/dpb-work-time-fund-filament": "dev-release/v12.0.12 as 12.1.0",
+        "dpb/dpb-work-time-fund": "dev-release/v12.0.8 as 12.0.8",
+        "dpb/dpb-work-time-fund-filament": "dev-release/v12.1.4 as 12.1.4",
         "dpb/dpb-wtf-tms-bridge": "^12.0",
         "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "~12.5",
         "dpb/laravel-user-admin": "^3.0",
+        "dpb/ui-components": "^12.0",
         "dpb/wtf-ui": "dev-release/v12.0.5 as 12.0.5",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
@@ -93,7 +96,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan filament:assets"
         ],
         "post-create-project-cmd": [
             "@php -r \"copy('.env.example', '.env');\"",
