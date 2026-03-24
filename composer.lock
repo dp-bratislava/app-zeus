@@ -1467,16 +1467,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.1.4",
+            "version": "v12.1.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "262580e066dc202c60c10ab83d5659e49b5bb999"
+                "reference": "6ee1704b4ca02962740684ef58da8a5472478169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/262580e066dc202c60c10ab83d5659e49b5bb999",
-                "reference": "262580e066dc202c60c10ab83d5659e49b5bb999",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/6ee1704b4ca02962740684ef58da8a5472478169",
+                "reference": "6ee1704b4ca02962740684ef58da8a5472478169",
                 "shasum": ""
             },
             "require": {
@@ -1507,10 +1507,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.1.4",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.1.5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-03-20T14:23:01+00:00"
+            "time": "2026-03-24T10:54:29+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -13961,5 +13961,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
