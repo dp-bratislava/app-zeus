@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a4da12a4f2673e8639c36dd49bceecc",
+    "content-hash": "34cb03f3b6fb631054b1b2fd8a9ab91b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1391,16 +1391,10 @@
         {
             "name": "dpb/dpb-work-time-fund",
             "version": "dev-release/v12.0.10",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "8f1b974c29cb2f71edfdae1f93c5ccbd1bac0529"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/8f1b974c29cb2f71edfdae1f93c5ccbd1bac0529",
-                "reference": "8f1b974c29cb2f71edfdae1f93c5ccbd1bac0529",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund",
+                "reference": "8f1b974c29cb2f71edfdae1f93c5ccbd1bac0529"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1440,21 +1434,18 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-24T08:32:36+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
             "version": "dev-release/v12.1.4",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/224cb8b0455bb1cdc71e93d805177e1013a2a188",
-                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund-filament",
+                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0",
@@ -1483,7 +1474,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-18T14:12:33+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -2323,17 +2317,11 @@
         },
         {
             "name": "dpb/ui-components",
-            "version": "v12.0.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/ui-components.git",
-                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686"
-            },
+            "version": "dev-main",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/3199102ff1337f2dcda24afcb6d97719942c6686",
-                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/ui-components",
+                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686"
             },
             "type": "library",
             "extra": {
@@ -2357,21 +2345,18 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-19T12:06:09+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/wtf-ui",
             "version": "dev-release/v12.0.5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "cc7e40474528d1731d40520dec10d43209c7122d"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/cc7e40474528d1731d40520dec10d43209c7122d",
-                "reference": "cc7e40474528d1731d40520dec10d43209c7122d",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/wtf-ui",
+                "reference": "cc7e40474528d1731d40520dec10d43209c7122d"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0"
@@ -2398,7 +2383,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-19T14:50:09+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -13873,6 +13861,12 @@
             "alias_normalized": "12.1.4.0"
         },
         {
+            "package": "dpb/ui-components",
+            "version": "dev-main",
+            "alias": "12.0.0",
+            "alias_normalized": "12.0.0.0"
+        },
+        {
             "package": "dpb/wtf-ui",
             "version": "dev-release/v12.0.5",
             "alias": "12.0.5",
@@ -13883,6 +13877,7 @@
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/ui-components": 20,
         "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
