@@ -14,6 +14,8 @@ abstract class AsphereImportBase extends Command
     protected string $workDateFormat = 'd.m.Y';
     protected string $creationDateFormat = 'd.m.Y H:i';
     protected string $workDateColumn = 'Dátum výkonu pracovníka';
+
+    protected string $noteColumn = 'Poznámka';
     protected string $activityRecordRealTimeColumn = 'Čas [hod]';
     protected string $importType = 'malfunction'; // 'inspection', 'malfunction', or 'daily_inspection'
 
@@ -43,10 +45,10 @@ abstract class AsphereImportBase extends Command
                 'create_inspection' => false,
                 'use_title_description' => false,
             ],
-            'daily_inspection' => [
-                'task_group_code' => 'daily_inspection',
+            'daily-maintenance' => [
+                'task_group_code' => 'daily-maintenance',
                 'create_inspection' => false,
-                'use_title_description' => true,
+                'use_title_description' => false,
             ],
         ];
 
@@ -359,7 +361,7 @@ abstract class AsphereImportBase extends Command
                 }
 
                 if ($config['use_title_description']) {
-                    $grouped[$groupKey]['description'] = $record->Poznámka;
+                    $grouped[$groupKey]['description'] = $record->{$this->noteColumn};
                     $grouped[$groupKey]['title'] = $record->{'Detail poruchy'};
                 }
             }

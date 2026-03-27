@@ -11,7 +11,7 @@ class ImportDailyInspections extends AsphereImportBase
     protected string $creationDateFormat = 'd.m.Y';
     protected string $workDateColumn = 'date';
     protected string $activityRecordRealTimeColumn = 'duration';
-
+    protected string $noteColumn = 'note';
     protected string $tableName = 'DO_elektrika';
-    protected string $importType = 'daily_inspection';
+    protected string $importType = 'daily-maintenance';
 }
