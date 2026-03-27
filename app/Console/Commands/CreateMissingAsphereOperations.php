@@ -71,38 +71,43 @@ class CreateMissingAsphereOperations extends Command{
     }
 
 
-    private function syncOperations($table): array{
-        $records = DB::table($table)
-                ->get();
-            $asphereOperationsToBeCreated = [];
-            $uniqueOperationKeys = [];
+    private function syncOperations($table): array
+    {
+        $asphereOperationsToBeCreated = [];
+        $uniqueOperationKeys = [];
+
+        // 1. Fetch all possible operations once to avoid querying inside the loop
+        // Key them by title and duration for O(1) lookup time
+        $existingOperations = DB::table($this->operationsTable)
+            ->get()
+            ->groupBy(fn($item) => $item->title . '|' . (float)$item->duration)
+            ->map(fn($group) => $group->first());
+
+        // 2. Process records in chunks to save memory
+        DB::table($table)->orderBy('id')->chunk(500, function ($records) use (&$asphereOperationsToBeCreated, &$uniqueOperationKeys, $existingOperations, $table) {
+            $updates = [];
+
             foreach ($records as $record) {
                 $hoursValue = str_replace(',', '.', $record->{$this->tempDurationColumn});
                 $duration = (float)$hoursValue * 3600;
-                
+
                 if ($this->roundToMinutes) {
                     $duration = round($duration / 60) * 60;
                 }
-                
+
                 $title = $record->{$this->tempOperationTitleColumn};
-                
-                $operation = DB::table($this->operationsTable)
-                    ->where(function ($query) use ($record) {
-                        $query->where('title', '=', $record->{$this->tempOperationTitleColumn});
-                    })
-                    ->where('duration', $duration)
-                    ->first();
-                
+                $lookupKey = $title . '|' . (float)$duration;
+
+                // 3. Look up in our pre-fetched collection instead of a DB query
+                $operation = $existingOperations->get($lookupKey);
+
                 if ($operation) {
-                    DB::table($table)
-                        ->where('id', $record->id)
-                        ->update([$this->tempOperationIdColumnForeign => $operation->id]);
-                }
-                else {
-                    $uniqueKey = $title . '|' . $duration;
-                    if (!isset($uniqueOperationKeys[$uniqueKey])) {
-                        $this->info("No matching operation found for record ID {$record->id} with title '{$record->{$this->tempOperationTitleColumn}}' and duration {$duration} seconds.");
-                        $uniqueOperationKeys[$uniqueKey] = true;
+                    // Collect IDs to update in bulk later
+                    $updates[$operation->id][] = $record->id;
+                } else {
+                    if (!isset($uniqueOperationKeys[$lookupKey])) {
+                        $this->info("No matching operation found for record ID {$record->id}...");
+                        $uniqueOperationKeys[$lookupKey] = true;
                         $asphereOperationsToBeCreated[] = [
                             'title' => $title,
                             'duration' => $duration
@@ -110,7 +115,16 @@ class CreateMissingAsphereOperations extends Command{
                     }
                 }
             }
-            return $asphereOperationsToBeCreated;
+
+            // 4. Batch Update: One query per unique operation found
+            foreach ($updates as $opId => $recordIds) {
+                DB::table($table)
+                    ->whereIn('id', $recordIds)
+                    ->update([$this->tempOperationIdColumnForeign => $opId]);
+            }
+        });
+
+        return $asphereOperationsToBeCreated;
     }
 
     private function createAsphereOperations(array $operations): void
