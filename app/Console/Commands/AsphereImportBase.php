@@ -81,6 +81,9 @@ abstract class AsphereImportBase extends Command
         );
         $batchId = $this->batchService->createBatch($contextId);
         
+        // Collect all batch records for bulk insert at the end
+        $batchRecords = [];
+        
         $taskGroup = DB::table('tsk_task_groups')->get()
             ->where('code', $config['task_group_code'])
             ->first();
@@ -108,7 +111,13 @@ abstract class AsphereImportBase extends Command
             }
 
             $taskId = DB::table('tsk_tasks')->insertGetId($taskData);
-            $this->batchService->logBatchRecord($batchId, $taskId, 'tsk_tasks');
+            $batchRecords[] = [
+                'batch_id' => $batchId,
+                'record_id' => $taskId,
+                'record_type' => 'tsk_tasks',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
 
             $maintenanceGroupId = $this->getMaintananceGroupFromVehicleId($vehicleId);
 
@@ -118,7 +127,8 @@ abstract class AsphereImportBase extends Command
                     $vehicleId,
                     $groupData['inspection_template_id'],
                     $date,
-                    $batchId
+                    $batchId,
+                    $batchRecords
                 );
             }
 
@@ -139,7 +149,13 @@ abstract class AsphereImportBase extends Command
             }
 
             $taskAssignmentId = DB::table('tms_task_assignments')->insertGetId($taskAssignmentData);
-            $this->batchService->logBatchRecord($batchId, $taskAssignmentId, 'tms_task_assignments');
+            $batchRecords[] = [
+                'batch_id' => $batchId,
+                'record_id' => $taskAssignmentId,
+                'record_type' => 'tms_task_assignments',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
 
             $taskItemId = DB::table('tsk_task_items')->insertGetId([
                 'date' => $date,
@@ -149,7 +165,13 @@ abstract class AsphereImportBase extends Command
                 'created_at' => $date,
                 'updated_at' => $date,
             ]);
-            $this->batchService->logBatchRecord($batchId, $taskItemId, 'tsk_task_items');
+            $batchRecords[] = [
+                'batch_id' => $batchId,
+                'record_id' => $taskItemId,
+                'record_type' => 'tsk_task_items',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
 
             $taskItemAssignmentId = DB::table('tms_task_item_assignments')->insertGetId([
                 'task_item_id' => $taskItemId,
@@ -157,7 +179,13 @@ abstract class AsphereImportBase extends Command
                 'created_at' => $date,
                 'updated_at' => $date,
             ]);
-            $this->batchService->logBatchRecord($batchId, $taskItemAssignmentId, 'tms_task_item_assignments');
+            $batchRecords[] = [
+                'batch_id' => $batchId,
+                'record_id' => $taskItemAssignmentId,
+                'record_type' => 'tms_task_item_assignments',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
 
             $workOrderId = DB::table('dpb_wtftmsbridge_model_workorder')->insertGetId([
                 'tms_task_item_id' => $taskItemId,
@@ -191,7 +219,8 @@ abstract class AsphereImportBase extends Command
                 $operations,
                 $batchId,
                 $workOrderId,
-                $date
+                $date,
+                &$batchRecords
             ) {
                 foreach ($records as $record) {
                     $workDate = \Carbon\Carbon::createFromFormat(
@@ -232,11 +261,13 @@ abstract class AsphereImportBase extends Command
                             'updated_at' => $workDate,
                         ]);
 
-                        $this->batchService->logBatchRecord(
-                            $batchId,
-                            $worktimeId,
-                            'dpb_worktimefund_model_worktime'
-                        );
+                        $batchRecords[] = [
+                            'batch_id' => $batchId,
+                            'record_id' => $worktimeId,
+                            'record_type' => 'dpb_worktimefund_model_worktime',
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
                     }
 
                     if (!$operation) {
@@ -256,7 +287,13 @@ abstract class AsphereImportBase extends Command
                         'maintainable_type' => 'Dpb\\WorkTimeFund\\Models\\Maintainables\\Vehicle',
                         'maintainable_id' => $record->vehicle_id,
                     ]);
-                    $this->batchService->logBatchRecord($batchId, $workTaskId, 'dpb_worktimefund_model_task');
+                    $batchRecords[] = [
+                        'batch_id' => $batchId,
+                        'record_id' => $workTaskId,
+                        'record_type' => 'dpb_worktimefund_model_task',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
 
                     DB::table('dpb_wtftmsbridge_mm_workorder_task')->insert([
                         'workorder_id' => $workOrderId,
@@ -279,13 +316,20 @@ abstract class AsphereImportBase extends Command
                         'parent_id' => $worktimeId,
                         'task_id' => $workTaskId,
                     ]);
-                    $this->batchService->logBatchRecord(
-                        $batchId,
-                        $activityId,
-                        'dpb_worktimefund_model_activityrecord'
-                    );
+                    $batchRecords[] = [
+                        'batch_id' => $batchId,
+                        'record_id' => $activityId,
+                        'record_type' => 'dpb_worktimefund_model_activityrecord',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
                 }
             });
+        }
+        
+        // Bulk insert all collected batch records at the end
+        if (!empty($batchRecords)) {
+            $this->batchService->logBatchRecordMultiple($batchRecords);
         }
     }
 
@@ -293,7 +337,8 @@ abstract class AsphereImportBase extends Command
         int $vehicleId,
         int $inspectionTemplateId,
         $creationDate,
-        int $batchId
+        int $batchId,
+        array &$batchRecords
     ): int {
         $date = is_string($creationDate) ? \Carbon\Carbon::parse($creationDate) : $creationDate;
 
@@ -305,7 +350,13 @@ abstract class AsphereImportBase extends Command
             'updated_at' => $date->format('Y-m-d H:i:s'),
         ]);
 
-        $this->batchService->logBatchRecord($batchId, $inspectionId, 'insp_inspections');
+        $batchRecords[] = [
+            'batch_id' => $batchId,
+            'record_id' => $inspectionId,
+            'record_type' => 'insp_inspections',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
 
         $inspectionAssignmentId = DB::table('tms_inspection_assignments')->insertGetId([
             'inspection_id' => $inspectionId,
@@ -315,11 +366,13 @@ abstract class AsphereImportBase extends Command
             'updated_at' => $date->format('Y-m-d H:i:s'),
         ]);
 
-        $this->batchService->logBatchRecord(
-            $batchId,
-            $inspectionAssignmentId,
-            'tms_inspection_assignments'
-        );
+        $batchRecords[] = [
+            'batch_id' => $batchId,
+            'record_id' => $inspectionAssignmentId,
+            'record_type' => 'tms_inspection_assignments',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
 
         return $inspectionId;
     }
@@ -346,7 +399,9 @@ abstract class AsphereImportBase extends Command
             }
 
             $groupKey = "{$record->vehicle_id}_{$record->task_item_group_id}_{$dateFormatted}";
-
+            if($this->importType === 'daily-maintenance'){
+                $groupKey .= "_{$record->id}";
+            }
             if (!isset($grouped[$groupKey])) {
                 $grouped[$groupKey] = [
                     'creation_date' => $dateFormatted,
