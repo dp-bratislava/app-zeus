@@ -15,8 +15,7 @@ abstract class AsphereImportBase extends Command
     protected string $creationDateFormat = 'd.m.Y H:i';
     protected string $workDateColumn = 'Dátum výkonu pracovníka';
     protected string $activityRecordRealTimeColumn = 'Čas [hod]';
-    protected bool $usesInspection = false;
-    protected bool $usesTitleDescription = false;
+    protected string $importType = 'malfunction'; // 'inspection', 'malfunction', or 'daily_inspection'
 
     protected function getMaintananceGroupFromVehicleId($vehicleId)
     {
@@ -31,11 +30,34 @@ abstract class AsphereImportBase extends Command
         $this->batchService = $batchService;
     }
 
+    protected function getTypeConfig(): array
+    {
+        $configs = [
+            'inspection' => [
+                'task_group_code' => 'inspection',
+                'create_inspection' => true,
+                'use_title_description' => true,
+            ],
+            'malfunction' => [
+                'task_group_code' => 'malfunction',
+                'create_inspection' => false,
+                'use_title_description' => false,
+            ],
+            'daily_inspection' => [
+                'task_group_code' => 'daily_inspection',
+                'create_inspection' => false,
+                'use_title_description' => true,
+            ],
+        ];
+
+        return $configs[$this->importType] ?? $configs['malfunction'];
+    }
+
     public function handle()
     {
         try {
             $this->info('Grouping records by vehicle and task item group...');
-            $groupedRecords = $this->groupRecordsByTaskCreationDate($this->creationDateColumn);
+            $groupedRecords = $this->groupRecordsByTaskCreationDate($this->creationDateColumn,$this->getTypeConfig());
 
             $this->info('Pocet zakaziek: ' . count($groupedRecords));
 
@@ -49,15 +71,16 @@ abstract class AsphereImportBase extends Command
     {
         $this->info('creating tasks with task items.');
 
+        $config = $this->getTypeConfig();
+
         $contextId = $this->batchService->getOrCreateBatchContext(
             'Asphere_TaskItem_Creation',
             'Pridanie zakazok a podzakazok import z aspheru'
         );
         $batchId = $this->batchService->createBatch($contextId);
         
-        $taskGroupCode = $this->usesInspection ? 'inspection' : 'malfunction';
         $taskGroup = DB::table('tsk_task_groups')->get()
-            ->where('code', $taskGroupCode)
+            ->where('code', $config['task_group_code'])
             ->first();
         
         foreach ($groupedRecords as $groupData) {
@@ -77,7 +100,7 @@ abstract class AsphereImportBase extends Command
                 'updated_at' => $date,
             ];
 
-            if ($this->usesTitleDescription) {
+            if ($config['use_title_description']) {
                 $taskData['description'] = $groupData['description'];
                 $taskData['title'] = $groupData['title'];
             }
@@ -88,7 +111,7 @@ abstract class AsphereImportBase extends Command
             $maintenanceGroupId = $this->getMaintananceGroupFromVehicleId($vehicleId);
 
             $inspectionId = null;
-            if ($this->usesInspection) {
+            if ($config['create_inspection']) {
                 $inspectionId = $this->createInspectionForRecord(
                     $vehicleId,
                     $groupData['inspection_template_id'],
@@ -299,7 +322,7 @@ abstract class AsphereImportBase extends Command
         return $inspectionId;
     }
 
-    protected function groupRecordsByTaskCreationDate(string $creationDateColumnName): array
+    protected function groupRecordsByTaskCreationDate(string $creationDateColumnName,$config): array
     {
         $allRecords = DB::table($this->tableName)
             ->whereNotNull('vehicle_id')
@@ -331,11 +354,11 @@ abstract class AsphereImportBase extends Command
                     'records' => [],
                 ];
 
-                if ($this->usesInspection) {
+                if ($this->$config['create_inspection']) {
                     $grouped[$groupKey]['inspection_template_id'] = $record->inspection_template_id;
                 }
 
-                if ($this->usesTitleDescription) {
+                if ($this->$config['use_title_description']) {
                     $grouped[$groupKey]['description'] = $record->Poznámka;
                     $grouped[$groupKey]['title'] = $record->{'Detail poruchy'};
                 }
