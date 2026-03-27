@@ -354,11 +354,11 @@ abstract class AsphereImportBase extends Command
                     'records' => [],
                 ];
 
-                if ($this->$config['create_inspection']) {
+                if ($config['create_inspection']) {
                     $grouped[$groupKey]['inspection_template_id'] = $record->inspection_template_id;
                 }
 
-                if ($this->$config['use_title_description']) {
+                if ($config['use_title_description']) {
                     $grouped[$groupKey]['description'] = $record->Poznámka;
                     $grouped[$groupKey]['title'] = $record->{'Detail poruchy'};
                 }
