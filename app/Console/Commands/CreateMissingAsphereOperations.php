@@ -11,18 +11,25 @@ use App\Console\Services\BatchService;
 class CreateMissingAsphereOperations extends Command{
 
     private BatchService $batchService;
-    // private $tables = ['Temporary_Kontroly_autobusy', 'Temporary_Poruchy_autobusy','Temporary_poruchy_elektrika','Temporary_kontroly_elektrika'];
-    private $tables = ['combined_table_kontroly', 'combined_table_poruchy'];
 
-    private $batchableBatchRecordsTable = 'tmp_asphere_import_batchable_batch_records';
+    private $tables;
+    private $batchableBatchRecordsTable;
+    private $operationsTable;
+    private $tempOperationIdColumnForeign;
+    private $tempOperationTitleColumn;
+    private $tempDurationColumn;
+    private $categoryTitle;
+    private $roundToMinutes;
 
-    private $operationsTable = 'dpb_worktimefund_model_operation';
-    private $tempOperationIdColumnForeign = 'operation_id';
-    private $tempOperationTitleColumn = 'Štandard';
-
-    private $tempDurationColumn = 'Čas štandardu [hod]';
-
-    protected $signature = 'app:create-missing-asphere-operations';
+    protected $signature = 'app:create-missing-asphere-operations
+                            {--tables=combined_table_kontroly,combined_table_poruchy : Comma-separated table names to process}
+                            {--batch-records-table=tmp_asphere_import_batchable_batch_records : Temporary batch records table name}
+                            {--operations-table=dpb_worktimefund_model_operation : Operations table name}
+                            {--operation-id-column=operation_id : Operation ID column name}
+                            {--operation-title-column=Štandard : Operation title column name}
+                            {--duration-column=Čas štandardu [hod] : Duration column name}
+                            {--category-title=Asphere Imported Operations : Category title for imported operations}
+                            {--round-to-minutes : Round duration to nearest minute}';
 
     protected $description = 'create missing operations';
 
@@ -34,6 +41,16 @@ class CreateMissingAsphereOperations extends Command{
 
     public function handle()
     {
+        // Load configuration from options with defaults
+        $this->tables = explode(',', $this->option('tables'));
+        $this->batchableBatchRecordsTable = $this->option('batch-records-table');
+        $this->operationsTable = $this->option('operations-table');
+        $this->tempOperationIdColumnForeign = $this->option('operation-id-column');
+        $this->tempOperationTitleColumn = $this->option('operation-title-column');
+        $this->tempDurationColumn = $this->option('duration-column');
+        $this->categoryTitle = $this->option('category-title');
+        $this->roundToMinutes = $this->option('round-to-minutes');
+
         if(!Schema::hasTable($this->batchableBatchRecordsTable)){
             $this->info("Record log table not found. Attempting to create table {$this->batchableBatchRecordsTable} for batch record logging...");
             $this->createTmpBatchRecordsTable();
@@ -49,7 +66,6 @@ class CreateMissingAsphereOperations extends Command{
             $asphereOperationsToBeCreated = $this->syncOperations($table);
             if(!empty($asphereOperationsToBeCreated)) {
                 $this->createAsphereOperations($asphereOperationsToBeCreated);
-                $this->syncOperations($table);
             }
         }
     }
@@ -63,6 +79,11 @@ class CreateMissingAsphereOperations extends Command{
             foreach ($records as $record) {
                 $hoursValue = str_replace(',', '.', $record->{$this->tempDurationColumn});
                 $duration = (float)$hoursValue * 3600;
+                
+                if ($this->roundToMinutes) {
+                    $duration = round($duration / 60) * 60;
+                }
+                
                 $title = $record->{$this->tempOperationTitleColumn};
                 
                 $operation = DB::table($this->operationsTable)
@@ -78,9 +99,9 @@ class CreateMissingAsphereOperations extends Command{
                         ->update([$this->tempOperationIdColumnForeign => $operation->id]);
                 }
                 else {
-                    $this->info("No matching operation found for record ID {$record->id} with title '{$record->{$this->tempOperationTitleColumn}}' and duration {$duration} seconds.");
                     $uniqueKey = $title . '|' . $duration;
                     if (!isset($uniqueOperationKeys[$uniqueKey])) {
+                        $this->info("No matching operation found for record ID {$record->id} with title '{$record->{$this->tempOperationTitleColumn}}' and duration {$duration} seconds.");
                         $uniqueOperationKeys[$uniqueKey] = true;
                         $asphereOperationsToBeCreated[] = [
                             'title' => $title,
@@ -88,10 +109,6 @@ class CreateMissingAsphereOperations extends Command{
                         ];
                     }
                 }
-            }
-            if(count($records) * 0.8 < count($asphereOperationsToBeCreated)){
-                $this->warn("ERROR NO FURTHER ACTION> A large number of records are missing operations. Missing operations count: " . count($asphereOperationsToBeCreated) . " out of " . count($records) . " total records. This might indicate a data issue or mismatch in operation criteria.");
-                return [];
             }
             return $asphereOperationsToBeCreated;
     }
@@ -111,13 +128,13 @@ class CreateMissingAsphereOperations extends Command{
         // create the category
         // 1. Try to get the ID from an existing record
         $asphereCategoryId = DB::table('dpb_worktimefund_model_category')
-            ->where('title', 'Asphere Imported Operations')
+            ->where('title', $this->categoryTitle)
             ->value('id');
 
         // 2. If it doesn't exist, insert it and capture the new ID
         if (!$asphereCategoryId) {
             $asphereCategoryId = DB::table('dpb_worktimefund_model_category')->insertGetId([
-                'title' => 'Asphere Imported Operations',
+                'title' => $this->categoryTitle,
                 'type' => 'default',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -144,8 +161,6 @@ class CreateMissingAsphereOperations extends Command{
                 'record_id' => $newOperationId,
                 'record_type' => 'dpb_worktimefund_model_operation',
             ];
-            // Log the creation in dpb_batchable_batch_records
-            // $this->batchService->logBatchRecord($batchId, $newOperationId, 'dpb_worktimefund_model_operation');
         }
         $this->batchService->logBatchRecordMultiple($operationToSaveAsBatch);
     }
