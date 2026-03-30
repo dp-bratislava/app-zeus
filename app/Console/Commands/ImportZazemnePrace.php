@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityRecordsAndTasks extends Command
+class ImportZazemnePrace extends Command
 {
     private BatchService $batchService;
 
@@ -25,7 +25,7 @@ class CreateActivityRecordsAndTasks extends Command
     private $contextName;
     private $contextDescription;
 
-    protected $signature = 'app:create-activity-records-and-tasks
+    protected $signature = 'app:import-zazemne-prace
                             {--source-table=zazemne_elektrika : Source table name to process (required)}
                             {--work-date-format=d.m.Y : Date format for work date parsing}
                             {--work-date-column=date : Work date column name}

@@ -67,6 +67,7 @@ class CreateMissingAsphereOperations extends Command{
             if(!empty($asphereOperationsToBeCreated)) {
                 $this->createAsphereOperations($asphereOperationsToBeCreated);
             }
+            $this->syncOperations($table);
         }
     }
 
