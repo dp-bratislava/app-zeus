@@ -174,6 +174,8 @@ class CreateMissingAsphereOperations extends Command{
                 'batch_id' => $batchId,
                 'record_id' => $newOperationId,
                 'record_type' => 'dpb_worktimefund_model_operation',
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
         $this->batchService->logBatchRecordMultiple($operationToSaveAsBatch);
