@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee7e33e07b4f859edcbf9c665add1066",
+    "content-hash": "ce1a068d1af34d477df4ae9965fbe4d0",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1390,16 +1390,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.0.11",
+            "version": "dev-release/v12.0.12",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "9a7476a0c6627a03362d94174a693637d187b9e2"
+                "reference": "0f0e6c325453a275fcb7dc039abb977daf65c9a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/9a7476a0c6627a03362d94174a693637d187b9e2",
-                "reference": "9a7476a0c6627a03362d94174a693637d187b9e2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/0f0e6c325453a275fcb7dc039abb977daf65c9a0",
+                "reference": "0f0e6c325453a275fcb7dc039abb977daf65c9a0",
                 "shasum": ""
             },
             "require": {
@@ -1412,6 +1412,7 @@
                 "dpb/pkg-devices": "^12.0",
                 "dpb/pkg-fleet": "^12.0",
                 "dpb/spotlight": "^12.0",
+                "dpb/ui-components": "^12.0",
                 "phpoffice/phpspreadsheet": "^2.1",
                 "saade/filament-fullcalendar": "^3.0",
                 "staudenmeir/laravel-adjacency-list": "^1.9"
@@ -1439,7 +1440,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-25T11:27:43+00:00"
+            "time": "2026-03-30T11:14:05+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -13860,6 +13861,12 @@
     ],
     "aliases": [
         {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-release/v12.0.12",
+            "alias": "12.0.12",
+            "alias_normalized": "12.0.12.0"
+        },
+        {
             "package": "dpb/dpb-work-time-fund-filament",
             "version": "dev-release/v12.1.4",
             "alias": "12.1.4",
@@ -13874,6 +13881,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/wtf-ui": 20
     },
