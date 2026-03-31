@@ -1394,12 +1394,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "cf8e8080a060042c4aa066e6e26f0c26d3067499"
+                "reference": "918c9e105c3169d282496aff3ec8a45d04cc00f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/cf8e8080a060042c4aa066e6e26f0c26d3067499",
-                "reference": "cf8e8080a060042c4aa066e6e26f0c26d3067499",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/918c9e105c3169d282496aff3ec8a45d04cc00f3",
+                "reference": "918c9e105c3169d282496aff3ec8a45d04cc00f3",
                 "shasum": ""
             },
             "require": {
@@ -1440,7 +1440,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-30T12:50:39+00:00"
+            "time": "2026-03-31T07:16:29+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
