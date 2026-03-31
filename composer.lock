@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce1a068d1af34d477df4ae9965fbe4d0",
+    "content-hash": "da0ecdde4efd17ab8ff2b30b13968d30",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1444,16 +1444,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.4",
+            "version": "dev-release/v12.1.7",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188"
+                "reference": "87cba8309ca95d198c114cf30368e6373b601b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/224cb8b0455bb1cdc71e93d805177e1013a2a188",
-                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/87cba8309ca95d198c114cf30368e6373b601b0e",
+                "reference": "87cba8309ca95d198c114cf30368e6373b601b0e",
                 "shasum": ""
             },
             "require": {
@@ -1483,7 +1483,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-03-18T14:12:33+00:00"
+            "time": "2026-03-31T08:09:19+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -13868,9 +13868,9 @@
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.4",
-            "alias": "12.1.4",
-            "alias_normalized": "12.1.4.0"
+            "version": "dev-release/v12.1.7",
+            "alias": "12.1.7",
+            "alias_normalized": "12.1.7.0"
         },
         {
             "package": "dpb/wtf-ui",
