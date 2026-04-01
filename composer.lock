@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bdfdd20ea76b7be3260388f2aa6b7ac",
+    "content-hash": "b15bedff050d164507b00afa2513ffb5",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1895,6 +1895,52 @@
                 "issues": "https://github.com/dp-bratislava/pkg-batchable/issues"
             },
             "time": "2026-01-27T09:10:00+00:00"
+        },
+        {
+            "name": "dpb/pkg-closing-summary",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-closing-summary.git",
+                "reference": "44ac78a0162c8a10fc1338c27a64def614074af8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/44ac78a0162c8a10fc1338c27a64def614074af8",
+                "reference": "44ac78a0162c8a10fc1338c27a64def614074af8",
+                "shasum": ""
+            },
+            "require": {
+                "phpoffice/phpspreadsheet": "^2.4.3"
+            },
+            "type": "project",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\PkgClosingSummary\\Providers\\PkgClosingSummaryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\PkgClosingSummary\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "iaol12",
+                    "email": "frantisekboldis@gmail.com"
+                }
+            ],
+            "description": "balik na uzavierku",
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.2.2",
+                "issues": "https://github.com/dp-bratislava/pkg-closing-summary/issues"
+            },
+            "time": "2026-04-01T14:11:48+00:00"
         },
         {
             "name": "dpb/pkg-devices",

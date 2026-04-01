@@ -41,17 +41,19 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-task-ms.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-closing-summary.git"}
     ],
     "require": {
         "php": "^8.2",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
         "dpb/dpb-wtf-tms-bridge": "^12.0",
-        "dpb/wtf-ui": "^12.0",
         "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^3.0",
+        "dpb/pkg-closing-summary": "^0.2.0",
+        "dpb/wtf-ui": "^12.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/nightwatch": "^1.22",
