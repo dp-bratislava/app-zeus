@@ -1898,16 +1898,16 @@
         },
         {
             "name": "dpb/pkg-closing-summary",
-            "version": "v0.2.2",
+            "version": "v0.2.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-closing-summary.git",
-                "reference": "44ac78a0162c8a10fc1338c27a64def614074af8"
+                "reference": "38ea215327e9e7a97d82fc1a62d0dee4d0544351"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/44ac78a0162c8a10fc1338c27a64def614074af8",
-                "reference": "44ac78a0162c8a10fc1338c27a64def614074af8",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/38ea215327e9e7a97d82fc1a62d0dee4d0544351",
+                "reference": "38ea215327e9e7a97d82fc1a62d0dee4d0544351",
                 "shasum": ""
             },
             "require": {
@@ -1937,10 +1937,10 @@
             ],
             "description": "balik na uzavierku",
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.2.2",
+                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.2.5",
                 "issues": "https://github.com/dp-bratislava/pkg-closing-summary/issues"
             },
-            "time": "2026-04-01T14:11:48+00:00"
+            "time": "2026-04-02T14:55:51+00:00"
         },
         {
             "name": "dpb/pkg-devices",
