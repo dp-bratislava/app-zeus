@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b15bedff050d164507b00afa2513ffb5",
+    "content-hash": "21a21868d6d49ccab48f8889d2f3ca1b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1410,16 +1410,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.0.11",
+            "version": "v12.0.12",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "9a7476a0c6627a03362d94174a693637d187b9e2"
+                "reference": "63b63f8eeac3db6535bf127527dbd2a10f584211"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/9a7476a0c6627a03362d94174a693637d187b9e2",
-                "reference": "9a7476a0c6627a03362d94174a693637d187b9e2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/63b63f8eeac3db6535bf127527dbd2a10f584211",
+                "reference": "63b63f8eeac3db6535bf127527dbd2a10f584211",
                 "shasum": ""
             },
             "require": {
@@ -1432,6 +1432,7 @@
                 "dpb/pkg-devices": "^12.0",
                 "dpb/pkg-fleet": "^12.0",
                 "dpb/spotlight": "^12.0",
+                "dpb/ui-components": "^12.0",
                 "phpoffice/phpspreadsheet": "^2.1",
                 "saade/filament-fullcalendar": "^3.0",
                 "staudenmeir/laravel-adjacency-list": "^1.9"
@@ -1459,24 +1460,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.0.11",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2026-03-25T11:27:43+00:00"
+            "time": "2026-04-07T10:30:24+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.1.6",
+            "version": "v12.1.7",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "3567a8db13ff8c9e6e8634ebefc621d527dd7d61"
+                "reference": "59109631569d3a27dfc76314410c8e36e7bb58f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/3567a8db13ff8c9e6e8634ebefc621d527dd7d61",
-                "reference": "3567a8db13ff8c9e6e8634ebefc621d527dd7d61",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/59109631569d3a27dfc76314410c8e36e7bb58f0",
+                "reference": "59109631569d3a27dfc76314410c8e36e7bb58f0",
                 "shasum": ""
             },
             "require": {
@@ -1506,11 +1503,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.1.6",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-03-24T13:05:16+00:00"
+            "time": "2026-04-01T07:55:40+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -2427,17 +2420,55 @@
             "time": "2026-02-05T15:22:55+00:00"
         },
         {
-            "name": "dpb/wtf-ui",
-            "version": "v12.0.4",
+            "name": "dpb/ui-components",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "18b1945a55b44ea6f55fa760aac311c0c171913a"
+                "url": "git@github.com:dp-bratislava/ui-components.git",
+                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/18b1945a55b44ea6f55fa760aac311c0c171913a",
-                "reference": "18b1945a55b44ea6f55fa760aac311c0c171913a",
+                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/3199102ff1337f2dcda24afcb6d97719942c6686",
+                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\UiComponents\\Providers\\UiComponentsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\UiComponents\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Lubos Babocky",
+                    "email": "babocky.lubos@dpb.sk"
+                }
+            ],
+            "time": "2026-03-19T12:06:09+00:00"
+        },
+        {
+            "name": "dpb/wtf-ui",
+            "version": "v12.0.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
+                "reference": "6d3089bfc7d7f7cade4a0f46c6146cf83b94eec3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/6d3089bfc7d7f7cade4a0f46c6146cf83b94eec3",
+                "reference": "6d3089bfc7d7f7cade4a0f46c6146cf83b94eec3",
                 "shasum": ""
             },
             "require": {
@@ -2465,11 +2496,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
-            },
-            "time": "2026-03-03T14:46:41+00:00"
+            "time": "2026-04-01T12:36:36+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -14007,5 +14034,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

@@ -9,13 +9,6 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "path",
-            "url": "./packages/*",
-            "options": {
-                "symlink": true
-            }
-        },
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
@@ -42,7 +35,8 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tasks.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-tickets.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-work-log.git"},
-        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-closing-summary.git"}
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-closing-summary.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/ui-components.git"}
     ],
     "require": {
         "php": "^8.2",
