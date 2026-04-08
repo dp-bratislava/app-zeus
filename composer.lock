@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34cb03f3b6fb631054b1b2fd8a9ab91b",
+    "content-hash": "e5f52f0606af6cbab3ed0a53f263942a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1390,11 +1390,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.10",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "8f1b974c29cb2f71edfdae1f93c5ccbd1bac0529"
+                "reference": "63b63f8eeac3db6535bf127527dbd2a10f584211"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1417,6 +1417,9 @@
                     "providers": [
                         "Dpb\\WorkTimeFund\\Providers\\WorkTimeFundServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -1441,11 +1444,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.4",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "224cb8b0455bb1cdc71e93d805177e1013a2a188"
+                "reference": "59109631569d3a27dfc76314410c8e36e7bb58f0"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0",
@@ -1458,6 +1461,9 @@
                     "providers": [
                         "Dpb\\WorkTimeFundFilament\\Providers\\WorkTimeFundFilamentServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -2329,6 +2335,9 @@
                     "providers": [
                         "Dpb\\UiComponents\\Providers\\UiComponentsServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -2352,7 +2361,7 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-release/v12.0.5",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
@@ -2367,6 +2376,9 @@
                     "providers": [
                         "Dpb\\WtfUi\\Providers\\WtfUiServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -13847,32 +13859,7 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.10",
-            "alias": "12.0.10",
-            "alias_normalized": "12.0.10.0"
-        },
-        {
-            "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.4",
-            "alias": "12.1.4",
-            "alias_normalized": "12.1.4.0"
-        },
-        {
-            "package": "dpb/ui-components",
-            "version": "dev-main",
-            "alias": "12.0.0",
-            "alias_normalized": "12.0.0.0"
-        },
-        {
-            "package": "dpb/wtf-ui",
-            "version": "dev-release/v12.0.5",
-            "alias": "12.0.5",
-            "alias_normalized": "12.0.5.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
