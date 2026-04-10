@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da0ecdde4efd17ab8ff2b30b13968d30",
+    "content-hash": "ddf3e21d3e64c6d217ce1d6cfad8761a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1390,16 +1390,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.12",
+            "version": "dev-release/v12.0.14",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "318919618b64d6225747b85fa126eaeafb45e112"
+                "reference": "17206ee0aeb0ab344ec2047e05cfda3e99a68849"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/318919618b64d6225747b85fa126eaeafb45e112",
-                "reference": "318919618b64d6225747b85fa126eaeafb45e112",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/17206ee0aeb0ab344ec2047e05cfda3e99a68849",
+                "reference": "17206ee0aeb0ab344ec2047e05cfda3e99a68849",
                 "shasum": ""
             },
             "require": {
@@ -1440,7 +1440,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-10T10:59:24+00:00"
+            "time": "2026-04-10T12:26:21+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -13863,9 +13863,9 @@
     "aliases": [
         {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.12",
-            "alias": "12.0.12",
-            "alias_normalized": "12.0.12.0"
+            "version": "dev-release/v12.0.14",
+            "alias": "12.0.14",
+            "alias_normalized": "12.0.14.0"
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
