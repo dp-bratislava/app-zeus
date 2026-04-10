@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddf3e21d3e64c6d217ce1d6cfad8761a",
+    "content-hash": "69d0081c3ac977fed9cd5b8a2c2c05db",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1444,16 +1444,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.7",
+            "version": "dev-release/v12.1.9",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "b8c4e00a556d3778dee325def1eac333fff25fc4"
+                "reference": "41d4d15978e5c58351a5947799e6db0bfa2eeba7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/b8c4e00a556d3778dee325def1eac333fff25fc4",
-                "reference": "b8c4e00a556d3778dee325def1eac333fff25fc4",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/41d4d15978e5c58351a5947799e6db0bfa2eeba7",
+                "reference": "41d4d15978e5c58351a5947799e6db0bfa2eeba7",
                 "shasum": ""
             },
             "require": {
@@ -1465,6 +1465,9 @@
                     "providers": [
                         "Dpb\\WorkTimeFundFilament\\Providers\\WorkTimeFundFilamentServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -1481,7 +1484,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-10T12:36:08+00:00"
+            "time": "2026-04-10T12:41:07+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -13869,9 +13872,9 @@
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.7",
-            "alias": "12.1.7",
-            "alias_normalized": "12.1.7.0"
+            "version": "dev-release/v12.1.9",
+            "alias": "12.1.9",
+            "alias_normalized": "12.1.9.0"
         },
         {
             "package": "dpb/wtf-ui",
