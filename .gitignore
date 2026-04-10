@@ -4,6 +4,7 @@
 .env.testing
 .phpactor.json
 .phpunit.result.cache
+.geminiignore
 /.fleet
 /.idea
 /.nova
