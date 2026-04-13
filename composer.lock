@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0780e80feebc5bb93ecafe43304a4da7",
+    "content-hash": "10fae668937867727bc7ecbdc0a593b3",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1100,8 +1100,8 @@
             },
             "require": {
                 "dpb/dpb-utils": "^12.0",
-                "dpb/filament-admin-panel": "^12.0",
-                "dpb/laravel-user-admin": "^3.0",
+                "dpb/filament-admin-panel": "^5.0",
+                "dpb/laravel-user-admin": "^5.0",
                 "filament/filament": "^5.0",
                 "php": "^8.2"
             },
@@ -1460,11 +1460,11 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "dev-main",
+            "version": "v5.0.0",
             "dist": {
                 "type": "path",
                 "url": "./packages/filament-admin-panel",
-                "reference": "a40f9bf20cb5eed7efa8216c00d4421c09b56175"
+                "reference": "a826a0ff47a70e46e83b99ce6cf17a1ae5169615"
             },
             "require": {
                 "filament/filament": "^5.0",
@@ -1582,11 +1582,11 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "dev-main",
+            "version": "5.0.0",
             "dist": {
                 "type": "path",
                 "url": "./packages/laravel-user-admin",
-                "reference": "4004f1dc732e71beebe42103fdc563ea735dc70a"
+                "reference": "2946c2e395fec5efb450c5418665f4e06dcece6e"
             },
             "require": {
                 "filament/filament": "^5.0",
@@ -14502,18 +14502,6 @@
             "alias_normalized": "12.0.0.0"
         },
         {
-            "package": "dpb/filament-admin-panel",
-            "version": "dev-main",
-            "alias": "v12.1.2",
-            "alias_normalized": "12.1.2.0"
-        },
-        {
-            "package": "dpb/laravel-user-admin",
-            "version": "dev-main",
-            "alias": "v3.0.3",
-            "alias_normalized": "3.0.3.0"
-        },
-        {
             "package": "dpb/pkg-activities",
             "version": "dev-main",
             "alias": "v12.0.0",
@@ -14616,8 +14604,6 @@
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/ext-spatie-model-states": 20,
-        "dpb/filament-admin-panel": 20,
-        "dpb/laravel-user-admin": 20,
         "dpb/pkg-activities": 20,
         "dpb/pkg-batchable": 20,
         "dpb/pkg-closing-summary": 20,
