@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5f52f0606af6cbab3ed0a53f263942a",
+    "content-hash": "4e16d656088f910fdd31712656dbe5ea",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1390,11 +1390,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-main",
+            "version": "dev-release/v12.0.14",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "63b63f8eeac3db6535bf127527dbd2a10f584211"
+                "reference": "17206ee0aeb0ab344ec2047e05cfda3e99a68849"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1417,9 +1417,6 @@
                     "providers": [
                         "Dpb\\WorkTimeFund\\Providers\\WorkTimeFundServiceProvider"
                     ]
-                },
-                "branch-alias": {
-                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -1444,16 +1441,14 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-main",
+            "version": "dev-release/v12.1.9",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "59109631569d3a27dfc76314410c8e36e7bb58f0"
+                "reference": "da3b8260d8cdee64cded0bf796c41063b974311a"
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.0",
-                "php": "^8.2",
-                "saade/filament-fullcalendar": "^3.0"
+                "dpb/dpb-work-time-fund": "^12.0"
             },
             "type": "library",
             "extra": {
@@ -1487,17 +1482,11 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.0.8",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "53196555af49a8809269db4119f2406af9f69c4f"
-            },
+            "version": "dev-release/v12.0.10",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/53196555af49a8809269db4119f2406af9f69c4f",
-                "reference": "53196555af49a8809269db4119f2406af9f69c4f",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-wtf-tms-bridge",
+                "reference": "7e2844133301d2229512ef531e6c03b5076b625f"
             },
             "require": {
                 "dpb/dpb-work-time-fund-filament": "^12.0",
@@ -1525,11 +1514,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.0.7",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-03-04T10:06:44+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2327,7 +2315,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/ui-components",
-                "reference": "3199102ff1337f2dcda24afcb6d97719942c6686"
+                "reference": "a585cc99771982620102d2173b270326c1d2a832"
             },
             "type": "library",
             "extra": {
@@ -2335,9 +2323,6 @@
                     "providers": [
                         "Dpb\\UiComponents\\Providers\\UiComponentsServiceProvider"
                     ]
-                },
-                "branch-alias": {
-                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -2361,11 +2346,11 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-main",
+            "version": "dev-release/v12.0.5",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
-                "reference": "cc7e40474528d1731d40520dec10d43209c7122d"
+                "reference": "8db29cb3a7ec6765ca831a511a2041d832ab3740"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0"
@@ -13859,11 +13844,43 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-release/v12.0.14",
+            "alias": "12.0.14",
+            "alias_normalized": "12.0.14.0"
+        },
+        {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-release/v12.1.9",
+            "alias": "12.1.9",
+            "alias_normalized": "12.1.9.0"
+        },
+        {
+            "package": "dpb/dpb-wtf-tms-bridge",
+            "version": "dev-release/v12.0.10",
+            "alias": "12.0",
+            "alias_normalized": "12.0.0.0"
+        },
+        {
+            "package": "dpb/ui-components",
+            "version": "dev-main",
+            "alias": "v12.0.0",
+            "alias_normalized": "12.0.0.0"
+        },
+        {
+            "package": "dpb/wtf-ui",
+            "version": "dev-release/v12.0.5",
+            "alias": "12.0.5",
+            "alias_normalized": "12.0.5.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/ui-components": 20,
         "dpb/wtf-ui": 20
     },
