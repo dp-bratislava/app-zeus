@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e16d656088f910fdd31712656dbe5ea",
+    "content-hash": "b886aec7364639ed2bbb65a5c033eb9d",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1390,11 +1390,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.14",
+            "version": "dev-release/v12.1.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "17206ee0aeb0ab344ec2047e05cfda3e99a68849"
+                "reference": "86e53fbec2ad1ca83766aba21603495144ad40c7"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1441,14 +1441,14 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.9",
+            "version": "dev-release/v12.2.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "da3b8260d8cdee64cded0bf796c41063b974311a"
+                "reference": "dacef28e8a93ac123dad4f21480e56f8572985f5"
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.0"
+                "dpb/dpb-work-time-fund": "^12.1.0"
             },
             "type": "library",
             "extra": {
@@ -1456,9 +1456,6 @@
                     "providers": [
                         "Dpb\\WorkTimeFundFilament\\Providers\\WorkTimeFundFilamentServiceProvider"
                     ]
-                },
-                "branch-alias": {
-                    "dev-main": "12.x-dev"
                 }
             },
             "autoload": {
@@ -1482,13 +1479,14 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-release/v12.0.10",
+            "version": "dev-release/v12.1.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "7e2844133301d2229512ef531e6c03b5076b625f"
+                "reference": "82712432ec51a1e03e35d81e9db596e279fe4b7c"
             },
             "require": {
+                "dpb/dpb-work-time-fund": "^12.1.0",
                 "dpb/dpb-work-time-fund-filament": "^12.0",
                 "dpb/pkg-task-ms-ui": "^3.0"
             },
@@ -2350,7 +2348,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
-                "reference": "8db29cb3a7ec6765ca831a511a2041d832ab3740"
+                "reference": "7004183e0166e8c0eb58740e43a9f1e7c882c430"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0"
@@ -13847,21 +13845,21 @@
     "aliases": [
         {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.0.14",
-            "alias": "12.0.14",
-            "alias_normalized": "12.0.14.0"
+            "version": "dev-release/v12.1.1",
+            "alias": "12.1.1",
+            "alias_normalized": "12.1.1.0"
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.1.9",
-            "alias": "12.1.9",
-            "alias_normalized": "12.1.9.0"
+            "version": "dev-release/v12.2.1",
+            "alias": "12.2.1",
+            "alias_normalized": "12.2.1.0"
         },
         {
             "package": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-release/v12.0.10",
-            "alias": "12.0",
-            "alias_normalized": "12.0.0.0"
+            "version": "dev-release/v12.1.1",
+            "alias": "12.1.1",
+            "alias_normalized": "12.1.1.0"
         },
         {
             "package": "dpb/ui-components",
