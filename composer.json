@@ -50,7 +50,7 @@
         "deployer/deployer": "^7.4",
         "dpb/dpb-work-time-fund": "dev-release/v12.1.1 as 12.1.1",
         "dpb/dpb-work-time-fund-filament": "dev-release/v12.2.1 as 12.2.1",
-        "dpb/dpb-wtf-tms-bridge": "^12.1",
+        "dpb/dpb-wtf-tms-bridge": "dev-release/v12.1.1 as 12.1.1",
         "dpb/filament-admin-panel": "^12.1",
         "dpb/laravel-datahub-sync": "~12.5",
         "dpb/laravel-user-admin": "^3.0",

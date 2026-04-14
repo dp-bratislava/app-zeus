@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "028f589e9819eabcae77b9892d28ac08",
+    "content-hash": "84acb809daef3c0f0ecfaf13e140332d",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1485,16 +1485,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.1.0",
+            "version": "dev-release/v12.1.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "82712432ec51a1e03e35d81e9db596e279fe4b7c"
+                "reference": "5d24d335edb0377ea4d9c5e5841037159f0acea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/82712432ec51a1e03e35d81e9db596e279fe4b7c",
-                "reference": "82712432ec51a1e03e35d81e9db596e279fe4b7c",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/5d24d335edb0377ea4d9c5e5841037159f0acea3",
+                "reference": "5d24d335edb0377ea4d9c5e5841037159f0acea3",
                 "shasum": ""
             },
             "require": {
@@ -1524,7 +1524,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-14T11:54:57+00:00"
+            "time": "2026-04-14T14:26:39+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -13871,6 +13871,12 @@
             "alias_normalized": "12.2.1.0"
         },
         {
+            "package": "dpb/dpb-wtf-tms-bridge",
+            "version": "dev-release/v12.1.1",
+            "alias": "12.1.1",
+            "alias_normalized": "12.1.1.0"
+        },
+        {
             "package": "dpb/wtf-ui",
             "version": "dev-release/v12.0.5",
             "alias": "12.0.5",
@@ -13881,6 +13887,7 @@
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
