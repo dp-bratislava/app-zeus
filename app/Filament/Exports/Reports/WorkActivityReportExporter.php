@@ -65,27 +65,6 @@ class WorkActivityReportExporter extends Exporter
         ];
     }
 
-    public function getXlsxCellStyle(): ?Style
-    {
-        return (new Style())
-            ->setShouldWrapText();
-    }
-
-public function getXlsxOptions(): ?Options
-{
-    $options = new Options();
-    
-    // Set fixed width for specific columns
-    // Arguments: (width, startColumnIndex, endColumnIndex)
-    // Note: Column index starts at 1
-    $options->setColumnWidth(25, 1); // Set first column to width 25
-    $options->setColumnWidth(40, 2); // Set second column to width 40
-    $options->setColumnWidth(15, 3, 5); // Set columns 3, 4, and 5 to width 15
-    
-    return $options;
-}
-
-
     public static function getCompletedNotificationBody(Export $export): string
     {
         $body = 'Your work activity report export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
