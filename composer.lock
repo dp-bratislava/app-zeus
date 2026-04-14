@@ -1394,12 +1394,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "a9a0158242894d430aa7c18857479dce75f43899"
+                "reference": "d76c46a9cea852bbae391981a4be645a3a1c7db1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/a9a0158242894d430aa7c18857479dce75f43899",
-                "reference": "a9a0158242894d430aa7c18857479dce75f43899",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/d76c46a9cea852bbae391981a4be645a3a1c7db1",
+                "reference": "d76c46a9cea852bbae391981a4be645a3a1c7db1",
                 "shasum": ""
             },
             "require": {
@@ -1440,7 +1440,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-13T13:17:00+00:00"
+            "time": "2026-04-14T07:03:38+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -1448,12 +1448,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "2d206fba9c154b2fff684bc176220f2391a10973"
+                "reference": "fe8f4b15ba968a745705267a83b189b9e4b847d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/2d206fba9c154b2fff684bc176220f2391a10973",
-                "reference": "2d206fba9c154b2fff684bc176220f2391a10973",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/fe8f4b15ba968a745705267a83b189b9e4b847d2",
+                "reference": "fe8f4b15ba968a745705267a83b189b9e4b847d2",
                 "shasum": ""
             },
             "require": {
@@ -1484,7 +1484,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-13T15:20:18+00:00"
+            "time": "2026-04-14T10:52:00+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
