@@ -1448,12 +1448,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "7d6edd7a2b23b7d54a2a5701cf7241849f58f03d"
+                "reference": "dacef28e8a93ac123dad4f21480e56f8572985f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/7d6edd7a2b23b7d54a2a5701cf7241849f58f03d",
-                "reference": "7d6edd7a2b23b7d54a2a5701cf7241849f58f03d",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/dacef28e8a93ac123dad4f21480e56f8572985f5",
+                "reference": "dacef28e8a93ac123dad4f21480e56f8572985f5",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1481,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-04-14T12:31:59+00:00"
+            "time": "2026-04-14T13:56:40+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
