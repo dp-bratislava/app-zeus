@@ -27,8 +27,11 @@ class FleetPanelProvider extends PanelProvider
         return $panel
             ->id('fleet')
             ->path('fleet')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Amber,
+                'weekend' => Color::hex('#ffcccc'),
+                'workday' => Color::hex('#ccccff'),
             ])
             ->maxContentWidth(Width::Full)
             ->topNavigation()
