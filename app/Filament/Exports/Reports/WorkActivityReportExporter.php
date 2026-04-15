@@ -20,19 +20,19 @@ class WorkActivityReportExporter extends Exporter
             //     ->label('ID'),
             // ExportColumn::make('department_id'),
             ExportColumn::make('department_code')->label('Stredisko'),
-            ExportColumn::make('task_created_at')->label('Čas vytvorenia zakázky'),
+            ExportColumn::make('task_created_at')->label('Čas vytvorenia zákazky'),
             ExportColumn::make('task_date')
-                ->label('Dátum zakázky'),
+                ->label('Dátum zákazky'),
                 // ->formatStateUsing(function ($state) {
                 //     return $state === null ? Carbon::parse($state)->format('Y-m-d') : null;
                 // }),
             ExportColumn::make('subject_code')->label('Vozidlo'),
-            ExportColumn::make('task_group_title')->label('Typ zakázky'),
-            ExportColumn::make('task_maintenance_group_code')->label('Prevádzka zakázky'),
-            ExportColumn::make('task_author_lastname')->label('Zakázku vytvoril'),
-            ExportColumn::make('task_item_group_title')->label('Typ podzakázky'),
-            ExportColumn::make('task_item_maintenance_group_code')->label('Prevádzka podzakázky'),
-            ExportColumn::make('task_item_author_lastname')->label('Podzakázku vytvoril'),
+            ExportColumn::make('task_group_title')->label('Typ zákazky'),
+            ExportColumn::make('task_maintenance_group_code')->label('Prevádzka zákazky'),
+            ExportColumn::make('task_author_lastname')->label('Zákzaku vytvoril'),
+            ExportColumn::make('task_item_group_title')->label('Typ podzákazky'),
+            ExportColumn::make('task_item_maintenance_group_code')->label('Prevádzka podzákazky'),
+            ExportColumn::make('task_item_author_lastname')->label('Podzákazku vytvoril'),
             ExportColumn::make('wtf_task_created_at')->label('Čas priradenia práce'),
             ExportColumn::make('activity_date')
                 ->label('Dátum výkonu práce'),
