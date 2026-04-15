@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21a21868d6d49ccab48f8889d2f3ca1b",
+    "content-hash": "c0ed79004aa8f413176a8646deb0378e",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1904,16 +1904,16 @@
         },
         {
             "name": "dpb/pkg-closing-summary",
-            "version": "v0.2.5",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-closing-summary.git",
-                "reference": "38ea215327e9e7a97d82fc1a62d0dee4d0544351"
+                "reference": "6f656e99020eabf525477d2a80fdc07510af8909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/38ea215327e9e7a97d82fc1a62d0dee4d0544351",
-                "reference": "38ea215327e9e7a97d82fc1a62d0dee4d0544351",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/6f656e99020eabf525477d2a80fdc07510af8909",
+                "reference": "6f656e99020eabf525477d2a80fdc07510af8909",
                 "shasum": ""
             },
             "require": {
@@ -1943,10 +1943,10 @@
             ],
             "description": "balik na uzavierku",
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.2.5",
+                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.3.1",
                 "issues": "https://github.com/dp-bratislava/pkg-closing-summary/issues"
             },
-            "time": "2026-04-02T14:55:51+00:00"
+            "time": "2026-04-15T10:17:09+00:00"
         },
         {
             "name": "dpb/pkg-devices",
