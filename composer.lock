@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10fae668937867727bc7ecbdc0a593b3",
+    "content-hash": "e2c47140f8cfd0e7b828823e15a4ffbc",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1054,11 +1054,17 @@
         },
         {
             "name": "dpb/dpb-auditing",
-            "version": "dev-main",
+            "version": "v12.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-auditing.git",
+                "reference": "f0bc0f343a57a2097bdbe8250038348ef96f6521"
+            },
             "dist": {
-                "type": "path",
-                "url": "./packages/dpb-auditing",
-                "reference": "647dc8dc459ad4e5de3a5a1164c95f913befdfde"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-auditing/zipball/f0bc0f343a57a2097bdbe8250038348ef96f6521",
+                "reference": "f0bc0f343a57a2097bdbe8250038348ef96f6521",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.2"
@@ -1085,10 +1091,11 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-auditing/tree/v12.0.2",
+                "issues": "https://github.com/dp-bratislava/dpb-auditing/issues"
+            },
+            "time": "2026-02-05T09:37:03+00:00"
         },
         {
             "name": "dpb/dpb-departments",
@@ -1096,12 +1103,12 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb-departments",
-                "reference": "8b2eb854e4733f53783b10d04f6bdac8067934fa"
+                "reference": "ccebbc17a3c9a7d20d46888871fec86a3080cf54"
             },
             "require": {
                 "dpb/dpb-utils": "^12.0",
                 "dpb/filament-admin-panel": "^5.0",
-                "dpb/laravel-user-admin": "^5.0",
+                "dpb/laravel-user-admin": "^5.1",
                 "filament/filament": "^5.0",
                 "php": "^8.2"
             },
@@ -1177,7 +1184,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb-insights",
-                "reference": "4666372f440b8c97bd238bfa2d58f9bbb0c7f864"
+                "reference": "a2a79d1555a7c8b623c9372d20a307c55c6c5c0b"
             },
             "require": {
                 "filament/filament": "^5.0",
@@ -1257,7 +1264,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb-utils",
-                "reference": "4133f047b343289ca6c6afbf2daf47011603ea55"
+                "reference": "e17da71921712884743f87930bd66bf8ed6df393"
             },
             "type": "library",
             "extra": {
@@ -1292,7 +1299,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb-work-time-fund",
-                "reference": "1031d3c3a06cf78e0f5b765d04fa2e9eb6d98a07"
+                "reference": "3c5a2a431384ca080abb3a8a19343332214e56c1"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1343,7 +1350,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb-work-time-fund-filament",
-                "reference": "ebef47d90cdff1a345496c8a0bfc4527ae30c2a4"
+                "reference": "1e2d8768e336eec0a4e2ff59173fcfe2a0010a85"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0",
@@ -1419,11 +1426,17 @@
         },
         {
             "name": "dpb/ext-spatie-model-states",
-            "version": "dev-main",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dp-bratislava/ext-spatie-model-states.git",
+                "reference": "f4cf1295f813524cc35226c305e4ca06049aa265"
+            },
             "dist": {
-                "type": "path",
-                "url": "./packages/ext-spatie-model-states",
-                "reference": "53e5bfc7481d6313d7f6adf36113496fd83913a5"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/ext-spatie-model-states/zipball/f4cf1295f813524cc35226c305e4ca06049aa265",
+                "reference": "f4cf1295f813524cc35226c305e4ca06049aa265",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.0 || ^12.0",
@@ -1453,18 +1466,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/ext-spatie-model-states/tree/v12.0.0",
+                "issues": "https://github.com/dp-bratislava/ext-spatie-model-states/issues"
+            },
+            "time": "2025-10-09T07:30:55+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
             "version": "v5.0.0",
-            "dist": {
-                "type": "path",
-                "url": "./packages/filament-admin-panel",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
                 "reference": "a826a0ff47a70e46e83b99ce6cf17a1ae5169615"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/a826a0ff47a70e46e83b99ce6cf17a1ae5169615",
+                "reference": "a826a0ff47a70e46e83b99ce6cf17a1ae5169615",
+                "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
@@ -1513,10 +1533,11 @@
                 "filament",
                 "users"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v5.0.0",
+                "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
+            },
+            "time": "2026-04-13T12:51:41+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
@@ -1582,11 +1603,17 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "5.0.0",
+            "version": "v5.1.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
+                "reference": "ee467116c2e8fece3a817462de293cb9ff7fd512"
+            },
             "dist": {
-                "type": "path",
-                "url": "./packages/laravel-user-admin",
-                "reference": "2946c2e395fec5efb450c5418665f4e06dcece6e"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/ee467116c2e8fece3a817462de293cb9ff7fd512",
+                "reference": "ee467116c2e8fece3a817462de293cb9ff7fd512",
+                "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
@@ -1635,18 +1662,25 @@
                 "filament",
                 "users"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.1",
+                "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
+            },
+            "time": "2026-04-16T08:27:25+00:00"
         },
         {
             "name": "dpb/pkg-activities",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-activities",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-activities.git",
                 "reference": "fc03f0a9765d0d0d15ef6efe408a4566b250b4b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-activities/zipball/fc03f0a9765d0d0d15ef6efe408a4566b250b4b2",
+                "reference": "fc03f0a9765d0d0d15ef6efe408a4566b250b4b2",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.0 || ^12.0",
@@ -1675,18 +1709,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-activities/tree/v12.0.0",
+                "issues": "https://github.com/dp-bratislava/pkg-activities/issues"
+            },
+            "time": "2026-01-23T12:22:22+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-batchable",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dp-bratislava/pkg-batchable.git",
                 "reference": "80236092a23d1d8f6bd8b45da198a8fe26d7323a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-batchable/zipball/80236092a23d1d8f6bd8b45da198a8fe26d7323a",
+                "reference": "80236092a23d1d8f6bd8b45da198a8fe26d7323a",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.0 || ^12.0",
@@ -1715,18 +1756,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-batchable/tree/v12.0.0",
+                "issues": "https://github.com/dp-bratislava/pkg-batchable/issues"
+            },
+            "time": "2026-01-27T09:10:00+00:00"
         },
         {
             "name": "dpb/pkg-closing-summary",
-            "version": "dev-main",
+            "version": "v0.3.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-closing-summary.git",
+                "reference": "6f656e99020eabf525477d2a80fdc07510af8909"
+            },
             "dist": {
-                "type": "path",
-                "url": "./packages/pkg-closing-summary",
-                "reference": "38ea215327e9e7a97d82fc1a62d0dee4d0544351"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-closing-summary/zipball/6f656e99020eabf525477d2a80fdc07510af8909",
+                "reference": "6f656e99020eabf525477d2a80fdc07510af8909",
+                "shasum": ""
             },
             "require": {
                 "phpoffice/phpspreadsheet": "^2.4.3"
@@ -1754,18 +1802,25 @@
                 }
             ],
             "description": "balik na uzavierku",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.3.1",
+                "issues": "https://github.com/dp-bratislava/pkg-closing-summary/issues"
+            },
+            "time": "2026-04-15T10:17:09+00:00"
         },
         {
             "name": "dpb/pkg-devices",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-devices",
+            "version": "v12.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dp-bratislava/pkg-devices.git",
                 "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-devices/zipball/919c859f315b42b637f7a2edbad1a0411972e0fc",
+                "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc",
+                "shasum": ""
             },
             "require": {
                 "dpb/pkg-eav": "^12.0",
@@ -1795,18 +1850,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-devices/tree/v12.0.1",
+                "issues": "https://github.com/dp-bratislava/pkg-devices/issues"
+            },
+            "time": "2026-02-04T14:53:02+00:00"
         },
         {
             "name": "dpb/pkg-eav",
-            "version": "dev-main",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dp-bratislava/pkg-eav.git",
+                "reference": "7e11c9eb6db3fd9385f3c83d4017465b84420bb0"
+            },
             "dist": {
-                "type": "path",
-                "url": "./packages/pkg-eav",
-                "reference": "f51728b9792a5b21332231fae1dd556937814537"
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-eav/zipball/7e11c9eb6db3fd9385f3c83d4017465b84420bb0",
+                "reference": "7e11c9eb6db3fd9385f3c83d4017465b84420bb0",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.0 || ^12.0",
@@ -1835,18 +1897,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-eav/tree/v12.0.0",
+                "issues": "https://github.com/dp-bratislava/pkg-eav/issues"
+            },
+            "time": "2025-09-23T09:35:22+00:00"
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-fleet",
+            "version": "v12.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dp-bratislava/pkg-fleet.git",
                 "reference": "ab0276da127345668084d10168638eb3814d508d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/ab0276da127345668084d10168638eb3814d508d",
+                "reference": "ab0276da127345668084d10168638eb3814d508d",
+                "shasum": ""
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
@@ -1877,18 +1946,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.2",
+                "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
+            },
+            "time": "2026-02-27T11:57:20+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-inspections",
+            "version": "v12.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-inspections.git",
                 "reference": "49d2b5773237d510148d37d9e76741b8e88d6c97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-inspections/zipball/49d2b5773237d510148d37d9e76741b8e88d6c97",
+                "reference": "49d2b5773237d510148d37d9e76741b8e88d6c97",
+                "shasum": ""
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
@@ -1918,18 +1994,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-inspections/tree/v12.0.1",
+                "issues": "https://github.com/dp-bratislava/pkg-inspections/issues"
+            },
+            "time": "2026-02-04T14:41:18+00:00"
         },
         {
             "name": "dpb/pkg-task-ms",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-task-ms",
+            "version": "v12.0.4",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
                 "reference": "b2f3bebeb1725096fd8296aff3c7c7dab11e2199"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/b2f3bebeb1725096fd8296aff3c7c7dab11e2199",
+                "reference": "b2f3bebeb1725096fd8296aff3c7c7dab11e2199",
+                "shasum": ""
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
@@ -1966,10 +2049,11 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.4",
+                "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
+            },
+            "time": "2026-02-17T09:40:41+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
@@ -1977,7 +2061,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/pkg-task-ms-ui",
-                "reference": "973530afbb51a0c61a86c03774bb19c35ece0d17"
+                "reference": "e989e47b990637034438641aa650c21a2513260c"
             },
             "require": {
                 "dpb/pkg-task-ms": "^12.0",
@@ -2015,11 +2099,17 @@
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-tasks",
+            "version": "v12.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-tasks.git",
                 "reference": "af401dfe788e1f5cd039f32a532cf5013176aa79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/af401dfe788e1f5cd039f32a532cf5013176aa79",
+                "reference": "af401dfe788e1f5cd039f32a532cf5013176aa79",
+                "shasum": ""
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
@@ -2050,18 +2140,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.2",
+                "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
+            },
+            "time": "2026-02-16T16:01:07+00:00"
         },
         {
             "name": "dpb/pkg-tickets",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-tickets",
+            "version": "v12.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-tickets.git",
                 "reference": "ddf8d3069787f6ec303568eab9b6776e4263b2da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tickets/zipball/ddf8d3069787f6ec303568eab9b6776e4263b2da",
+                "reference": "ddf8d3069787f6ec303568eab9b6776e4263b2da",
+                "shasum": ""
             },
             "require": {
                 "dpb/ext-spatie-model-states": "^12.0",
@@ -2091,18 +2188,25 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-tickets/tree/v12.0.1",
+                "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
+            },
+            "time": "2026-02-04T14:32:54+00:00"
         },
         {
             "name": "dpb/pkg-work-log",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/pkg-work-log",
+            "version": "v12.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/pkg-work-log.git",
                 "reference": "485670f3e9a12f91cb70fb412d29d42e1ce090bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-work-log/zipball/485670f3e9a12f91cb70fb412d29d42e1ce090bb",
+                "reference": "485670f3e9a12f91cb70fb412d29d42e1ce090bb",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.0 || ^12.0",
@@ -2131,10 +2235,11 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/pkg-work-log/tree/v12.0.1",
+                "issues": "https://github.com/dp-bratislava/pkg-work-log/issues"
+            },
+            "time": "2026-02-05T09:25:33+00:00"
         },
         {
             "name": "dpb/spotlight",
@@ -2218,11 +2323,17 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./packages/dpb-wtf-ui",
+            "version": "v12.0.6",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
                 "reference": "52c821b89844e4d6766b463895707b84f0a6150e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/52c821b89844e4d6766b463895707b84f0a6150e",
+                "reference": "52c821b89844e4d6766b463895707b84f0a6150e",
+                "shasum": ""
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0"
@@ -2252,10 +2363,11 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.6",
+                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
+            },
+            "time": "2026-04-10T07:24:35+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -2443,16 +2555,16 @@
         },
         {
             "name": "filament/actions",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/actions.git",
-                "reference": "2de4a4ff59599c76c2ad4418b2a2ffdb50314408"
+                "reference": "7a11c8e31119868dc1e6e48e4a0af43782645fb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/actions/zipball/2de4a4ff59599c76c2ad4418b2a2ffdb50314408",
-                "reference": "2de4a4ff59599c76c2ad4418b2a2ffdb50314408",
+                "url": "https://api.github.com/repos/filamentphp/actions/zipball/7a11c8e31119868dc1e6e48e4a0af43782645fb8",
+                "reference": "7a11c8e31119868dc1e6e48e4a0af43782645fb8",
                 "shasum": ""
             },
             "require": {
@@ -2487,20 +2599,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-03T15:39:47+00:00"
+            "time": "2026-04-14T11:14:26+00:00"
         },
         {
             "name": "filament/filament",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/panels.git",
-                "reference": "2bacfe5143d9106881af8e527faf87b07b60c9ff"
+                "reference": "c36de5420bdc29a3fe5126d8219ab7be1ba33a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/panels/zipball/2bacfe5143d9106881af8e527faf87b07b60c9ff",
-                "reference": "2bacfe5143d9106881af8e527faf87b07b60c9ff",
+                "url": "https://api.github.com/repos/filamentphp/panels/zipball/c36de5420bdc29a3fe5126d8219ab7be1ba33a53",
+                "reference": "c36de5420bdc29a3fe5126d8219ab7be1ba33a53",
                 "shasum": ""
             },
             "require": {
@@ -2544,20 +2656,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-09T08:08:14+00:00"
+            "time": "2026-04-14T11:10:13+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "e9c2aea05d761c110f571f873b6eaa96c18048cc"
+                "reference": "6381e44fa9010eabeb64cca2cbb329cf1f296933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/e9c2aea05d761c110f571f873b6eaa96c18048cc",
-                "reference": "e9c2aea05d761c110f571f873b6eaa96c18048cc",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/6381e44fa9010eabeb64cca2cbb329cf1f296933",
+                "reference": "6381e44fa9010eabeb64cca2cbb329cf1f296933",
                 "shasum": ""
             },
             "require": {
@@ -2594,20 +2706,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-09T08:09:54+00:00"
+            "time": "2026-04-14T11:15:09+00:00"
         },
         {
             "name": "filament/infolists",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/infolists.git",
-                "reference": "d67da624ed8daf176b7ac0303adf5b695faf307a"
+                "reference": "151188b87a621b07a167db676d7a1d30b3f2e808"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/d67da624ed8daf176b7ac0303adf5b695faf307a",
-                "reference": "d67da624ed8daf176b7ac0303adf5b695faf307a",
+                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/151188b87a621b07a167db676d7a1d30b3f2e808",
+                "reference": "151188b87a621b07a167db676d7a1d30b3f2e808",
                 "shasum": ""
             },
             "require": {
@@ -2639,20 +2751,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-07T09:51:10+00:00"
+            "time": "2026-04-14T11:07:46+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
-                "reference": "44944f1ec485caf36ca1e2ccadf5757fa44b5c87"
+                "reference": "37e133539de255ffa34caf13d01ba3c2aed04478"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/44944f1ec485caf36ca1e2ccadf5757fa44b5c87",
-                "reference": "44944f1ec485caf36ca1e2ccadf5757fa44b5c87",
+                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/37e133539de255ffa34caf13d01ba3c2aed04478",
+                "reference": "37e133539de255ffa34caf13d01ba3c2aed04478",
                 "shasum": ""
             },
             "require": {
@@ -2686,20 +2798,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-03-29T09:24:18+00:00"
+            "time": "2026-04-14T11:08:42+00:00"
         },
         {
             "name": "filament/query-builder",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/query-builder.git",
-                "reference": "31b53bcd79b3f7d4ce5c753f9a300a0594fc7ecd"
+                "reference": "6da87cd76791bb31232e68d01680794204c27c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/query-builder/zipball/31b53bcd79b3f7d4ce5c753f9a300a0594fc7ecd",
-                "reference": "31b53bcd79b3f7d4ce5c753f9a300a0594fc7ecd",
+                "url": "https://api.github.com/repos/filamentphp/query-builder/zipball/6da87cd76791bb31232e68d01680794204c27c6d",
+                "reference": "6da87cd76791bb31232e68d01680794204c27c6d",
                 "shasum": ""
             },
             "require": {
@@ -2732,20 +2844,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-03T15:39:47+00:00"
+            "time": "2026-04-14T11:13:17+00:00"
         },
         {
             "name": "filament/schemas",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/schemas.git",
-                "reference": "ead604d3a994a8e3a49b38d9b5736f716859506c"
+                "reference": "7fd7037dae90c4c45725858e5ffee5cd93761d9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/schemas/zipball/ead604d3a994a8e3a49b38d9b5736f716859506c",
-                "reference": "ead604d3a994a8e3a49b38d9b5736f716859506c",
+                "url": "https://api.github.com/repos/filamentphp/schemas/zipball/7fd7037dae90c4c45725858e5ffee5cd93761d9f",
+                "reference": "7fd7037dae90c4c45725858e5ffee5cd93761d9f",
                 "shasum": ""
             },
             "require": {
@@ -2777,11 +2889,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-07T09:50:56+00:00"
+            "time": "2026-04-14T11:10:06+00:00"
         },
         {
             "name": "filament/spatie-laravel-media-library-plugin",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-media-library-plugin.git",
@@ -2818,16 +2930,16 @@
         },
         {
             "name": "filament/support",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "3382f959703e566c5ac8ad12307b7b75a42f8759"
+                "reference": "2ab96f5975cc2f7a8829ac650caf9d7aeeb5e5aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/3382f959703e566c5ac8ad12307b7b75a42f8759",
-                "reference": "3382f959703e566c5ac8ad12307b7b75a42f8759",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/2ab96f5975cc2f7a8829ac650caf9d7aeeb5e5aa",
+                "reference": "2ab96f5975cc2f7a8829ac650caf9d7aeeb5e5aa",
                 "shasum": ""
             },
             "require": {
@@ -2872,20 +2984,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-07T09:46:46+00:00"
+            "time": "2026-04-14T11:11:00+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "f3205e51134ce0046bdba7eba4e82e3cb33e0b08"
+                "reference": "44d87a87122e7aa40c9447aa73c133b52025a96c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/f3205e51134ce0046bdba7eba4e82e3cb33e0b08",
-                "reference": "f3205e51134ce0046bdba7eba4e82e3cb33e0b08",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/44d87a87122e7aa40c9447aa73c133b52025a96c",
+                "reference": "44d87a87122e7aa40c9447aa73c133b52025a96c",
                 "shasum": ""
             },
             "require": {
@@ -2918,11 +3030,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-04-03T15:40:04+00:00"
+            "time": "2026-04-14T11:09:54+00:00"
         },
         {
             "name": "filament/widgets",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/widgets.git",
@@ -3796,16 +3908,16 @@
         },
         {
             "name": "laravel/nightwatch",
-            "version": "v1.26.0",
+            "version": "1.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/nightwatch.git",
-                "reference": "1a50baf0e2f06005206aecb4db0770b557e7a595"
+                "reference": "9212390822f80e6e3e4f399ad7818c551d94af71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/1a50baf0e2f06005206aecb4db0770b557e7a595",
-                "reference": "1a50baf0e2f06005206aecb4db0770b557e7a595",
+                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/9212390822f80e6e3e4f399ad7818c551d94af71",
+                "reference": "9212390822f80e6e3e4f399ad7818c551d94af71",
                 "shasum": ""
             },
             "require": {
@@ -3886,7 +3998,7 @@
                 "issues": "https://github.com/laravel/nightwatch/issues",
                 "source": "https://github.com/laravel/nightwatch"
             },
-            "time": "2026-04-01T05:26:52+00:00"
+            "time": "2026-04-13T03:38:38+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3949,16 +4061,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v2.0.11",
+            "version": "v2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "d1af40ac4a6ccc12bd062a7184f63c9995a63bdd"
+                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/d1af40ac4a6ccc12bd062a7184f63c9995a63bdd",
-                "reference": "d1af40ac4a6ccc12bd062a7184f63c9995a63bdd",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
+                "reference": "a6abb4e54f6fcd3138120b9ad497f0bd146f9919",
                 "shasum": ""
             },
             "require": {
@@ -4006,7 +4118,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2026-04-07T13:32:18+00:00"
+            "time": "2026-04-14T13:33:34+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -6071,16 +6183,16 @@
         },
         {
             "name": "phpdocumentor/reflection",
-            "version": "6.5.0",
+            "version": "6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/Reflection.git",
-                "reference": "70ad4ae38901a1c71623d29192983274671e9113"
+                "reference": "c8d36446027506a005103d57265ba5ea56beabfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/70ad4ae38901a1c71623d29192983274671e9113",
-                "reference": "70ad4ae38901a1c71623d29192983274671e9113",
+                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/c8d36446027506a005103d57265ba5ea56beabfc",
+                "reference": "c8d36446027506a005103d57265ba5ea56beabfc",
                 "shasum": ""
             },
             "require": {
@@ -6137,9 +6249,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpDocumentor/Reflection/issues",
-                "source": "https://github.com/phpDocumentor/Reflection/tree/6.5.0"
+                "source": "https://github.com/phpDocumentor/Reflection/tree/6.6.0"
             },
-            "time": "2026-04-10T12:00:48+00:00"
+            "time": "2026-04-12T18:07:10+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -7432,16 +7544,16 @@
         },
         {
             "name": "saade/filament-fullcalendar",
-            "version": "v4.0.0-beta6",
+            "version": "v4.0.0-beta7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/saade/filament-fullcalendar.git",
-                "reference": "c0968c1d297e2dd5b937b0cffa29d800138dc3e1"
+                "reference": "191d69b9d568a9fdfd3f3586428d8cf5a940fd50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/c0968c1d297e2dd5b937b0cffa29d800138dc3e1",
-                "reference": "c0968c1d297e2dd5b937b0cffa29d800138dc3e1",
+                "url": "https://api.github.com/repos/saade/filament-fullcalendar/zipball/191d69b9d568a9fdfd3f3586428d8cf5a940fd50",
+                "reference": "191d69b9d568a9fdfd3f3586428d8cf5a940fd50",
                 "shasum": ""
             },
             "require": {
@@ -7494,7 +7606,7 @@
             ],
             "support": {
                 "issues": "https://github.com/saade/filament-fullcalendar/issues",
-                "source": "https://github.com/saade/filament-fullcalendar/tree/v4.0.0-beta6"
+                "source": "https://github.com/saade/filament-fullcalendar/tree/v4.0.0-beta7"
             },
             "funding": [
                 {
@@ -7502,7 +7614,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-25T19:19:41+00:00"
+            "time": "2026-04-14T23:35:46+00:00"
         },
         {
             "name": "scrivo/highlight.php",
@@ -9943,7 +10055,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -10002,7 +10114,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10026,7 +10138,7 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
@@ -10084,7 +10196,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10108,7 +10220,7 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
@@ -10171,7 +10283,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10195,7 +10307,7 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -10256,7 +10368,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10280,7 +10392,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -10341,7 +10453,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10365,7 +10477,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -10425,7 +10537,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10449,7 +10561,7 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
@@ -10505,7 +10617,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10529,7 +10641,7 @@
         },
         {
             "name": "symfony/polyfill-php84",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php84.git",
@@ -10585,7 +10697,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php84/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php84/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10609,7 +10721,7 @@
         },
         {
             "name": "symfony/polyfill-php85",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php85.git",
@@ -10665,7 +10777,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php85/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -10689,7 +10801,7 @@
         },
         {
             "name": "symfony/polyfill-uuid",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-uuid.git",
@@ -10748,7 +10860,7 @@
                 "uuid"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.34.0"
+                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -11852,7 +11964,7 @@
         },
         {
             "name": "filament/upgrade",
-            "version": "v5.5.0",
+            "version": "v5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/upgrade.git",
@@ -12162,16 +12274,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.56.0",
+            "version": "v1.57.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "f43426bb42a1cb7a51a3861d9138063e54766d28"
+                "reference": "fa8d057b6e9310380ccbc3a209ed7f927d54f648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/f43426bb42a1cb7a51a3861d9138063e54766d28",
-                "reference": "f43426bb42a1cb7a51a3861d9138063e54766d28",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/fa8d057b6e9310380ccbc3a209ed7f927d54f648",
+                "reference": "fa8d057b6e9310380ccbc3a209ed7f927d54f648",
                 "shasum": ""
             },
             "require": {
@@ -12221,7 +12333,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2026-04-01T15:17:32+00:00"
+            "time": "2026-04-14T13:32:04+00:00"
         },
         {
             "name": "laravel/sentinel",
@@ -12707,11 +12819,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.46",
+            "version": "2.1.48",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
-                "reference": "a193923fc2d6325ef4e741cf3af8c3e8f54dbf25",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/231397213efb7c0a066ee024b5c3c87f2d3adfa0",
+                "reference": "231397213efb7c0a066ee024b5c3c87f2d3adfa0",
                 "shasum": ""
             },
             "require": {
@@ -12756,7 +12868,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-01T09:25:14+00:00"
+            "time": "2026-04-15T20:24:19+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -14442,12 +14554,6 @@
     ],
     "aliases": [
         {
-            "package": "dpb/dpb-auditing",
-            "version": "dev-main",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
             "package": "dpb/dpb-departments",
             "version": "dev-feature/upgrade-to-filament-v5",
             "alias": "v12.0.4",
@@ -14496,82 +14602,10 @@
             "alias_normalized": "12.0.8.0"
         },
         {
-            "package": "dpb/ext-spatie-model-states",
-            "version": "dev-main",
-            "alias": "v12.0.0",
-            "alias_normalized": "12.0.0.0"
-        },
-        {
-            "package": "dpb/pkg-activities",
-            "version": "dev-main",
-            "alias": "v12.0.0",
-            "alias_normalized": "12.0.0.0"
-        },
-        {
-            "package": "dpb/pkg-batchable",
-            "version": "dev-main",
-            "alias": "v12.0.0",
-            "alias_normalized": "12.0.0.0"
-        },
-        {
-            "package": "dpb/pkg-closing-summary",
-            "version": "dev-main",
-            "alias": "v0.2.5",
-            "alias_normalized": "0.2.5.0"
-        },
-        {
-            "package": "dpb/pkg-devices",
-            "version": "dev-main",
-            "alias": "v12.0.1",
-            "alias_normalized": "12.0.1.0"
-        },
-        {
-            "package": "dpb/pkg-eav",
-            "version": "dev-main",
-            "alias": "v12.0.0",
-            "alias_normalized": "12.0.0.0"
-        },
-        {
-            "package": "dpb/pkg-fleet",
-            "version": "dev-main",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
-            "package": "dpb/pkg-inspections",
-            "version": "dev-main",
-            "alias": "v12.0.1",
-            "alias_normalized": "12.0.1.0"
-        },
-        {
-            "package": "dpb/pkg-task-ms",
-            "version": "dev-main",
-            "alias": "v12.0.4",
-            "alias_normalized": "12.0.4.0"
-        },
-        {
             "package": "dpb/pkg-task-ms-ui",
             "version": "dev-feature/upgrade-to-filament-v5",
             "alias": "v3.0.7",
             "alias_normalized": "3.0.7.0"
-        },
-        {
-            "package": "dpb/pkg-tasks",
-            "version": "dev-main",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
-            "package": "dpb/pkg-tickets",
-            "version": "dev-main",
-            "alias": "v12.0.1",
-            "alias_normalized": "12.0.1.0"
-        },
-        {
-            "package": "dpb/pkg-work-log",
-            "version": "dev-main",
-            "alias": "v12.0.1",
-            "alias_normalized": "12.0.1.0"
         },
         {
             "package": "dpb/spotlight",
@@ -14584,17 +14618,10 @@
             "version": "dev-feature/upgrade-to-filament-v5",
             "alias": "v12.0.2",
             "alias_normalized": "12.0.2.0"
-        },
-        {
-            "package": "dpb/wtf-ui",
-            "version": "dev-main",
-            "alias": "v12.0.4",
-            "alias_normalized": "12.0.4.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dpb/dpb-auditing": 20,
         "dpb/dpb-departments": 20,
         "dpb/dpb-employee-manager": 20,
         "dpb/dpb-insights": 20,
@@ -14603,22 +14630,9 @@
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
-        "dpb/ext-spatie-model-states": 20,
-        "dpb/pkg-activities": 20,
-        "dpb/pkg-batchable": 20,
-        "dpb/pkg-closing-summary": 20,
-        "dpb/pkg-devices": 20,
-        "dpb/pkg-eav": 20,
-        "dpb/pkg-fleet": 20,
-        "dpb/pkg-inspections": 20,
-        "dpb/pkg-task-ms": 20,
         "dpb/pkg-task-ms-ui": 20,
-        "dpb/pkg-tasks": 20,
-        "dpb/pkg-tickets": 20,
-        "dpb/pkg-work-log": 20,
         "dpb/spotlight": 20,
-        "dpb/ui-components": 20,
-        "dpb/wtf-ui": 20
+        "dpb/ui-components": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
