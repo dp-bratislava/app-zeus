@@ -11,6 +11,7 @@
     "repositories": [
         {
             "type": "path",
+            "canonical": false,
             "url": "./packages/*",
             "options": {
                 "symlink": true
