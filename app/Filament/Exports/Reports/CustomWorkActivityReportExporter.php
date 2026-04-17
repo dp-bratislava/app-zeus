@@ -4,6 +4,7 @@ namespace App\Filament\Exports\Reports;
 
 use App\Models\Reports\WorkActivityReport;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use OpenSpout\Common\Entity\Row;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -25,12 +26,42 @@ class CustomWorkActivityReportExporter
 
         $query = $this->query($filters);
 
-        $query->chunk(2000, function ($rows) use ($sheet, &$rowIndex, $columns) {
+        $query->chunkById(2000, function ($rows) use ($sheet, &$rowIndex, $columns) {
 
             $data = [];
 
             foreach ($rows as $row) {
-                $data[] = $this->mapRow($row, $columns);
+                // $data[] = $this->mapRow($row, $columns);
+                // map rows
+                $data[] = [
+                    $row->department_code,
+                    $row->task_created_at,
+                    $row->task_date,
+                    $row->subject_code,
+                    $row->task_group_title,
+                    $row->task_maintenance_group_code,
+                    $row->task_author_lastname,
+                    $row->task_item_group_title,
+                    $row->task_item_maintenance_group_code,
+                    $row->task_item_author_lastname,
+                    $row->wtf_task_created_at,
+                    $row->activity_date,
+                    $row->personal_id,
+                    $row->last_name,
+                    $row->first_name,
+                    $row->wtf_task_title,
+                    // $row->expected_duration < 0
+                    //     ? 0
+                    //     : ($row->expected_duration / 86400),
+                    // $row->real_duration < 0
+                    //     ? 0
+                    //     : ($row->real_duration / 86400),
+                    // match ($row->is_fulfilled) {
+                    //     0 => 'Nie',
+                    //     1 => 'Áno',
+                    //     default => 'Nevyhodnotené',
+                    // },
+                ];
             }
 
             $sheet->fromArray($data, null, 'A' . $rowIndex);
@@ -61,11 +92,12 @@ class CustomWorkActivityReportExporter
         // dd(data_get($filters, 'department.values'));
         $departmentIds = data_get($filters, 'department.values');
 
-        return WorkActivityReport::query()
-            ->select(array_column($this->columns(), 'key'))
+        // return WorkActivityReport::query()
+        return DB::table('mvw_work_activity_report')
+            ->select(['id', ...array_column($this->columns(), 'key')])
             ->when(data_get($filters, 'activity_date.activity_date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
             ->when(data_get($filters, 'activity_date.activity_date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
-            ->when(!empty($departmentIds), function($q) use ($departmentIds) {
+            ->when(!empty($departmentIds), function ($q) use ($departmentIds) {
                 $q->whereIn('department_id', $departmentIds);
             });
     }
@@ -89,9 +121,9 @@ class CustomWorkActivityReportExporter
             ['key' => 'last_name', 'label' => 'Priezvisko'],
             ['key' => 'first_name', 'label' => 'Meno'],
             ['key' => 'wtf_task_title', 'label' => 'Norma'],
-            ['key' => 'expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
-            ['key' => 'real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
-            ['key' => 'is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
+            // ['key' => 'expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
+            // ['key' => 'real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
+            // ['key' => 'is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
         ];
     }
 
@@ -107,7 +139,7 @@ class CustomWorkActivityReportExporter
             'duration' => $value < 0
                 ? 0
                 : ($value / 86400),
-            
+
             // 'duration' => $value < 0
             //     ? '00:00'
             //     : gmdate('H:i', $value),
@@ -152,21 +184,21 @@ class CustomWorkActivityReportExporter
         // DATA
         $query = $this->query($filters);
         // dd($query->count());
-            $query->chunk(2000, function ($rows) use ($writer, $columns) {
+        $query->chunk(2000, function ($rows) use ($writer, $columns) {
 
-                foreach ($rows as $row) {
+            foreach ($rows as $row) {
 
-                    $writer->addRow(
-                        Row::fromValues(
-                            array_map(function ($col) use ($row) {
-                                $value = data_get($row, $col['key']);
-                                return $this->formatValue($value, $col['type'] ?? null);
-                            }, $columns)
-                        )
-                    );
-                }
-            });
-    
+                $writer->addRow(
+                    Row::fromValues(
+                        array_map(function ($col) use ($row) {
+                            $value = data_get($row, $col['key']);
+                            return $this->formatValue($value, $col['type'] ?? null);
+                        }, $columns)
+                    )
+                );
+            }
+        });
+
 
         $writer->close();
 
