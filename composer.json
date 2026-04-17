@@ -9,20 +9,13 @@
     ],
     "license": "MIT",
     "repositories": [
-        {
-            "type": "path",
-            "canonical": false,
-            "url": "./packages/*",
-            "options": {
-                "symlink": true
-            }
-        },
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-insights.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-master-permission-guard.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-spotlight.git"},
+        {"type": "vcs", "url": "git@github.com:dp-bratislava/ui-components.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-utils.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git"},

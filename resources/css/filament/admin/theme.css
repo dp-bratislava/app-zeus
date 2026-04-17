@@ -3,5 +3,7 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../app/**/*.php';
 @source '../../../../resources/views/filament/**/*';
-@source '../../../../packages/**/src/**/*.php';
-@source '../../../../packages/**/resources/**/*.blade.php';
+@source '../../../../vendor/**/src/**/*.php';
+@source '../../../../vendor/**/src/**/*.blade.php';
+@source '../../../../vendor/**/resources/**/*.blade.php';
+@source '../../../../vendor/**/resources/**/*.css';
