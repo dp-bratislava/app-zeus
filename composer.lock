@@ -2470,16 +2470,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.0.7",
+            "version": "v12.0.8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "fbe178108f94910bdb4dc0519e8e13fc50e83c3a"
+                "reference": "c7635834c701cdda26bc7c2450e5b2760f7460a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/fbe178108f94910bdb4dc0519e8e13fc50e83c3a",
-                "reference": "fbe178108f94910bdb4dc0519e8e13fc50e83c3a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/c7635834c701cdda26bc7c2450e5b2760f7460a7",
+                "reference": "c7635834c701cdda26bc7c2450e5b2760f7460a7",
                 "shasum": ""
             },
             "require": {
@@ -2511,10 +2511,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.7",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.8",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-04-16T13:32:56+00:00"
+            "time": "2026-04-17T07:59:13+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
