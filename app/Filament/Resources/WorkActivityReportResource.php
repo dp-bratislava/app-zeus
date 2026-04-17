@@ -15,12 +15,9 @@ class WorkActivityReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function getNavigationLabel(): string
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return __('reports/work-activity-report.navigation.label');
     }
 
     public static function table(Table $table): Table

@@ -23,9 +23,9 @@ class WorkActivityReportExporter extends Exporter
             ExportColumn::make('task_created_at')->label('Čas vytvorenia zákazky'),
             ExportColumn::make('task_date')
                 ->label('Dátum zákazky'),
-                // ->formatStateUsing(function ($state) {
-                //     return $state === null ? Carbon::parse($state)->format('Y-m-d') : null;
-                // }),
+            // ->formatStateUsing(function ($state) {
+            //     return $state === null ? Carbon::parse($state)->format('Y-m-d') : null;
+            // }),
             ExportColumn::make('subject_code')->label('Vozidlo'),
             ExportColumn::make('task_group_title')->label('Typ zákazky'),
             ExportColumn::make('task_maintenance_group_code')->label('Prevádzka zákazky'),
@@ -36,9 +36,9 @@ class WorkActivityReportExporter extends Exporter
             ExportColumn::make('wtf_task_created_at')->label('Čas priradenia práce'),
             ExportColumn::make('activity_date')
                 ->label('Dátum výkonu práce'),
-                // ->formatStateUsing(function ($state) {
-                //     return Carbon::parse($state)->format('Y-m-d');
-                // }),
+            // ->formatStateUsing(function ($state) {
+            //     return Carbon::parse($state)->format('Y-m-d');
+            // }),
             ExportColumn::make('personal_id')->label('Osobné číslo'),
             ExportColumn::make('last_name')->label('Priezvisko'),
             ExportColumn::make('first_name')->label('Meno'),
