@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "61fa0b5b56f50dc92952eafa1d51ddbaf8225a62"
+                "reference": "e9564deb4df713f2f56b959bc59099ea2b829d70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/61fa0b5b56f50dc92952eafa1d51ddbaf8225a62",
-                "reference": "61fa0b5b56f50dc92952eafa1d51ddbaf8225a62",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/e9564deb4df713f2f56b959bc59099ea2b829d70",
+                "reference": "e9564deb4df713f2f56b959bc59099ea2b829d70",
                 "shasum": ""
             },
             "require": {
@@ -1477,7 +1477,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-04-20T11:33:27+00:00"
+            "time": "2026-04-20T11:45:31+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
