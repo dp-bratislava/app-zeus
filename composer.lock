@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "6576c35ddc8433275eee9a35e8f22bbc1f80b25a"
+                "reference": "61fa0b5b56f50dc92952eafa1d51ddbaf8225a62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/6576c35ddc8433275eee9a35e8f22bbc1f80b25a",
-                "reference": "6576c35ddc8433275eee9a35e8f22bbc1f80b25a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/61fa0b5b56f50dc92952eafa1d51ddbaf8225a62",
+                "reference": "61fa0b5b56f50dc92952eafa1d51ddbaf8225a62",
                 "shasum": ""
             },
             "require": {
@@ -1477,7 +1477,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-04-20T07:30:05+00:00"
+            "time": "2026-04-20T11:33:27+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2116,12 +2116,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "e989e47b990637034438641aa650c21a2513260c"
+                "reference": "17ca2dab605dad1f981dfaad25d84b5a68fb087c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/e989e47b990637034438641aa650c21a2513260c",
-                "reference": "e989e47b990637034438641aa650c21a2513260c",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/17ca2dab605dad1f981dfaad25d84b5a68fb087c",
+                "reference": "17ca2dab605dad1f981dfaad25d84b5a68fb087c",
                 "shasum": ""
             },
             "require": {
@@ -2157,7 +2157,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-04-15T11:48:15+00:00"
+            "time": "2026-04-20T11:32:47+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
