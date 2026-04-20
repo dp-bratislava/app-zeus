@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca7ef8939ca87229e548898aae98238b",
+    "content-hash": "85e8071dafa2a11e46c0fa8ee3b705a5",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1334,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "3c5a2a431384ca080abb3a8a19343332214e56c1"
+                "reference": "b098e902101daa9c63996a6d751f5291d2120bc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/3c5a2a431384ca080abb3a8a19343332214e56c1",
-                "reference": "3c5a2a431384ca080abb3a8a19343332214e56c1",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/b098e902101daa9c63996a6d751f5291d2120bc1",
+                "reference": "b098e902101daa9c63996a6d751f5291d2120bc1",
                 "shasum": ""
             },
             "require": {
@@ -1384,7 +1384,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-04-15T11:46:46+00:00"
+            "time": "2026-04-20T07:17:24+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -1392,19 +1392,17 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "49a4ba01fa3930a8ff40563ef39bd39c70dd6de3"
+                "reference": "d605e4e7b60ad39b2c5f4d136cab862c6cd4e8b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/49a4ba01fa3930a8ff40563ef39bd39c70dd6de3",
-                "reference": "49a4ba01fa3930a8ff40563ef39bd39c70dd6de3",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/d605e4e7b60ad39b2c5f4d136cab862c6cd4e8b0",
+                "reference": "d605e4e7b60ad39b2c5f4d136cab862c6cd4e8b0",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.0",
-                "filament/filament": "^5.0",
-                "php": "^8.2",
-                "saade/filament-fullcalendar": "^4.0"
+                "dpb/dpb-work-time-fund": "^12.1.0",
+                "filament/filament": "^5.0"
             },
             "type": "library",
             "extra": {
@@ -1432,7 +1430,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-04-16T12:01:49+00:00"
+            "time": "2026-04-20T07:25:53+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -1440,15 +1438,16 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "d61aadde51be21a8973a05af16daed7ad1eba07e"
+                "reference": "6576c35ddc8433275eee9a35e8f22bbc1f80b25a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/d61aadde51be21a8973a05af16daed7ad1eba07e",
-                "reference": "d61aadde51be21a8973a05af16daed7ad1eba07e",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/6576c35ddc8433275eee9a35e8f22bbc1f80b25a",
+                "reference": "6576c35ddc8433275eee9a35e8f22bbc1f80b25a",
                 "shasum": ""
             },
             "require": {
+                "dpb/dpb-work-time-fund": "^12.1.0",
                 "dpb/dpb-work-time-fund-filament": "^12.0",
                 "dpb/pkg-task-ms-ui": "^3.0"
             },
@@ -1478,7 +1477,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-04-16T08:51:17+00:00"
+            "time": "2026-04-20T07:30:05+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2355,12 +2354,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/ui-components.git",
-                "reference": "57ccc49e7b1d983f59568ac614cd8eefdefbbffb"
+                "reference": "88ffa60c5b18181eca707ee6e12a483f33d98101"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/57ccc49e7b1d983f59568ac614cd8eefdefbbffb",
-                "reference": "57ccc49e7b1d983f59568ac614cd8eefdefbbffb",
+                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/88ffa60c5b18181eca707ee6e12a483f33d98101",
+                "reference": "88ffa60c5b18181eca707ee6e12a483f33d98101",
                 "shasum": ""
             },
             "require": {
@@ -2396,7 +2395,7 @@
                 "source": "https://github.com/dp-bratislava/ui-components/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/ui-components/issues"
             },
-            "time": "2026-04-13T11:15:24+00:00"
+            "time": "2026-04-20T07:36:10+00:00"
         },
         {
             "name": "dpb/wtf-ui",
@@ -14663,8 +14662,8 @@
         {
             "package": "dpb/dpb-work-time-fund",
             "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.11",
-            "alias_normalized": "12.0.11.0"
+            "alias": "v12.1.2",
+            "alias_normalized": "12.1.2.0"
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
@@ -14720,5 +14719,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

@@ -53,7 +53,7 @@
         "dpb/dpb-insights": "dev-feature/upgrade-to-filament-v5 as v12.0.3",
         "dpb/dpb-master-permission-guard": "dev-feature/upgrade-to-filament-v5 as v12.0.4",
         "dpb/dpb-utils": "dev-feature/upgrade-to-filament-v5 as v12.0.2",
-        "dpb/dpb-work-time-fund": "dev-feature/upgrade-to-filament-v5 as v12.0.11",
+        "dpb/dpb-work-time-fund": "dev-feature/upgrade-to-filament-v5 as v12.1.2",
         "dpb/dpb-work-time-fund-filament": "dev-feature/upgrade-to-filament-v5 as v12.1.6",
         "dpb/ext-spatie-model-states": "^12.0",
         "dpb/pkg-activities": "^12.0",
