@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\WorkActivityReportResource\Tables;
 
-use App\Filament\Exports\Reports\CustomWorkActivityReportExporter;
 use App\Jobs\Reports\ExportWorkActivityReportJob;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
@@ -81,15 +80,17 @@ class WorkActivityReportTabe
                 //     ->formatStateUsing(fn($record) => Str::substr($record->description, 0, 30) . '...'),
                 // Tables\Columns\TextColumn::make('state')
                 //     ->label(__('dispatch-report.table.columns.state.label')),
-                // Tables\Columns\TextColumn::make('author')
-                //     ->label(__('dispatch-report.table.columns.author.label')),
+                Tables\Columns\TextColumn::make('task_item_author_lastname')
+                    ->label(__('reports/work-activity-report.table.columns.task_item_author_lastname'))
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
             ])
             ->filters(WorkActivityReportTableFilter::make())
             ->headerActions([
                 Action::make('export')
                     ->label('Export')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->action(function ($livewire, CustomWorkActivityReportExporter $exporter) {
+                    ->action(function ($livewire) {
 
                         $filters = $livewire->getTableFiltersForm()->getState();
 

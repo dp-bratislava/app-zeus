@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Reports;
 
-use App\Filament\Exports\Reports\CustomWorkActivityReportExporter;
+use App\Filament\Exports\Reports\WorkActivityReportExporter;
 use App\Models\User;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
@@ -11,6 +11,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class ExportWorkActivityReportJob implements ShouldQueue
 {
@@ -28,13 +29,10 @@ class ExportWorkActivityReportJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(CustomWorkActivityReportExporter $exporter): void
+    public function handle(WorkActivityReportExporter $exporter): void
     {
-        $path = storage_path("app/exports/{$this->fileName}");
-
         $user = User::find($this->userId);
-        $export = $exporter->generate($this->filters, $path, $this->userId);
-
+        $export = $exporter->generate($this->filters, $this->fileName, $this->userId);
 
         Notification::make()
             ->title(__('reports/export.export_finished.title'))

@@ -5,7 +5,7 @@ namespace App\Console\Commands\Reports;
 use App\Jobs\Reports\SyncWorkActivityReportJob;
 use Illuminate\Console\Command;
 
-class SyncWorkActivityReportCommand extends Command
+class SyncWorkActivityReport extends Command
 {
     protected $signature = 'report:sync-work-activity {--force}';
 
