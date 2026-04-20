@@ -3,31 +3,14 @@
 namespace App\Filament\Resources\WorkActivityReportResource\Tables;
 
 use App\Filament\Exports\Reports\CustomWorkActivityReportExporter;
-use App\Filament\Exports\Reports\WorkActivityReportExporter;
 use App\Jobs\Reports\ExportWorkActivityReportJob;
-use App\Models\DispatchReport;
-use App\Services\Fleet\VehicleService;
-use App\Services\Inspection\CreateTicketService;
-use App\Services\Inspection\AssignmentService as InspectionAssignmentService;
-use App\Services\TS\TicketAssignmentService;
-use App\States;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Package\Inspections\Models\Inspection;
-use Dpb\PkgClosingSummary\Commands\GenerateExcelSpreadsheets;
-use Filament\Actions\Exports\Enums\ExportFormat;
-use Filament\Actions\Exports\Models\Export;
 use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class WorkActivityReportTabe
 {
@@ -103,60 +86,6 @@ class WorkActivityReportTabe
             ])
             ->filters(WorkActivityReportTableFilter::make())
             ->headerActions([
-                // ExportAction::make()
-                //     ->exporter(WorkActivityReportExporter::class)
-                //     ->chunkSize(10000)
-                //     ->fileName(function ($livewire, DepartmentService $departmentSvc): string {
-                //         $filters = $livewire->getTableFiltersForm()->getState();
-
-                //         $from = data_get($filters, 'activity_date.activity_date_from');
-                //         $to   = data_get($filters, 'activity_date.activity_date_to');
-
-                //         $from = $from ? Carbon::parse($from)->format('ymd') : 'all';
-                //         $to   = $to ? Carbon::parse($to)->format('ymd') : 'all';
-                //         return "detail_praca_" . $departmentSvc->getActiveDepartment()?->code . "_{$from}_{$to}";
-                //     })
-                //     ->formats([
-                //         ExportFormat::Xlsx,
-                //     ])
-                // Action::make('export')
-                //     ->label('Export')
-                //     ->icon('heroicon-o-arrow-down-tray')
-                //     ->action(function ($livewire, DepartmentService $departmentSvc) {
-
-                //         $filters = $livewire->getTableFiltersForm()->getState();
-
-                //         $from = data_get($filters, 'activity_date.activity_date_from');
-                //         $to   = data_get($filters, 'activity_date.activity_date_to');
-
-                //         $fromFormatted = $from ? Carbon::parse($from)->format('ymd') : 'all';
-                //         $toFormatted   = $to ? Carbon::parse($to)->format('ymd') : 'all';
-
-                //         $fileName = "detail_praca_" .
-                //             $departmentSvc->getActiveDepartment()?->code .
-                //             "_{$fromFormatted}_{$toFormatted}.xlsx";
-
-                //         // 👇 Your custom exporter logic
-                //         $excel = app(CustomWorkActivityReportExporter::class)
-                //             ->getExcelFile($filters);
-
-                //         return response()->streamDownload(function () use ($excel) {
-                //             $writer = new Xlsx($excel);
-                //             $writer->save('php://output');
-                //         }, $fileName);
-                //     }),
-                // Action::make('export')
-                //     ->label('Export')
-                //     ->icon('heroicon-o-arrow-down-tray')
-                //     ->action(function ($livewire, CustomWorkActivityReportExporter $exporter) {
-
-                //         $filters = $livewire->getTableFiltersForm()->getState();
-
-                //         $fileName = 'work_activity_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
-
-                //         // return $exporter->stream($filters, $fileName);
-                //         return $exporter->export($filters, $fileName);
-                //     })
                 Action::make('export')
                     ->label('Export')
                     ->icon('heroicon-o-arrow-down-tray')
@@ -164,19 +93,19 @@ class WorkActivityReportTabe
 
                         $filters = $livewire->getTableFiltersForm()->getState();
 
-                        $fileName = 'work_activity_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
-                        // return response()->streamDownload(function () use ($filters, $exporter, $fileName) {
-                        //     // return $exporter->stream($filters, $fileName);
-                        //     $exporter->export($filters, $fileName);
-                        // }, $fileName);
-                        return $exporter->stream($filters, $fileName);
-                        // ExportWorkActivityReportJob::dispatch($filters, $fileName, auth()->user()->id);
+                        $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
 
-                        // Notification::make()
-                        //     ->title('Export started')
-                        //     ->body('You will be notified when it is ready.')
-                        //     ->success()
-                        //     ->send();
+                        ExportWorkActivityReportJob::dispatch(
+                            $filters,
+                            $fileName,
+                            auth()->id()
+                        );
+
+                        Notification::make()
+                            ->title(__('reports/export.export_started.title'))
+                            ->body(__('reports/export.export_started.body'))
+                            ->success()
+                            ->send();
                     })
             ])
             ->actions([])

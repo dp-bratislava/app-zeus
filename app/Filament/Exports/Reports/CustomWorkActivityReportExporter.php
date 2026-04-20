@@ -2,19 +2,15 @@
 
 namespace App\Filament\Exports\Reports;
 
-use App\Models\Reports\WorkActivityReport;
-use Illuminate\Support\Carbon;
+use App\Models\Reports\Export;
 use Illuminate\Support\Facades\DB;
-use OpenSpout\Common\Entity\Row;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use OpenSpout\Writer\XLSX\Writer;
 
 class CustomWorkActivityReportExporter
 {
-    public function stream(array $filters, string $fileName): \Symfony\Component\HttpFoundation\StreamedResponse
+    public function generate(array $filters, string $path, $userId)
     {
-        // dd($filters);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -24,15 +20,15 @@ class CustomWorkActivityReportExporter
         $sheet->fromArray([$headers], null, 'A1');
         $rowIndex = 2;
 
+        // get query
         $query = $this->query($filters);
 
-        $query->chunkById(2000, function ($rows) use ($sheet, &$rowIndex, $columns) {
-
+        // proces query
+        $query->chunkById(2000, function ($rows) use ($sheet, &$rowIndex) {
             $data = [];
 
+            // map rows
             foreach ($rows as $row) {
-                // $data[] = $this->mapRow($row, $columns);
-                // map rows
                 $data[] = [
                     $row->department_code,
                     $row->task_created_at,
@@ -50,17 +46,17 @@ class CustomWorkActivityReportExporter
                     $row->last_name,
                     $row->first_name,
                     $row->wtf_task_title,
-                    // $row->expected_duration < 0
-                    //     ? 0
-                    //     : ($row->expected_duration / 86400),
-                    // $row->real_duration < 0
-                    //     ? 0
-                    //     : ($row->real_duration / 86400),
-                    // match ($row->is_fulfilled) {
-                    //     0 => 'Nie',
-                    //     1 => 'Áno',
-                    //     default => 'Nevyhodnotené',
-                    // },
+                    $row->expected_duration < 0
+                        ? ($row->real_duration / 86400)
+                        : ($row->expected_duration / 86400),
+                    $row->real_duration < 0
+                        ? 0
+                        : ($row->real_duration / 86400),
+                    match ($row->is_fulfilled) {
+                        0 => 'Nie',
+                        1 => 'Áno',
+                        default => 'Nevyhodnotené',
+                    },
                 ];
             }
 
@@ -69,11 +65,12 @@ class CustomWorkActivityReportExporter
             $rowIndex += count($data);
         });
 
-        $sheet->getStyle('Q:Q') // adjust column index for expected_duration
+        // adjust column index for expected_duration
+        $sheet->getStyle('Q:Q')
             ->getNumberFormat()
             ->setFormatCode('[h]:mm');
-
-        $sheet->getStyle('R:R') // real_duration
+        // real_duration
+        $sheet->getStyle('R:R')
             ->getNumberFormat()
             ->setFormatCode('[h]:mm');
 
@@ -81,18 +78,26 @@ class CustomWorkActivityReportExporter
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        return response()->streamDownload(function () use ($spreadsheet) {
-            $writer = new Xlsx($spreadsheet);
-            $writer->save('php://output');
-        }, $fileName);
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($path);
+
+        // store export metadata in db
+        return Export::create([
+            'completed_at' => now(),
+            'exporter' => '',
+            'file_disk' => 'local',
+            'file_name' => pathinfo($path, PATHINFO_FILENAME),
+            'processed_rows' => 0,
+            'successful_rows' => $query->count(),
+            'total_rows' => $query->count(),
+            'user_id' => $userId,
+        ]);
     }
 
     private function query(array $filters)
     {
-        // dd(data_get($filters, 'department.values'));
         $departmentIds = data_get($filters, 'department.values');
 
-        // return WorkActivityReport::query()
         return DB::table('mvw_work_activity_report')
             ->select(['id', ...array_column($this->columns(), 'key')])
             ->when(data_get($filters, 'activity_date.activity_date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
@@ -121,87 +126,9 @@ class CustomWorkActivityReportExporter
             ['key' => 'last_name', 'label' => 'Priezvisko'],
             ['key' => 'first_name', 'label' => 'Meno'],
             ['key' => 'wtf_task_title', 'label' => 'Norma'],
-            // ['key' => 'expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
-            // ['key' => 'real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
-            // ['key' => 'is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
+            ['key' => 'expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
+            ['key' => 'real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
+            ['key' => 'is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
         ];
-    }
-
-    private function formatValue($value, ?string $format)
-    {
-        return match ($format) {
-
-            // Excel date/time
-            // 'date' => $value ? \Carbon\Carbon::parse($value)->format('Y-m-d') : null,
-
-            // duration → Excel time ([h]:mm)
-            // 'duration' => str_replace('.', ',', $value < 0
-            'duration' => $value < 0
-                ? 0
-                : ($value / 86400),
-
-            // 'duration' => $value < 0
-            //     ? '00:00'
-            //     : gmdate('H:i', $value),
-
-            // boolean mapping
-            // 'bool' => match ($value) {
-            //     0 => 'Nie',
-            //     1 => 'Áno',
-            //     default => 'Nevyhodnotené'
-            // },
-
-            default => $value,
-        };
-    }
-
-    private function mapRow($row, array $columns): array
-    {
-        // return $row->toArray();
-        $mapped = [];
-
-        foreach ($columns as $col) {
-            $value = data_get($row, $col['key']);
-
-            $mapped[] = $this->formatValue($value, $col['type'] ?? null);
-        }
-
-        return $mapped;
-    }
-
-    public function export(array $filters, string $fileName)
-    {
-        $writer = new Writer();
-        $writer->openToBrowser($fileName);
-
-        $columns = $this->columns();
-
-        // HEADER
-        $writer->addRow(Row::fromValues(
-            array_map(fn($c) => $c['label'], $columns)
-        ));
-
-        // DATA
-        $query = $this->query($filters);
-        // dd($query->count());
-        $query->chunk(2000, function ($rows) use ($writer, $columns) {
-
-            foreach ($rows as $row) {
-
-                $writer->addRow(
-                    Row::fromValues(
-                        array_map(function ($col) use ($row) {
-                            $value = data_get($row, $col['key']);
-                            return $this->formatValue($value, $col['type'] ?? null);
-                        }, $columns)
-                    )
-                );
-            }
-        });
-
-
-        $writer->close();
-
-        // exit;
     }
 }

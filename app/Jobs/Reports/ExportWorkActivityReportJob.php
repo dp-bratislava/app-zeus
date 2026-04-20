@@ -2,7 +2,9 @@
 
 namespace App\Jobs\Reports;
 
+use App\Filament\Exports\Reports\CustomWorkActivityReportExporter;
 use App\Models\User;
+use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -26,14 +28,24 @@ class ExportWorkActivityReportJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle(CustomWorkActivityReportExporter $exporter): void
     {
+        $path = storage_path("app/exports/{$this->fileName}");
+
         $user = User::find($this->userId);
+        $export = $exporter->generate($this->filters, $path, $this->userId);
+
 
         Notification::make()
-            ->title('Export ready')
-            ->body('Your file is ready for download.')
+            ->title(__('reports/export.export_finished.title'))
+            ->body(__('reports/export.export_finished.body', ['filename' => $this->fileName]))
             ->success()
+            ->actions([
+                Action::make('download')
+                    ->label(__('reports/export.actions.download'))
+                    ->url(route('exports.download', $export))
+                    ->openUrlInNewTab(),
+            ])
             ->sendToDatabase($user);
     }
 }
