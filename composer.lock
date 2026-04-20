@@ -1152,12 +1152,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "89f3a400a5ecdc7023eb9707553f81d9aace4543"
+                "reference": "c8ae44238b9655ce3106d466e33cbfa8c89cdca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/89f3a400a5ecdc7023eb9707553f81d9aace4543",
-                "reference": "89f3a400a5ecdc7023eb9707553f81d9aace4543",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/c8ae44238b9655ce3106d466e33cbfa8c89cdca9",
+                "reference": "c8ae44238b9655ce3106d466e33cbfa8c89cdca9",
                 "shasum": ""
             },
             "require": {
@@ -1190,7 +1190,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
             },
-            "time": "2026-04-16T08:49:49+00:00"
+            "time": "2026-04-20T13:11:20+00:00"
         },
         {
             "name": "dpb/dpb-insights",
