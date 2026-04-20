@@ -10,6 +10,7 @@
 .fi-ta-table > thead{
     position: sticky;
     top: 60px;
+    z-index: 1;
 }
 .employee-manager-table .fi-ta-table > thead{
     position: sticky;
