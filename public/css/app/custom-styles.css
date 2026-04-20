@@ -4,6 +4,9 @@
 .fi-ta-content {
     overflow: visible !important;
 }
+.fi-ta-content-ctn {
+    overflow: visible !important;
+}
 .fi-ta-table > thead{
     position: sticky;
     top: 60px;
