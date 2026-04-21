@@ -19,15 +19,15 @@ php8.2 artisan app:import-asphere-poruchy
 ```
 ## Zazemne prace elektricky, trolejbusy (tabulka "zazemne_elektrika")
 ```
-sail artisan app:create-missing-asphere-operations --tables=zazemne_elektrika --operation-title-column=operation --duration-column=duration --category-title="zazemne prace z aspheru"
+php8.2 artisan app:create-missing-asphere-operations --tables=zazemne_elektrika --operation-title-column=operation --duration-column=duration --category-title="zazemne prace z aspheru"
 ```
 ```
-sail artisan app:import-zazemne-prace
+php8.2 artisan app:import-zazemne-prace
 ```
 ## Denne osetrenia elektricky, trolejbusy (tabulka "DO_elektrika")
 ```
-sail artisan app:create-missing-asphere-operations --tables=DO_elektrika --operation-title-column=operation --duration-column=duration --category-title="denne osetrenia z asphere" --round-to-minutes
+php8.2 artisan app:create-missing-asphere-operations --tables=DO_elektrika --operation-title-column=operation --duration-column=duration --category-title="denne osetrenia z asphere" --round-to-minutes
 ```
 ```
-sail artisan import:daily-inspection
+php8.2 artisan import:daily-inspection
 ```
