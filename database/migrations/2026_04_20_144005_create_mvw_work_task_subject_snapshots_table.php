@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('mvw_subject_snapshots', function (Blueprint $table) {
+        Schema::create('mvw_work_task_subject_snapshots', function (Blueprint $table) {
             $table->id();
 
             $table->string('subject_type', 50);
@@ -30,6 +30,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('mvw_subject_snapshots');
+        Schema::dropIfExists('mvw_work_task_subject_snapshots');
     }
 };

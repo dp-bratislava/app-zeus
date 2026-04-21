@@ -63,6 +63,87 @@ SELECT
     ar.id,
     d.id,
     d.code,
+    NULL, -- tis.task_id,
+    tis.task_created_at,
+    DATE(tis.task_date),
+    NULL, -- vc.code,
+    tis.task_group_title,
+    tis.task_maintenance_group,
+    tis.task_maintenance_group_code,
+    tis.task_author_lastname,
+    tis.task_item_group_title,
+    tis.task_item_maintenance_group,
+    tis.task_item_maintenance_group_code,
+    tis.task_item_author_lastname,
+    wtf_task.created_at,
+    DATE(ar.date),
+    wt.personal_id,
+    wt.last_name,
+    wt.first_name,
+    ar.title,
+    ar.expected_duration,
+    ar.real_duration,
+    ar.is_fulfilled,
+    ar.deleted_at,
+    ar.updated_at
+FROM dpb_worktimefund_model_activityrecord ar
+
+JOIN tmp_activity_ids tmp
+    ON tmp.id = ar.id
+
+LEFT JOIN dpb_worktimefund_model_worktime wt ON wt.id = ar.parent_id
+LEFT JOIN datahub_departments d ON d.id = ar.department_id
+LEFT JOIN dpb_worktimefund_model_task wtf_task ON ar.task_id = wtf_task.id
+LEFT JOIN dpb_wtftmsbridge_mm_workorder_task wot ON wot.taskitem_id = wtf_task.id
+LEFT JOIN dpb_wtftmsbridge_model_workorder wo ON wo.id = wot.workorder_id
+
+LEFT JOIN mvw_task_item_snapshots tis ON tis.task_item_id = wo.tms_task_item_id
+
+-- LEFT JOIN fleet_vehicle_code_history vch 
+--    ON (vch.vehicle_id = ta.subject_id AND vch.date_to IS NULL AND ta.subject_type = 'vehicle')
+-- LEFT JOIN fleet_vehicle_codes vc ON vc.id = vch.vehicle_code_id
+ON DUPLICATE KEY UPDATE
+    real_duration = VALUES(real_duration),
+    is_fulfilled = VALUES(is_fulfilled),
+    source_deleted_at = VALUES(source_deleted_at),
+    source_updated_at = VALUES(source_updated_at);
+        ";
+    }
+    protected function query1(): string
+    {
+        return $sql = "
+INSERT INTO mvw_work_activity_report (
+    activity_id,
+    department_id,
+    department_code,
+    task_id,
+    task_created_at,
+    task_date,
+    subject_code,
+    task_group_title,
+    task_maintenance_group,
+    task_maintenance_group_code,
+    task_author_lastname,
+    task_item_group_title,
+    task_item_maintenance_group,
+    task_item_maintenance_group_code,
+    task_item_author_lastname,
+    wtf_task_created_at,
+    activity_date,
+    personal_id,
+    last_name,
+    first_name,
+    wtf_task_title,
+    expected_duration,
+    real_duration,
+    is_fulfilled,
+    source_deleted_at,
+    source_updated_at
+)
+SELECT
+    ar.id,
+    d.id,
+    d.code,
     tsk_tasks.id,
     ta.created_at,
     DATE(tsk_tasks.date),
