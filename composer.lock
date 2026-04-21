@@ -1334,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "732dea52e33fbaa94dd2c01832961744048ea029"
+                "reference": "bd2f26ae40ac052c5f0dd5a15c4757188a0bc999"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/732dea52e33fbaa94dd2c01832961744048ea029",
-                "reference": "732dea52e33fbaa94dd2c01832961744048ea029",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/bd2f26ae40ac052c5f0dd5a15c4757188a0bc999",
+                "reference": "bd2f26ae40ac052c5f0dd5a15c4757188a0bc999",
                 "shasum": ""
             },
             "require": {
@@ -1384,7 +1384,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-04-21T07:05:17+00:00"
+            "time": "2026-04-21T09:53:11+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
