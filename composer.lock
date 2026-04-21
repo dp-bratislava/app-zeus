@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85e8071dafa2a11e46c0fa8ee3b705a5",
+    "content-hash": "0f05fafce5b8bf3980f7c33efcca6c24",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1334,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "f5749a19ea6930e76be48de687aa6a1a643f7ae2"
+                "reference": "732dea52e33fbaa94dd2c01832961744048ea029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/f5749a19ea6930e76be48de687aa6a1a643f7ae2",
-                "reference": "f5749a19ea6930e76be48de687aa6a1a643f7ae2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/732dea52e33fbaa94dd2c01832961744048ea029",
+                "reference": "732dea52e33fbaa94dd2c01832961744048ea029",
                 "shasum": ""
             },
             "require": {
@@ -1384,7 +1384,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-04-20T08:47:39+00:00"
+            "time": "2026-04-21T07:05:17+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -2399,16 +2399,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.0.8",
+            "version": "dev-feature/upgrade-to-filament-v5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "c7635834c701cdda26bc7c2450e5b2760f7460a7"
+                "reference": "a85850d4335e1e2dc7df900405a1da1e1573f57a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/c7635834c701cdda26bc7c2450e5b2760f7460a7",
-                "reference": "c7635834c701cdda26bc7c2450e5b2760f7460a7",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/a85850d4335e1e2dc7df900405a1da1e1573f57a",
+                "reference": "a85850d4335e1e2dc7df900405a1da1e1573f57a",
                 "shasum": ""
             },
             "require": {
@@ -2440,10 +2440,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.0.8",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-04-17T07:59:13+00:00"
+            "time": "2026-04-21T06:23:08+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -14694,6 +14694,12 @@
             "version": "dev-feature/upgrade-to-filament-v5",
             "alias": "v12.0.2",
             "alias_normalized": "12.0.2.0"
+        },
+        {
+            "package": "dpb/wtf-ui",
+            "version": "dev-feature/upgrade-to-filament-v5",
+            "alias": "v12.0",
+            "alias_normalized": "12.0.0.0"
         }
     ],
     "minimum-stability": "dev",
@@ -14708,7 +14714,8 @@
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-task-ms-ui": 20,
         "dpb/spotlight": 20,
-        "dpb/ui-components": 20
+        "dpb/ui-components": 20,
+        "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

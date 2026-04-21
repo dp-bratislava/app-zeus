@@ -46,7 +46,7 @@
         "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^5.1",
         "dpb/pkg-closing-summary": "^0.3",
-        "dpb/wtf-ui": "^12.0",
+        "dpb/wtf-ui": "dev-feature/upgrade-to-filament-v5 as v12.0",
         "dpb/dpb-auditing": "^12.0",
         "dpb/dpb-departments": "dev-feature/upgrade-to-filament-v5 as v12.0.4",
         "dpb/dpb-employee-manager": "dev-feature/upgrade-to-filament-v5 as v12.0.6",
