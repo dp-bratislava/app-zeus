@@ -14,12 +14,17 @@ return new class extends Migration
             $table->unsignedBigInteger('task_item_id');
 
             // task
+            $table->unsignedBigInteger('task_id')->nullable();
             $table->datetime('task_date')->nullable();
             $table->string('task_title', 255)->nullable();
             $table->text('task_description')->nullable();
             $table->string('task_group_title', 255)->nullable();
-            $table->string('task_maintenance_group', 100)->nullable();
-            $table->string('task_maintenance_group_code', 50)->nullable();
+            $table->string('task_assigned_to_type', 255)->nullable()
+                ->comment('Which subject will be handling the task. E.g. maintenance group, department.');
+            $table->string('task_assigned_to_label', 255)->nullable();
+            $table->string('task_requested_for_type', 255)->nullable()
+                ->comment('Which subject will be handling the task. E.g. maintenance group, department.');
+            $table->string('task_requested_for_label', 255)->nullable();
             $table->string('task_author_lastname', 100)->nullable();
             $table->string('task_place_of_origin', 255)->nullable();
             $table->timestamp('task_created_at')->nullable();
@@ -29,10 +34,10 @@ return new class extends Migration
             $table->string('task_item_title', 255)->nullable();
             $table->text('task_item_description')->nullable();
             $table->string('task_item_group_title', 255)->nullable();
-            $table->string('task_item_maintenance_group', 100)->nullable();
-            $table->string('task_item_maintenance_group_code', 50)->nullable();
+            $table->string('task_item_assigned_to_type', 255)->nullable()
+                ->comment('Which subject will be handling the task item. E.g. maintenance group, department.');
+            $table->string('task_item_assigned_to_label', 255)->nullable();
             $table->string('task_item_author_lastname', 100)->nullable();
-            $table->string('task_item_place_of_origin', 255)->nullable();
             $table->timestamp('task_item_created_at')->nullable();
 
             $table->timestamps();

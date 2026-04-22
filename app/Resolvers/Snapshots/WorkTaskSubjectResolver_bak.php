@@ -2,7 +2,7 @@
 
 namespace App\Resolvers\Snapshots;
 
-class WorkTaskSubjectResolver
+class WorkTaskSubjectResolver_bak
 {
     public function resolve($workTaskSubject): array
     {

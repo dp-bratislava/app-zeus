@@ -15,21 +15,20 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id')->nullable();
             $table->string('department_code', 10)->nullable();
 
-            $table->unsignedBigInteger('task_id')->nullable();
             $table->dateTime('task_created_at')->nullable();
             $table->date('task_date')->nullable();
 
-            $table->string('subject_code', 50)->nullable();
+            $table->string('subject_type', 255)->nullable();
+            $table->string('subject_label', 255)->nullable();
             $table->string('task_group_title', 255)->nullable();
 
-            $table->string('task_maintenance_group', 50)->nullable();
-            $table->string('task_maintenance_group_code', 50)->nullable();
+            $table->string('task_assigned_to', 255)->nullable()
+                ->comment('Which subject will be handling the task. E.g. maintenance group, department.');
 
             $table->string('task_author_lastname', 50)->nullable();
 
             $table->string('task_item_group_title', 255)->nullable();
-            $table->string('task_item_maintenance_group', 50)->nullable();
-            $table->string('task_item_maintenance_group_code', 50)->nullable();
+            $table->string('task_item_assigned_to', 255)->nullable()->comment('Which subject will be handling the task item. E.g. maintenance group, department.');
 
             $table->string('task_item_author_lastname', 50)->nullable();
 
@@ -46,6 +45,8 @@ return new class extends Migration
             $table->integer('real_duration')->nullable()->comment('Real duration in seconds');
 
             $table->tinyInteger('is_fulfilled')->nullable();
+            $table->unsignedBigInteger('task_id')->nullable();
+            $table->unsignedBigInteger('task_item_id')->nullable();
 
             $table->dateTime('source_updated_at')->nullable()->comment('Source activity record was updated at');
             $table->dateTime('source_deleted_at')->nullable()->comment('Source activity record was deleted at');

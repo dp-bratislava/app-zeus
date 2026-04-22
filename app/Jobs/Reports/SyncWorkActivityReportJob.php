@@ -28,6 +28,7 @@ class SyncWorkActivityReportJob implements ShouldQueue
             ->where('updated_at', '>', $lastSync)
             ->orWhere('deleted_at', '>', $lastSync)
             ->orderBy('id')
+            // ->limit(10)
             ->pluck('id');
 
         if ($ids->isEmpty()) {
@@ -35,6 +36,7 @@ class SyncWorkActivityReportJob implements ShouldQueue
         }
 
         // STEP 2: chunk IDs
+        // $chunks = $ids->chunk(1000);
         $chunks = $ids->chunk(10000);
         foreach ($chunks as $chunk) {
             SyncWorkActivityReportChunkJob::dispatch(

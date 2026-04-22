@@ -35,7 +35,7 @@ class SyncTaskItemSnapshotJob implements ShouldQueue
         }
 
         // STEP 2: chunk IDs
-        $chunks = $ids->chunk(1000);
+        $chunks = $ids->chunk(10000);
         foreach ($chunks as $chunk) {
             SyncTaskItemSnapshotChunkJob::dispatch(
                 $chunk->toArray()
