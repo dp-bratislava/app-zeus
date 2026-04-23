@@ -17,14 +17,12 @@ class SyncWorkActivityReportChunkJob implements ShouldQueue
         public array $activityIds
     ) {}
 
-    public function handle1(): void
+    public function handle(): void
     {
-        app(WorkActivityReportService::class, [
-            'activityIds' => $this->activityIds
-        ])->handle();
+        app(WorkActivityReportService::class)->handle($this->activityIds);
     }
 
-    public function handle(): void
+    public function handle1(): void
     {
         // insert raw data
         DB::statement("CREATE TEMPORARY TABLE tmp_activity_ids (id BIGINT PRIMARY KEY)");

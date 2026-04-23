@@ -3,36 +3,43 @@
 namespace App\Resolvers\Snapshots;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TaskItemAssignedToResolver
 {
-    protected array $map = [
-        'maintenance-group' => 'resolveMaintenanceGroup',
-        'department' => 'resolveDepartment',
-    ];
-
-    public function resolve(Model|null $model): string|null
+    public function preload(array $groupedIds): array
     {
-        if (!$model) {
-            return null;
+        $result = [];
+
+        // maintenance groups
+        if (!empty($groupedIds['maintenance-group'])) {
+            $rows = DB::table('fleet_maintenance_groups')
+                ->whereIn('id', $groupedIds['maintenance-group'])
+                ->get()
+                ->keyBy('id');
+
+            foreach ($rows as $row) {
+                $result['maintenance-group'][$row->id] = [
+                    'label' => $row->code,
+                    'type' => 'maintenance-group',
+                ];
+            }
         }
 
-        $class = ($model->getMorphClass());
+        // departments
+        if (!empty($groupedIds['department'])) {
+            $rows = DB::table('datahub_departments')
+                ->whereIn('id', $groupedIds['department'])
+                ->get()
+                ->keyBy('id');
 
-        if (!isset($this->map[$class])) {
-            return null; // or throw exception if strict
+            foreach ($rows as $row) {
+                $result['department'][$row->id] = [
+                    'label' => $row->code,
+                    'type' => 'department',
+                ];
+            }
         }
-
-        return $this->{$this->map[$class]}($model);
-    }
-
-    protected function resolveMaintenanceGroup($model): string|null
-    {
-        return $model->code;
-    }
-
-    protected function resolveDepartment($model): string|null
-    {
-        return $model->code;
+        return $result;
     }
 }

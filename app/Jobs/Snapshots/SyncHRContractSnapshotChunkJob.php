@@ -17,9 +17,7 @@ class SyncHRContractSnapshotChunkJob implements ShouldQueue
 
     public function handle(): void
     {
-        app(HRContractSnapshotService::class, [
-            'contractIds' => $this->contractIds
-        ])->handle();
+        app(HRContractSnapshotService::class)->handle($this->contractIds);
     }
 
 }

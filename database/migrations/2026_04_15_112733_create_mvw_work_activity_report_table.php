@@ -9,54 +9,70 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mvw_work_activity_report', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
 
-            $table->unsignedBigInteger('activity_id')->nullable()->unique()->comment('Source activity record id');
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->string('personal_id', 10)->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('first_name')->nullable();
             $table->string('department_code', 10)->nullable();
 
-            $table->dateTime('task_created_at')->nullable();
+            $table->date('activity_date')->nullable();
+            $table->string('activity_title')->nullable();
+
+            $table->integer('activity_expected_duration')
+                ->nullable()
+                ->comment('Expected duration in seconds');
+
+            $table->integer('activity_real_duration')
+                ->nullable()
+                ->comment('Real duration in seconds');
+
+            $table->tinyInteger('activity_is_fulfilled')->nullable();
+
+            $table->text('activity_subject_type')->nullable();
+            $table->text('activity_subject_label')->nullable();
+
             $table->date('task_date')->nullable();
+            $table->string('task_group_title')->nullable();
 
-            $table->string('subject_type', 255)->nullable();
-            $table->string('subject_label', 255)->nullable();
-            $table->string('task_group_title', 255)->nullable();
+            $table->string('task_assigned_to_type', 50)->nullable();
+            $table->string('task_assigned_to_label', 50)->nullable();
 
-            $table->string('task_assigned_to', 255)->nullable()
-                ->comment('Which subject will be handling the task. E.g. maintenance group, department.');
+            $table->string('task_requested_for_type', 50)->nullable();
+            $table->string('task_requested_for_label', 50)->nullable();
 
             $table->string('task_author_lastname', 50)->nullable();
+            $table->string('task_item_group_title')->nullable();
 
-            $table->string('task_item_group_title', 255)->nullable();
-            $table->string('task_item_assigned_to', 255)->nullable()->comment('Which subject will be handling the task item. E.g. maintenance group, department.');
+            $table->string('task_item_assigned_to_type', 50)->nullable();
+            $table->string('task_item_assigned_to_label', 50)->nullable();
 
             $table->string('task_item_author_lastname', 50)->nullable();
 
             $table->dateTime('wtf_task_created_at')->nullable();
-            $table->date('activity_date')->nullable();
 
-            $table->string('personal_id', 10)->nullable();
-            $table->string('last_name', 255)->nullable();
-            $table->string('first_name', 255)->nullable();
+            $table->unsignedBigInteger('activity_id')
+                ->nullable()
+                ->comment('Source activity record id');
 
-            $table->string('wtf_task_title', 255)->nullable();
-
-            $table->integer('expected_duration')->nullable()->comment('Expected duration in seconds');
-            $table->integer('real_duration')->nullable()->comment('Real duration in seconds');
-
-            $table->tinyInteger('is_fulfilled')->nullable();
             $table->unsignedBigInteger('task_id')->nullable();
+            $table->dateTime('task_created_at')->nullable();
             $table->unsignedBigInteger('task_item_id')->nullable();
 
-            $table->dateTime('source_updated_at')->nullable()->comment('Source activity record was updated at');
-            $table->dateTime('source_deleted_at')->nullable()->comment('Source activity record was deleted at');
+            $table->unsignedBigInteger('department_id')->nullable();
 
-            // indexes
+            $table->dateTime('source_updated_at')
+                ->nullable()
+                ->comment('Source activity record was updated at');
+
+            $table->dateTime('source_deleted_at')
+                ->nullable()
+                ->comment('Source activity record was deleted at');
+
+            // Indexes
+            $table->unique('activity_id', 'mvw_work_activity_report_activity_id_unique');
             $table->index('activity_date', 'idx_activity_date');
-            $table->index(
-                ['department_id', 'department_code'],
-                'idx_department'
-            );
+            $table->index(['department_id', 'department_code'], 'idx_department');
         });
     }
 

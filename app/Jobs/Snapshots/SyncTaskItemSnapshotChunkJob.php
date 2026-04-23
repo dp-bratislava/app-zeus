@@ -17,9 +17,6 @@ class SyncTaskItemSnapshotChunkJob implements ShouldQueue
 
     public function handle(): void
     {
-        app(TaskItemSnapshotService::class, [
-            'taskItemIds' => $this->taskItemIds
-        ])->handle();
+        app(TaskItemSnapshotService::class)->handle($this->taskItemIds);
     }
-
 }

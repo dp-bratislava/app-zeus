@@ -2,36 +2,36 @@
 
 namespace App\Services\Snapshots;
 
-use App\Resolvers\Snapshots\HRContractResolver;
-use Dpb\DatahubSync\Models\EmployeeContract;
+use App\Registries\Snapshots\HRContractSnapshotSQLRegistry;
 use Illuminate\Support\Facades\DB;
 
 class HRContractSnapshotService
 {
     public function __construct(
-        public array $contractIds
+        public HRContractSnapshotSQLRegistry $sqlRegistry,
     ) {}
 
-    public function handle(): void
+    public function handle(array $contractIds): void
     {
-        $contracts = EmployeeContract::whereIn('id', $this->contractIds)
-            ->with([
-                'employee:id,hash,first_name,last_name,gender',
-                'department:id,code,title',
-                'profession:id,code,title',
-                'circuit',
-                'type',
-            ])
-            ->get()
-            ->keyBy('id');
+        // insert raw data
+        $this->createTemporaryTables();
 
-        $contractResolver = app(HRContractResolver::class);
-        $contractSnapshots = $contractResolver->batchResolve($contracts);
-
-        DB::table('mvw_hr_contract_snapshots')->upsert(
-            $contractSnapshots,
-            ['contract_id'],
-            // ['task_item_date', 'task_item_title', 'create_at', 'updated_at']
+        DB::table('tmp_contract_ids')->insert(
+            array_map(fn($id) => ['id' => $id], $contractIds)
         );
+
+        DB::statement($this->sqlRegistry->build());
+
+        $this->dropTemporaryTables();
+    }
+
+    protected function createTemporaryTables()
+    {
+        DB::statement("CREATE TEMPORARY TABLE tmp_contract_ids (id BIGINT PRIMARY KEY)");
+    }
+
+    protected function dropTemporaryTables()
+    {
+        DB::statement("DROP TEMPORARY TABLE tmp_contract_ids");
     }
 }

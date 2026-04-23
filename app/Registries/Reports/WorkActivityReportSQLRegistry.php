@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Registries\Reports;
+
+class WorkActivityReportSQLRegistry
+{
+    protected function targetTable(): string
+    {
+        return 'mvw_work_activity_report';
+    }
+
+    public function build(): string
+    {
+        return "
+            INSERT INTO {$this->targetTable()}
+            ({$this->columns()})
+            SELECT
+                {$this->select()}
+            {$this->from()}
+            {$this->joins()}
+            ON DUPLICATE KEY UPDATE
+                source_updated_at = VALUES(source_updated_at)            
+        ";
+    }
+
+    protected function map(): array
+    {
+        return [
+
+            // activity
+            'activity_id' => 'ar.id',
+
+            'personal_id' => 'hrc.pid',
+            'last_name' => 'hrc.last_name',
+            'first_name' => 'hrc.first_name',
+            'department_code' => 'hrc.department_code',
+
+            'activity_date' => 'ar.date',
+            'activity_title' => 'ar.title',
+            'activity_expected_duration' => 'ar.expected_duration',
+            'activity_real_duration' => 'ar.real_duration',
+            'activity_is_fulfilled' => 'ar.is_fulfilled',
+
+            // polymorphic subject (not resolved yet)
+            'activity_subject_type' => 'NULL',
+            'activity_subject_label' => 'NULL',
+
+            // task snapshot
+            'task_date' => 'tis.task_date',
+            'task_group_title' => 'tis.task_group_title',
+            'task_assigned_to_type' => 'tis.task_assigned_to_type',
+            'task_assigned_to_label' => 'tis.task_assigned_to_label',
+            'task_requested_for_type' => 'tis.task_requested_for_type',
+            'task_requested_for_label' => 'tis.task_requested_for_label',
+            'task_author_lastname' => 'tis.task_author_lastname',
+
+            // task item snapshot
+            'task_item_group_title' => 'tis.task_item_group_title',
+            'task_item_assigned_to_type' => 'tis.task_item_assigned_to_type',
+            'task_item_assigned_to_label' => 'tis.task_item_assigned_to_label',
+            'task_item_author_lastname' => 'tis.task_item_author_lastname',
+
+            // ids
+            'task_id' => 'tis.task_id',
+            'task_created_at' => 'tis.task_created_at',
+            'task_item_id' => 'tis.task_item_id',
+
+            // missing join placeholder
+            'department_id' => 'NULL',
+
+            // audit
+            'source_deleted_at' => 'ar.deleted_at',
+            'source_updated_at' => 'ar.updated_at',
+        ];
+    }
+
+    protected function columns(): string
+    {
+        return implode(',', array_keys($this->map()));
+    }
+
+    protected function select(): string
+    {
+        return implode(",\n", $this->map());
+    }
+
+    protected function joins(): string
+    {
+        return "
+            JOIN tmp_activity_record_ids tmp ON tmp.id = ar.id
+            LEFT JOIN dpb_worktimefund_model_task wt ON wt.id = ar.task_id
+            LEFT JOIN dpb_wtftmsbridge_mm_workorder_task wot ON wot.taskitem_id = wt.id
+            LEFT JOIN dpb_wtftmsbridge_model_workorder wo ON wo.id = wot.workorder_id
+            LEFT JOIN mvw_task_item_snapshots tis ON tis.task_item_id = wo.tms_task_item_id
+            LEFT JOIN mvw_hr_contract_snapshots hrc ON hrc.pid = ar.personal_id
+        ";
+    }
+
+    protected function from(): string
+    {
+        return "
+            FROM dpb_worktimefund_model_activityrecord ar
+        ";
+    }
+
+    /**
+     * @TODO
+     * @param array $taskItemIds
+     * @return string
+     */
+    public function polymorphicContext(array $taskItemIds = []): string
+    {
+        return "";
+        $base = "
+            SELECT
+                tia.task_item_id as task_item_id,
+                tia.assigned_to_id as task_item_assigned_to_id,
+                tia.assigned_to_type as task_item_assigned_to_type,
+
+                ta.assigned_to_id as task_assigned_to_id,
+                ta.assigned_to_type as task_assigned_to_type,
+
+                ta.department_id as task_requested_for_id,
+
+                CASE
+                    WHEN ta.department_id IS NOT NULL THEN 'department'
+                    ELSE NULL
+                END AS task_requested_for_type
+
+            FROM tms_task_item_assignments tia
+            LEFT JOIN tsk_task_items ti ON ti.id = tia.task_item_id
+            LEFT JOIN tms_task_assignments ta ON ta.task_id = ti.task_id
+        ";
+
+        if (!empty($taskItemIds)) {
+            $base .= " WHERE tia.task_item_id IN (" . implode(',', $taskItemIds) . ")";
+        }
+
+        return $base;
+    }
+}
