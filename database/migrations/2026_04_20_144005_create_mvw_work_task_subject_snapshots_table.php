@@ -9,8 +9,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mvw_work_task_subject_snapshots', function (Blueprint $table) {
+            $table->comment('Denormalised materialised view for work time fund task subjects/maintainables');
+
             $table->id();
-            $table->unsignedBigInteger('task_id')
+            $table->unsignedBigInteger('wtf_task_id')
                 ->comment('Work time fund task the subject belongs to');
 
             $table->string('subject_type', 255);
@@ -18,8 +20,8 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->unique(['subject_type', 'task_id'], 'uniq_subject_snapshot');
-            $table->index('task_id');
+            $table->unique(['subject_type', 'wtf_task_id'], 'uniq_subject_snapshot');
+            $table->index('wtf_task_id');
             $table->index('subject_type');
             $table->index('subject_label');
             $table->index('updated_at');

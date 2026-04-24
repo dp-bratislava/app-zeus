@@ -9,6 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mvw_work_activity_report', function (Blueprint $table) {
+            $table->comment('Denormalised materialised view for work time fund activity records');
+
             $table->id();
 
             $table->string('personal_id', 10)->nullable();
@@ -21,11 +23,11 @@ return new class extends Migration
 
             $table->integer('activity_expected_duration')
                 ->nullable()
-                ->comment('Expected duration in seconds');
+                ->comment('Expected activity duration in seconds');
 
             $table->integer('activity_real_duration')
                 ->nullable()
-                ->comment('Real duration in seconds');
+                ->comment('Real activity duration in seconds');
 
             $table->tinyInteger('activity_is_fulfilled')->nullable();
             $table->string('activity_type')
@@ -34,9 +36,6 @@ return new class extends Migration
             $table->tinyInteger('activity_is_tolerated')
                 ->nullable()
                 ->comment('NULL for work and 0/1 for absence type of activity');
-
-            $table->text('activity_subject_type')->nullable();
-            $table->text('activity_subject_label')->nullable();
 
             $table->date('task_date')->nullable();
             $table->string('task_group_title')->nullable();
@@ -55,14 +54,21 @@ return new class extends Migration
 
             $table->string('task_item_author_lastname', 50)->nullable();
 
-            $table->dateTime('wtf_task_created_at')->nullable();
+            $table->unsignedBigInteger('wtf_task_id')
+                ->nullable()
+                ->comment('Work time fund task id');
+            $table->dateTime('wtf_task_created_at')
+                ->nullable()
+                ->comment('Work time fund task created at');
 
             $table->unsignedBigInteger('activity_id')
                 ->nullable()
                 ->comment('Source activity record id');
 
             $table->unsignedBigInteger('task_id')->nullable();
-            $table->dateTime('task_created_at')->nullable();
+            $table->dateTime('task_created_at')
+                ->nullable()
+                ->comment('Task management system task created at');;
             $table->unsignedBigInteger('task_item_id')->nullable();
 
             $table->unsignedBigInteger('department_id')->nullable();

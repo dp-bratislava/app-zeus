@@ -43,10 +43,6 @@ class WorkActivityReportSQLRegistry
             'activity_type' => 'NULL',
             'activity_is_tolerated' => 'NULL',
 
-            // polymorphic subject (not resolved yet)
-            'activity_subject_type' => 'NULL',
-            'activity_subject_label' => 'NULL',
-
             // task snapshot
             'task_date' => 'tis.task_date',
             'task_group_title' => 'tis.task_group_title',
@@ -66,6 +62,8 @@ class WorkActivityReportSQLRegistry
             'task_id' => 'tis.task_id',
             'task_created_at' => 'tis.task_created_at',
             'task_item_id' => 'tis.task_item_id',
+            'wtf_task_id' => 'wt.id',
+            'wtf_task_created_at' => 'wt.created_at',
 
             // missing join placeholder
             'department_id' => 'NULL',

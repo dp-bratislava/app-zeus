@@ -36,7 +36,7 @@ class WorkActivityReportExporter
                     $row->department_code,
                     $row->task_created_at,
                     $row->task_date,
-                    $row->activity_subject_label,
+                    // $row->activity_subject_label,
                     $row->task_group_title,
                     $row->task_assigned_to_label,
                     $row->task_author_lastname,
@@ -109,7 +109,7 @@ class WorkActivityReportExporter
             ['key' => 'department_code', 'label' => 'Stredisko'],
             ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
             ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
-            ['key' => 'activity_subject_label', 'label' => 'Vozidlo'],
+            // ['key' => 'activity_subject_label', 'label' => 'Vozidlo'],
             ['key' => 'task_group_title', 'label' => 'Typ zákazky'],
             ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
             ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
@@ -135,12 +135,12 @@ class WorkActivityReportExporter
         // make header bold
         $lastColumn = $sheet->getHighestColumn();
         $sheet->getStyle('A1:' . $lastColumn . '1')->getFont()->setBold(true);
-        // adjust column index for expected_duration
-        $sheet->getStyle('Q:Q')
+        // format expected_duration
+        $sheet->getStyle('P:P')
             ->getNumberFormat()
             ->setFormatCode('[h]:mm');
-        // real_duration
-        $sheet->getStyle('R:R')
+        // format real_duration
+        $sheet->getStyle('Q:Q')
             ->getNumberFormat()
             ->setFormatCode('[h]:mm');
 

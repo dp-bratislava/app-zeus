@@ -2,6 +2,7 @@
 
 namespace App\Models\Reports;
 
+use App\Models\Snapshots\WorkTaskSubject;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkActivityReport extends Model
@@ -10,5 +11,14 @@ class WorkActivityReport extends Model
 
     public $timestamps = false;
 
-    protected $guarded = []; 
+    protected $guarded = [];
+
+    public function taskSubjects()
+    {
+        return $this->hasMany(
+            WorkTaskSubject::class,
+            'wtf_task_id', // Foreign key on TaskSubject table
+            'wtf_task_id'  // Local key on Activity table
+        );
+    }
 }

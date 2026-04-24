@@ -156,7 +156,7 @@ class WorkTaskSubjectSnapshotSQLRegistry
     protected function map(): array
     {
         return [
-            'task_id' => 'sr.task_id',
+            'wtf_task_id' => 'sr.task_id',
             'subject_type' => 'sr.type',
             'subject_label' => 'sr.label',
             'updated_at' => 'sr.updated_at',

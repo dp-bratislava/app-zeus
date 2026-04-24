@@ -9,6 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mvw_task_item_snapshots', function (Blueprint $table) {
+            $table->comment('Denormalised materialised view for task management system task items');
+
             $table->id();
 
             $table->unsignedBigInteger('task_item_id');
