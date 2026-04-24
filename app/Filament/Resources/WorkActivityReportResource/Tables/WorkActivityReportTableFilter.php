@@ -4,29 +4,22 @@ namespace App\Filament\Resources\WorkActivityReportResource\Tables;
 
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Package\TaskMS\UI\Filament\Components\VehiclePicker;
-use Dpb\Package\Fleet\Models\MaintenanceGroup;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\Tickets\Models\TicketSource;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\ToggleButtons;
-use Dpb\Package\TaskMS\States;
-use Dpb\Package\TaskMS\UI\Filament\Components\DepartmentPicker;
 
 class WorkActivityReportTableFilter
 {
     public static function make(): array
     {
         return [
-            // date
+            // activity date
             Tables\Filters\Filter::make('activity_date')
                 ->form([
                     DatePicker::make('activity_date_from')
-                        ->label(__('tms-ui::tickets/ticket.table.filters.date')),
+                        ->label(__('reports/work-activity-report.table.filters.date_from')),
                     DatePicker::make('activity_date_to')
-                        ->label(__('tms-ui::tickets/ticket.table.filters.date')),
+                        ->label(__('reports/work-activity-report.table.filters.date_to')),
 
                 ])
                 ->query(function (Builder $query, array $data): Builder {
@@ -43,9 +36,28 @@ class WorkActivityReportTableFilter
 
             // department
             Tables\Filters\SelectFilter::make('department')
-                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'id'))
+                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
-                ->attribute('department_id'),
+                ->attribute('department_code'),
+
+            // is fulfilled
+            Tables\Filters\SelectFilter::make('is_fulfilled')
+                ->label(__('reports/work-activity-report.table.filters.activity_is_fulfilled'))
+                ->options([
+                    '-1' => 'Nehodnotené',
+                    '0' => 'Nie',
+                    '1' => 'Áno',
+                ])
+                ->multiple()
+                ->attribute('activity_is_fulfilled'),
+
+            // personal id
+            // Tables\Filters\SelectFilter::make('personal_id')
+            //     ->label(__('reports/work-activity-report.table.filters.department'))
+            //     ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
+            //     ->multiple()
+            //     ->attribute('personal_id'),                
 
             // Tables\Filters\Filter::make('activity_date')
             //     ->form([

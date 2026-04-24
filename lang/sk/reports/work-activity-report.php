@@ -4,7 +4,7 @@ return [
     'list_heading' => 'Zostava - deatil prác',
     'table' => [
         'heading' => 'Zostava - deatil prác',
-        'description' => 'ZATIAĽ: Vozy čo majú v štrkáči ako posledné, že sú odstavené',
+        'description' => '',
         'columns' => [
             'activity_date' => 'Výkon práce',
             'personal_id' => 'Osobné číslo',
@@ -12,21 +12,35 @@ return [
             'last_name' => 'Priezvisko',
             'first_name' => 'Meno',
             'department_code' => 'Stredisko',
-            'subject_code' => [
+            'activity_subject_type' => [
+                'label' => 'Typ predmetu zákazky',
+                'tooltip' => 'Napr.: vozidlo, zastávková tabula, úsek koľajovej trate...',
+            ],
+            'activity_subject_label' => [
                 'label' => 'Predmet zákazky',
-                'tooltip' => 'Napr. : kód vozidla, zastávková tabula, úsek koľajovej trate...',
-            ],            
+                'tooltip' => 'Napr. : kód vozidla, umiestnenie zastávkovej tabule, názov úseku koľajovej trate...',
+            ],
+            'task_id' => 'ID zákazky',
             'task_author_lastname' => 'Zákazku vytvoril',
             'task_group_title' => 'Typ podzákazky',
             'task_item_group_title' => 'Skupina podzákazky',
             'task_item_author_lastname' => 'Podzákazku vytvoril',
-            'wtf_task_title' => 'Norma',
-            'expected_duration' => 'Norma trvanie',
-            'real_duration' => 'Skutočné trvanie',
-            'is_fulfilled' => 'Splnené',
+            'activity_title' => 'Názov úkonu',
+            'activity_expected_duration' => [
+                'label' => 'Norma',
+                'tooltip' => 'Predpokladané trvanie úkonu podľa normy',
+            ],
+            'activity_real_duration' => [
+                'label' => 'Výkon',
+                'tooltip' => 'Skutočné trvanie úkonu',
+            ],
+            'activity_is_fulfilled' => 'Splnené',
         ],
         'filters' => [
-            'model' => 'Model',
+            'date_from' => 'Dátum od',
+            'date_to' => 'Dátum od',
+            'department' => 'Stredisko',
+            'activity_is_fulfilled' => 'Splnené',
         ],
         'actions' => [
             'expot_csv' => 'Export CSV',
@@ -38,7 +52,7 @@ return [
         'group' => 'Reporty',
     ],
     'resource' => [
-        'model_label' => 'Správka',
-        'plural_model_label' => 'Správka',
+        'model_label' => 'Deatil prác',
+        'plural_model_label' => 'Deatil prác',
     ],
 ];

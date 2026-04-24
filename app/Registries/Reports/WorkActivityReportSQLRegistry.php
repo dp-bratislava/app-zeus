@@ -40,6 +40,8 @@ class WorkActivityReportSQLRegistry
             'activity_expected_duration' => 'ar.expected_duration',
             'activity_real_duration' => 'ar.real_duration',
             'activity_is_fulfilled' => 'ar.is_fulfilled',
+            'activity_type' => 'NULL',
+            'activity_is_tolerated' => 'NULL',
 
             // polymorphic subject (not resolved yet)
             'activity_subject_type' => 'NULL',
@@ -105,35 +107,22 @@ class WorkActivityReportSQLRegistry
 
     /**
      * @TODO
-     * @param array $taskItemIds
+     * @param array $activityIds
      * @return string
      */
-    public function polymorphicContext(array $taskItemIds = []): string
+    public function polymorphicContext(array $activityIds = []): string
     {
-        return "";
         $base = "
             SELECT
-                tia.task_item_id as task_item_id,
-                tia.assigned_to_id as task_item_assigned_to_id,
-                tia.assigned_to_type as task_item_assigned_to_type,
-
-                ta.assigned_to_id as task_assigned_to_id,
-                ta.assigned_to_type as task_assigned_to_type,
-
-                ta.department_id as task_requested_for_id,
-
-                CASE
-                    WHEN ta.department_id IS NOT NULL THEN 'department'
-                    ELSE NULL
-                END AS task_requested_for_type
-
-            FROM tms_task_item_assignments tia
-            LEFT JOIN tsk_task_items ti ON ti.id = tia.task_item_id
-            LEFT JOIN tms_task_assignments ta ON ta.task_id = ti.task_id
+                ar.id as activity_id,
+                ar.type as activity_type,
+                t.id as task_id
+            FROM dpb_worktimefund_model_activityrecord ar
+            LEFT JOIN dpb_worktimefund_model_task t ON t.id = ar.task_id
         ";
 
-        if (!empty($taskItemIds)) {
-            $base .= " WHERE tia.task_item_id IN (" . implode(',', $taskItemIds) . ")";
+        if (!empty($activityIds)) {
+            $base .= " WHERE ar.id IN (" . implode(',', $activityIds) . ")";
         }
 
         return $base;

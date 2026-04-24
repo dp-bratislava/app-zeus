@@ -23,7 +23,7 @@ class WorkActivityReportTabe
                 DepartmentService $departmentSvc
             ) {
                 return $query
-                    ->whereIn('department_id', $departmentSvc->getAvailableDepartments()->pluck('id'));
+                    ->whereIn('department_code', $departmentSvc->getAvailableDepartments()->pluck('code'));
             })
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
@@ -35,7 +35,7 @@ class WorkActivityReportTabe
             ->columns([
                 Tables\Columns\TextColumn::make('activity_date')
                     ->label(__('reports/work-activity-report.table.columns.activity_date'))
-                    ->date('j.n.Y'),
+                    ->date('Y-m-d'),
                 // ->label(__('dispatch-report.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('personal_id')
                     ->label(__('reports/work-activity-report.table.columns.personal_id')),
@@ -48,27 +48,29 @@ class WorkActivityReportTabe
                 //     ->label(__('reports/work-activity-report.table.columns.first_name')),
                 Tables\Columns\TextColumn::make('department_code')
                     ->label(__('reports/work-activity-report.table.columns.department_code')),
-                Tables\Columns\TextColumn::make('subject_code')
-                    ->label(__('reports/work-activity-report.table.columns.subject_code.label'))
-                    ->tooltip(__('reports/work-activity-report.table.columns.subject_code.tooltip')),
+                Tables\Columns\TextColumn::make('activity_subject_label')
+                    ->label(__('reports/work-activity-report.table.columns.activity_subject_label.label'))
+                    ->tooltip(__('reports/work-activity-report.table.columns.activity_subject_label.tooltip')),
                 Tables\Columns\TextColumn::make('task_group_title')
                     ->label(__('reports/work-activity-report.table.columns.task_group_title')),
                 Tables\Columns\TextColumn::make('task_item_group_title')
                     ->label(__('reports/work-activity-report.table.columns.task_item_group_title')),
-                Tables\Columns\TextColumn::make('wtf_task_title')
-                    ->label(__('reports/work-activity-report.table.columns.wtf_task_title')),
-                Tables\Columns\TextColumn::make('expected_duration')
-                    ->label(__('reports/work-activity-report.table.columns.expected_duration'))
+                Tables\Columns\TextColumn::make('activity_title')
+                    ->label(__('reports/work-activity-report.table.columns.activity_title')),
+                Tables\Columns\TextColumn::make('activity_expected_duration')
+                    ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
+                    ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
                     ->formatStateUsing(
-                        fn($record): string => $record->expected_duration >= 0
-                            ? CarbonInterval::seconds($record->expected_duration)->cascade()->format('%H:%I')
-                            : CarbonInterval::seconds($record->real_duration)->cascade()->format('%H:%I')
+                        fn($record): string => $record->activity_expected_duration >= 0
+                            ? CarbonInterval::seconds($record->activity_expected_duration)->cascade()->format('%H:%I')
+                            : CarbonInterval::seconds($record->activity_real_duration)->cascade()->format('%H:%I')
                     ),
-                Tables\Columns\TextColumn::make('real_duration')
-                    ->label(__('reports/work-activity-report.table.columns.real_duration'))
+                Tables\Columns\TextColumn::make('activity_real_duration')
+                    ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
+                    ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip'))
                     ->formatStateUsing(fn($state): string => CarbonInterval::seconds($state)->cascade()->format('%H:%I')),
-                Tables\Columns\TextColumn::make('is_fulfilled')
-                    ->label(__('reports/work-activity-report.table.columns.is_fulfilled'))
+                Tables\Columns\TextColumn::make('activity_is_fulfilled')
+                    ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled'))
                     ->formatStateUsing(
                         fn($state): string => match ($state) {
                             0 => 'Nie',
@@ -78,8 +80,17 @@ class WorkActivityReportTabe
                     ),
                 // ->label(__('dispatch-report.table.columns.description.label'))
                 //     ->formatStateUsing(fn($record) => Str::substr($record->description, 0, 30) . '...'),
-                // Tables\Columns\TextColumn::make('state')
-                //     ->label(__('dispatch-report.table.columns.state.label')),
+                Tables\Columns\TextColumn::make('task_id')
+                    ->label(__('reports/work-activity-report.table.columns.task_id'))
+                    ->url(
+                        fn($record) => $record->task_id
+                            ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
+                            : null
+                    )
+                    ->color(fn($state) => $state ? 'primary' : 'gray')
+                    ->extraAttributes(fn($state) => [
+                        'class' => $state ? 'underline cursor-pointer' : '',
+                    ]),
                 Tables\Columns\TextColumn::make('task_item_author_lastname')
                     ->label(__('reports/work-activity-report.table.columns.task_item_author_lastname'))
                     ->toggleable()

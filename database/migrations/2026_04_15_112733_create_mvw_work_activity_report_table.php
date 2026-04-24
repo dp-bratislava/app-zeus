@@ -28,6 +28,12 @@ return new class extends Migration
                 ->comment('Real duration in seconds');
 
             $table->tinyInteger('activity_is_fulfilled')->nullable();
+            $table->string('activity_type')
+                ->nullable()
+                ->comment('E.g. operation as work here, or absence');
+            $table->tinyInteger('activity_is_tolerated')
+                ->nullable()
+                ->comment('NULL for work and 0/1 for absence type of activity');
 
             $table->text('activity_subject_type')->nullable();
             $table->text('activity_subject_label')->nullable();
@@ -72,6 +78,8 @@ return new class extends Migration
             // Indexes
             $table->unique('activity_id', 'mvw_work_activity_report_activity_id_unique');
             $table->index('activity_date', 'idx_activity_date');
+            $table->index('last_name', 'idx_last_name');
+            $table->index('personal_id', 'idx_personal_id');
             $table->index(['department_id', 'department_code'], 'idx_department');
         });
     }

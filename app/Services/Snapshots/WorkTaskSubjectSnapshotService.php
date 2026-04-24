@@ -2,6 +2,7 @@
 
 namespace App\Services\Snapshots;
 
+use App\Registries\Snapshots\WorkTaskSubjectSnapshotSQLRegistry;
 use App\Resolvers\Snapshots\WorkTaskSubjectResolver;
 use Dpb\WorkTimeFund\Models\Task;
 use Illuminate\Support\Facades\DB;
@@ -9,25 +10,30 @@ use Illuminate\Support\Facades\DB;
 class WorkTaskSubjectSnapshotService
 {
     public function __construct(
-        public array $workTaskIds
+        public WorkTaskSubjectSnapshotSQLRegistry $sqlRegistry,
     ) {}
 
-    public function handle(): void
+    public function handle(array $taskIds): void
     {
-        $workTaskSubjects = Task::whereIn('id', $this->workTaskIds)
-            ->with(['maintainable', 'attributeOptions', 'attributeOptions.type'])
-            ->get();
+        $this->createTemporaryTables();
 
-        //   dd($workTaskSubjects[0]) ;          
-        //   exit;
-        $wtsResolver = app(WorkTaskSubjectResolver::class);
-        $taskSnapshots = $wtsResolver->batchResolve($workTaskSubjects);
-
-        // dd($taskSnapshots);
-        DB::table('mvw_work_task_subject_snapshots')->upsert(
-            $taskSnapshots,
-            ['subject_type', 'subject_id'],
-            // ['task_item_date', 'task_item_title', 'create_at', 'updated_at']
+        DB::table('tmp_wtf_task_ids')->insert(
+            array_map(fn($id) => ['id' => $id], $taskIds)
         );
+
+        // dd($this->sqlRegistry->build());
+        DB::statement($this->sqlRegistry->build());
+
+        $this->dropTemporaryTables();
     }
+
+    protected function createTemporaryTables()
+    {
+        DB::statement("CREATE TEMPORARY TABLE tmp_wtf_task_ids (id BIGINT PRIMARY KEY)");
+    }
+
+    protected function dropTemporaryTables()
+    {
+        DB::statement("DROP TEMPORARY TABLE tmp_wtf_task_ids");
+    }    
 }

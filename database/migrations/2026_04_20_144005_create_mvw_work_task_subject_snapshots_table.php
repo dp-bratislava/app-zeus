@@ -10,20 +10,18 @@ return new class extends Migration
     {
         Schema::create('mvw_work_task_subject_snapshots', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('task_id')
+                ->comment('Work time fund task the subject belongs to');
 
-            $table->string('subject_type', 50);
-            $table->unsignedBigInteger('subject_id');
-
-            $table->string('label', 255);
-            $table->string('code', 100)->nullable();
-
-            $table->json('meta')->nullable();
+            $table->string('subject_type', 255);
+            $table->string('subject_label', 255);
 
             $table->timestamps();
 
-            $table->unique(['subject_type', 'subject_id'], 'uniq_subject_snapshot');
+            $table->unique(['subject_type', 'task_id'], 'uniq_subject_snapshot');
+            $table->index('task_id');
             $table->index('subject_type');
-            $table->index('subject_id');
+            $table->index('subject_label');
             $table->index('updated_at');
         });
     }

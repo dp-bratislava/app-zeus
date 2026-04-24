@@ -22,18 +22,18 @@ class WorkActivityReportService
             array_map(fn($id) => ['id' => $id], $activityIds)
         );
 
-// dd($this->sqlRegistry->build());
+        // dd($this->sqlRegistry->build());
 
         DB::statement($this->sqlRegistry->build());
 
         $this->dropTemporaryTables();
 
         // resolve polymorphic data
-        // collect($taskItemIds)
-        //     ->chunk(2000)
-        //     ->each(function ($chunk) {
-        //         $this->resolvePolymorphics($chunk);
-        //     });
+        collect($activityIds)
+            ->chunk(2000)
+            ->each(function ($chunk) {
+                $this->resolvePolymorphics($chunk);
+            });
     }
 
     protected function createTemporaryTables()
@@ -61,7 +61,12 @@ class WorkActivityReportService
         DB::table('mvw_work_activity_report')->upsert(
             $arRelations,
             ['activity_id'],
-            // ['task_item_date', 'task_item_title', 'create_at', 'updated_at']
+            [
+                'activity_type',
+                // 'activity_is_tolerated',
+                'activity_subject_type',
+                'activity_subject_label',
+            ]
         );
     }
 
