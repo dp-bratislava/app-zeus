@@ -4,41 +4,44 @@ namespace App\Console\Commands\Snapshots;
 
 use App\Console\Concerns\InteractsWithDateRangeOptions;
 use App\Jobs\Snapshots\RunSnapshotJob;
-use App\Jobs\Snapshots\SyncHRContractSnapshotJob;
 use App\Snapshots\Core\SnapshotRunContext;
 use Illuminate\Console\Command;
 
-class SyncHRContractSnapshot extends Command
+class SyncSnapshotCommand extends Command
 {
     use InteractsWithDateRangeOptions;
 
     protected $signature = '
-        snapshot:sync-hr-contract
-        {--from= : Start date (Y-m-d H:i:s)}
-        {--to= : End date (Y-m-d H:i:s)}
+        snapshot:sync
+        {snapshot : Snapshot key}
+        {--from= : Start date (Y-m-d)}
+        {--to= : End date (Y-m-d)}
         {--all : Sync all data (ignore last sync)}
         {--force : Force rebuild}
     ';
 
-    protected $description = 'Sync HR contract snapshot';
+    protected $description = 'Sync snapshot';
 
     public function handle(): int
     {
-        $this->info('Dispatching hr-contract sync...');
+        $key = $this->argument('snapshot');
+
+        $this->info("Dispatching [$key] sync...");
 
         [$from, $to] = $this->resolveDateRange();
-
         $this->logDateRange($from, $to);
 
         dispatch(new RunSnapshotJob(
-            'hr-contract',
+            $key,
             new SnapshotRunContext(
-                $from?->toDateTimeString(),
+                from: $from?->toDateTimeString(),
                 to: $to?->toDateTimeString(),
                 all: $this->isFullSync(),
                 force: $this->isForced()
             ),
         ));
+
+        $this->info("Sync snapshot [$key] dispatched");
 
         return Command::SUCCESS;
     }

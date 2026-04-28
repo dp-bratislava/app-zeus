@@ -27,7 +27,11 @@ class WorkActivityReportTabe
 
         foreach ($subjectTypes as $type) {
             $dynamicColumns[] = Tables\Columns\TextColumn::make("subject_{$type}")
-                ->label(ucfirst($type))
+                ->label(fn() => match ($type) {
+                    'vehicle' => 'Vozidlo',
+                    'table' => 'Tabuľa',
+                    default => $type
+                })
                 ->getStateUsing(function ($record) use ($type) {
                     // Find the specific subject for this activity and this column's type
                     return $record->taskSubjects

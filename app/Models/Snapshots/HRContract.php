@@ -9,7 +9,7 @@ class HRContract extends Model
 {
     protected $table = 'mvw_hr_contract_snapshots';
 
-    protected $fillable = []; 
+    protected $guarded = [];
 
     public function scopeByDepartmentCode(Builder $query, string $code): Builder
     {
