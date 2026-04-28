@@ -1392,12 +1392,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "f496e6edb257d4d09bfdd35070606fb425de48a8"
+                "reference": "6eaa07d20a05bb7542c2e03943eadfdd62287a34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/f496e6edb257d4d09bfdd35070606fb425de48a8",
-                "reference": "f496e6edb257d4d09bfdd35070606fb425de48a8",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/6eaa07d20a05bb7542c2e03943eadfdd62287a34",
+                "reference": "6eaa07d20a05bb7542c2e03943eadfdd62287a34",
                 "shasum": ""
             },
             "require": {
@@ -1430,7 +1430,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-04-21T12:47:24+00:00"
+            "time": "2026-04-22T08:51:49+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -2403,12 +2403,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "a85850d4335e1e2dc7df900405a1da1e1573f57a"
+                "reference": "0f1ce2a243d94e4e617ee97c4be874b42ae6aac5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/a85850d4335e1e2dc7df900405a1da1e1573f57a",
-                "reference": "a85850d4335e1e2dc7df900405a1da1e1573f57a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/0f1ce2a243d94e4e617ee97c4be874b42ae6aac5",
+                "reference": "0f1ce2a243d94e4e617ee97c4be874b42ae6aac5",
                 "shasum": ""
             },
             "require": {
@@ -2443,7 +2443,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/feature/upgrade-to-filament-v5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-04-21T06:23:08+00:00"
+            "time": "2026-04-22T08:52:19+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
