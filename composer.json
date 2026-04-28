@@ -48,6 +48,7 @@
         "php": "^8.2",
         "awcodes/filament-table-repeater": "^3.1",
         "deployer/deployer": "^7.4",
+        "dpb/dev-utils": "dev-main",
         "dpb/dpb-work-time-fund": "dev-release/v12.1.1 as 12.1.1",
         "dpb/dpb-work-time-fund-filament": "dev-release/v12.2.1 as 12.2.1",
         "dpb/dpb-wtf-tms-bridge": "dev-release/v12.1.1 as 12.1.1",

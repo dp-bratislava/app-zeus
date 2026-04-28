@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8aa0f0c1f6bd97e6abac173cbc707ed",
+    "content-hash": "c48866e59c356b90b779f020514a95f0",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1425,11 +1425,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-integration/assignment-container-component",
+            "version": "dev-release/v12.1.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "2ade34cc6ed48daf6b11c7feae108583de2dfb71"
+                "reference": "86e53fbec2ad1ca83766aba21603495144ad40c7"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1476,11 +1476,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-merged/release-and-feature-implement-assignement-container",
+            "version": "dev-release/v12.2.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "542edc10af2e66c3765f0d396bebf98d321973e3"
+                "reference": "dacef28e8a93ac123dad4f21480e56f8572985f5"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.1.0"
@@ -1514,11 +1514,11 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-integration/assignment-container-component",
+            "version": "dev-release/v12.1.1",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "82712432ec51a1e03e35d81e9db596e279fe4b7c"
+                "reference": "20f9af0821d03a917e1eb12030d91a7d0ee533e7"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.1.0",
@@ -2379,11 +2379,11 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-feature/assignment-container-component",
+            "version": "dev-release/v12.0.5",
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
-                "reference": "6927d3f0c0a0e1f0ebe9b34066fceab8563fec7c"
+                "reference": "7004183e0166e8c0eb58740e43a9f1e7c882c430"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.0"
@@ -13880,19 +13880,19 @@
     "aliases": [
         {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-integration/assignment-container-component",
+            "version": "dev-release/v12.1.1",
             "alias": "12.1.1",
             "alias_normalized": "12.1.1.0"
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-merged/release-and-feature-implement-assignement-container",
+            "version": "dev-release/v12.2.1",
             "alias": "12.2.1",
             "alias_normalized": "12.2.1.0"
         },
         {
             "package": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-integration/assignment-container-component",
+            "version": "dev-release/v12.1.1",
             "alias": "12.1.1",
             "alias_normalized": "12.1.1.0"
         },
@@ -13904,7 +13904,7 @@
         },
         {
             "package": "dpb/wtf-ui",
-            "version": "dev-feature/assignment-container-component",
+            "version": "dev-release/v12.0.5",
             "alias": "12.0.5",
             "alias_normalized": "12.0.5.0"
         }
@@ -13927,5 +13927,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
