@@ -113,7 +113,6 @@ return [
     ],
 
     'ignore_paths' => [
-        'livewire*',
         'nova-api*',
         'pulse*',
         '_boost*',
@@ -192,9 +191,9 @@ return [
 
         Watchers\QueryWatcher::class => [
             'enabled' => env('TELESCOPE_QUERY_WATCHER', true),
-            'ignore_packages' => true,
+            'ignore_packages' => false,
             'ignore_paths' => [],
-            'slow' => 100,
+            'slow' => 0,
         ],
 
         Watchers\RedisWatcher::class => env('TELESCOPE_REDIS_WATCHER', true),
