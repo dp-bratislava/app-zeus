@@ -33,7 +33,7 @@ class CreateTicketAssignmentUseCase
             $formTicketData['group_id'],
             States\TS\Ticket\Created::$name,
         );
-        
+
         // source TO DO
         $source = TicketSource::byCode('during-maintenance')->first();
         // assigned to TO DO
