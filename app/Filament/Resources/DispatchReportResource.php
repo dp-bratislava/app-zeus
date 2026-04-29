@@ -8,7 +8,7 @@ use App\Filament\Resources\DispatchReportResource\RelationManagers;
 use App\Filament\Resources\DispatchReportResource\Tables\DispatchReportTable;
 use App\Models\DispatchReport;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -44,9 +44,9 @@ class DispatchReportResource extends Resource
         return false;
     }    
     
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return DispatchReportForm::make($form);
+        return DispatchReportForm::make($schema);
     }
 
     public static function table(Table $table): Table

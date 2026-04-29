@@ -34,3 +34,4 @@ yarn-error.log
 /docker
 composer.json.old
 composer.lock.old
+app-zeus.code-workspace
