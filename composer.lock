@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f05fafce5b8bf3980f7c33efcca6c24",
+    "content-hash": "760ca47e310e5e7409cc9b40b0e0c569",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1099,20 +1099,20 @@
         },
         {
             "name": "dpb/dpb-departments",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-departments.git",
-                "reference": "d248938622f2a10a92ade2311658252a72b93816"
+                "reference": "f21cb87e6499ab6a9ad833aa92134a5a9f13818d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-departments/zipball/d248938622f2a10a92ade2311658252a72b93816",
-                "reference": "d248938622f2a10a92ade2311658252a72b93816",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-departments/zipball/f21cb87e6499ab6a9ad833aa92134a5a9f13818d",
+                "reference": "f21cb87e6499ab6a9ad833aa92134a5a9f13818d",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-utils": "^12.0",
+                "dpb/dpb-utils": "^12.5.0",
                 "dpb/filament-admin-panel": "^5.0",
                 "dpb/laravel-user-admin": "^5.1",
                 "filament/filament": "^5.0",
@@ -1141,28 +1141,28 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-departments/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-departments/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-departments/issues"
             },
-            "time": "2026-04-16T11:57:03+00:00"
+            "time": "2026-04-28T14:47:11+00:00"
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "c8ae44238b9655ce3106d466e33cbfa8c89cdca9"
+                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/c8ae44238b9655ce3106d466e33cbfa8c89cdca9",
-                "reference": "c8ae44238b9655ce3106d466e33cbfa8c89cdca9",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/002ca6768de9f594cfad79789f288d88d1a40e39",
+                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-master-permission-guard": "^12.0",
-                "dpb/dpb-utils": "^12.0"
+                "dpb/dpb-master-permission-guard": "^12.5.0",
+                "dpb/dpb-utils": "^12.5.0"
             },
             "type": "library",
             "extra": {
@@ -1187,23 +1187,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
             },
-            "time": "2026-04-20T13:11:20+00:00"
+            "time": "2026-04-28T14:47:52+00:00"
         },
         {
             "name": "dpb/dpb-insights",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-insights.git",
-                "reference": "a2a79d1555a7c8b623c9372d20a307c55c6c5c0b"
+                "reference": "a7700127d419ef50b06ed67e5b8edcfc8b05c7e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-insights/zipball/a2a79d1555a7c8b623c9372d20a307c55c6c5c0b",
-                "reference": "a2a79d1555a7c8b623c9372d20a307c55c6c5c0b",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-insights/zipball/a7700127d419ef50b06ed67e5b8edcfc8b05c7e6",
+                "reference": "a7700127d419ef50b06ed67e5b8edcfc8b05c7e6",
                 "shasum": ""
             },
             "require": {
@@ -1234,27 +1234,27 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-insights/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-insights/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-insights/issues"
             },
-            "time": "2026-04-15T11:44:55+00:00"
+            "time": "2026-04-28T14:42:57+00:00"
         },
         {
             "name": "dpb/dpb-master-permission-guard",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/dpb-master-permission-guard.git",
-                "reference": "d57c3660cdef823e87248ddf834e6ae5234b396f"
+                "reference": "6c1c03fb61293b2c78ddacf1f1f58f5dc682e319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-master-permission-guard/zipball/d57c3660cdef823e87248ddf834e6ae5234b396f",
-                "reference": "d57c3660cdef823e87248ddf834e6ae5234b396f",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-master-permission-guard/zipball/6c1c03fb61293b2c78ddacf1f1f58f5dc682e319",
+                "reference": "6c1c03fb61293b2c78ddacf1f1f58f5dc682e319",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-utils": "^12.0",
+                "dpb/dpb-utils": "^12.5.0",
                 "php": "^8.2",
                 "spatie/laravel-permission": "^6.21"
             },
@@ -1281,23 +1281,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-master-permission-guard/issues"
             },
-            "time": "2026-04-13T11:24:52+00:00"
+            "time": "2026-04-28T14:48:28+00:00"
         },
         {
             "name": "dpb/dpb-utils",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-utils.git",
-                "reference": "e17da71921712884743f87930bd66bf8ed6df393"
+                "reference": "2a1ca6514192de836ff627fe3622e93f1e384eff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-utils/zipball/e17da71921712884743f87930bd66bf8ed6df393",
-                "reference": "e17da71921712884743f87930bd66bf8ed6df393",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-utils/zipball/2a1ca6514192de836ff627fe3622e93f1e384eff",
+                "reference": "2a1ca6514192de836ff627fe3622e93f1e384eff",
                 "shasum": ""
             },
             "type": "library",
@@ -1323,36 +1323,30 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-utils/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-utils/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
             },
-            "time": "2026-04-15T12:26:13+00:00"
+            "time": "2026-04-28T14:44:04+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "88e51e0fd13d4bea1134344babf6808ae625441e"
-            },
+            "version": "dev-release/v12.5.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/88e51e0fd13d4bea1134344babf6808ae625441e",
-                "reference": "88e51e0fd13d4bea1134344babf6808ae625441e",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund",
+                "reference": "bec967674ae347b00fbbbdf7818e2e651e001902"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
-                "dpb/dpb-departments": "^12.0",
-                "dpb/dpb-employee-manager": "^12.0",
-                "dpb/dpb-insights": "^12.0",
-                "dpb/dpb-master-permission-guard": "^12.0",
-                "dpb/dpb-utils": "^12.0",
+                "dpb/dpb-departments": "^12.5.0",
+                "dpb/dpb-employee-manager": "^12.5.0",
+                "dpb/dpb-insights": "^12.5.0",
+                "dpb/dpb-master-permission-guard": "^12.5.0",
+                "dpb/dpb-utils": "^12.5.0",
                 "dpb/pkg-devices": "^12.0",
                 "dpb/pkg-fleet": "^12.0",
-                "dpb/spotlight": "^12.0",
-                "dpb/ui-components": "^12.0",
+                "dpb/spotlight": "^12.5.0",
+                "dpb/ui-components": "^12.5.0",
                 "phpoffice/phpspreadsheet": "^2.1",
                 "saade/filament-fullcalendar": "^4.0",
                 "staudenmeir/laravel-adjacency-list": "^1.9"
@@ -1380,28 +1374,21 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/feature/upgrade-to-filament-v5",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2026-04-23T09:38:05+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "6eaa07d20a05bb7542c2e03943eadfdd62287a34"
-            },
+            "version": "dev-release/v12.5.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/6eaa07d20a05bb7542c2e03943eadfdd62287a34",
-                "reference": "6eaa07d20a05bb7542c2e03943eadfdd62287a34",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund-filament",
+                "reference": "a5fb29dacf8c8b1f22fd4928ab0ac43cb78f3960"
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.1.0",
+                "dpb/dpb-work-time-fund": "^12.5.0",
                 "filament/filament": "^5.0"
             },
             "type": "library",
@@ -1426,30 +1413,23 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/feature/upgrade-to-filament-v5",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-04-22T08:51:49+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "dcef5b42c375b4f25c359f21dc0ca674f8aae714"
-            },
+            "version": "dev-release/v12.5.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/dcef5b42c375b4f25c359f21dc0ca674f8aae714",
-                "reference": "dcef5b42c375b4f25c359f21dc0ca674f8aae714",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-wtf-tms-bridge",
+                "reference": "2c084a3624e7b72c8a9d2640719f15911c7de112"
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.1.0",
-                "dpb/dpb-work-time-fund-filament": "^12.0",
-                "dpb/pkg-task-ms-ui": "^3.0"
+                "dpb/dpb-work-time-fund": "^12.5.0",
+                "dpb/dpb-work-time-fund-filament": "^12.5.0",
+                "dpb/pkg-task-ms-ui": "^12.5.0"
             },
             "type": "library",
             "extra": {
@@ -1473,11 +1453,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/feature/upgrade-to-filament-v5",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-04-27T08:10:55+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -1718,10 +1697,10 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.1",
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.2",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2026-04-16T08:27:25+00:00"
+            "time": "2026-04-28T12:25:37+00:00"
         },
         {
             "name": "dpb/pkg-activities",
@@ -2112,16 +2091,16 @@
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "a3a4dffc435d7dab00101b8ac2c601c9651247a1"
+                "reference": "88a9bcae5f5b10a645c809d0d05824e7113abffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/a3a4dffc435d7dab00101b8ac2c601c9651247a1",
-                "reference": "a3a4dffc435d7dab00101b8ac2c601c9651247a1",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/88a9bcae5f5b10a645c809d0d05824e7113abffd",
+                "reference": "88a9bcae5f5b10a645c809d0d05824e7113abffd",
                 "shasum": ""
             },
             "require": {
@@ -2154,10 +2133,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-04-22T10:55:34+00:00"
+            "time": "2026-04-28T14:44:43+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
@@ -2305,20 +2284,20 @@
         },
         {
             "name": "dpb/spotlight",
-            "version": "dev-feature/upgrade-to-filament-v5",
+            "version": "v12.5.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-spotlight.git",
-                "reference": "6cec2c6ff587b16adceef90a8800401703afc5eb"
+                "reference": "2eac9167f9d0f14bff1f021ffccec29a8d75caae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-spotlight/zipball/6cec2c6ff587b16adceef90a8800401703afc5eb",
-                "reference": "6cec2c6ff587b16adceef90a8800401703afc5eb",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-spotlight/zipball/2eac9167f9d0f14bff1f021ffccec29a8d75caae",
+                "reference": "2eac9167f9d0f14bff1f021ffccec29a8d75caae",
                 "shasum": ""
             },
             "require": {
-                "dpb/dpb-master-permission-guard": "^12.0"
+                "dpb/dpb-master-permission-guard": "^12.5.0"
             },
             "type": "library",
             "extra": {
@@ -2343,24 +2322,18 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/feature/upgrade-to-filament-v5",
+                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/v12.5.0",
                 "issues": "https://github.com/dp-bratislava/dpb-spotlight/issues"
             },
-            "time": "2026-04-13T11:21:46+00:00"
+            "time": "2026-04-28T14:50:11+00:00"
         },
         {
             "name": "dpb/ui-components",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/ui-components.git",
-                "reference": "88ffa60c5b18181eca707ee6e12a483f33d98101"
-            },
+            "version": "dev-main",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/88ffa60c5b18181eca707ee6e12a483f33d98101",
-                "reference": "88ffa60c5b18181eca707ee6e12a483f33d98101",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/ui-components",
+                "reference": "654a0dfbf0c3b133a5ac703d03c588fd770821fc"
             },
             "require": {
                 "filament/forms": "^5.0",
@@ -2391,28 +2364,21 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/ui-components/tree/feature/upgrade-to-filament-v5",
-                "issues": "https://github.com/dp-bratislava/ui-components/issues"
-            },
-            "time": "2026-04-20T07:36:10+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "0f1ce2a243d94e4e617ee97c4be874b42ae6aac5"
-            },
+            "version": "dev-release/v12.5.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/0f1ce2a243d94e4e617ee97c4be874b42ae6aac5",
-                "reference": "0f1ce2a243d94e4e617ee97c4be874b42ae6aac5",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/wtf-ui",
+                "reference": "f93f2ba5a463077224a2f842db39f9a77c3aaa8a"
             },
             "require": {
-                "dpb/dpb-work-time-fund": "^12.0"
+                "dpb/dpb-work-time-fund": "^12.5.0"
             },
             "type": "library",
             "extra": {
@@ -2439,11 +2405,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/feature/upgrade-to-filament-v5",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
-            },
-            "time": "2026-04-22T08:52:19+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -14630,91 +14595,35 @@
     ],
     "aliases": [
         {
-            "package": "dpb/dpb-departments",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.4",
-            "alias_normalized": "12.0.4.0"
-        },
-        {
-            "package": "dpb/dpb-employee-manager",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.6",
-            "alias_normalized": "12.0.6.0"
-        },
-        {
-            "package": "dpb/dpb-insights",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.3",
-            "alias_normalized": "12.0.3.0"
-        },
-        {
-            "package": "dpb/dpb-master-permission-guard",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.4",
-            "alias_normalized": "12.0.4.0"
-        },
-        {
-            "package": "dpb/dpb-utils",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
             "package": "dpb/dpb-work-time-fund",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.1.2",
-            "alias_normalized": "12.1.2.0"
+            "version": "dev-release/v12.5.1",
+            "alias": "v12.5.1",
+            "alias_normalized": "12.5.1.0"
         },
         {
             "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.1.6",
-            "alias_normalized": "12.1.6.0"
+            "version": "dev-release/v12.5.1",
+            "alias": "v12.5.1",
+            "alias_normalized": "12.5.1.0"
         },
         {
             "package": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.8",
-            "alias_normalized": "12.0.8.0"
-        },
-        {
-            "package": "dpb/pkg-task-ms-ui",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v3.0.7",
-            "alias_normalized": "3.0.7.0"
-        },
-        {
-            "package": "dpb/spotlight",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
-        },
-        {
-            "package": "dpb/ui-components",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0.2",
-            "alias_normalized": "12.0.2.0"
+            "version": "dev-release/v12.5.1",
+            "alias": "v12.5.1",
+            "alias_normalized": "12.5.1.0"
         },
         {
             "package": "dpb/wtf-ui",
-            "version": "dev-feature/upgrade-to-filament-v5",
-            "alias": "v12.0",
-            "alias_normalized": "12.0.0.0"
+            "version": "dev-release/v12.5.1",
+            "alias": "v12.5.1",
+            "alias_normalized": "12.5.1.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dpb/dpb-departments": 20,
-        "dpb/dpb-employee-manager": 20,
-        "dpb/dpb-insights": 20,
-        "dpb/dpb-master-permission-guard": 20,
-        "dpb/dpb-utils": 20,
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
-        "dpb/pkg-task-ms-ui": 20,
-        "dpb/spotlight": 20,
-        "dpb/ui-components": 20,
         "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
@@ -14726,5 +14635,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
