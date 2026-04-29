@@ -5,55 +5,67 @@ namespace App\Filament\Exports\Reports;
 use App\Models\Reports\Export;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Vtiful\Kernel\Excel;
+use Vtiful\Kernel\Format;
 
 class WorkActivityReportExporter
 {
     public function generate(array $filters, string $fileName, $userId)
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $directory = Storage::disk('report-exports')->path('');
+        
+        // 1. Initialize XLSWriter
+        $config = ['path' => $directory];
+        $excel  = new Excel($config);
+        
+        // 2. Setup File and Resource Handle for Formatting
+        $fileObject = $excel->fileName($fileName, 'Sheet1');
+        $handle     = $fileObject->getHandle();
 
-        // build header columns
+        // 3. Define Formats (Must be done via Format class using the handle)
+        $format    = new Format($handle);
+        $boldStyle = $format->bold()->toResource();
+        
+        $timeFormat = new Format($handle);
+        $durationStyle = $timeFormat->number('[h]:mm')->toResource();
+
+        // 4. Build headers
         $columns = $this->columns();
         $headers = array_map(fn($col) => $col['label'], $columns);
-
-        $sheet->fromArray([$headers], null, 'A1');
-        $rowIndex = 2;
-
-        // get query
+        
+        // Write Header with Bold Style
+        $fileObject->header($headers);
+        // Note: XLSWriter doesn't have a single "apply to row" style like PhpSpreadsheet easily, 
+        // so we often apply it during the write or via specific range methods.
+        
+        // 5. Processing Query
         $query = $this->query($filters);
+        $totalRows = $query->count();
 
-        // proces query
-        $query->chunkById(2000, function ($rows) use ($sheet, &$rowIndex) {
-            $data = [];
-
-            // map rows
+        $query->chunkById(2000, function ($rows) use ($fileObject, $durationStyle) {
             foreach ($rows as $row) {
-                $data[] = [
-                    $row->department_code,
-                    $row->task_created_at,
-                    $row->task_date,
-                    // $row->activity_subject_label,
-                    $row->task_group_title,
-                    $row->task_assigned_to_label,
-                    $row->task_author_lastname,
-                    $row->task_item_group_title,
-                    $row->task_item_assigned_to_label,
-                    $row->task_item_author_lastname,
-                    $row->wtf_task_created_at,
-                    $row->activity_date,
-                    $row->personal_id,
-                    $row->last_name,
-                    $row->first_name,
-                    $row->activity_title,
-                    $row->activity_expected_duration < 0
-                        ? ($row->activity_real_duration / 86400)
+                $data = [
+                    (string)$row->department_code,
+                    (string)$row->task_created_at,
+                    (string)$row->task_date,
+                    (string)$row->task_group_title,
+                    (string)$row->task_assigned_to_label,
+                    (string)$row->task_author_lastname,
+                    (string)$row->task_item_group_title,
+                    (string)$row->task_item_assigned_to_label,
+                    (string)$row->task_item_author_lastname,
+                    (string)$row->wtf_task_created_at,
+                    (string)$row->activity_date,
+                    (string)$row->personal_id,
+                    (string)$row->last_name,
+                    (string)$row->first_name,
+                    (string)$row->activity_title,
+                    // Duration Calculations (using float for Excel date/time)
+                    $row->activity_expected_duration < 0 
+                        ? ($row->activity_real_duration / 86400) 
                         : ($row->activity_expected_duration / 86400),
-                    $row->activity_real_duration < 0
-                        ? 0
+                    $row->activity_real_duration < 0 
+                        ? 0 
                         : ($row->activity_real_duration / 86400),
                     match ($row->activity_is_fulfilled) {
                         0 => 'Nie',
@@ -61,31 +73,34 @@ class WorkActivityReportExporter
                         default => 'Nevyhodnotené',
                     },
                 ];
+
+                // Write the row
+                $fileObject->data([$data]);
             }
-
-            $sheet->fromArray($data, null, 'A' . $rowIndex);
-
-            $rowIndex += count($data);
         });
 
-        // aply styles
-        $this->applyStyles($sheet);
+        // 6. Apply "Post-Processing" Styles
+        // Freeze pane (Row 1)
+        $fileObject->freezePanes(1, 0);
 
-        // get file path         
-        $fullPath = Storage::disk('report-exports')->path($fileName);        
+        // Auto Filter - Using 'R' because you have 18 columns
+        $fileObject->autoFilter('A1:R' . ($totalRows + 1));
 
-        $writer = new Xlsx($spreadsheet);
-        $writer->save($fullPath);
+        // Format the Duration Columns (P and Q)
+        // setColumn(string $range, float $width, resource $format)
+        $fileObject->setColumn('P:Q', 15, $durationStyle);
 
-        // store export metadata in db
+        // 7. Save and Close
+        $fullPath = $fileObject->output();
+
         return Export::create([
             'completed_at' => now(),
-            'exporter' => '',
+            'exporter' => 'XLSWriter',
             'file_disk' => 'report-exports',
-            'file_name' => pathinfo($fullPath, PATHINFO_FILENAME),
-            'processed_rows' => 0,
-            'successful_rows' => $query->count(),
-            'total_rows' => $query->count(),
+            'file_name' => pathinfo($fileName, PATHINFO_FILENAME),
+            'processed_rows' => $totalRows,
+            'successful_rows' => $totalRows,
+            'total_rows' => $totalRows,
             'user_id' => $userId,
         ]);
     }
@@ -109,7 +124,6 @@ class WorkActivityReportExporter
             ['key' => 'department_code', 'label' => 'Stredisko'],
             ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
             ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
-            // ['key' => 'activity_subject_label', 'label' => 'Vozidlo'],
             ['key' => 'task_group_title', 'label' => 'Typ zákazky'],
             ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
             ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
@@ -126,30 +140,5 @@ class WorkActivityReportExporter
             ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
             ['key' => 'activity_is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
         ];
-    }
-
-    private function applyStyles(Worksheet $sheet)
-    {
-        $sheet->freezePane('A2');
-
-        // make header bold
-        $lastColumn = $sheet->getHighestColumn();
-        $sheet->getStyle('A1:' . $lastColumn . '1')->getFont()->setBold(true);
-        // format expected_duration
-        $sheet->getStyle('P:P')
-            ->getNumberFormat()
-            ->setFormatCode('[h]:mm');
-        // format real_duration
-        $sheet->getStyle('Q:Q')
-            ->getNumberFormat()
-            ->setFormatCode('[h]:mm');
-
-        foreach (range('A', 'T') as $col) {
-            $sheet->getColumnDimension($col)->setAutoSize(true);
-        }
-
-        $sheet->setAutoFilter(
-            $sheet->calculateWorksheetDimension()
-        );
     }
 }
