@@ -15,7 +15,7 @@ class TicketItemData extends Data
         public string $title,
         public string $description,
         public string $state,
-        
+
     ) {}
 
     // public static function rules(): array

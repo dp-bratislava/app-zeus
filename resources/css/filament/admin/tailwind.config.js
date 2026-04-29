@@ -1,11 +1,10 @@
-import preset from '../../../../vendor/filament/filament/tailwind.config.preset'
-
 export default {
-    presets: [preset],
     content: [
+        './app/**/*.php',
         './app/Filament/**/*.php',
+        './packages/**/src/**/*.php',
+        './packages/**/resources/**/*.blade.php',
         './resources/views/filament/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
-        './vendor/awcodes/filament-table-repeater/resources/**/*.blade.php',
     ],
 }

@@ -14,16 +14,15 @@ use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Get;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Support\Collection;
 
 class DispatchReportForm
 {
-    public static function make(Form $form): Form
+    public static function make(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->columns(6)
             ->schema([
                 // date
