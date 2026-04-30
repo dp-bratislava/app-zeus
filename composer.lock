@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bed6c8275cd48b423a6a4407c59a9ad8",
+    "content-hash": "a34ad5a7af224c0b66fb4034e7fa85e5",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1388,16 +1388,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.0",
+            "version": "v12.5.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "5a65e82770e04420a357490bded43e98c4678657"
+                "reference": "94ebe1bd91cf51fb1158ed8884ed72c701195b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/5a65e82770e04420a357490bded43e98c4678657",
-                "reference": "5a65e82770e04420a357490bded43e98c4678657",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/94ebe1bd91cf51fb1158ed8884ed72c701195b93",
+                "reference": "94ebe1bd91cf51fb1158ed8884ed72c701195b93",
                 "shasum": ""
             },
             "require": {
@@ -1427,10 +1427,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.0",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.1",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-04-28T14:49:36+00:00"
+            "time": "2026-04-30T12:06:32+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -1960,16 +1960,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.2",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "ab0276da127345668084d10168638eb3814d508d"
+                "reference": "b422428df769fc441d7f52dc97655d1585085256"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/ab0276da127345668084d10168638eb3814d508d",
-                "reference": "ab0276da127345668084d10168638eb3814d508d",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/b422428df769fc441d7f52dc97655d1585085256",
+                "reference": "b422428df769fc441d7f52dc97655d1585085256",
                 "shasum": ""
             },
             "require": {
@@ -2002,10 +2002,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.2",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-02-27T11:57:20+00:00"
+            "time": "2026-04-30T11:09:24+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -16421,5 +16421,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
