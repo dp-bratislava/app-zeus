@@ -18,7 +18,7 @@ class SnapshotServiceProvider extends ServiceProvider
             // snapshots
             $registry->register('hr-contract', HRContractSnapshot::class);
             $registry->register('tms-task-item', TaskItemSnapshot::class);
-            $registry->register('wtf-work-task-subject', WorkTaskSubjectSnapshot::class);
+            $registry->register('work-task-subject', WorkTaskSubjectSnapshot::class);
             // reports
             $registry->register('work-activity', WorkActivityReport::class);
 
