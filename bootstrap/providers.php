@@ -3,5 +3,6 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\Filament\FleetPanelProvider::class,
+    App\Providers\SnapshotServiceProvider::class,
     App\Providers\TelescopeServiceProvider::class,
 ];
