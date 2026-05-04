@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Resources\WorkActivityReportResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
@@ -51,6 +52,7 @@ return [
                     TicketAssignmentResource::class,
                     InsightsPage::class,
                     EmployeeManagerPage::class,
+                    WorkActivityReportResource::class,
                 ],
             ],
             [
