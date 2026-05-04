@@ -132,27 +132,27 @@ class WorkActivityReportTabe
             ], $dynamicColumns))
             ->filters(WorkActivityReportTableFilter::make())
             ->headerActions([
-                // Action::make('export')
-                //     ->label('Export')
-                //     ->icon('heroicon-o-arrow-down-tray')
-                //     ->action(function ($livewire) {
+                Action::make('export')
+                    ->label('Export')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->action(function ($livewire) {
 
-                //         $filters = $livewire->getTableFiltersForm()->getState();
+                        $filters = $livewire->getTableFiltersForm()->getState();
 
-                //         $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
+                        $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
 
-                //         ExportWorkActivityReportJob::dispatch(
-                //             $filters,
-                //             $fileName,
-                //             auth()->id()
-                //         );
+                        ExportWorkActivityReportJob::dispatch(
+                            $filters,
+                            $fileName,
+                            auth()->id()
+                        );
 
-                //         Notification::make()
-                //             ->title(__('reports/export.export_started.title'))
-                //             ->body(__('reports/export.export_started.body'))
-                //             ->success()
-                //             ->send();
-                //     })
+                        Notification::make()
+                            ->title(__('reports/export.export_started.title'))
+                            ->body(__('reports/export.export_started.body'))
+                            ->success()
+                            ->send();
+                    })
             ])
             ->recordActions([])
             ->toolbarActions([]);
