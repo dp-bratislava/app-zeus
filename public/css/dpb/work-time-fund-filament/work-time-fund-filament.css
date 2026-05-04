@@ -1,0 +1,42 @@
+.dpb-drag-destination {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0px;
+    min-height: 0.5rem;
+}
+.dpb-drag-destination-hover {
+    border: 0.1px dashed greenyellow;
+    min-height: 1rem;
+}
+
+.dpb-input {
+    border-color: rgba(17, 0, 255, 0.8);
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 0.2rem;
+}
+
+.dark .dpb-input {
+    border-color: rgba(17, 184, 17, 0.8);
+}
+
+.dpb-input-min {
+    border-color: rgba(17, 0, 255, 0.8);
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 0.2rem;
+    width: 2.5rem;
+    transition: width 0.3s ease;
+}
+
+.fi-main-zzz {
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+.fc-timegrid-event {
+    min-height: 24px !important;
+}

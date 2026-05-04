@@ -11,7 +11,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -27,10 +27,13 @@ class FleetPanelProvider extends PanelProvider
         return $panel
             ->id('fleet')
             ->path('fleet')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Amber,
+                'weekend' => Color::hex('#ffcccc'),
+                'workday' => Color::hex('#ccccff'),
             ])
-            ->maxContentWidth(MaxWidth::Full)
+            ->maxContentWidth(Width::Full)
             ->topNavigation()
             ->discoverResources(in: app_path('Filament/Fleet/Resources'), for: 'App\\Filament\\Fleet\\Resources')
             ->discoverPages(in: app_path('Filament/Fleet/Pages'), for: 'App\\Filament\\Fleet\\Pages')

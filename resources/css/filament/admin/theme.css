@@ -1,8 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind variants;
-@import '../../../../vendor/filament/filament/resources/css/base.css';
-@import '/vendor/awcodes/filament-table-repeater/resources/css/plugin.css';
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
 
-@config 'tailwind.config.js';
+@source '../../../../app/Filament/**/*';
+@source '../../../../app/**/*.php';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../vendor/**/src/**/*.php';
+@source '../../../../vendor/**/src/**/*.blade.php';
+@source '../../../../vendor/**/resources/**/*.blade.php';
+@source '../../../../vendor/**/resources/**/*.css';

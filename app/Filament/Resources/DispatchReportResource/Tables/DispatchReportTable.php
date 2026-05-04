@@ -43,9 +43,9 @@ class DispatchReportTable
                 //
             ])
             ->actions([
-                // Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('create_ticket')
+                // \Filament\Actions\ViewAction::make(),
+                // \Filament\Actions\EditAction::make(),
+                \Filament\Actions\Action::make('create_ticket')
                     ->label(__('dispatch-report.table.actions.create_ticket'))
                     ->button()
                     ->action(function (DispatchReport $record, TicketAssignmentService $ticketAssignmentService) {
@@ -53,9 +53,9 @@ class DispatchReportTable
                     })
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     // Tables\Actions\DeleteBulkAction::make(),
-                //     Tables\Actions\Action::make('bulk_create_tickets')
+                // \Filament\Actions\BulkActionGroup::make([
+                //     // \Filament\Actions\DeleteBulkAction::make(),
+                //     \Filament\Actions\Action::make('bulk_create_tickets')
                 //         ->label(__('inspections/upcoming-inspection.table.actions.bulk_create_tickets'))
                 //         ->action(function (Collection $records, CreateTicketService $createTicketService) {
                 //             foreach ($records as $record) {

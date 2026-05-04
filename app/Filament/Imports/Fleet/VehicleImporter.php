@@ -95,7 +95,7 @@ class VehicleImporter extends Importer
     {
         // licence plates
         $licencePlate = $this->originalData['licence_plate'] == '' ? null : Str::trim($this->originalData['licence_plate']);         
-        
+
         if (($licencePlate !== null) && (!in_array($licencePlate, ['N/A']))) {
             $licencePlateId = LicencePlate::createOrFirst([
                 'code' => $licencePlate,                
@@ -115,7 +115,7 @@ class VehicleImporter extends Importer
 
         // vehicle codes
         $vehicleCode = $this->originalData['code'] == '' ? null : Str::trim($this->originalData['code']);         
-        
+
         // if (($vehicleCode !== null) && (!in_array($licencePlate, ['N/A']))) {
         if ($vehicleCode !== null) {
             $vehicleCodeId = VehicleCode::createOrFirst([
@@ -144,7 +144,7 @@ class VehicleImporter extends Importer
 
             $this->record->groups()->attach($vehicleGroupId);
         }
-       
+
         // vehicle department
         // $rawDepartment = $this->originalData['department'] == '' ? null : Str::trim($this->originalData['department']);        
         // if (($rawDepartment !== null) && (isset($this->departments[$rawDepartment]))) {            
