@@ -5,9 +5,10 @@ namespace App\Filament\Resources\WorkActivityReportResource\Tables;
 use App\Jobs\Reports\ExportWorkActivityReportJob;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
+
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 

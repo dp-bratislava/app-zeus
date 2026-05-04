@@ -4,7 +4,7 @@ namespace App\Jobs\Reports;
 
 use App\Filament\Exports\Reports\WorkActivityReportExporter;
 use App\Models\User;
-use Filament\Notifications\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
