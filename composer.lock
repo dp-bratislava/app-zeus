@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "760ca47e310e5e7409cc9b40b0e0c569",
+    "content-hash": "6e7cd5c3bdff704e5ea6b1f78828bb7e",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1148,17 +1148,11 @@
         },
         {
             "name": "dpb/dpb-employee-manager",
-            "version": "v12.5.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39"
-            },
+            "version": "dev-release/v12.5.1",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/002ca6768de9f594cfad79789f288d88d1a40e39",
-                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-employee-manager",
+                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39"
             },
             "require": {
                 "dpb/dpb-master-permission-guard": "^12.5.0",
@@ -1186,11 +1180,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
-            },
-            "time": "2026-04-28T14:47:52+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-insights",
@@ -1334,7 +1327,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "bec967674ae347b00fbbbdf7818e2e651e001902"
+                "reference": "c21132725f325dcd560244b3c6a05a2c9db6b625"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1385,7 +1378,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "a5fb29dacf8c8b1f22fd4928ab0ac43cb78f3960"
+                "reference": "9c29c30042490c5ff30cf8fb74fb6e439905356f"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
@@ -1424,7 +1417,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "2c084a3624e7b72c8a9d2640719f15911c7de112"
+                "reference": "40955865f3c3bb9a3162d04da1fb269b6714136e"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
@@ -2375,7 +2368,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
-                "reference": "f93f2ba5a463077224a2f842db39f9a77c3aaa8a"
+                "reference": "2c2fe8373b1eb6e153c0d5b8324099325bcb7c26"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0"
@@ -14595,6 +14588,12 @@
     ],
     "aliases": [
         {
+            "package": "dpb/dpb-employee-manager",
+            "version": "dev-release/v12.5.1",
+            "alias": "v12.5.1",
+            "alias_normalized": "12.5.1.0"
+        },
+        {
             "package": "dpb/dpb-work-time-fund",
             "version": "dev-release/v12.5.1",
             "alias": "v12.5.1",
@@ -14621,6 +14620,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dpb/dpb-employee-manager": 20,
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
