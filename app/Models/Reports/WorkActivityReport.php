@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkActivityReport extends Model
 {
-    protected $table = 'mvw_work_activity_report';
+    protected $table = 'mvw_work_activity_report_v2';
 
     public $timestamps = false;
 

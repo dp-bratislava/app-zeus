@@ -18,7 +18,7 @@ class WorkActivityReport implements SnapshotContract
 
     public function targetTable(): string
     {
-        return 'mvw_work_activity_report';
+        return 'mvw_work_activity_report_v2';
     }
 
     public function sourceTable(): string
