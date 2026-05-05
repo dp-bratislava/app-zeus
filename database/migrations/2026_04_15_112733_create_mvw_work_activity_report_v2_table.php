@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('mvw_work_activity_report', function (Blueprint $table) {
+        Schema::create('mvw_work_activity_report_v2', function (Blueprint $table) {
             $table->comment('Denormalised materialised view for work time fund activity records');
 
             $table->id();
@@ -92,6 +92,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('mvw_work_activity_report');
+        Schema::dropIfExists('mvw_work_activity_report_v2');
     }
 };

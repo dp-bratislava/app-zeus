@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Snapshots\Core\SnapshotRegistry;
+use App\Snapshots\Services\FleetVehicleSnapshot;
 use App\Snapshots\Services\HRContractSnapshot;
 use App\Snapshots\Services\TaskItemSnapshot;
 use App\Snapshots\Services\WorkActivityReport;
@@ -19,6 +20,7 @@ class SnapshotServiceProvider extends ServiceProvider
             $registry->register('hr-contract', HRContractSnapshot::class);
             $registry->register('tms-task-item', TaskItemSnapshot::class);
             $registry->register('work-task-subject', WorkTaskSubjectSnapshot::class);
+            $registry->register('fleet-vehicle', FleetVehicleSnapshot::class);
             // reports
             $registry->register('work-activity', WorkActivityReport::class);
 
