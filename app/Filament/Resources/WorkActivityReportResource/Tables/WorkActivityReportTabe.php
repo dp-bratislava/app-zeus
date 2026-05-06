@@ -4,6 +4,7 @@ namespace App\Filament\Resources\WorkActivityReportResource\Tables;
 
 use App\Jobs\Reports\ExportWorkActivityReportJob;
 use App\Models\Reports\WorkActivityReport;
+use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
@@ -18,8 +19,17 @@ class WorkActivityReportTabe
 {
     public static function make(Table $table): Table
     {
+        $latestSync = ReportSyncState::byReportName('work-activity')->first();
+
         // 1. Fetch unique types from your snapshot/subject table
+        $departmentSvc = app(DepartmentService::class);
         $subjectTypes = WorkTaskSubject::query()
+            ->whereHas('activity', function ($query) use ($departmentSvc) {
+                $query->whereIn(
+                    'department_code',
+                    $departmentSvc->getAvailableDepartments()->pluck('code')
+                );
+            })
             ->distinct()
             ->pluck('subject_type');
 
@@ -43,21 +53,18 @@ class WorkActivityReportTabe
 
         return $table
             ->heading(__('reports/work-activity-report.table.heading'))
+            ->description(__('reports/work-activity-report.table.description', ['latest-sync' => $latestSync->last_synced_at]))
             ->deferLoading()
             ->modifyQueryUsing(function (
                 Builder $query,
                 DepartmentService $departmentSvc
             ) {
                 return $query
-                    ->whereIn('department_code', $departmentSvc->getAvailableDepartments()->pluck('code'));
+                    ->whereIn('department_code', $departmentSvc->getAvailableDepartments()->pluck('code'))
+                    ->with('taskSubjects');
             })
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            // ->recordClasses(fn($record) => match ($record->state?->getValue()) {
-            //     States\Inspection\Upcoming::$name => 'bg-blue-200',
-            //     States\Inspection\InProgress::$name => 'bg-yellow-200',
-            //     default => null,
-            // })
             ->columns(array_merge([
                 Tables\Columns\TextColumn::make('activity_date')
                     ->label(__('reports/work-activity-report.table.columns.activity_date'))
