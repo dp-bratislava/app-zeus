@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'list_heading' => 'Zostava - deatil prác',
+    'list_heading' => 'Zostava - detail prác',
     'table' => [
-        'heading' => 'Zostava - deatil prác',
-        'description' => '',
+        'heading' => 'Zostava - detail prác',
+        'description' => 'Posledná aktualizácia :latest-sync',
         'columns' => [
             'activity_date' => 'Výkon práce',
             'personal_id' => 'Osobné číslo',
@@ -48,11 +48,11 @@ return [
         ],
     ],
     'navigation' => [
-        'label' => 'Zostava - deatil prác',
+        'label' => 'Zostava - detail prác',
         'group' => 'Reporty',
     ],
     'resource' => [
-        'model_label' => 'Deatil prác',
-        'plural_model_label' => 'Deatil prác',
+        'model_label' => 'detail prác',
+        'plural_model_label' => 'detail prác',
     ],
 ];
