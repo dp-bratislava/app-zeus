@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
         abort_unless(auth()->id() === $export->user_id, 403);
 
         // check file existence
-        $fileName = $export->file_name . '.xlsx';
+        $fileName = $export->file_name;
         abort_unless(Storage::disk('report-exports')->exists($fileName), 404);
 
         // get download 
