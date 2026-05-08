@@ -6,53 +6,49 @@ use App\Models\Reports\Export;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Vtiful\Kernel\Excel;
-use Vtiful\Kernel\Format;
 use Illuminate\Support\Facades\Log;
 
 class WorkActivityReportExporter
 {
     protected string $baseUrl = 'http://172.22.99.55:8111';
 
-    public function start(): string
+    private function columns(): array
     {
-        $columns = $this->columns();
-        $headers = array_map(fn($col) => $col['label'], $columns);
-
-        $response = Http::post("$this->baseUrl/export/start", [
-            'header' => $headers,
-        ]);
-
-        if (!$response->successful()) {
-            throw new \Exception("Export start failed: " . $response->body());
-        }
-
-        $id = $response->json('export_id');
-
-        if (!$id) {
-            throw new \Exception("Missing export_id in response: " . $response->body());
-        }
-
-        return $id;
+        return [
+            ['key' => 'department_code', 'label' => 'Stredisko'],
+            ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
+            ['key' => 'activity_is_fulfilled_label', 'label' => 'Splnené'],
+            ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
+            ['key' => 'task_group_title', 'label' => 'Typ zákazky'],
+            ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
+            ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
+            ['key' => 'task_item_group_title', 'label' => 'Typ podzákazky'],
+            ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
+            ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
+            ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],
+            ['key' => 'activity_date', 'label' => 'Dátum výkonu práce', 'type' => 'date'],
+            ['key' => 'personal_id', 'label' => 'Osobné číslo'],
+            ['key' => 'last_name', 'label' => 'Priezvisko'],
+            ['key' => 'first_name', 'label' => 'Meno'],
+            ['key' => 'activity_title', 'label' => 'Norma'],
+            ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
+            ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
+        ];
     }
 
     public function handlePayload($filters)
     {
         $query = $this->query($filters);
         
-        // We get the headers from our columns definition
-        $headers = array_map(fn($col) => $col['label'], $this->columns());
-
         $response = Http::timeout(300)->post("$this->baseUrl/export/generate", [
-            'sql'    => $query->toSql(),
-            'params' => $query->getBindings(),
-            'header' => $headers
+            'sql'     => $query->toSql(),
+            'params'  => $query->getBindings(),
+            'columns' => $this->columns() 
         ]);
-
         if (!$response->successful()) {
-            throw new \Exception("Exporter Service Error: " . $response->body());
+            // THIS is where the real error is hiding
+            throw new \Exception("Exporter Service Error (" . $response->status() . "): " . $response->body());
         }
-
         return $response->json();
     }
 
@@ -111,30 +107,34 @@ public function run(array $filters,$userId, string $fileName): Export
             ->when(data_get($filters, 'activity_date.activity_date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('department_code', $departmentCodes);
+            })
+            ->when(data_get($filters, 'is_fulfilled_label.values'), function ($q) use ($filters) {
+                $values = data_get($filters, 'is_fulfilled_label.values');
+                $q->whereIn('activity_is_fulfilled_label', $values);
             });
     }
 
-    private function columns(): array
-    {
-        return [
-            ['key' => 'department_code', 'label' => 'Stredisko'],
-            ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
-            ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
-            ['key' => 'task_group_title', 'label' => 'Typ zákazky'],
-            ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
-            ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
-            ['key' => 'task_item_group_title', 'label' => 'Typ podzákazky'],
-            ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
-            ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
-            ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],
-            ['key' => 'activity_date', 'label' => 'Dátum výkonu práce', 'type' => 'date'],
-            ['key' => 'personal_id', 'label' => 'Osobné číslo'],
-            ['key' => 'last_name', 'label' => 'Priezvisko'],
-            ['key' => 'first_name', 'label' => 'Meno'],
-            ['key' => 'activity_title', 'label' => 'Norma'],
-            ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
-            ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
-            ['key' => 'activity_is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
-        ];
-    }
+    // private function columns(): array
+    // {
+    //     return [
+    //         ['key' => 'department_code', 'label' => 'Stredisko'],
+    //         ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
+    //         ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
+    //         ['key' => 'task_group_title', 'label' => 'Typ zákazky'],
+    //         ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
+    //         ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
+    //         ['key' => 'task_item_group_title', 'label' => 'Typ podzákazky'],
+    //         ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
+    //         ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
+    //         ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],
+    //         ['key' => 'activity_date', 'label' => 'Dátum výkonu práce', 'type' => 'date'],
+    //         ['key' => 'personal_id', 'label' => 'Osobné číslo'],
+    //         ['key' => 'last_name', 'label' => 'Priezvisko'],
+    //         ['key' => 'first_name', 'label' => 'Meno'],
+    //         ['key' => 'activity_title', 'label' => 'Norma'],
+    //         ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
+    //         ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
+    //         ['key' => 'activity_is_fulfilled', 'label' => 'Splnené', 'type' => 'bool'],
+    //     ];
+    // }
 }

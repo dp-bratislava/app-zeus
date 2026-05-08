@@ -110,15 +110,9 @@ class WorkActivityReportTabe
                     ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
                     ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip'))
                     ->formatStateUsing(fn($state): string => CarbonInterval::seconds($state)->cascade()->format('%H:%I')),
-                Tables\Columns\TextColumn::make('activity_is_fulfilled')
-                    ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled'))
-                    ->formatStateUsing(
-                        fn($state): string => match ($state) {
-                            0 => 'Nie',
-                            1 => 'Áno',
-                            default => 'Nehodnotené',
-                        }
-                    ),
+                Tables\Columns\TextColumn::make('activity_is_fulfilled_label')
+                    ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled')),
+                    
                 // ->label(__('dispatch-report.table.columns.description.label'))
                 //     ->formatStateUsing(fn($record) => Str::substr($record->description, 0, 30) . '...'),
                 Tables\Columns\TextColumn::make('task_id')

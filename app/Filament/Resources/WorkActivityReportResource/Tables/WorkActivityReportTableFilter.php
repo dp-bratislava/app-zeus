@@ -42,15 +42,15 @@ class WorkActivityReportTableFilter
                 ->attribute('department_code'),
 
             // is fulfilled
-            Tables\Filters\SelectFilter::make('is_fulfilled')
+            Tables\Filters\SelectFilter::make('is_fulfilled_label')
                 ->label(__('reports/work-activity-report.table.filters.activity_is_fulfilled'))
                 ->options([
-                    '-1' => 'Nehodnotené',
-                    '0' => 'Nie',
-                    '1' => 'Áno',
+                    'Nevyhodnotené' => 'Nevyhodnotené',
+                    'Nie' => 'Nie',
+                    'Áno' => 'Áno',
                 ])
                 ->multiple()
-                ->attribute('activity_is_fulfilled'),
+                ->attribute('activity_is_fulfilled_label'),
 
             // personal id
             // Tables\Filters\SelectFilter::make('personal_id')

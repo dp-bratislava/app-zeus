@@ -79,6 +79,11 @@ class WorkActivityReport implements SnapshotContract
             'activity_expected_duration' => 'ar.expected_duration',
             'activity_real_duration' => 'ar.real_duration',
             'activity_is_fulfilled' => 'ar.is_fulfilled',
+            'activity_is_fulfilled_label' => 'CASE ar.is_fulfilled
+                    WHEN 0 THEN "Nie"
+                    WHEN 1 THEN "Áno"
+                    ELSE "Nevyhodnotené"
+                END',
             'activity_type' => 'NULL',
             'activity_is_tolerated' => 'NULL',
 
