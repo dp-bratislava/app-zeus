@@ -30,7 +30,7 @@ class WorkActivityReportExporter
             ['key' => 'personal_id', 'label' => 'Osobné číslo'],
             ['key' => 'last_name', 'label' => 'Priezvisko'],
             ['key' => 'first_name', 'label' => 'Meno'],
-            ['key' => 'activity_title', 'label' => 'Norma'],
+            ['key' => 'activity_title', 'label' => 'Norma', 'width' => 35],
             ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
             ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
         ];

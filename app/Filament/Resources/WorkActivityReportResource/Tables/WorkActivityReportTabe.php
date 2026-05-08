@@ -68,19 +68,23 @@ class WorkActivityReportTabe
             ->columns(array_merge([
                 Tables\Columns\TextColumn::make('activity_date')
                     ->label(__('reports/work-activity-report.table.columns.activity_date'))
+                    ->toggleable()                    
                     ->date('Y-m-d'),
                 // ->label(__('dispatch-report.table.columns.date.label')),
                 Tables\Columns\TextColumn::make('personal_id')
-                    ->label(__('reports/work-activity-report.table.columns.personal_id')),
+                    ->label(__('reports/work-activity-report.table.columns.personal_id'))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('last_name')
                     ->label(__('reports/work-activity-report.table.columns.full_name'))
+                    ->toggleable()                    
                     ->formatStateUsing(fn($record): string => "{$record->last_name} {$record->first_name}"),
                 // Tables\Columns\TextColumn::make('last_name')
                 //     ->label(__('reports/work-activity-report.table.columns.last_name')),
                 // Tables\Columns\TextColumn::make('first_name')
                 //     ->label(__('reports/work-activity-report.table.columns.first_name')),
                 Tables\Columns\TextColumn::make('department_code')
-                    ->label(__('reports/work-activity-report.table.columns.department_code')),
+                    ->label(__('reports/work-activity-report.table.columns.department_code'))
+                    ->toggleable(),
                 // activity subject label    
                 // Tables\Columns\TextColumn::make('activity_subject_label')
                 // Tables\Columns\TextColumn::make('taskSubjects')
@@ -93,13 +97,17 @@ class WorkActivityReportTabe
                 //     }),
 
                 Tables\Columns\TextColumn::make('task_group_title')
-                    ->label(__('reports/work-activity-report.table.columns.task_group_title')),
+                    ->label(__('reports/work-activity-report.table.columns.task_group_title'))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('task_item_group_title')
-                    ->label(__('reports/work-activity-report.table.columns.task_item_group_title')),
+                    ->label(__('reports/work-activity-report.table.columns.task_item_group_title'))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('activity_title')
-                    ->label(__('reports/work-activity-report.table.columns.activity_title')),
-                Tables\Columns\TextColumn::make('activity_expected_duration')
+                    ->label(__('reports/work-activity-report.table.columns.activity_title'))
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('activity_expected_duration')                
                     ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
+                    ->toggleable()
                     ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
                     ->formatStateUsing(
                         fn($record): string => $record->activity_expected_duration >= 0
@@ -108,15 +116,18 @@ class WorkActivityReportTabe
                     ),
                 Tables\Columns\TextColumn::make('activity_real_duration')
                     ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
+                    ->toggleable()                    
                     ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip'))
                     ->formatStateUsing(fn($state): string => CarbonInterval::seconds($state)->cascade()->format('%H:%I')),
                 Tables\Columns\TextColumn::make('activity_is_fulfilled_label')
-                    ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled')),
-                    
+                    ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled'))
+                    ->toggleable(),
+
                 // ->label(__('dispatch-report.table.columns.description.label'))
                 //     ->formatStateUsing(fn($record) => Str::substr($record->description, 0, 30) . '...'),
                 Tables\Columns\TextColumn::make('task_id')
                     ->label(__('reports/work-activity-report.table.columns.task_id'))
+                    ->toggleable()
                     ->url(
                         fn($record) => $record->task_id
                             ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
@@ -137,15 +148,22 @@ class WorkActivityReportTabe
                     ->label('Export')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->action(function ($livewire) {
-
                         $filters = $livewire->getTableFiltersForm()->getState();
+                        
+                        // Zatial nepouzivame ale takto sa daju zistit
+                        $visibleColumns = collect($livewire->tableColumns) 
+                            ->filter(fn($column) => $column['isToggled'])
+                            ->map(fn($column) => $column['name'])
+                            ->values()
+                            ->toArray();
 
                         $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
 
                         ExportWorkActivityReportJob::dispatch(
                             $filters,
                             $fileName,
-                            auth()->id()
+                            auth()->id(),
+                            // $visibleColumns
                         );
 
                         Notification::make()
