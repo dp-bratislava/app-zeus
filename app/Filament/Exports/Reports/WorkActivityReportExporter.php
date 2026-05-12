@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Log;
 
 class WorkActivityReportExporter
 {
-    #in local development put the ip of your docker container here
+    // IF ON LOCAL DEV IN SAIL>
+    // protected string $baseUrl = 'http://host.docker.internal:8111';
+
+    // IF ON PROD
     protected string $baseUrl = 'http://127.0.0.1:8111';
 
     private function columns(): array
