@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Log;
 
 class WorkActivityReportExporter
 {
-    protected string $baseUrl = 'http://172.22.99.55:8111';
+    #in local development put the ip of your docker container here
+    protected string $baseUrl = 'http://127.0.0.1:8111';
 
     private function columns(): array
     {
