@@ -94,7 +94,7 @@ class SumarReport implements ReportDriver
                             $data['date_to'],
                             fn (Builder $query, $date): Builder => $query->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $date),
                         );
-                }),
+                })->columns(2),
         ];
     }
 

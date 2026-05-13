@@ -6,11 +6,13 @@ use App\Jobs\Reports\ExportDetailReportJob;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
-use App\Reports\Filters\DetailReportFilter;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DatePicker;
+use Dpb\DatahubSync\Models\Department;
+use Filament\Tables\Columns\TextColumn;
 
 class DetailReport implements ReportDriver
 {
@@ -54,7 +56,7 @@ class DetailReport implements ReportDriver
         $dynamicColumns = [];
 
         foreach ($subjectTypes as $type) {
-            $dynamicColumns[] = Tables\Columns\TextColumn::make("subject_{$type}")
+            $dynamicColumns[] = TextColumn::make("subject_{$type}")
                 ->label(fn() => match ($type) {
                     'vehicle' => 'Vozidlo',
                     'table' => 'Tabuľa',
@@ -69,30 +71,30 @@ class DetailReport implements ReportDriver
         }
 
         return array_merge([
-            Tables\Columns\TextColumn::make('activity_date')
+            TextColumn::make('activity_date')
                 ->label(__('reports/work-activity-report.table.columns.activity_date'))
                 ->toggleable()
                 ->date('Y-m-d'),
-            Tables\Columns\TextColumn::make('personal_id')
+            TextColumn::make('personal_id')
                 ->label(__('reports/work-activity-report.table.columns.personal_id'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('last_name')
+            TextColumn::make('last_name')
                 ->label(__('reports/work-activity-report.table.columns.full_name'))
                 ->toggleable()
                 ->formatStateUsing(fn($record): string => "{$record->last_name} {$record->first_name}"),
-            Tables\Columns\TextColumn::make('department_code')
+            TextColumn::make('department_code')
                 ->label(__('reports/work-activity-report.table.columns.department_code'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('task_group_title')
+            TextColumn::make('task_group_title')
                 ->label(__('reports/work-activity-report.table.columns.task_group_title'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('task_item_group_title')
+            TextColumn::make('task_item_group_title')
                 ->label(__('reports/work-activity-report.table.columns.task_item_group_title'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('activity_title')
+            TextColumn::make('activity_title')
                 ->label(__('reports/work-activity-report.table.columns.activity_title'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('activity_expected_duration')
+            TextColumn::make('activity_expected_duration')
                 ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
                 ->toggleable()
                 ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
@@ -101,15 +103,15 @@ class DetailReport implements ReportDriver
                         ? CarbonInterval::seconds($record->activity_expected_duration)->cascade()->format('%H:%I')
                         : CarbonInterval::seconds($record->activity_real_duration)->cascade()->format('%H:%I')
                 ),
-            Tables\Columns\TextColumn::make('activity_real_duration')
+            TextColumn::make('activity_real_duration')
                 ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
                 ->toggleable()
                 ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip'))
                 ->formatStateUsing(fn($state): string => CarbonInterval::seconds($state)->cascade()->format('%H:%I')),
-            Tables\Columns\TextColumn::make('activity_is_fulfilled_label')
+            TextColumn::make('activity_is_fulfilled_label')
                 ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('task_id')
+            TextColumn::make('task_id')
                 ->label(__('reports/work-activity-report.table.columns.task_id'))
                 ->toggleable()
                 ->url(
@@ -121,7 +123,7 @@ class DetailReport implements ReportDriver
                 ->extraAttributes(fn($state) => [
                     'class' => $state ? 'underline cursor-pointer' : '',
                 ]),
-            Tables\Columns\TextColumn::make('task_item_author_lastname')
+            TextColumn::make('task_item_author_lastname')
                 ->label(__('reports/work-activity-report.table.columns.task_item_author_lastname'))
                 ->toggleable()
                 ->toggledHiddenByDefault(),
@@ -130,7 +132,45 @@ class DetailReport implements ReportDriver
 
     public function getFilters(): array
     {
-        return DetailReportFilter::make();
+        return [
+            Tables\Filters\Filter::make('activity_date')
+                ->form([
+                    DatePicker::make('activity_date_from')
+                        ->label(__('reports/work-activity-report.table.filters.date_from')),
+                    DatePicker::make('activity_date_to')
+                        ->label(__('reports/work-activity-report.table.filters.date_to')),
+
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['activity_date_from'],
+                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
+                        )
+                        ->when(
+                            $data['activity_date_to'],
+                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
+                        );
+                })->columns(2),
+
+            // department
+            Tables\Filters\SelectFilter::make('department')
+                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
+                ->multiple()
+                ->attribute('department_code'),
+
+            // is fulfilled
+            Tables\Filters\SelectFilter::make('is_fulfilled_label')
+                ->label(__('reports/work-activity-report.table.filters.activity_is_fulfilled'))
+                ->options([
+                    'Nevyhodnotené' => 'Nevyhodnotené',
+                    'Nie' => 'Nie',
+                    'Áno' => 'Áno',
+                ])
+                ->multiple()
+                ->attribute('activity_is_fulfilled_label'),
+            ];
     }
 
     public function getExportJobClass(): string
