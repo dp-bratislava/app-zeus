@@ -32,10 +32,10 @@ interface ReportDriver
      */
     public function getFilters(): array;
 
-    /**
-     * Get the export job class name for this report
-     */
-    public function getExportJobClass(): string;
+
+    public function getExporter(): string;
+    
+    public function generateExportFilename(): string;
 
     /**
      * Apply additional query modifications if needed (for relationships, eager loading, etc.)
@@ -46,9 +46,4 @@ interface ReportDriver
      * Get the export column definitions for the exporter service
      */
     public function getExportColumns(): array;
-
-    /**
-     * Build the export filters payload from the current filters
-     */
-    public function buildExportFilters(array $filters): array;
 }

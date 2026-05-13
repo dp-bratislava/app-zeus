@@ -11,6 +11,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Enums\FiltersLayout;
+use App\Jobs\Reports\ExportReportJob;
 
 class ReportsResource extends Resource
 {
@@ -51,11 +52,12 @@ class ReportsResource extends Resource
                         $filters = $livewire->getTableFiltersForm()->getState();
 
                         $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
-
-                        $jobClass = $driver->getExportJobClass();
-                        $jobClass::dispatch(
+                        $exporter = $driver->getExporter();
+                        $filename = $driver->generateExportFilename();
+                        ExportReportJob::dispatch(
+                            new $exporter(),
                             $filters,
-                            $fileName,
+                            $filename,
                             auth()->id(),
                         );
 
