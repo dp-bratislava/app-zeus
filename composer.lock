@@ -1152,7 +1152,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-employee-manager",
-                "reference": "002ca6768de9f594cfad79789f288d88d1a40e39"
+                "reference": "0e34f7674b8f9b4385d56f73ba7e12346abce353"
             },
             "require": {
                 "dpb/dpb-master-permission-guard": "^12.5.0",
@@ -1327,7 +1327,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "c21132725f325dcd560244b3c6a05a2c9db6b625"
+                "reference": "44dd65b6f9d8126d93d01b20c373d80f6c152eca"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1378,7 +1378,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund-filament",
-                "reference": "9c29c30042490c5ff30cf8fb74fb6e439905356f"
+                "reference": "f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
@@ -1417,7 +1417,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "40955865f3c3bb9a3162d04da1fb269b6714136e"
+                "reference": "5434aeb17f49c64f8971bdfff18121ab2fa544e9"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
@@ -1932,16 +1932,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.2",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "ab0276da127345668084d10168638eb3814d508d"
+                "reference": "b422428df769fc441d7f52dc97655d1585085256"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/ab0276da127345668084d10168638eb3814d508d",
-                "reference": "ab0276da127345668084d10168638eb3814d508d",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/b422428df769fc441d7f52dc97655d1585085256",
+                "reference": "b422428df769fc441d7f52dc97655d1585085256",
                 "shasum": ""
             },
             "require": {
@@ -1974,10 +1974,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.2",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-02-27T11:57:20+00:00"
+            "time": "2026-04-30T11:09:24+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -2326,7 +2326,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/ui-components",
-                "reference": "654a0dfbf0c3b133a5ac703d03c588fd770821fc"
+                "reference": "4572bd1b531e46910dbfc13e04d6f2f8def95c31"
             },
             "require": {
                 "filament/forms": "^5.0",
@@ -2368,7 +2368,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/wtf-ui",
-                "reference": "2c2fe8373b1eb6e153c0d5b8324099325bcb7c26"
+                "reference": "6851e36db421ea7f7acc8cbff509d82c8705b97e"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0"
