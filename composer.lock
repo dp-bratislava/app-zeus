@@ -1658,16 +1658,16 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v5.1.2",
+            "version": "v5.1.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "5fd01d7832366d09c5e1e4f9673d8798ed3060ab"
+                "reference": "335512e2270f37c2f448478797f818036a7b10ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/5fd01d7832366d09c5e1e4f9673d8798ed3060ab",
-                "reference": "5fd01d7832366d09c5e1e4f9673d8798ed3060ab",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/335512e2270f37c2f448478797f818036a7b10ca",
+                "reference": "335512e2270f37c2f448478797f818036a7b10ca",
                 "shasum": ""
             },
             "require": {
@@ -1718,10 +1718,10 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.2",
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.3",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2026-04-28T12:25:37+00:00"
+            "time": "2026-05-13T12:06:41+00:00"
         },
         {
             "name": "dpb/pkg-activities",
