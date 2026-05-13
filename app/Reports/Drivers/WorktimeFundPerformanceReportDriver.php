@@ -26,7 +26,7 @@ class WorktimeFundPerformanceReportDriver implements ReportDriver
 
     public function name(): string
     {
-        return 'Worktime Fund Performance';
+        return 'Sumár pracovníkov';
     }
 
     public function icon(): string
@@ -59,22 +59,22 @@ class WorktimeFundPerformanceReportDriver implements ReportDriver
     {
         return [
             Tables\Columns\TextColumn::make('stredisko')
-                ->label('Department')
+                ->label('stredisko')
                 ->toggleable(),
             Tables\Columns\TextColumn::make('osob_cislo')
-                ->label('Personal ID')
+                ->label('osob_cislo')
                 ->toggleable(),
             Tables\Columns\TextColumn::make('meno')
-                ->label('Name')
+                ->label('meno')
                 ->toggleable(),
             Tables\Columns\TextColumn::make('suma_cas_skutocny')
-                ->label('Actual Time')
+                ->label('suma_cas_skutocny')
                 ->toggleable(),
             Tables\Columns\TextColumn::make('suma_cas_norma')
-                ->label('Expected Time')
+                ->label('suma_cas_norma')
                 ->toggleable(),
             Tables\Columns\TextColumn::make('plnenie')
-                ->label('Performance %')
+                ->label('plnenie')
                 ->toggleable(),
         ];
     }

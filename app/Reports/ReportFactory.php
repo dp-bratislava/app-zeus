@@ -15,7 +15,6 @@ class ReportFactory
      */
     private static array $drivers = [
         'work-activity' => WorkActivityReportDriver::class,
-        'batch' => BatchReportDriver::class,
         'worktime-fund-performance' => WorktimeFundPerformanceReportDriver::class,
         // Add more drivers here as you create them
         // 'attendance' => AttendanceReportDriver::class,
