@@ -10,6 +10,7 @@ use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
+use Filament\Tables\Enums\FiltersLayout;
 
 class ReportsResource extends Resource
 {
@@ -41,6 +42,7 @@ class ReportsResource extends Resource
             ->defaultPaginationPageOption(100)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
+            ->filtersLayout(FiltersLayout::AboveContent)
             ->headerActions([
                 Action::make('export')
                     ->label('Export')
