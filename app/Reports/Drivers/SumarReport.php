@@ -103,13 +103,6 @@ class SumarReport implements ReportDriver
         return ExportSumarReportJob::class;
     }
 
-    public function getExportTemplates(): array
-    {
-        return [
-            'default' => 'Default Template',
-        ];
-    }
-
     public function applyQueryModifications(Builder $query): Builder
     {
         return $query->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'));

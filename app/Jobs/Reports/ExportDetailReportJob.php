@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Reports;
 
-use App\Filament\Exports\Reports\WorkActivityReportExporter;
+use App\Filament\Exports\Reports\DetailReportExporter;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
@@ -28,7 +28,7 @@ class ExportDetailReportJob implements ShouldQueue
     ) {}
 
 
-    public function handle(WorkActivityReportExporter $exporter)
+    public function handle(DetailReportExporter $exporter)
     {
         $user = User::find($this->userId);
         $export = $exporter->run($this->filters, $user->id, $this->fileName);
