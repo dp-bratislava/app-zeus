@@ -10,6 +10,15 @@ use Illuminate\Contracts\Support\Htmlable;
 class ListReports extends ListRecords
 {
     protected static string $resource = ReportsResource::class;
+    
+    public ?string $currentReportType = null;
+
+    public function mount(): void
+    {
+        parent::mount();
+        // Initialize from query parameter or default
+        $this->currentReportType = request()->query('report', 'work-activity');
+    }
 
     public function getTitle(): string | Htmlable
     {
@@ -23,7 +32,7 @@ class ListReports extends ListRecords
 
     public function getSubHeading(): string | Htmlable | null
     {
-        $currentReport = request()->query('report', 'work-activity');
+        $currentReport = $this->currentReportType;
         $reports = ReportFactory::getAvailable();
         
         $options = collect($reports)->mapWithKeys(fn($driver, $key) => [

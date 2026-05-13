@@ -5,6 +5,7 @@ namespace App\Reports;
 use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\WorkActivityReportDriver;
 use App\Reports\Drivers\BatchReportDriver;
+use App\Reports\Drivers\WorktimeFundPerformanceReportDriver;
 use InvalidArgumentException;
 
 class ReportFactory
@@ -15,6 +16,7 @@ class ReportFactory
     private static array $drivers = [
         'work-activity' => WorkActivityReportDriver::class,
         'batch' => BatchReportDriver::class,
+        'worktime-fund-performance' => WorktimeFundPerformanceReportDriver::class,
         // Add more drivers here as you create them
         // 'attendance' => AttendanceReportDriver::class,
         // 'vehicle-status' => VehicleStatusReportDriver::class,

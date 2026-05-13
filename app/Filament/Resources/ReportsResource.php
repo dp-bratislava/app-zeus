@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 
 class ReportsResource extends Resource
 {
-    protected static ?string $model = WorkActivityReport::class;
+    public static ?string $model = WorkActivityReport::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,17 +24,24 @@ class ReportsResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $reportType = request()->query('report', 'work-activity');
+        // Get the report type from the Livewire component (page) instead of request
+        $livewire = $table->getLivewire();
+        $reportType = $livewire->currentReportType ?? request()->query('report', false);
+        
+        if (!$reportType) {
+            return $table->heading('No report selected')->description('Please select a report from the dropdown above.')->columns([]);
+        } 
         $driver = ReportFactory::make($reportType);
 
         return $table
+            ->query($driver->getQuery())
             ->heading(__('reports/work-activity-report.table.heading'))
             ->description(__('reports/work-activity-report.table.description', ['latest-sync' => now()]))
             ->deferLoading()
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);
             })
-            ->paginated([10, 25, 50, 100, 'all'])
+            ->paginated([10, 25, 50, 100])
             ->defaultPaginationPageOption(100)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
@@ -62,7 +69,8 @@ class ReportsResource extends Resource
                     })
             ])
             ->recordActions([])
-            ->toolbarActions([]);
+            ->toolbarActions([])
+            ->defaultSort('id', 'asc');
     }
 
     public static function getPages(): array
