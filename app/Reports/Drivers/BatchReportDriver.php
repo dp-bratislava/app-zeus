@@ -3,6 +3,7 @@
 namespace App\Reports\Drivers;
 
 use App\Jobs\Reports\ExportBatchReportJob;
+use App\Models\Reports\BatchReport;
 use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
 use Carbon\CarbonInterval;
@@ -36,7 +37,7 @@ class BatchReportDriver implements ReportDriver
 
     public function getQuery(): Builder
     {
-        return DB::table('tmp_asphere_import_batchable_batch_records'); 
+       return BatchReport::query();
     }
 
     public function getColumns(): array
