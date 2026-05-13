@@ -1392,12 +1392,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "5096f6fbeb41cb5a4fcdc45e52ebae4b3cf1f1d8"
+                "reference": "f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/5096f6fbeb41cb5a4fcdc45e52ebae4b3cf1f1d8",
-                "reference": "5096f6fbeb41cb5a4fcdc45e52ebae4b3cf1f1d8",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06",
+                "reference": "f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06",
                 "shasum": ""
             },
             "require": {
@@ -1430,7 +1430,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/release/v12.5.1",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-05-08T07:53:51+00:00"
+            "time": "2026-05-13T08:29:31+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "cc6ba03eafb4d1fca496be124cecd1ca3574462a"
+                "reference": "5434aeb17f49c64f8971bdfff18121ab2fa544e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/cc6ba03eafb4d1fca496be124cecd1ca3574462a",
-                "reference": "cc6ba03eafb4d1fca496be124cecd1ca3574462a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/5434aeb17f49c64f8971bdfff18121ab2fa544e9",
+                "reference": "5434aeb17f49c64f8971bdfff18121ab2fa544e9",
                 "shasum": ""
             },
             "require": {
@@ -1477,7 +1477,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/release/v12.5.1",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-05-08T06:22:18+00:00"
+            "time": "2026-05-13T06:29:59+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -1960,16 +1960,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.2",
+            "version": "v12.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "ab0276da127345668084d10168638eb3814d508d"
+                "reference": "b422428df769fc441d7f52dc97655d1585085256"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/ab0276da127345668084d10168638eb3814d508d",
-                "reference": "ab0276da127345668084d10168638eb3814d508d",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/b422428df769fc441d7f52dc97655d1585085256",
+                "reference": "b422428df769fc441d7f52dc97655d1585085256",
                 "shasum": ""
             },
             "require": {
@@ -2002,10 +2002,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.2",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.3",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-02-27T11:57:20+00:00"
+            "time": "2026-04-30T11:09:24+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -2354,12 +2354,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/ui-components.git",
-                "reference": "b2e70790c574fe97984a383eafc18ffe6d5ca890"
+                "reference": "4572bd1b531e46910dbfc13e04d6f2f8def95c31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/b2e70790c574fe97984a383eafc18ffe6d5ca890",
-                "reference": "b2e70790c574fe97984a383eafc18ffe6d5ca890",
+                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/4572bd1b531e46910dbfc13e04d6f2f8def95c31",
+                "reference": "4572bd1b531e46910dbfc13e04d6f2f8def95c31",
                 "shasum": ""
             },
             "require": {
@@ -2395,7 +2395,7 @@
                 "source": "https://github.com/dp-bratislava/ui-components/tree/release/v12.5.1",
                 "issues": "https://github.com/dp-bratislava/ui-components/issues"
             },
-            "time": "2026-05-08T07:50:48+00:00"
+            "time": "2026-05-13T06:09:15+00:00"
         },
         {
             "name": "dpb/wtf-ui",
@@ -2403,12 +2403,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "5110a90856808f3c6cf2fbdc40d2f67387535137"
+                "reference": "6851e36db421ea7f7acc8cbff509d82c8705b97e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/5110a90856808f3c6cf2fbdc40d2f67387535137",
-                "reference": "5110a90856808f3c6cf2fbdc40d2f67387535137",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/6851e36db421ea7f7acc8cbff509d82c8705b97e",
+                "reference": "6851e36db421ea7f7acc8cbff509d82c8705b97e",
                 "shasum": ""
             },
             "require": {
@@ -2443,7 +2443,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/release/v12.5.1",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-05-05T13:19:22+00:00"
+            "time": "2026-05-13T06:28:11+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
