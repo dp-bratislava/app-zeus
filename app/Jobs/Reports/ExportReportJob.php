@@ -11,10 +11,11 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Reports\Exports\BaseReportExporter;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
-class ExportDetailReportJob implements ShouldQueue
+class ExportReportJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,15 +23,17 @@ class ExportDetailReportJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
+        public BaseReportExporter $exporter,
         public array $filters,
         public string $fileName,
         public int $userId,
     ) {}
 
 
-    public function handle(DetailReportExporter $exporter)
+    public function handle()
     {
         $user = User::find($this->userId);
+        $exporter = $this->exporter;
         $export = $exporter->run($this->filters, $user->id, $this->fileName);
         Notification::make()
             ->title(__('reports/export.export_finished.title'))

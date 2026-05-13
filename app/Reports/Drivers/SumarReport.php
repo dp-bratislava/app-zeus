@@ -2,13 +2,15 @@
 
 namespace App\Reports\Drivers;
 
-use App\Jobs\Reports\ExportSumarReportJob;
+
+use App\Filament\Exports\Reports\SumarReportExporter;
 use App\Models\Reports\WorktimeFundPerformanceReport;
 use Dpb\Departments\Services\DepartmentService;
 use Filament\Forms;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+
 
 class SumarReport implements ReportDriver
 {
@@ -98,9 +100,14 @@ class SumarReport implements ReportDriver
         ];
     }
 
-    public function getExportJobClass(): string
+    public function getExporter(): string
     {
-        return ExportSumarReportJob::class;
+        return SumarReportExporter::class;
+    }
+
+    public function generateExportFilename(): string
+    {
+        return 'sumar_' . now()->format('Ymd_His') . '.xlsx';
     }
 
     public function applyQueryModifications(Builder $query): Builder
@@ -118,10 +125,5 @@ class SumarReport implements ReportDriver
             ['key' => 'suma_cas_norma', 'label' => 'Expected Time'],
             ['key' => 'plnenie', 'label' => 'Performance %'],
         ];
-    }
-
-    public function buildExportFilters(array $filters): array
-    {
-        return $filters;
     }
 }

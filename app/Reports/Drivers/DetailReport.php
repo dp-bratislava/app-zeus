@@ -2,7 +2,7 @@
 
 namespace App\Reports\Drivers;
 
-use App\Jobs\Reports\ExportDetailReportJob;
+use App\Filament\Exports\Reports\DetailReportExporter;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
@@ -40,8 +40,6 @@ class DetailReport implements ReportDriver
 
     public function getColumns(): array
     {
-        $latestSync = ReportSyncState::byReportName('work-activity')->first();
-
         // 1. Fetch unique types from your snapshot/subject table
         $subjectTypes = WorkTaskSubject::query()
             ->whereHas('activity', function ($query) {
@@ -173,9 +171,14 @@ class DetailReport implements ReportDriver
             ];
     }
 
-    public function getExportJobClass(): string
+    public function getExporter(): string
     {
-        return ExportDetailReportJob::class;
+        return DetailReportExporter::class;
+    }
+
+    public function generateExportFilename(): string
+    {
+        return 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
     }
 
     public function applyQueryModifications(Builder $query): Builder
@@ -207,10 +210,5 @@ class DetailReport implements ReportDriver
             ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
             ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
         ];
-    }
-
-    public function buildExportFilters(array $filters): array
-    {
-        return $filters;
     }
 }
