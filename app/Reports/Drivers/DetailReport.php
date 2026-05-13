@@ -6,7 +6,7 @@ use App\Jobs\Reports\ExportDetailReportJob;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
-use App\Reports\Filters\WorkActivityReportTableFilter;
+use App\Reports\Filters\DetailReportFilter;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
 use Filament\Tables;
@@ -130,19 +130,12 @@ class DetailReport implements ReportDriver
 
     public function getFilters(): array
     {
-        return WorkActivityReportTableFilter::make();
+        return DetailReportFilter::make();
     }
 
     public function getExportJobClass(): string
     {
         return ExportDetailReportJob::class;
-    }
-
-    public function getExportTemplates(): array
-    {
-        return [
-            'default' => 'Default Template',
-        ];
     }
 
     public function applyQueryModifications(Builder $query): Builder

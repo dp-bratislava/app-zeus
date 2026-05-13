@@ -51,7 +51,7 @@ class ListReports extends ListRecords
 
         return new \Illuminate\Support\HtmlString(
             "<div style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;'>
-                <label style='font-weight: 500; color: #374151;'>Report Type:</label>
+                <label style='font-weight: 500; color: #374151;'>Zvoľte typ reportu:</label>
                 <select onchange=\"{$onChange}\" 
                     style='padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-size: 0.875rem;'>
                     {$optionsHtml}

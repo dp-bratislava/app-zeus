@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Forms\Components\DatePicker;
 
-class WorkActivityReportTableFilter
+class DetailReportFilter
 {
     public static function make(): array
     {

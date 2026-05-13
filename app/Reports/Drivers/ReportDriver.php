@@ -38,12 +38,6 @@ interface ReportDriver
     public function getExportJobClass(): string;
 
     /**
-     * Get available export templates for this report
-     * Returns array like ['default' => 'Default Template', 'compact' => 'Compact Template']
-     */
-    public function getExportTemplates(): array;
-
-    /**
      * Apply additional query modifications if needed (for relationships, eager loading, etc.)
      */
     public function applyQueryModifications(Builder $query): Builder;

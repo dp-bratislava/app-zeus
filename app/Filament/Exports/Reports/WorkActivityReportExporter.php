@@ -5,7 +5,7 @@ namespace App\Filament\Exports\Reports;
 use App\Reports\Exports\BaseReportExporter;
 use Illuminate\Support\Facades\DB;
 
-class WorkActivityReportExporter extends BaseReportExporter
+class DetailReportExporter extends BaseReportExporter
 {
     protected string $baseUrl = 'http://host.docker.internal:8111';
 
