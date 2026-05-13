@@ -2,7 +2,7 @@
 
 namespace App\Reports\Drivers;
 
-use App\Jobs\Reports\ExportWorktimeFundReportJob;
+use App\Jobs\Reports\ExportSumarReportJob;
 use App\Models\Reports\WorktimeFundPerformanceReport;
 use Dpb\Departments\Services\DepartmentService;
 use Filament\Forms;
@@ -10,7 +10,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 
-class WorktimeFundPerformanceReportDriver implements ReportDriver
+class SumarReport implements ReportDriver
 {
     private ?DepartmentService $departmentService = null;
 
@@ -21,17 +21,12 @@ class WorktimeFundPerformanceReportDriver implements ReportDriver
 
     public function key(): string
     {
-        return 'worktime-fund-performance';
+        return 'sumar';
     }
 
     public function name(): string
     {
         return 'Sumár pracovníkov';
-    }
-
-    public function icon(): string
-    {
-        return 'heroicon-o-chart-bar';
     }
 
     public function getQuery(): Builder
@@ -105,7 +100,7 @@ class WorktimeFundPerformanceReportDriver implements ReportDriver
 
     public function getExportJobClass(): string
     {
-        return ExportWorktimeFundReportJob::class;
+        return ExportSumarReportJob::class;
     }
 
     public function getExportTemplates(): array

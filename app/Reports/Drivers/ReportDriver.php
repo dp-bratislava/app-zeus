@@ -20,11 +20,6 @@ interface ReportDriver
     /**
      * Get the icon for this driver (heroicon names)
      */
-    public function icon(): string;
-
-    /**
-     * Get the base query builder for this report
-     */
     public function getQuery(): Builder;
 
     /**
