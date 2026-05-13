@@ -2,7 +2,7 @@
 
 namespace App\Reports\Drivers;
 
-use App\Jobs\Reports\ExportWorkActivityReportJob;
+use App\Jobs\Reports\ExportDetailReportJob;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
@@ -12,7 +12,7 @@ use Dpb\Departments\Services\DepartmentService;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
-class WorkActivityReportDriver implements ReportDriver
+class DetailReport implements ReportDriver
 {
     private ?DepartmentService $departmentService = null;
 
@@ -29,11 +29,6 @@ class WorkActivityReportDriver implements ReportDriver
     public function name(): string
     {
         return __('reports/work-activity-report.navigation.label');
-    }
-
-    public function icon(): string
-    {
-        return 'heroicon-o-briefcase';
     }
 
     public function getQuery(): Builder
@@ -140,7 +135,7 @@ class WorkActivityReportDriver implements ReportDriver
 
     public function getExportJobClass(): string
     {
-        return ExportWorkActivityReportJob::class;
+        return ExportDetailReportJob::class;
     }
 
     public function getExportTemplates(): array
