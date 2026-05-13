@@ -26,17 +26,13 @@ class ReportsResource extends Resource
     {
         // Get the report type from the Livewire component (page) instead of request
         $livewire = $table->getLivewire();
-        $reportType = $livewire->currentReportType ?? request()->query('report', false);
-        
-        if (!$reportType) {
-            return $table->heading('No report selected')->description('Please select a report from the dropdown above.')->columns([]);
-        } 
+        $reportType = $livewire->currentReportType ?? request()->query('report');
+
         $driver = ReportFactory::make($reportType);
 
         return $table
             ->query($driver->getQuery())
             ->heading(__('reports/work-activity-report.table.heading'))
-            ->description(__('reports/work-activity-report.table.description', ['latest-sync' => now()]))
             ->deferLoading()
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);

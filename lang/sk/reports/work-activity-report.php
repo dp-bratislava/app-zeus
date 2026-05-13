@@ -4,7 +4,6 @@ return [
     'list_heading' => 'Zostava - detail prác',
     'table' => [
         'heading' => 'Zostava - detail prác',
-        'description' => 'Posledná aktualizácia :latest-sync',
         'columns' => [
             'activity_date' => 'Výkon práce',
             'personal_id' => 'Osobné číslo',
