@@ -23,6 +23,7 @@ class SumarReportExporter extends BaseReportExporter
 
         protected function query(array $filters)
     {
+        $departmentCodes = data_get($filters, 'department.values');
         // We use DB::table to match the driver's logic but ensure it's compatible with raw export
         return DB::table('dpb_worktimefund_model_activityrecord')
             ->leftJoin('dpb_worktimefund_model_worktime as wt', 'wt.id', '=', 'dpb_worktimefund_model_activityrecord.parent_id')
@@ -49,10 +50,9 @@ class SumarReportExporter extends BaseReportExporter
                 $q->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $v);
             })
             // Department filter (if passed from Filament)
-            ->when(data_get($filters, 'department.values'), function ($q, $v) {
-                $q->whereIn('d.code', $v);
+            ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
+                $q->whereIn('d.code', $departmentCodes);
             })
-            
             ->groupBy('c.pid', 'wt.last_name', 'wt.first_name', 'd.code');
     }
 

@@ -11,7 +11,8 @@ use Illuminate\Database\Query\Expression;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
-
+use Filament\Tables\Filters\SelectFilter;
+use Dpb\DatahubSync\Models\Department;
 
 class SumarReport implements ReportDriver
 {
@@ -92,6 +93,17 @@ class SumarReport implements ReportDriver
                             fn (Builder $query, $date): Builder => $query->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $date),
                         );
                 })->columns(2),
+
+            SelectFilter::make('department')
+                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
+                ->multiple()
+                ->query(function (Builder $query, array $data): Builder {
+            return $query->when(
+                $data['values'],
+                fn (Builder $query, $values): Builder => $query->whereIn('d.code', $values)
+            );
+        }),
         ];
     }
 
