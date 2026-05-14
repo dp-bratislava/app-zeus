@@ -56,23 +56,17 @@ class SumarReport implements ReportDriver
     {
         return [
             Tables\Columns\TextColumn::make('stredisko')
-                ->label('stredisko')
-                ->toggleable(),
+                ->label('stredisko'),
             Tables\Columns\TextColumn::make('osob_cislo')
-                ->label('osob_cislo')
-                ->toggleable(),
+                ->label('osob_cislo'),
             Tables\Columns\TextColumn::make('meno')
-                ->label('meno')
-                ->toggleable(),
+                ->label('meno'),
             Tables\Columns\TextColumn::make('suma_cas_skutocny')
-                ->label('suma_cas_skutocny')
-                ->toggleable(),
+                ->label('suma_cas_skutocny'),
             Tables\Columns\TextColumn::make('suma_cas_norma')
-                ->label('suma_cas_norma')
-                ->toggleable(),
+                ->label('suma_cas_norma'),
             Tables\Columns\TextColumn::make('plnenie')
-                ->label('plnenie')
-                ->toggleable(),
+                ->label('plnenie'),
         ];
     }
 
@@ -113,17 +107,5 @@ class SumarReport implements ReportDriver
     public function applyQueryModifications(Builder $query): Builder
     {
         return $query->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'));
-    }
-
-    public function getExportColumns(): array
-    {
-        return [
-            ['key' => 'stredisko', 'label' => 'Department'],
-            ['key' => 'osob_cislo', 'label' => 'Personal ID'],
-            ['key' => 'meno', 'label' => 'Name'],
-            ['key' => 'suma_cas_skutocny', 'label' => 'Actual Time'],
-            ['key' => 'suma_cas_norma', 'label' => 'Expected Time'],
-            ['key' => 'plnenie', 'label' => 'Performance %'],
-        ];
     }
 }
