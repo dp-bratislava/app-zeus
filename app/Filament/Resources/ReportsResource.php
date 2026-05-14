@@ -2,16 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReportsResource\Pages;
+use App\Filament\Resources\ReportsResource\Pages\ListReports;
 use App\Models\Reports\WorkActivityReport;
 use App\Reports\ReportFactory;
 use BackedEnum;
-use Filament\Actions\Action;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Enums\FiltersLayout;
-use App\Jobs\Reports\ExportReportJob;
 
 class ReportsResource extends Resource
 {
@@ -51,7 +48,7 @@ class ReportsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReports::route('/'),
+            'index' => ListReports::route('/'),
         ];
     }
 }
