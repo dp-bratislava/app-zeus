@@ -13,6 +13,7 @@ use Dpb\DatahubSync\Models\Department;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use App\Filament\Components\DurationColumn;
 
 class DetailReport implements ReportDriver
 {
@@ -88,15 +89,21 @@ class DetailReport implements ReportDriver
             TextColumn::make('activity_expected_duration')
                 ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
                 ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
-                ->formatStateUsing(
-                    fn($record): string => $record->activity_expected_duration >= 0
-                        ? CarbonInterval::seconds($record->activity_expected_duration)->cascade()->format('%H:%I')
-                        : CarbonInterval::seconds($record->activity_real_duration)->cascade()->format('%H:%I')
-                ),
-            TextColumn::make('activity_real_duration')
+                ->formatStateUsing(function ($record) {
+                    // Determine which value to use
+                    $seconds = $record->activity_expected_duration >= 0 
+                        ? $record->activity_expected_duration 
+                        : $record->activity_real_duration;
+
+                    if (!$seconds) return '0:00';
+
+                    $interval = CarbonInterval::seconds($seconds)->cascade();
+                    return sprintf('%d:%02d', floor($interval->totalHours), $interval->minutes);
+                }),
+                
+            DurationColumn::make('activity_real_duration')
                 ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
-                ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip'))
-                ->formatStateUsing(fn($state): string => CarbonInterval::seconds($state)->cascade()->format('%H:%I')),
+                ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip')),
             TextColumn::make('activity_is_fulfilled_label')
                 ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled')),
             TextColumn::make('task_id')

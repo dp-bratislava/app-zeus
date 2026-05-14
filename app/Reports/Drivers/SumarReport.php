@@ -13,6 +13,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Dpb\DatahubSync\Models\Department;
+use App\Filament\Components\DurationColumn;
 
 class SumarReport implements ReportDriver
 {
@@ -43,8 +44,8 @@ class SumarReport implements ReportDriver
                 "),
                 new Expression("TRIM(LEADING '0' FROM c.pid) as osob_cislo"),
                 new Expression("CONCAT(wt.last_name, ' ', wt.first_name) AS meno"),
-                new Expression("TIME_FORMAT(SEC_TO_TIME(SUM(dpb_worktimefund_model_activityrecord.real_duration)), '%H:%i') AS suma_cas_skutocny"),
-                new Expression("TIME_FORMAT(SEC_TO_TIME(SUM(dpb_worktimefund_model_activityrecord.expected_duration)), '%H:%i') AS suma_cas_norma"),
+                new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_skutocny"),
+                new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_norma"),
                 new Expression("ROUND(100 * SUM(dpb_worktimefund_model_activityrecord.expected_duration) / SUM(dpb_worktimefund_model_activityrecord.real_duration), 0) AS plnenie"),
             ])
             ->leftJoin('dpb_worktimefund_model_worktime as wt', 'wt.id', '=', 'dpb_worktimefund_model_activityrecord.parent_id')
@@ -63,9 +64,9 @@ class SumarReport implements ReportDriver
                 ->label('osob_cislo'),
             TextColumn::make('meno')
                 ->label('meno'),
-            TextColumn::make('suma_cas_skutocny')
+            DurationColumn::make('suma_cas_skutocny')
                 ->label('suma_cas_skutocny'),
-            TextColumn::make('suma_cas_norma')
+            DurationColumn::make('suma_cas_norma')
                 ->label('suma_cas_norma'),
             TextColumn::make('plnenie')
                 ->label('plnenie'),
