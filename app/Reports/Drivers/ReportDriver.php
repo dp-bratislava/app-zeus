@@ -42,8 +42,4 @@ interface ReportDriver
      */
     public function applyQueryModifications(Builder $query): Builder;
 
-    /**
-     * Get the export column definitions for the exporter service
-     */
-    public function getExportColumns(): array;
 }

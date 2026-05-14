@@ -34,7 +34,6 @@ class ReportsResource extends Resource
 
         return $table
             ->query($driver->getQuery())
-            ->heading(__('reports/work-activity-report.table.heading'))
             ->deferLoading()
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);
@@ -44,30 +43,6 @@ class ReportsResource extends Resource
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
             ->filtersLayout(FiltersLayout::AboveContent)
-            ->headerActions([
-                Action::make('export')
-                    ->label('Export')
-                    ->icon('heroicon-o-arrow-down-tray')
-                    ->action(function ($livewire) use ($driver) {
-                        $filters = $livewire->getTableFiltersForm()->getState();
-
-                        $fileName = 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
-                        $exporter = $driver->getExporter();
-                        $filename = $driver->generateExportFilename();
-                        ExportReportJob::dispatch(
-                            new $exporter(),
-                            $filters,
-                            $filename,
-                            auth()->id(),
-                        );
-
-                        Notification::make()
-                            ->title(__('reports/export.export_started.title'))
-                            ->body(__('reports/export.export_started.body'))
-                            ->success()
-                            ->send();
-                    })
-            ])
             ->recordActions([])
             ->toolbarActions([])
             ->defaultSort('id', 'asc');
