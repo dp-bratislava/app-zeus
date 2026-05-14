@@ -37,7 +37,7 @@ return [
         ],
         'filters' => [
             'date_from' => 'Dátum od',
-            'date_to' => 'Dátum od',
+            'date_to' => 'Dátum do',
             'department' => 'Stredisko',
             'activity_is_fulfilled' => 'Splnené',
         ],

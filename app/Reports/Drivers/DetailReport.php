@@ -4,15 +4,15 @@ namespace App\Reports\Drivers;
 
 use App\Filament\Exports\Reports\DetailReportExporter;
 use App\Models\Reports\WorkActivityReport;
-use App\Models\Snapshots\ReportSyncState;
 use App\Models\Snapshots\WorkTaskSubject;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
-use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DatePicker;
 use Dpb\DatahubSync\Models\Department;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 
 class DetailReport implements ReportDriver
 {
@@ -118,12 +118,12 @@ class DetailReport implements ReportDriver
     public function getFilters(): array
     {
         return [
-            Tables\Filters\Filter::make('activity_date')
+            Filter::make('activity_date')
                 ->form([
                     DatePicker::make('activity_date_from')
-                        ->label(__('reports/work-activity-report.table.filters.date_from')),
+                        ->label('Dátum od'),
                     DatePicker::make('activity_date_to')
-                        ->label(__('reports/work-activity-report.table.filters.date_to')),
+                        ->label('Dátum do'),
 
                 ])
                 ->query(function (Builder $query, array $data): Builder {
@@ -139,14 +139,14 @@ class DetailReport implements ReportDriver
                 })->columns(2),
 
             // department
-            Tables\Filters\SelectFilter::make('department')
+            SelectFilter::make('department')
                 ->label(__('reports/work-activity-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->attribute('department_code'),
 
             // is fulfilled
-            Tables\Filters\SelectFilter::make('is_fulfilled_label')
+            SelectFilter::make('is_fulfilled_label')
                 ->label(__('reports/work-activity-report.table.filters.activity_is_fulfilled'))
                 ->options([
                     'Nevyhodnotené' => 'Nevyhodnotené',

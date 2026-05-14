@@ -6,10 +6,11 @@ namespace App\Reports\Drivers;
 use App\Filament\Exports\Reports\SumarReportExporter;
 use App\Models\Reports\WorktimeFundPerformanceReport;
 use Dpb\Departments\Services\DepartmentService;
-use Filament\Forms;
-use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\DatePicker;
 
 
 class SumarReport implements ReportDriver
@@ -55,17 +56,17 @@ class SumarReport implements ReportDriver
     public function getColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('stredisko')
+            TextColumn::make('stredisko')
                 ->label('stredisko'),
-            Tables\Columns\TextColumn::make('osob_cislo')
+            TextColumn::make('osob_cislo')
                 ->label('osob_cislo'),
-            Tables\Columns\TextColumn::make('meno')
+            TextColumn::make('meno')
                 ->label('meno'),
-            Tables\Columns\TextColumn::make('suma_cas_skutocny')
+            TextColumn::make('suma_cas_skutocny')
                 ->label('suma_cas_skutocny'),
-            Tables\Columns\TextColumn::make('suma_cas_norma')
+            TextColumn::make('suma_cas_norma')
                 ->label('suma_cas_norma'),
-            Tables\Columns\TextColumn::make('plnenie')
+            TextColumn::make('plnenie')
                 ->label('plnenie'),
         ];
     }
@@ -73,12 +74,12 @@ class SumarReport implements ReportDriver
     public function getFilters(): array
     {
         return [
-            Tables\Filters\Filter::make('date')
+            Filter::make('date')
                 ->form([
-                    Forms\Components\DatePicker::make('date_from')
-                        ->label('From Date'),
-                    Forms\Components\DatePicker::make('date_to')
-                        ->label('To Date'),
+                    DatePicker::make('date_from')
+                        ->label('Dátum od'),
+                    DatePicker::make('date_to')
+                        ->label('Dátum do'),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
