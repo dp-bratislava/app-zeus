@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class SumarReportExporter extends BaseReportExporter
 {
-    protected string $baseUrl = 'http://host.docker.internal:8111';
-
     protected function columns(): array
     {
         return [
