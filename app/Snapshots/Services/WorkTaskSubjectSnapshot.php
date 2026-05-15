@@ -51,27 +51,21 @@ class WorkTaskSubjectSnapshot implements SnapshotContract
                 SELECT
                     sb.task_id,
                     COALESCE(sb.type, at.title) as type,
-                    COALESCE(vr.label, tr.label, ao.label) AS label,
+                    COALESCE(
+                        CASE WHEN sb.type = 'Vozidlo' THEN COALESCE(fvs.code, fvs.licence_plate, 'N/A') END,
+                        tr.label, 
+                        ao.label
+                    ) AS label,
                     sb.updated_at
                 FROM subject_base sb
-                    LEFT JOIN vehicle_resolved vr ON vr.vehicle_id = sb.entity_id AND sb.type = 'Vozidlo'
+                    LEFT JOIN fleet_vehicles v 
+                        ON v.id = sb.entity_id AND sb.type = 'Vozidlo'
+                    LEFT JOIN mvw_fleet_vehicle_snapshots fvs 
+                        ON fvs.vehicle_id = v.id AND sb.type = 'Vozidlo'
                     LEFT JOIN table_resolved tr ON tr.device_id = sb.entity_id AND sb.type = 'Zastávková tabuľa'
                     LEFT JOIN dpb_worktimefund_mm_morphable_attributeoption mao ON mao.morphable_id = sb.task_id AND mao.morphable_type = 'Dpb\\\\WorkTimeFund\\\\Models\\\\Task'
                     LEFT JOIN dpb_worktimefund_model_attributeoption ao ON ao.id = mao.attributeoption_id
-                    LEFT JOIN dpb_worktimefund_model_attributetype at ON at.id = ao.attributetype_id                
-            )
-        ";
-    }
-
-    protected function vehicleResolvedCTE(string $uri = 'vehicle_resolved'): string
-    {
-        return "
-            vehicle_resolved AS (
-                SELECT
-                    v.id AS vehicle_id,
-                    COALESCE(fvs.code, fvs.licence_plate, 'N/A') AS label
-                FROM fleet_vehicles v
-                    LEFT JOIN mvw_fleet_vehicle_snapshots fvs on fvs.vehicle_id = v.id
+                    LEFT JOIN dpb_worktimefund_model_attributetype at ON at.id = ao.attributetype_id     
             )        
         ";
     }
@@ -102,7 +96,6 @@ class WorkTaskSubjectSnapshot implements SnapshotContract
     protected function with(string $tempTable): string
     {
         return "
-            {$this->vehicleResolvedCTE()},
             {$this->resolvedTableCTE()},
             {$this->resolvedSubjectTypeCTE($tempTable)}
         ";
