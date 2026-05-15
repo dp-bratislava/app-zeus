@@ -3,14 +3,19 @@
 namespace App\Reports\Exports;
 
 use App\Models\Reports\Export;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 
 abstract class BaseReportExporter
 {
-    protected string $baseUrl = 'http://127.0.0.1:8111';
+    protected string $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl = Config::get('reports.exporter_url');
+    }
 
     /**
      * Get the columns configuration for export
