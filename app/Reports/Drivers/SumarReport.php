@@ -99,6 +99,7 @@ class SumarReport implements ReportDriver
                 ->label(__('reports/work-activity-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
+                ->searchable()
                 ->query(function (Builder $query, array $data): Builder {
             return $query->when(
                 $data['values'],

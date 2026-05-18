@@ -153,6 +153,7 @@ class DetailReport implements ReportDriver
                 ->label(__('reports/work-activity-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
+                ->searchable()
                 ->attribute('department_code'),
 
             // is fulfilled
