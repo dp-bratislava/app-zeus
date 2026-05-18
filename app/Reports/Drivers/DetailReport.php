@@ -75,17 +75,20 @@ class DetailReport implements ReportDriver
                 ->date('Y-m-d'),
             TextColumn::make('personal_id')
                 ->label(__('reports/work-activity-report.table.columns.personal_id')),
-            TextColumn::make('last_name')
-                ->label(__('reports/work-activity-report.table.columns.full_name'))
-                ->formatStateUsing(fn($record): string => "{$record->last_name} {$record->first_name}"),
+            TextColumn::make('full_name')
+                ->label(__('reports/work-activity-report.table.columns.full_name')),
             TextColumn::make('department_code')
                 ->label(__('reports/work-activity-report.table.columns.department_code')),
             TextColumn::make('task_group_title')
                 ->label(__('reports/work-activity-report.table.columns.task_group_title')),
             TextColumn::make('task_item_group_title')
-                ->label(__('reports/work-activity-report.table.columns.task_item_group_title')),
+                ->label(__('reports/work-activity-report.table.columns.task_item_group_title'))
+                ->limit(20)
+                ->tooltip(fn($record) => $record->task_item_group_title),
             TextColumn::make('activity_title')
-                ->label(__('reports/work-activity-report.table.columns.activity_title')),
+                ->label(__('reports/work-activity-report.table.columns.activity_title'))
+                ->limit(20)
+                ->tooltip(fn($record) => $record->activity_title),
             TextColumn::make('activity_expected_duration')
                 ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
                 ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
