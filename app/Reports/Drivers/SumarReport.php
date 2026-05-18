@@ -62,7 +62,7 @@ class SumarReport implements ReportDriver
                 ->label('Stredisko'),
             TextColumn::make('osob_cislo')
                 ->label('Osobné číslo'),
-            TextColumn::make('Meno')
+            TextColumn::make('meno')
                 ->label('Meno'),
             DurationColumn::make('suma_cas_skutocny')
                 ->label('Čas skutočný'),

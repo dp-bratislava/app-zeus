@@ -6,7 +6,7 @@ return [
         'heading' => 'Zostava - detail prác',
         'columns' => [
             'activity_date' => 'Výkon práce',
-            'personal_id' => 'Osobné číslo',
+            'personal_id' => 'Os. číslo',
             'full_name' => 'Meno',
             'last_name' => 'Priezvisko',
             'first_name' => 'Meno',
