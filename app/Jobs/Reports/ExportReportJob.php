@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Jobs\Reports;
+
+use App\Filament\Exports\Reports\DetailReportExporter;
+use App\Models\User;
+use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use App\Reports\Exports\BaseReportExporter;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+
+class ExportReportJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * Create a new job instance.
+     */
+    public function __construct(
+        public BaseReportExporter $exporter,
+        public array $filters,
+        public string $fileName,
+        public int $userId,
+    ) {}
+
+
+    public function handle()
+    {
+        $user = User::find($this->userId);
+        $exporter = $this->exporter;
+        $export = $exporter->run($this->filters, $user->id, $this->fileName);
+        Notification::make()
+            ->title(__('reports/export.export_finished.title'))
+            ->body(__('reports/export.export_finished.body', ['filename' => $export->file_name]))
+            ->success()
+            ->actions([
+                Action::make('download')
+                    ->label(__('reports/export.actions.download'))
+                    ->url(route('exports.download', $export))
+                    ->openUrlInNewTab(),
+            ])
+            ->sendToDatabase($user);
+    }
+}
