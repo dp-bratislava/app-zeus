@@ -79,7 +79,8 @@
         "spatie/laravel-model-states": "^2.12",
         "spatie/laravel-package-tools": "^1.92",
         "spatie/laravel-schedule-monitor": "^3.10",
-        "symfony/dotenv": "^7.1"
+        "symfony/dotenv": "^7.1",
+        "watheqalshowaiter/filament-sticky-table-header": "^1.5"
     },
     "require-dev": {
         "filament/upgrade": "^5.0",
