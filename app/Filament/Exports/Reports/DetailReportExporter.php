@@ -4,9 +4,18 @@ namespace App\Filament\Exports\Reports;
 
 use App\Reports\Exports\BaseReportExporter;
 use Illuminate\Support\Facades\DB;
+use Dpb\Departments\Services\DepartmentService;
 
 class DetailReportExporter extends BaseReportExporter
 {
+    private ?DepartmentService $departmentService = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->departmentService = app(DepartmentService::class);
+    }
+
     protected const DYNAMIC_COLUMN_PREFIX = 'dc_';
     protected const SUBJECT_TABLE_ALIAS = 'wtss';
 
@@ -91,6 +100,8 @@ class DetailReportExporter extends BaseReportExporter
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('department_code', $departmentCodes);
             })
+            // Always apply available departments filter (same as applyQueryModifications)
+            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
             ->when(data_get($filters, 'is_fulfilled_label.values'), function ($q) use ($filters) {
                 $values = data_get($filters, 'is_fulfilled_label.values');
                 $q->whereIn('activity_is_fulfilled_label', $values);

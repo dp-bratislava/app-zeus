@@ -3,10 +3,19 @@
 namespace App\Filament\Exports\Reports;
 
 use App\Reports\Exports\BaseReportExporter;
+use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Support\Facades\DB;
 
 class SumarReportExporter extends BaseReportExporter
 {
+    private ?DepartmentService $departmentService = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->departmentService = app(DepartmentService::class);
+    }
+
     protected function columns(): array
     {
         return [
@@ -51,6 +60,8 @@ class SumarReportExporter extends BaseReportExporter
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('d.code', $departmentCodes);
             })
+            // Always apply available departments filter (same as applyQueryModifications)
+            ->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'))
             ->groupBy('c.pid', 'wt.last_name', 'wt.first_name', 'd.code');
     }
 
