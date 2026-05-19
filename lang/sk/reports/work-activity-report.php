@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'list_heading' => 'Zostava - detail prác',
+    'list_heading' => 'Práce - detail',
     'table' => [
-        'heading' => 'Zostava - detail prác',
+        'heading' => 'Práce - detail',
         'columns' => [
             'activity_date' => 'Výkon práce',
             'personal_id' => 'Os. číslo',
@@ -47,7 +47,7 @@ return [
         ],
     ],
     'navigation' => [
-        'label' => 'Zostava - detail prác',
+        'label' => 'Práce - detail',
         'group' => 'Reporty',
     ],
     'resource' => [

@@ -31,7 +31,7 @@ class SumarReport implements ReportDriver
 
     public function name(): string
     {
-        return 'Sumár pracovníkov';
+        return 'Práce sumár';
     }
 
     public function getQuery(): Builder
