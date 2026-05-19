@@ -1,0 +1,8 @@
+.report-filters-inline-container .fi-ta-filters {
+    display: flex !important;
+    gap: 1rem;
+}
+
+.report-filters-inline-container .fi-ta-filters-heading {
+    display: none !important;
+}
