@@ -50,10 +50,10 @@ class SumarReportExporter extends BaseReportExporter
             ->where('dpb_worktimefund_model_activityrecord.type', 'O')
             
             // Apply Filters (matching the driver's date logic)
-            ->when(data_get($filters, 'date.date_from'), function ($q, $v) {
+            ->when(data_get($filters, 'date_range.date_from'), function ($q, $v) {
                 $q->whereDate('dpb_worktimefund_model_activityrecord.date', '>=', $v);
             })
-            ->when(data_get($filters, 'date.date_to'), function ($q, $v) {
+            ->when(data_get($filters, 'date_range.date_to'), function ($q, $v) {
                 $q->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $v);
             })
             // Department filter (if passed from Filament)

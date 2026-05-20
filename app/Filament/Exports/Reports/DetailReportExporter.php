@@ -6,6 +6,7 @@ use App\Reports\Exports\BaseReportExporter;
 use Illuminate\Support\Facades\DB;
 use Dpb\Departments\Services\DepartmentService;
 
+
 class DetailReportExporter extends BaseReportExporter
 {
     private ?DepartmentService $departmentService = null;
@@ -95,19 +96,14 @@ class DetailReportExporter extends BaseReportExporter
                 'ar.id',
                 ...$staticColumns,
             ])
-            ->when(data_get($filters, 'activity_date.activity_date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
-            ->when(data_get($filters, 'activity_date.activity_date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
+            ->when(data_get($filters, 'date_range.date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
+            ->when(data_get($filters, 'date_range.date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('department_code', $departmentCodes);
             })
             // Always apply available departments filter (same as applyQueryModifications)
-            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
-            ->when(data_get($filters, 'is_fulfilled_label.values'), function ($q) use ($filters) {
-                $values = data_get($filters, 'is_fulfilled_label.values');
-                $q->whereIn('activity_is_fulfilled_label', $values);
-            });
+            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
 
-            // dd($result->toRawSql(), $dynamicColumns);
             return $result;
     }
 

@@ -14,6 +14,10 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Dpb\DatahubSync\Models\Department;
 use App\Filament\Components\DurationColumn;
+use Carbon\Carbon;
+use Illuminate\Support\HtmlString;
+use App\Services\DateRangeValidator;
+use Filament\Forms\Components\Placeholder;
 
 class SumarReport implements ReportDriver
 {
@@ -75,15 +79,43 @@ class SumarReport implements ReportDriver
 
     public function getFilters(): array
     {
+        $validator = new DateRangeValidator(120);
+
         return [
-            Filter::make('date')
+            Filter::make('date_range')
                 ->form([
                     DatePicker::make('date_from')
-                        ->label('Dátum od'),
+                        ->label('Dátum od')
+                        ->default(now()->subDays(120)->format('Y-m-d')) // Prefills 120 days ago
+                        ->live(onBlur: true),
                     DatePicker::make('date_to')
-                        ->label('Dátum do'),
+                        ->label('Dátum do')
+                        ->default(now()->format('Y-m-d')) // Prefills today
+                        ->live(onBlur: true),
+                    Placeholder::make('date_error')
+                        ->content(function ($get) use ($validator) {
+                            $from = $get('date_from');
+                            $to = $get('date_to');
+                            $validation = $validator->validate($from, $to);
+
+                            if (!$validation['isValid']) {
+                                return new HtmlString('
+                                    <span style="color: red">
+                                        ' . $validation['error'] . '
+                                    </span>
+                                ');
+                            }
+
+                            return '';
+                        })
+                        ->hiddenLabel(),
                 ])
-                ->query(function (Builder $query, array $data): Builder {
+                ->query(function (Builder $query, array $data) use ($validator): Builder {
+                    if ($data['date_from'] && $data['date_to']) {
+                        if (!$validator->validate($data['date_from'], $data['date_to'])['isValid']) {
+                            return $query->whereRaw('1 = 0');
+                        }
+                    }
                     return $query
                         ->when(
                             $data['date_from'],
@@ -93,7 +125,7 @@ class SumarReport implements ReportDriver
                             $data['date_to'],
                             fn (Builder $query, $date): Builder => $query->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $date),
                         );
-                })->columns(2),
+                })->columns(3),
 
             SelectFilter::make('department')
                 ->label(__('reports/work-activity-report.table.filters.department'))

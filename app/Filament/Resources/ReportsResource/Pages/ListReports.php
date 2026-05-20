@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Filament\Notifications\Notification;
 use App\Jobs\Reports\ExportReportJob;
 use Illuminate\Support\Facades\Blade;
+use App\Services\DateRangeValidator;
 
 class ListReports extends ListRecords
 {
@@ -76,29 +77,48 @@ class ListReports extends ListRecords
     ]));
 }
     public function runExport(): void
-{
-    // Get the driver based on current selection
-    $driver = ReportFactory::make($this->currentReportType);
-    
-    // Get filter state directly from the table form
-    $filters = $this->getTableFiltersForm()->getState();
+    {
+        $driver = ReportFactory::make($this->currentReportType);
+        
+        $filters = $this->getTableFiltersForm()->getState();
 
-    $exporter = $driver->getExporter();
-    $filename = $driver->generateExportFilename();
+        $exporter = $driver->getExporter();
+        $filename = $driver->generateExportFilename();
 
-    ExportReportJob::dispatch(
-        new $exporter(),
-        $filters,
-        $filename,
-        auth()->id(),
-    );
+        $dateFrom = data_get($filters, 'date_range.date_from');
+        $dateTo = data_get($filters, 'date_range.date_to');
 
-    Notification::make()
-        ->title(__('reports/export.export_started.title'))
-        ->body(__('reports/export.export_started.body'))
-        ->success()
-        ->send();
-}
+        if ($dateFrom && $dateTo) {
+            $validation = $this->validateDateRange($dateFrom, $dateTo);
+
+            if (!$validation['isValid']) {
+                Notification::make()
+                    ->body($validation['error'])
+                    ->danger() 
+                    ->send();
+                return;
+            }
+        }
+
+        ExportReportJob::dispatch(
+            new $exporter(),
+            $filters,
+            $filename,
+            auth()->id(),
+        );
+
+        Notification::make()
+            ->title(__('reports/export.export_started.title'))
+            ->body(__('reports/export.export_started.body'))
+            ->success()
+            ->send();
+    }
+    private function validateDateRange($from, $to): array
+    {
+        $validator = new DateRangeValidator();
+
+        return $validator->validate($from, $to);
+    }
 
 
 }

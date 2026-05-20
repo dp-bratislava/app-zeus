@@ -6,3 +6,8 @@
 .report-filters-inline-container .fi-ta-filters-heading {
     display: none !important;
 }
+.report-filters-inline-container .fi-ta-filters-actions-ctn{
+    height: 36px;
+    align-self: center;
+    flex-shrink: 0;
+}

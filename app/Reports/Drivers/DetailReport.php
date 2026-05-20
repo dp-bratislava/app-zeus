@@ -3,6 +3,7 @@
 namespace App\Reports\Drivers;
 
 use App\Filament\Exports\Reports\DetailReportExporter;
+use App\Services\DateRangeValidator;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\WorkTaskSubject;
 use Carbon\CarbonInterval;
@@ -14,6 +15,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Components\DurationColumn;
+use Carbon\Carbon;
+use Illuminate\Support\HtmlString;
+
+use Filament\Forms\Components\Placeholder;
 
 class DetailReport implements ReportDriver
 {
@@ -127,26 +132,56 @@ class DetailReport implements ReportDriver
 
     public function getFilters(): array
     {
-        return [
-            Filter::make('activity_date')
-                ->form([
-                    DatePicker::make('activity_date_from')
-                        ->label('Dátum od'),
-                    DatePicker::make('activity_date_to')
-                        ->label('Dátum do'),
+        $validator = new DateRangeValidator(120);
 
+        return [
+            Filter::make('date_range')
+                ->form([
+                    DatePicker::make('date_from')
+                        ->label('Dátum od')
+                        ->default(now()->subDays(120)->format('Y-m-d')) // Prefills 120 days ago
+                        ->live(onBlur: true),
+                    DatePicker::make('date_to')
+                        ->label('Dátum do')
+                        ->default(now()->format('Y-m-d')) // Prefills today
+                        ->live(onBlur: true),
+                    Placeholder::make('date_error')
+                        ->content(function ($get) use ($validator) {
+                            $from = $get('date_from');
+                            $to = $get('date_to');
+                            $validation = $validator->validate($from, $to);
+
+                            if (!$validation['isValid']) {
+                                return new HtmlString('
+                                    <span style="color: red">
+                                        ' . $validation['error'] . '
+                                    </span>
+                                ');
+                            }
+
+                            return '';
+                        })
+                        ->hiddenLabel(),
                 ])
-                ->query(function (Builder $query, array $data): Builder {
+                ->query(function (Builder $query, array $data) use ($validator): Builder {
+                    // Validate the date range before querying
+                    if ($data['date_from'] && $data['date_to']) {
+                        if (!$validator->validate($data['date_from'], $data['date_to'])['isValid']) {
+                            return $query->whereRaw('1 = 0');
+                        }
+                    }
+
                     return $query
                         ->when(
-                            $data['activity_date_from'],
+                            $data['date_from'],
                             fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
                         )
                         ->when(
-                            $data['activity_date_to'],
+                            $data['date_to'],
                             fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
                         );
-                })->columns(2),
+                })
+                ->columns(3),
 
             // department
             SelectFilter::make('department')
@@ -157,16 +192,7 @@ class DetailReport implements ReportDriver
                 ->attribute('department_code'),
 
             // is fulfilled
-            SelectFilter::make('is_fulfilled_label')
-                ->label(__('reports/work-activity-report.table.filters.activity_is_fulfilled'))
-                ->options([
-                    'Nevyhodnotené' => 'Nevyhodnotené',
-                    'Nie' => 'Nie',
-                    'Áno' => 'Áno',
-                ])
-                ->multiple()
-                ->attribute('activity_is_fulfilled_label'),
-            ];
+        ];
     }
 
     public function getExporter(): string
