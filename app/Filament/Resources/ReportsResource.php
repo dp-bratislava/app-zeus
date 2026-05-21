@@ -18,7 +18,7 @@ class ReportsResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('reports/work-activity-report.navigation.label');
+        return __('reports/reports.navigation_label');
     }
 
     public static function table(Table $table): Table

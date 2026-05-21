@@ -35,7 +35,7 @@ class DetailReport implements ReportDriver
 
     public function name(): string
     {
-        return __('reports/work-activity-report.navigation.label');
+        return __('reports/detail-report.navigation.label');
     }
 
     public function getQuery(): Builder
@@ -87,27 +87,27 @@ class DetailReport implements ReportDriver
 
         return array_merge([
             TextColumn::make('activity_date')
-                ->label(__('reports/work-activity-report.table.columns.activity_date'))
+                ->label(__('reports/detail-report.table.columns.activity_date'))
                 ->date('Y-m-d'),
             TextColumn::make('personal_id')
-                ->label(__('reports/work-activity-report.table.columns.personal_id')),
+                ->label(__('reports/detail-report.table.columns.personal_id')),
             TextColumn::make('full_name')
-                ->label(__('reports/work-activity-report.table.columns.full_name')),
+                ->label(__('reports/detail-report.table.columns.full_name')),
             TextColumn::make('department_code')
-                ->label(__('reports/work-activity-report.table.columns.department_code')),
+                ->label(__('reports/detail-report.table.columns.department_code')),
             TextColumn::make('task_group_title')
-                ->label(__('reports/work-activity-report.table.columns.task_group_title')),
+                ->label(__('reports/detail-report.table.columns.task_group_title')),
             TextColumn::make('task_item_group_title')
-                ->label(__('reports/work-activity-report.table.columns.task_item_group_title'))
+                ->label(__('reports/detail-report.table.columns.task_item_group_title'))
                 ->limit(20)
                 ->tooltip(fn($record) => $record->task_item_group_title),
             TextColumn::make('activity_title')
-                ->label(__('reports/work-activity-report.table.columns.activity_title'))
+                ->label(__('reports/detail-report.table.columns.activity_title'))
                 ->limit(20)
                 ->tooltip(fn($record) => $record->activity_title),
             TextColumn::make('activity_expected_duration')
-                ->label(__('reports/work-activity-report.table.columns.activity_expected_duration.label'))
-                ->tooltip(__('reports/work-activity-report.table.columns.activity_expected_duration.tooltip'))
+                ->label(__('reports/detail-report.table.columns.activity_expected_duration.label'))
+                ->tooltip(__('reports/detail-report.table.columns.activity_expected_duration.tooltip'))
                 ->formatStateUsing(function ($record) {
                     // Determine which value to use
                     $seconds = $record->activity_expected_duration >= 0 
@@ -121,12 +121,12 @@ class DetailReport implements ReportDriver
                 }),
                 
             DurationColumn::make('activity_real_duration')
-                ->label(__('reports/work-activity-report.table.columns.activity_real_duration.label'))
-                ->tooltip(__('reports/work-activity-report.table.columns.activity_real_duration.tooltip')),
+                ->label(__('reports/detail-report.table.columns.activity_real_duration.label'))
+                ->tooltip(__('reports/detail-report.table.columns.activity_real_duration.tooltip')),
             TextColumn::make('activity_is_fulfilled_label')
-                ->label(__('reports/work-activity-report.table.columns.activity_is_fulfilled')),
+                ->label(__('reports/detail-report.table.columns.activity_is_fulfilled')),
             TextColumn::make('task_id')
-                ->label(__('reports/work-activity-report.table.columns.task_id'))
+                ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(
                     fn($record) => $record->task_id
                         ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
@@ -137,7 +137,7 @@ class DetailReport implements ReportDriver
                     'class' => $state ? 'underline cursor-pointer' : '',
                 ]),
             TextColumn::make('task_item_author_lastname')
-                ->label(__('reports/work-activity-report.table.columns.task_item_author_lastname')),
+                ->label(__('reports/detail-report.table.columns.task_item_author_lastname')),
         ], $dynamicColumns);
     }
 
@@ -196,7 +196,7 @@ class DetailReport implements ReportDriver
 
             // department
             SelectFilter::make('department')
-                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->label(__('reports/detail-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()

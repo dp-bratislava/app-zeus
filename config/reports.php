@@ -12,6 +12,6 @@ return [
     |
     */
 
-    'exporter_url' => env('REPORTS_EXPORTER_URL', 'http://127.0.0.1:8111'),
+    'exporter_url' => env('REPORTS_EXPORTER_URL', 'http://host.docker.internal:8111'),
 
 ];

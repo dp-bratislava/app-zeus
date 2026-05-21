@@ -128,7 +128,7 @@ class SumarReport implements ReportDriver
                 })->columns(3),
 
             SelectFilter::make('department')
-                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->label(__('reports/detail-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()
