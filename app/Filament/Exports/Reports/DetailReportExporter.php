@@ -24,7 +24,9 @@ class DetailReportExporter extends BaseReportExporter
     protected function dynamicColumns(): array
     {
         $departmentCodes = data_get($this->filters, 'department.values');
-        $departmentCodes ?? $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
+        if(empty($departmentCodes)) {
+            $departmentCodes = $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
+        }
         $subjectTypes = DB::table('mvw_work_task_subject_snapshots AS wtss')
         ->whereExists(function ($query) use ($departmentCodes) {
             $query->select(DB::raw(1))

@@ -11,3 +11,8 @@
     align-self: center;
     flex-shrink: 0;
 }
+
+.fi-page-header-main-ctn{
+    row-gap: 1rem !important;
+    padding-block: 1rem !important;
+}
