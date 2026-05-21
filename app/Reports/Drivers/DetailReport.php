@@ -17,7 +17,6 @@ use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Components\DurationColumn;
 use Carbon\Carbon;
 use Illuminate\Support\HtmlString;
-
 use Filament\Forms\Components\Placeholder;
 
 class DetailReport implements ReportDriver
@@ -46,20 +45,20 @@ class DetailReport implements ReportDriver
 
     public function getColumns(): array
     {
-        // 1. Fetch unique types from your snapshot/subject table
-        $subjectTypes = WorkTaskSubject::query()
-            ->whereHas('activity', function ($query) {
-                $query->whereIn(
-                    'department_code',
-                    $this->departmentService->getAvailableDepartments()->pluck('code')
-                );
-            })
-            ->distinct()
-            ->pluck('subject_type');
+        $departmentValues = $this->departmentService->getAvailableDepartments()->pluck('code');
+            
+        $subjectTypesWithDepartments = WorkTaskSubject::query()
+            ->join('mvw_work_activity_report_v2', 'mvw_work_task_subject_snapshots.wtf_task_id', '=', 'mvw_work_activity_report_v2.wtf_task_id') // Adjust foreign/primary keys to match your schema
+            ->whereIn('mvw_work_activity_report_v2.department_code', $departmentValues)
+            ->groupBy('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
+            ->select('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
+            ->get()
+            ->groupBy('subject_type')
+            ->map(fn($group) => $group->pluck('department_code')->toArray());
 
-        $dynamicColumns = [];
+            $dynamicColumns = [];
 
-        foreach ($subjectTypes as $type) {
+        foreach ($subjectTypesWithDepartments as $type => $allowedDepartments) {
             $dynamicColumns[] = TextColumn::make("subject_{$type}")
                 ->label(fn() => match ($type) {
                     'vehicle' => 'Vozidlo',
@@ -71,6 +70,18 @@ class DetailReport implements ReportDriver
                         ->where('subject_type', $type)
                         ->pluck('subject_label')
                         ->join(', ');
+                })
+                ->hidden(function ($livewire) use ($allowedDepartments) {
+                    $filterState = $livewire->getTableFilterState('department');
+                    $selectedDepartments = $filterState['values'] ?? null;
+
+                    // If no filter is applied, show the column
+                    if (blank($selectedDepartments)) {
+                        return false;
+                    }
+
+                    // Hide the column if the selected filter value is not in the allowed departments for this type
+                    return empty(array_intersect($selectedDepartments, $allowedDepartments));
                 });
         }
 
@@ -190,8 +201,6 @@ class DetailReport implements ReportDriver
                 ->multiple()
                 ->searchable()
                 ->attribute('department_code'),
-
-            // is fulfilled
         ];
     }
 

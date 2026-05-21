@@ -10,6 +10,7 @@ use Dpb\Departments\Services\DepartmentService;
 class DetailReportExporter extends BaseReportExporter
 {
     private ?DepartmentService $departmentService = null;
+    private array $filters = [];
 
     public function __construct()
     {
@@ -22,10 +23,18 @@ class DetailReportExporter extends BaseReportExporter
 
     protected function dynamicColumns(): array
     {
-        $subjectTypes = DB::table('mvw_work_task_subject_snapshots')
-            ->distinct()
-            ->pluck('subject_type')
-            ->toArray();
+        $departmentCodes = data_get($this->filters, 'department.values');
+        $departmentCodes ?? $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
+        $subjectTypes = DB::table('mvw_work_task_subject_snapshots AS wtss')
+        ->whereExists(function ($query) use ($departmentCodes) {
+            $query->select(DB::raw(1))
+                ->from('mvw_work_activity_report_v2 AS ar')
+                ->whereColumn('ar.wtf_task_id', 'wtss.wtf_task_id')
+                ->whereIn('ar.department_code', $departmentCodes);
+        })
+        ->distinct()
+        ->pluck('wtss.subject_type')
+        ->toArray();
 
         $columns = [];
 
@@ -74,8 +83,8 @@ class DetailReportExporter extends BaseReportExporter
 
     protected function query(array $filters)
     {
+        $this->filters = $filters;
         $departmentCodes = data_get($filters, 'department.values');
-
         $staticColumns = array_column(
             array_filter($this->columns(), fn($c) => ($c['static'] ?? true)),
             'key'
