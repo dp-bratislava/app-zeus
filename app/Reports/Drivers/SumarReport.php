@@ -155,4 +155,9 @@ class SumarReport implements ReportDriver
     {
         return $query->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'));
     }
+
+    public function lastSyncedAt(): ?string
+    {
+        return 'teraz';
+    }
 }

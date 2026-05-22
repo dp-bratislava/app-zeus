@@ -220,4 +220,9 @@ class DetailReport implements ReportDriver
             ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
             ->with('taskSubjects');
     }
+
+    public function lastSyncedAt(): ?string
+    {
+        return WorkActivityReport::getLastSyncedAt();
+    }
 }

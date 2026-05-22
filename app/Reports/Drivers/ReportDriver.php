@@ -42,4 +42,6 @@ interface ReportDriver
      */
     public function applyQueryModifications(Builder $query): Builder;
 
+    public function lastSyncedAt(): ?string;
+
 }

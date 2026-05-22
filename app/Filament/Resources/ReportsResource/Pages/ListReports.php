@@ -39,6 +39,10 @@ class ListReports extends ListRecords
         $currentReport = $this->currentReportType;
         $reports = ReportFactory::getAvailable();
         
+        // Get current driver and last synced date
+        $driver = ReportFactory::make($currentReport);
+        $lastSyncedAt = $driver->lastSyncedAt();
+        
         $options = collect($reports)->mapWithKeys(fn($driver, $key) => [
             $key => $driver->name()
         ])->toArray();
@@ -56,11 +60,15 @@ class ListReports extends ListRecords
         return new \Illuminate\Support\HtmlString(Blade::render('
         <div class="flex items-center justify-between gap-x-4">
             <div class="flex items-center gap-x-3">
-                <label class="text-sm font-medium text-gray-700 dark:text-gray-200">Zvoľte typ reportu:</label>
+                <label class="whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-200">Zvoľte typ reportu:</label>
                 <select onchange="{!! $onChange !!}" 
                     class="fi-select-input block w-full rounded-lg border-none bg-white shadow-sm ring-1 ring-gray-950/10 transition duration-75 focus:ring-2 focus:ring-primary-600 dark:bg-white/5 dark:ring-white/20">
                     {!! $optionsHtml !!}
                 </select>
+                <div class="flex flex-col text-sm text-gray-500 dark:text-gray-400">
+                    <span class="whitespace-nowrap">Posledná synchronizácia:</span>
+                    <strong class="whitespace-nowrap">{{ $lastSyncedAt }}</strong>
+                </div>
             </div>
 
             <x-filament::button 
@@ -74,6 +82,7 @@ class ListReports extends ListRecords
     ', [
         'onChange' => $onChange,
         'optionsHtml' => $optionsHtml,
+        'lastSyncedAt' => $lastSyncedAt,
     ]));
 }
     public function runExport(): void
