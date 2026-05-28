@@ -1091,10 +1091,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-auditing/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/dpb-auditing/issues"
-            },
             "time": "2026-02-05T09:37:03+00:00"
         },
         {
@@ -1102,7 +1098,7 @@
             "version": "v12.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/dpb-departments.git",
+                "url": "git@github.com:dp-bratislava/dpb-departments.git",
                 "reference": "f21cb87e6499ab6a9ad833aa92134a5a9f13818d"
             },
             "dist": {
@@ -1140,10 +1136,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-departments/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-departments/issues"
-            },
             "time": "2026-04-28T14:47:11+00:00"
         },
         {
@@ -1152,12 +1144,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-employee-manager.git",
-                "reference": "0e34f7674b8f9b4385d56f73ba7e12346abce353"
+                "reference": "50e98dd110ebd15528b1d9ae371b5450c4089c37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/0e34f7674b8f9b4385d56f73ba7e12346abce353",
-                "reference": "0e34f7674b8f9b4385d56f73ba7e12346abce353",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-employee-manager/zipball/50e98dd110ebd15528b1d9ae371b5450c4089c37",
+                "reference": "50e98dd110ebd15528b1d9ae371b5450c4089c37",
                 "shasum": ""
             },
             "require": {
@@ -1186,11 +1178,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-employee-manager/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/dpb-employee-manager/issues"
-            },
-            "time": "2026-05-05T13:03:49+00:00"
+            "time": "2026-05-13T13:12:57+00:00"
         },
         {
             "name": "dpb/dpb-insights",
@@ -1233,10 +1221,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-insights/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-insights/issues"
-            },
             "time": "2026-04-28T14:42:57+00:00"
         },
         {
@@ -1244,7 +1228,7 @@
             "version": "v12.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/dpb-master-permission-guard.git",
+                "url": "git@github.com:dp-bratislava/dpb-master-permission-guard.git",
                 "reference": "6c1c03fb61293b2c78ddacf1f1f58f5dc682e319"
             },
             "dist": {
@@ -1280,10 +1264,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-master-permission-guard/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-master-permission-guard/issues"
-            },
             "time": "2026-04-28T14:48:28+00:00"
         },
         {
@@ -1322,10 +1302,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-utils/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-utils/issues"
-            },
             "time": "2026-04-28T14:44:04+00:00"
         },
         {
@@ -1380,10 +1356,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
             "time": "2026-05-08T07:47:24+00:00"
         },
         {
@@ -1426,10 +1398,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
             "time": "2026-05-13T08:29:31+00:00"
         },
         {
@@ -1480,7 +1448,7 @@
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/ext-spatie-model-states.git",
+                "url": "git@github.com:dp-bratislava/ext-spatie-model-states.git",
                 "reference": "f4cf1295f813524cc35226c305e4ca06049aa265"
             },
             "dist": {
@@ -1517,29 +1485,24 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/ext-spatie-model-states/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/ext-spatie-model-states/issues"
-            },
             "time": "2025-10-09T07:30:55+00:00"
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v5.0.1",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9"
+                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9",
-                "reference": "d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/f46d0727c0d681015c2a047ab3f78c9463f97e4b",
+                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
-                "laravel/framework": "^11.0 || ^12.0",
                 "owenvoke/blade-fontawesome": "^2.9",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -1584,11 +1547,7 @@
                 "filament",
                 "users"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v5.0.1",
-                "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
-            },
-            "time": "2026-04-16T12:24:18+00:00"
+            "time": "2026-05-28T10:50:23+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",
@@ -1646,29 +1605,29 @@
                 "datahub",
                 "dpb"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/laravel-datahub-sync/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/laravel-datahub-sync/issues"
-            },
             "time": "2026-03-12T15:17:28+00:00"
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v5.1.2",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "5fd01d7832366d09c5e1e4f9673d8798ed3060ab"
+                "reference": "8d58a16abddb60c363ef705c0714231eb423d4f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/5fd01d7832366d09c5e1e4f9673d8798ed3060ab",
-                "reference": "5fd01d7832366d09c5e1e4f9673d8798ed3060ab",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/8d58a16abddb60c363ef705c0714231eb423d4f2",
+                "reference": "8d58a16abddb60c363ef705c0714231eb423d4f2",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
-                "laravel/framework": "^11.0 || ^12.0",
+                "illuminate/database": "^11.0||^12.0||^13.0",
+                "illuminate/http": "^11.0||^12.0||^13.0",
+                "illuminate/notifications": "^11.0||^12.0||^13.0",
+                "illuminate/support": "^11.0||^12.0||^13.0",
+                "illuminate/validation": "^11.0||^12.0||^13.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
@@ -1713,11 +1672,7 @@
                 "filament",
                 "users"
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.2",
-                "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
-            },
-            "time": "2026-04-28T12:25:37+00:00"
+            "time": "2026-05-28T13:37:27+00:00"
         },
         {
             "name": "dpb/pkg-activities",
@@ -1760,10 +1715,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-activities/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/pkg-activities/issues"
-            },
             "time": "2026-01-23T12:22:22+00:00"
         },
         {
@@ -1771,7 +1722,7 @@
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-batchable.git",
+                "url": "git@github.com:dp-bratislava/pkg-batchable.git",
                 "reference": "80236092a23d1d8f6bd8b45da198a8fe26d7323a"
             },
             "dist": {
@@ -1807,10 +1758,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-batchable/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/pkg-batchable/issues"
-            },
             "time": "2026-01-27T09:10:00+00:00"
         },
         {
@@ -1853,10 +1800,6 @@
                 }
             ],
             "description": "balik na uzavierku",
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-closing-summary/tree/v0.3.1",
-                "issues": "https://github.com/dp-bratislava/pkg-closing-summary/issues"
-            },
             "time": "2026-04-15T10:17:09+00:00"
         },
         {
@@ -1864,7 +1807,7 @@
             "version": "v12.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-devices.git",
+                "url": "git@github.com:dp-bratislava/pkg-devices.git",
                 "reference": "919c859f315b42b637f7a2edbad1a0411972e0fc"
             },
             "dist": {
@@ -1901,10 +1844,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-devices/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-devices/issues"
-            },
             "time": "2026-02-04T14:53:02+00:00"
         },
         {
@@ -1912,7 +1851,7 @@
             "version": "v12.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-eav.git",
+                "url": "git@github.com:dp-bratislava/pkg-eav.git",
                 "reference": "7e11c9eb6db3fd9385f3c83d4017465b84420bb0"
             },
             "dist": {
@@ -1948,10 +1887,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-eav/tree/v12.0.0",
-                "issues": "https://github.com/dp-bratislava/pkg-eav/issues"
-            },
             "time": "2025-09-23T09:35:22+00:00"
         },
         {
@@ -1959,7 +1894,7 @@
             "version": "v12.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dp-bratislava/pkg-fleet.git",
+                "url": "git@github.com:dp-bratislava/pkg-fleet.git",
                 "reference": "b422428df769fc441d7f52dc97655d1585085256"
             },
             "dist": {
@@ -1997,10 +1932,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.3",
-                "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
-            },
             "time": "2026-04-30T11:09:24+00:00"
         },
         {
@@ -2045,10 +1976,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-inspections/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-inspections/issues"
-            },
             "time": "2026-02-04T14:41:18+00:00"
         },
         {
@@ -2100,24 +2027,20 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.4",
-                "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
-            },
             "time": "2026-02-17T09:40:41+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "v12.5.0",
+            "version": "v12.5.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "88a9bcae5f5b10a645c809d0d05824e7113abffd"
+                "reference": "70fd98dbfe071628bbb0c18602c614ab87294240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/88a9bcae5f5b10a645c809d0d05824e7113abffd",
-                "reference": "88a9bcae5f5b10a645c809d0d05824e7113abffd",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/70fd98dbfe071628bbb0c18602c614ab87294240",
+                "reference": "70fd98dbfe071628bbb0c18602c614ab87294240",
                 "shasum": ""
             },
             "require": {
@@ -2149,11 +2072,7 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
-            },
-            "time": "2026-04-28T14:44:43+00:00"
+            "time": "2026-05-18T06:58:12+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
@@ -2198,10 +2117,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.2",
-                "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
-            },
             "time": "2026-02-16T16:01:07+00:00"
         },
         {
@@ -2246,10 +2161,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tickets/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-tickets/issues"
-            },
             "time": "2026-02-04T14:32:54+00:00"
         },
         {
@@ -2293,10 +2204,6 @@
                     "email": "horny.andrej@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-work-log/tree/v12.0.1",
-                "issues": "https://github.com/dp-bratislava/pkg-work-log/issues"
-            },
             "time": "2026-02-05T09:25:33+00:00"
         },
         {
@@ -2338,10 +2245,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-spotlight/tree/v12.5.0",
-                "issues": "https://github.com/dp-bratislava/dpb-spotlight/issues"
-            },
             "time": "2026-04-28T14:50:11+00:00"
         },
         {
@@ -2387,10 +2290,6 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/ui-components/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/ui-components/issues"
-            },
             "time": "2026-05-13T06:09:15+00:00"
         },
         {
