@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "5434aeb17f49c64f8971bdfff18121ab2fa544e9"
+                "reference": "007d6a6f49e66c3c6962572a6f1975e435e07d78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/5434aeb17f49c64f8971bdfff18121ab2fa544e9",
-                "reference": "5434aeb17f49c64f8971bdfff18121ab2fa544e9",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/007d6a6f49e66c3c6962572a6f1975e435e07d78",
+                "reference": "007d6a6f49e66c3c6962572a6f1975e435e07d78",
                 "shasum": ""
             },
             "require": {
@@ -1473,11 +1473,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-05-13T06:29:59+00:00"
+            "time": "2026-05-28T12:42:36+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2403,12 +2399,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "6851e36db421ea7f7acc8cbff509d82c8705b97e"
+                "reference": "de7637a35370ba75d2b4f65a8d06b90a67dbdfbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/6851e36db421ea7f7acc8cbff509d82c8705b97e",
-                "reference": "6851e36db421ea7f7acc8cbff509d82c8705b97e",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/de7637a35370ba75d2b4f65a8d06b90a67dbdfbe",
+                "reference": "de7637a35370ba75d2b4f65a8d06b90a67dbdfbe",
                 "shasum": ""
             },
             "require": {
@@ -2439,11 +2435,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/release/v12.5.1",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
-            },
-            "time": "2026-05-13T06:28:11+00:00"
+            "time": "2026-05-28T10:57:19+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -16465,5 +16457,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
