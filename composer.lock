@@ -1364,12 +1364,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06"
+                "reference": "0025fff51cdf91755cdcf054c224316c97d4138e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06",
-                "reference": "f67cb35e9f2fcaa8dd38242bba2ebb4a4618da06",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/0025fff51cdf91755cdcf054c224316c97d4138e",
+                "reference": "0025fff51cdf91755cdcf054c224316c97d4138e",
                 "shasum": ""
             },
             "require": {
@@ -1398,7 +1398,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-05-13T08:29:31+00:00"
+            "time": "2026-06-01T10:57:02+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -1406,12 +1406,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "007d6a6f49e66c3c6962572a6f1975e435e07d78"
+                "reference": "3b4549f90002deed48ce693c7839cb12942bb3ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/007d6a6f49e66c3c6962572a6f1975e435e07d78",
-                "reference": "007d6a6f49e66c3c6962572a6f1975e435e07d78",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/3b4549f90002deed48ce693c7839cb12942bb3ac",
+                "reference": "3b4549f90002deed48ce693c7839cb12942bb3ac",
                 "shasum": ""
             },
             "require": {
@@ -1441,7 +1441,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-05-28T12:42:36+00:00"
+            "time": "2026-06-01T11:10:28+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
