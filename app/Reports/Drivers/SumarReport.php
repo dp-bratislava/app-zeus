@@ -48,7 +48,7 @@ class SumarReport implements ReportDriver
                 "),
                 new Expression("TRIM(LEADING '0' FROM c.pid) as osob_cislo"),
                 new Expression("CONCAT(wt.last_name, ' ', wt.first_name) AS meno"),
-                new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_skutocny"),
+                new Expression("SUM(dpb_worktimefund_model_activityrecord.real_duration) AS suma_cas_skutocny"),
                 new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_norma"),
                 new Expression("ROUND(100 * SUM(dpb_worktimefund_model_activityrecord.expected_duration) / SUM(dpb_worktimefund_model_activityrecord.real_duration), 0) AS plnenie"),
             ])
