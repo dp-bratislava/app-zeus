@@ -39,7 +39,7 @@ class ReportsResource extends Resource
             ->defaultPaginationPageOption(100)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
-            ->filtersFormColumns(3)
+            ->filtersFormColumns(2)
             ->extraAttributes([
             'class' => 'report-filters-inline-container'
             ])

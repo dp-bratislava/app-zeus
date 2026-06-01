@@ -192,7 +192,7 @@ class DetailReport implements ReportDriver
                             fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
                         );
                 })
-                ->columns(3),
+                ->columns(2),
 
             // department
             SelectFilter::make('department')
