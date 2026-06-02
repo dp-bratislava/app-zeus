@@ -13,11 +13,15 @@ class FetchActivityRecordsCommand extends Command
 
     public function handle()
     {
+        DB::affectingStatement('DROP TABLE IF EXISTS activity_record_updates');
+        DB::statement('CREATE TABLE activity_record_updates (id BIGINT UNSIGNED, new_task_id BIGINT UNSIGNED)');
+
         $records = DB::select('
             SELECT 
             	id,
                 title,
                 source_id,
+                operation_duration,
                 expected_duration,
                 real_duration,
                 personal_id,
@@ -39,6 +43,7 @@ class FetchActivityRecordsCommand extends Command
                             ar.title,
                             wt.source_id,
                             ar.expected_duration,
+                            operation.duration as operation_duration,
                             ar.real_duration,
                             ar.personal_id,
                             ar.task_id,
@@ -59,46 +64,50 @@ class FetchActivityRecordsCommand extends Command
             WHERE total_count > 1 
               AND total_count = distinct_task_count
         ');
+        // 1. Add 'date' to the groupBy array
         $groupedResults = collect($records)->groupBy(['id_podzakazky', 'source_id', 'date']);
-
+        $activityRecordUpdates = [];
         foreach ($groupedResults as $id_podzakazky => $sourceGroups) {
-            // $this->info('ID Podzákazky: ' . $id_podzakazky);
+            foreach ($sourceGroups as $source_id => $dateGroups) {
+                // 2. Add the third loop layer to iterate over each day
+                foreach ($dateGroups as $date => $recordsList) {
+                    
+                    $pocet_ludi = count($recordsList->pluck('personal_id')->unique());
+                    $pocet_zaznamov = count($recordsList);
+                    
+                    $uniqueTasks = $recordsList->pluck('task_id')->unique();
+                    $worktask_to_modify = $uniqueTasks->shift();
+                    $rest_of_worktasks = $uniqueTasks->values()->all();
+                    $ids = $recordsList->pluck('id')->all();
+                    
 
-            foreach ($sourceGroups as $source_id => $recordsList) {
-                $pocet_ludi = count($recordsList->pluck('personal_id')->unique());
-                $pocet_zaznamov = count($recordsList);
-                // $this->info('  Source ID: ' . $source_id . ', Rôzny ľudia: ' . $pocet_ludi);
-                
-                // 1. Get unique task IDs first
-                $uniqueTasks = $recordsList->pluck('task_id')->unique();
 
-                // 2. Shift the first ID out of the collection
-                $worktask_to_modify = $uniqueTasks->shift();
-
-                // 3. The rest are left in the collection; convert to a plain array
-                $rest_of_worktasks = $uniqueTasks->values()->all();
-
-                $vsetky_datumy_rovnake = $recordsList->pluck('date')->unique()->count() === 1;
-                if (!$vsetky_datumy_rovnake) {
-                    $this->error('    POZOR: Datumy záznamů nejsou všechny stejné! . ID Podzákazky: ' . $id_podzakazky . ', Source ID: ' . $source_id);
+                    if($pocet_ludi != $pocet_zaznamov) {
+                        $this->error('    POZOR: Iny pocet ludi a zaznamov! . id podzakazky: ' . $id_podzakazky . ' source_id: ' . $source_id . ' date: ' . $date);
+                        continue;
+                    }
+                    foreach ($ids as $id) {
+                        $activityRecordUpdates[] = [
+                            'id' => $id, 
+                            'new_task_id' => $worktask_to_modify
+                        ];
+                    }
                 }
-
-                if($pocet_ludi != $pocet_zaznamov) {
-                    // $this->error('    POZOR: Počet rôznych ľudí sa nezhoduje s počtom záznamov!');
-                }
-                else {
-
-                    // foreach ($recordsList as $record) {
-                    //     $this->info('    Record ID: ' . $record->id . ', Title: ' . $record->title);
-                    // }
-                }
-    
-                // foreach ($recordsList as $record) {
-                //     $this->info('    Record ID: ' . $record->id . ', Title: ' . $record->title);
-                // }
-
             }
         }
+        // 3. Insert the updates into the temporary table
+        DB::table('activity_record_updates')->insert($activityRecordUpdates);
+
+        // DB::statement('
+        // UPDATE products 
+        // JOIN activity_record_updates ON products.id = activity_record_updates.id 
+        // SET products.price = activity_record_updates.new_price
+        // ');
+
+        // DB::statement('DROP TEMPORARY TABLE temp_updates');
+
+
+
         return 0;
     }
 }
