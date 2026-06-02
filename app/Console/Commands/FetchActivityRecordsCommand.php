@@ -15,6 +15,8 @@ class FetchActivityRecordsCommand extends Command
     {
         DB::affectingStatement('DROP TABLE IF EXISTS activity_record_updates');
         DB::statement('CREATE TABLE activity_record_updates (id BIGINT UNSIGNED, new_task_id BIGINT UNSIGNED)');
+        DB::affectingStatement('DROP TABLE IF EXISTS workt_task_updates');
+        DB::statement('CREATE TABLE workt_task_updates (id BIGINT UNSIGNED, new_task_id BIGINT UNSIGNED)');        
 
         $records = DB::select('
             SELECT 
@@ -67,6 +69,8 @@ class FetchActivityRecordsCommand extends Command
         // 1. Add 'date' to the groupBy array
         $groupedResults = collect($records)->groupBy(['id_podzakazky', 'source_id', 'date']);
         $activityRecordUpdates = [];
+        $workTasksUpdates = [];
+        $workTasksToRemove = [];
         foreach ($groupedResults as $id_podzakazky => $sourceGroups) {
             foreach ($sourceGroups as $source_id => $dateGroups) {
                 // 2. Add the third loop layer to iterate over each day
@@ -78,6 +82,7 @@ class FetchActivityRecordsCommand extends Command
                     $uniqueTasks = $recordsList->pluck('task_id')->unique();
                     $worktask_to_modify = $uniqueTasks->shift();
                     $rest_of_worktasks = $uniqueTasks->values()->all();
+                    $workTasksToRemove = array_merge($workTasksToRemove, $rest_of_worktasks);
                     $ids = $recordsList->pluck('id')->all();
                     
 
