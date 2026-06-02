@@ -27,12 +27,12 @@ class FetchActivityRecordsCommand extends Command
             FROM (
                 SELECT *,
                        -- Total rows in the group
-                       COUNT(*) OVER(PARTITION BY id_podzakazky, source_id) AS total_count,
+                       COUNT(*) OVER(PARTITION BY id_podzakazky, source_id, date) AS total_count,
                        -- Total distinct task_ids in the group
-                       MAX(task_rank) OVER(PARTITION BY id_podzakazky, source_id) AS distinct_task_count
+                       MAX(task_rank) OVER(PARTITION BY id_podzakazky, source_id, date) AS distinct_task_count
                 FROM (
                     SELECT *,
-                           DENSE_RANK() OVER(PARTITION BY id_podzakazky, source_id ORDER BY task_id) AS task_rank
+                           DENSE_RANK() OVER(PARTITION BY id_podzakazky, source_id, date ORDER BY task_id) AS task_rank
                     FROM (
                         SELECT 
                             ar.id,
@@ -59,15 +59,15 @@ class FetchActivityRecordsCommand extends Command
             WHERE total_count > 1 
               AND total_count = distinct_task_count
         ');
-        $groupedResults = collect($records)->groupBy(['id_podzakazky', 'source_id']);
+        $groupedResults = collect($records)->groupBy(['id_podzakazky', 'source_id', 'date']);
 
         foreach ($groupedResults as $id_podzakazky => $sourceGroups) {
-            $this->info('ID Podzákazky: ' . $id_podzakazky);
+            // $this->info('ID Podzákazky: ' . $id_podzakazky);
 
             foreach ($sourceGroups as $source_id => $recordsList) {
                 $pocet_ludi = count($recordsList->pluck('personal_id')->unique());
                 $pocet_zaznamov = count($recordsList);
-                $this->info('  Source ID: ' . $source_id . ', Rôzny ľudia: ' . $pocet_ludi);
+                // $this->info('  Source ID: ' . $source_id . ', Rôzny ľudia: ' . $pocet_ludi);
                 
                 // 1. Get unique task IDs first
                 $uniqueTasks = $recordsList->pluck('task_id')->unique();
@@ -78,11 +78,19 @@ class FetchActivityRecordsCommand extends Command
                 // 3. The rest are left in the collection; convert to a plain array
                 $rest_of_worktasks = $uniqueTasks->values()->all();
 
+                $vsetky_datumy_rovnake = $recordsList->pluck('date')->unique()->count() === 1;
+                if (!$vsetky_datumy_rovnake) {
+                    $this->error('    POZOR: Datumy záznamů nejsou všechny stejné! . ID Podzákazky: ' . $id_podzakazky . ', Source ID: ' . $source_id);
+                }
+
                 if($pocet_ludi != $pocet_zaznamov) {
-                    $this->error('    POZOR: Počet rôznych ľudí sa nezhoduje s počtom záznamov!');
+                    // $this->error('    POZOR: Počet rôznych ľudí sa nezhoduje s počtom záznamov!');
                 }
                 else {
-                    
+
+                    // foreach ($recordsList as $record) {
+                    //     $this->info('    Record ID: ' . $record->id . ', Title: ' . $record->title);
+                    // }
                 }
     
                 // foreach ($recordsList as $record) {
