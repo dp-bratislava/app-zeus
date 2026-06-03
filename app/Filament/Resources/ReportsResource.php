@@ -18,7 +18,7 @@ class ReportsResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('reports/work-activity-report.navigation.label');
+        return __('reports/reports.navigation_label');
     }
 
     public static function table(Table $table): Table
@@ -39,8 +39,13 @@ class ReportsResource extends Resource
             ->defaultPaginationPageOption(100)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
+            ->filtersFormColumns(2)
+            ->extraAttributes([
+            'class' => 'report-filters-inline-container'
+            ])
             ->filtersLayout(FiltersLayout::AboveContent)
             ->recordActions([])
+            ->emptyStateHeading('Žiadne údaje')
             ->toolbarActions([])
             ->defaultSort('id', 'asc');
     }

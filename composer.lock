@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.0",
+            "version": "v12.5.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "e06de45293c91515c0c6c24a0e13e57c1d83a2ce"
+                "reference": "b7fa96b5616856234e44352151c279fa6e926586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/e06de45293c91515c0c6c24a0e13e57c1d83a2ce",
-                "reference": "e06de45293c91515c0c6c24a0e13e57c1d83a2ce",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/b7fa96b5616856234e44352151c279fa6e926586",
+                "reference": "b7fa96b5616856234e44352151c279fa6e926586",
                 "shasum": ""
             },
             "require": {
@@ -1381,10 +1381,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.0",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.2",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-04-28T14:48:56+00:00"
+            "time": "2026-06-02T09:07:42+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -1529,21 +1529,20 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v5.0.1",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9"
+                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9",
-                "reference": "d22fe56f3db8b06d04b0aa4f5a2c7072180f28a9",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/f46d0727c0d681015c2a047ab3f78c9463f97e4b",
+                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
-                "laravel/framework": "^11.0 || ^12.0",
                 "owenvoke/blade-fontawesome": "^2.9",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
@@ -1589,10 +1588,10 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v5.0.1",
+                "source": "https://github.com/dp-bratislava/filament-admin-panel/tree/v5.0.2",
                 "issues": "https://github.com/dp-bratislava/filament-admin-panel/issues"
             },
-            "time": "2026-04-16T12:24:18+00:00"
+            "time": "2026-05-28T10:50:23+00:00"
         },
         {
             "name": "dpb/laravel-datahub-sync",

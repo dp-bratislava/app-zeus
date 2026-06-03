@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dpb_worktimefund_model_activityrecord', function (Blueprint $table) {
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->index('updated_at', 'idx_updated_at');
-        });
+            $table->dropIndex('idx_updated_at');
+            $table->dropTimestamps();
+            $table->dropSoftDeletes();
+        });        
     }
 
     /**
@@ -25,9 +24,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dpb_worktimefund_model_activityrecord', function (Blueprint $table) {
-            $table->dropIndex('idx_updated_at');
-            $table->dropTimestamps();
-            $table->dropSoftDeletes();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('updated_at', 'idx_updated_at');
         });
     }
 };

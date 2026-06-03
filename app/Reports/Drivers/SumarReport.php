@@ -14,6 +14,10 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Dpb\DatahubSync\Models\Department;
 use App\Filament\Components\DurationColumn;
+use Carbon\Carbon;
+use Illuminate\Support\HtmlString;
+use App\Services\DateRangeValidator;
+use Filament\Forms\Components\Placeholder;
 
 class SumarReport implements ReportDriver
 {
@@ -31,7 +35,7 @@ class SumarReport implements ReportDriver
 
     public function name(): string
     {
-        return 'Sumár pracovníkov';
+        return 'Práce sumár';
     }
 
     public function getQuery(): Builder
@@ -44,7 +48,7 @@ class SumarReport implements ReportDriver
                 "),
                 new Expression("TRIM(LEADING '0' FROM c.pid) as osob_cislo"),
                 new Expression("CONCAT(wt.last_name, ' ', wt.first_name) AS meno"),
-                new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_skutocny"),
+                new Expression("SUM(dpb_worktimefund_model_activityrecord.real_duration) AS suma_cas_skutocny"),
                 new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_norma"),
                 new Expression("ROUND(100 * SUM(dpb_worktimefund_model_activityrecord.expected_duration) / SUM(dpb_worktimefund_model_activityrecord.real_duration), 0) AS plnenie"),
             ])
@@ -75,15 +79,43 @@ class SumarReport implements ReportDriver
 
     public function getFilters(): array
     {
+        $validator = new DateRangeValidator(120);
+
         return [
-            Filter::make('date')
+            Filter::make('date_range')
                 ->form([
                     DatePicker::make('date_from')
-                        ->label('Dátum od'),
+                        ->label('Dátum od')
+                        ->default(now()->subDays(120)->format('Y-m-d')) // Prefills 120 days ago
+                        ->live(onBlur: true),
                     DatePicker::make('date_to')
-                        ->label('Dátum do'),
+                        ->label('Dátum do')
+                        ->default(now()->format('Y-m-d')) // Prefills today
+                        ->live(onBlur: true),
+                    Placeholder::make('date_error')
+                        ->content(function ($get) use ($validator) {
+                            $from = $get('date_from');
+                            $to = $get('date_to');
+                            $validation = $validator->validate($from, $to);
+
+                            if (!$validation['isValid']) {
+                                return new HtmlString('
+                                    <span style="color: red">
+                                        ' . $validation['error'] . '
+                                    </span>
+                                ');
+                            }
+
+                            return '';
+                        })
+                        ->hiddenLabel(),
                 ])
-                ->query(function (Builder $query, array $data): Builder {
+                ->query(function (Builder $query, array $data) use ($validator): Builder {
+                    if ($data['date_from'] && $data['date_to']) {
+                        if (!$validator->validate($data['date_from'], $data['date_to'])['isValid']) {
+                            return $query->whereRaw('1 = 0');
+                        }
+                    }
                     return $query
                         ->when(
                             $data['date_from'],
@@ -96,7 +128,7 @@ class SumarReport implements ReportDriver
                 })->columns(2),
 
             SelectFilter::make('department')
-                ->label(__('reports/work-activity-report.table.filters.department'))
+                ->label(__('reports/detail-report.table.filters.department'))
                 ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()
@@ -122,5 +154,10 @@ class SumarReport implements ReportDriver
     public function applyQueryModifications(Builder $query): Builder
     {
         return $query->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'));
+    }
+
+    public function lastSyncedAt(): ?string
+    {
+        return 'teraz';
     }
 }

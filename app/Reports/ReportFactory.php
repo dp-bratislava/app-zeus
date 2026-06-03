@@ -37,14 +37,4 @@ class ReportFactory
         $driverClass = self::$drivers[$key];
         return new $driverClass();
     }
-
-    public static function default(): ReportDriver
-    {
-        return self::make('work-activity');
-    }
-
-    public static function register(string $key, string $driverClass): void
-    {
-        self::$drivers[$key] = $driverClass;
-    }
 }

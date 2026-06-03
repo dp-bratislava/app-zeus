@@ -11,6 +11,8 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory;
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        FilamentAsset::register([
+            Css::make('custom-styles', asset('css/app/custom-overrides.css')),
+        ]);
+
         // All future morphs *must* be mapped!
         // Relation::enforceMorphMap([
         //     'ticket' => \App\Models\TS\Ticket::class,

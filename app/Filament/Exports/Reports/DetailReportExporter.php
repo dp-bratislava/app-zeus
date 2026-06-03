@@ -4,18 +4,39 @@ namespace App\Filament\Exports\Reports;
 
 use App\Reports\Exports\BaseReportExporter;
 use Illuminate\Support\Facades\DB;
+use Dpb\Departments\Services\DepartmentService;
+
 
 class DetailReportExporter extends BaseReportExporter
 {
+    private ?DepartmentService $departmentService = null;
+    private array $filters = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->departmentService = app(DepartmentService::class);
+    }
+
     protected const DYNAMIC_COLUMN_PREFIX = 'dc_';
     protected const SUBJECT_TABLE_ALIAS = 'wtss';
 
     protected function dynamicColumns(): array
     {
-        $subjectTypes = DB::table('mvw_work_task_subject_snapshots')
-            ->distinct()
-            ->pluck('subject_type')
-            ->toArray();
+        $departmentCodes = data_get($this->filters, 'department.values');
+        if(empty($departmentCodes)) {
+            $departmentCodes = $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
+        }
+        $subjectTypes = DB::table('mvw_work_task_subject_snapshots AS wtss')
+        ->whereExists(function ($query) use ($departmentCodes) {
+            $query->select(DB::raw(1))
+                ->from('mvw_work_activity_report_v2 AS ar')
+                ->whereColumn('ar.wtf_task_id', 'wtss.wtf_task_id')
+                ->whereIn('ar.department_code', $departmentCodes);
+        })
+        ->distinct()
+        ->pluck('wtss.subject_type')
+        ->toArray();
 
         $columns = [];
 
@@ -64,8 +85,8 @@ class DetailReportExporter extends BaseReportExporter
 
     protected function query(array $filters)
     {
+        $this->filters = $filters;
         $departmentCodes = data_get($filters, 'department.values');
-
         $staticColumns = array_column(
             array_filter($this->columns(), fn($c) => ($c['static'] ?? true)),
             'key'
@@ -86,17 +107,14 @@ class DetailReportExporter extends BaseReportExporter
                 'ar.id',
                 ...$staticColumns,
             ])
-            ->when(data_get($filters, 'activity_date.activity_date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
-            ->when(data_get($filters, 'activity_date.activity_date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
+            ->when(data_get($filters, 'date_range.date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
+            ->when(data_get($filters, 'date_range.date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('department_code', $departmentCodes);
             })
-            ->when(data_get($filters, 'is_fulfilled_label.values'), function ($q) use ($filters) {
-                $values = data_get($filters, 'is_fulfilled_label.values');
-                $q->whereIn('activity_is_fulfilled_label', $values);
-            });
+            // Always apply available departments filter (same as applyQueryModifications)
+            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
 
-            // dd($result->toRawSql(), $dynamicColumns);
             return $result;
     }
 

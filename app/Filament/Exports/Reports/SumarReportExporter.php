@@ -3,10 +3,19 @@
 namespace App\Filament\Exports\Reports;
 
 use App\Reports\Exports\BaseReportExporter;
+use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Support\Facades\DB;
 
 class SumarReportExporter extends BaseReportExporter
 {
+    private ?DepartmentService $departmentService = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->departmentService = app(DepartmentService::class);
+    }
+
     protected function columns(): array
     {
         return [
@@ -41,16 +50,18 @@ class SumarReportExporter extends BaseReportExporter
             ->where('dpb_worktimefund_model_activityrecord.type', 'O')
             
             // Apply Filters (matching the driver's date logic)
-            ->when(data_get($filters, 'date.date_from'), function ($q, $v) {
+            ->when(data_get($filters, 'date_range.date_from'), function ($q, $v) {
                 $q->whereDate('dpb_worktimefund_model_activityrecord.date', '>=', $v);
             })
-            ->when(data_get($filters, 'date.date_to'), function ($q, $v) {
+            ->when(data_get($filters, 'date_range.date_to'), function ($q, $v) {
                 $q->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $v);
             })
             // Department filter (if passed from Filament)
             ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
                 $q->whereIn('d.code', $departmentCodes);
             })
+            // Always apply available departments filter (same as applyQueryModifications)
+            ->whereIn('d.code', $this->departmentService->getAvailableDepartments()->pluck('code'))
             ->groupBy('c.pid', 'wt.last_name', 'wt.first_name', 'd.code');
     }
 
