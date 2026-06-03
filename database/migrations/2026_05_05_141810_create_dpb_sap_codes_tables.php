@@ -11,54 +11,71 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dpb_sap_operation_types', function (Blueprint $table) {
-            $table->comment('SAP operation types (Druh výkonu)');
+        Schema::create('dpb_sap_activity_types', function (Blueprint $table) {
+            $table->comment('SAP activity types (Druh výkonu)');
             $table->id();
 
-            $table->string('title')->nullable(false)->comment('');
+            $table->string('code')->nullable(false)->comment('');
 
             $table->unique([
-                'title',
-            ], 'sap_operation_type_unique');
+                'code',
+            ], 'sap_activity_type_unique');
         });
 
         Schema::create('dpb_sap_expense_types', function (Blueprint $table) {
             $table->comment('SAP expense types (Nákladový druh)');
             $table->id();
 
-            $table->string('title')->nullable(false)->comment('');
+            $table->string('code')->nullable(false)->comment('');
 
             $table->unique([
-                'title',
+                'code',
             ], 'sap_expense_type_unique');
         });
 
-        Schema::create('dpb_sap_operation_codes', function (Blueprint $table) {
-            $table->comment('SAP operation codes');
+        Schema::create('dpb_sap_operation_categories', function (Blueprint $table) {
+            $table->comment('SAP operation categories');
+            $table->id();
+
+            $table->string('code')->comment('Code');
+            $table->string('title')->comment('');
+
+            $table->unique([
+                'code',
+            ], 'sap_operation_category_unique');
+        });
+
+        Schema::create('dpb_sap_operations', function (Blueprint $table) {
+            $table->comment('SAP operation with code');
             $table->id();
 
             $table->string('code')->comment('SAP code');
             $table->string('title')->comment('');
+            $table->foreignId('category_id')
+                ->comment('SAP operation category')
+                ->constrained('dpb_sap_operation_categories', 'id')
+                ->cascadeOnDelete();
 
             $table->unique([
                 'code',
             ], 'sap_operation_code_unique');
         });
 
-        Schema::create('dpb_sap_operation_expense_sap_codes', function (Blueprint $table) {
+        Schema::create('dpb_sap_operation_pivot', function (Blueprint $table) {
             $table->comment('Pivot binding expense, operation, vehicle type and SAP codes');
             $table->id();
 
-            $table->foreignId('operation_type_id')
-                ->constrained('dpb_sap_operation_types', 'id')
+            $table->foreignId('activity_type_id')
+                ->constrained('dpb_sap_activity_types', 'id')
                 ->cascadeOnDelete();
 
             $table->foreignId('expense_type_id')
                 ->constrained('dpb_sap_expense_types', 'id')
                 ->cascadeOnDelete();
 
-            $table->foreignId('sap_code_id')
-                ->constrained('dpb_sap_operation_codes', 'id')
+            $table->foreignId('operation_id')
+                ->comment('SAP operation')
+                ->constrained('dpb_sap_operations', 'id')
                 ->cascadeOnDelete();
 
             $table->foreignId('vehicle_type_id')
@@ -67,9 +84,9 @@ return new class extends Migration
 
             // prevent duplicates (important for mapping tables)
             $table->unique([
-                'operation_type_id',
+                'activity_type_id',
                 'expense_type_id',
-                'sap_code_id',
+                'operation_id',
             ], 'op_exp_sap_unique');
         });
     }
@@ -79,9 +96,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dpb_sap_operation_expense_sap_codes');
-        Schema::dropIfExists('dpb_sap_operation_codes');
-        Schema::dropIfExists('dpb_sap_operation_types');
+        Schema::dropIfExists('dpb_sap_operation_pivot');
+        Schema::dropIfExists('dpb_sap_operations');
+        Schema::dropIfExists('dpb_sap_activity_types');
         Schema::dropIfExists('dpb_sap_expense_types');
+        Schema::dropIfExists('dpb_sap_operation_categories');
     }
 };

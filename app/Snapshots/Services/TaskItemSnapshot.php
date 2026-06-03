@@ -70,6 +70,7 @@ class TaskItemSnapshot implements SnapshotContract
             'task_date' => 't.date',
             'task_title' => 't.title',
             'task_description' => 't.description',
+            'task_group_code' => 'tg.code',
             'task_group_title' => 'tg.title',
 
             'task_assigned_to_type' => 'NULL',
