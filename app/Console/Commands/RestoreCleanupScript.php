@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Schema;
 
 class RestoreCleanupScript extends Command
 {
-
     protected $signature = 'restore:cleanup-script {--cleanup : Drop the TEMP tables after successful restoration}';
 
     protected $description = 'Restore original state of activity records and work tasks from TEMP tables';
+
     public function handle(): int
     {
         $this->info('Starting data restoration process...');
@@ -50,20 +50,21 @@ class RestoreCleanupScript extends Command
                     ]);
                 }
 
-                // 3. Revert altered activity records back to their original task IDs
-                $this->line('Reverting activity record task associations...');
+                // 3. Revert altered activity records back to their original task IDs and expected durations
+                $this->line('Reverting activity record task associations and expected durations...');
                 DB::statement('
                     UPDATE dpb_worktimefund_model_activityrecord ar
                     JOIN TEMP_activity_record_updates taru ON ar.id = taru.id
-                    SET ar.task_id = taru.old_task_id
+                    SET ar.task_id = taru.old_task_id,
+                        ar.expected_duration = taru.old_expected_duration
                 ');
 
-                // 4. Revert modified work tasks back to their original expected durations
-                $this->line('Reverting work task expected durations...');
+                // 4. Revert modified work tasks back to their original shareable status
+                $this->line('Reverting work task shareable flags...');
                 DB::statement('
                     UPDATE dpb_worktimefund_model_task wt
                     JOIN TEMP_work_task_updates twtu ON wt.id = twtu.id
-                    SET wt.expected_duration = twtu.old_duration
+                    SET wt.is_shareable = twtu.is_shareable_old
                 ');
             });
 
