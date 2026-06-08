@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.4",
+            "version": "v12.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "2b4a7c3acfceab3661103ceb79be138b95eebfc3"
+                "reference": "227933cd69655c6ee7585c081aa96711904dfcb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/2b4a7c3acfceab3661103ceb79be138b95eebfc3",
-                "reference": "2b4a7c3acfceab3661103ceb79be138b95eebfc3",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/227933cd69655c6ee7585c081aa96711904dfcb5",
+                "reference": "227933cd69655c6ee7585c081aa96711904dfcb5",
                 "shasum": ""
             },
             "require": {
@@ -1381,23 +1381,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.4",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-06-05T09:43:53+00:00"
+            "time": "2026-06-08T06:21:14+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.4",
+            "version": "v12.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "337d93381ac40ed2643d0f8a4427e70ba004b08e"
+                "reference": "89efd0c470a0d402a795e8b96cd048ee019058af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/337d93381ac40ed2643d0f8a4427e70ba004b08e",
-                "reference": "337d93381ac40ed2643d0f8a4427e70ba004b08e",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/89efd0c470a0d402a795e8b96cd048ee019058af",
+                "reference": "89efd0c470a0d402a795e8b96cd048ee019058af",
                 "shasum": ""
             },
             "require": {
@@ -1427,23 +1427,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.4",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.5",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-06-01T13:06:58+00:00"
+            "time": "2026-06-05T12:57:43+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.5.3",
+            "version": "v12.5.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "94469c1edf7bdfa2069c51ea28aa518e7b8fa374"
+                "reference": "f5fccdbcdda394c5acf00c06ee210787f4197e3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/94469c1edf7bdfa2069c51ea28aa518e7b8fa374",
-                "reference": "94469c1edf7bdfa2069c51ea28aa518e7b8fa374",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/f5fccdbcdda394c5acf00c06ee210787f4197e3d",
+                "reference": "f5fccdbcdda394c5acf00c06ee210787f4197e3d",
                 "shasum": ""
             },
             "require": {
@@ -1473,7 +1473,11 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-06-05T12:01:58+00:00"
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.4",
+                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
+            },
+            "time": "2026-06-05T12:59:01+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2394,16 +2398,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.5.1",
+            "version": "v12.5.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "de7637a35370ba75d2b4f65a8d06b90a67dbdfbe"
+                "reference": "b02a51d2c84f471ca46842162756806c6a24f22e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/de7637a35370ba75d2b4f65a8d06b90a67dbdfbe",
-                "reference": "de7637a35370ba75d2b4f65a8d06b90a67dbdfbe",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/b02a51d2c84f471ca46842162756806c6a24f22e",
+                "reference": "b02a51d2c84f471ca46842162756806c6a24f22e",
                 "shasum": ""
             },
             "require": {
@@ -2435,10 +2439,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.5.1",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.5.2",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-05-28T10:57:19+00:00"
+            "time": "2026-06-08T06:22:08+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -16482,5 +16486,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
