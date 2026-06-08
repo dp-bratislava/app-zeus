@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.5.4",
+            "version": "v12.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "f5fccdbcdda394c5acf00c06ee210787f4197e3d"
+                "reference": "9c89f391eff7fd5b2909f2e3754e163fdc17a112"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/f5fccdbcdda394c5acf00c06ee210787f4197e3d",
-                "reference": "f5fccdbcdda394c5acf00c06ee210787f4197e3d",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/9c89f391eff7fd5b2909f2e3754e163fdc17a112",
+                "reference": "9c89f391eff7fd5b2909f2e3754e163fdc17a112",
                 "shasum": ""
             },
             "require": {
@@ -1474,10 +1474,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.4",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.5",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-06-05T12:59:01+00:00"
+            "time": "2026-06-08T07:58:22+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
