@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate; // Added for column index translation
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -21,15 +23,6 @@ class ExcelGenerator
         $this->spreadsheet = new Spreadsheet();
     }
 
-    /**
-     * Generate Excel file from array of data
-     *
-     * @param array $data Array of records with ids and info
-     * @param string $title Sheet title
-     * @param array $columns Column headers (optional, auto-generated if not provided)
-     * @return string Path to saved file
-     * @throws Exception
-     */
     public function generate(array $data, string $title = 'Data Export', array $columns = []): string
     {
         if (empty($data)) {
@@ -64,16 +57,21 @@ class ExcelGenerator
     {
         $col = 1;
         foreach ($columns as $header) {
-            $cell = $sheet->getCellByColumnAndRow($col, 1);
-            $cell->setValue(ucfirst(str_replace('_', ' ', $header)));
+            // Convert numeric indexes to coordinate string (e.g., 1, 1 becomes 'A1')
+            $coordinate = Coordinate::stringFromColumnIndex($col) . '1';
+            
+            // Set the value on the worksheet/cell
+            $sheet->setCellValue($coordinate, ucfirst(str_replace('_', ' ', $header)));
 
-            // Style headers
-            $cell->getFont()->setBold(true);
-            $cell->getFont()->setColor(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-            $cell->getFill()->setFillType(Fill::FILL_SOLID);
-            $cell->getFill()->getStartColor()->setARGB('FF4472C4');
-            $cell->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-            $cell->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+            // Fetch the Style object for the coordinate to apply styles
+            $style = $sheet->getStyle($coordinate);
+            
+            $style->getFont()->setBold(true);
+            $style->getFont()->setColor(new Color(Color::COLOR_WHITE));
+            $style->getFill()->setFillType(Fill::FILL_SOLID);
+            $style->getFill()->getStartColor()->setARGB('FF4472C4');
+            $style->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $style->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
             $col++;
         }
@@ -89,7 +87,11 @@ class ExcelGenerator
             $col = 1;
             foreach ($columns as $column) {
                 $value = $record[$column] ?? null;
-                $sheet->getCellByColumnAndRow($col, $row)->setValue($value);
+                
+                // Convert numeric indexes to coordinate string (e.g., 1, 2 becomes 'A2')
+                $coordinate = Coordinate::stringFromColumnIndex($col) . $row;
+                $sheet->getCell($coordinate)->setValue($value);
+                
                 $col++;
             }
             $row++;
@@ -103,7 +105,9 @@ class ExcelGenerator
     {
         $col = 1;
         foreach ($columns as $column) {
-            $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+            // Updated to use the modern method that accepts a string column index
+            $columnLetter = Coordinate::stringFromColumnIndex($col);
+            $sheet->getColumnDimension($columnLetter)->setAutoSize(true);
             $col++;
         }
     }
