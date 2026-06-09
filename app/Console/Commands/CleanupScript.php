@@ -9,10 +9,18 @@ class CleanupScript extends Command
 {
     protected $signature = 'cleanup:script';
 
+    protected $mode = 'development'; // change to 'production' before running in production environment
+
     protected $description = 'Perform cleanup operations on the database';
 
     public function handle()
     {
+        if($this->mode === 'production') {
+            if (DB::select("SHOW TABLES LIKE 'TEMP_activity_record_updates'") || DB::select("SHOW TABLES LIKE 'TEMP_work_task_updates'")) {
+                $this->error('FATAL ERROR: Temporary tables already exist. This likely means the script was already run. Please check the database and remove the temporary tables if you want to run the script again.');
+                return 1;
+            }        
+        }
         DB::affectingStatement('DROP TABLE IF EXISTS TEMP_activity_record_updates');
         DB::statement('CREATE TABLE TEMP_activity_record_updates (id BIGINT UNSIGNED, old_task_id BIGINT UNSIGNED, new_task_id BIGINT UNSIGNED, old_expected_duration INT UNSIGNED, new_expected_duration INT UNSIGNED)');
         DB::affectingStatement('DROP TABLE IF EXISTS TEMP_work_task_updates');
@@ -123,7 +131,7 @@ class CleanupScript extends Command
                 }
             }
         }
-
+        
 
         // 3. Insert the updates into the temporary table
         if (!empty($activityRecordUpdates)) {
