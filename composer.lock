@@ -2056,16 +2056,16 @@
         },
         {
             "name": "dpb/pkg-task-ms",
-            "version": "v12.0.5",
+            "version": "v12.0.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
-                "reference": "373b86f7bba9cdede399215cd19626f57a44db71"
+                "reference": "20bcc4a518e874b4bb9b1a652402e3e027b8d68e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/373b86f7bba9cdede399215cd19626f57a44db71",
-                "reference": "373b86f7bba9cdede399215cd19626f57a44db71",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/20bcc4a518e874b4bb9b1a652402e3e027b8d68e",
+                "reference": "20bcc4a518e874b4bb9b1a652402e3e027b8d68e",
                 "shasum": ""
             },
             "require": {
@@ -2104,23 +2104,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.5",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.6",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
             },
-            "time": "2026-06-09T08:55:06+00:00"
+            "time": "2026-06-09T12:12:50+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "v12.5.2",
+            "version": "v12.5.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "47ad8fa54f6d56b3d382f9e2b2b1caee78cf9594"
+                "reference": "9ea519d8ce7158a06b7c23edead8ba7bb5d8d207"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/47ad8fa54f6d56b3d382f9e2b2b1caee78cf9594",
-                "reference": "47ad8fa54f6d56b3d382f9e2b2b1caee78cf9594",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/9ea519d8ce7158a06b7c23edead8ba7bb5d8d207",
+                "reference": "9ea519d8ce7158a06b7c23edead8ba7bb5d8d207",
                 "shasum": ""
             },
             "require": {
@@ -2153,23 +2153,23 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v12.5.2",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v12.5.4",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-06-09T08:46:11+00:00"
+            "time": "2026-06-09T12:22:20+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "v12.0.3",
+            "version": "v12.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "a6e0ed56e8808e352d169def1606baf58a1a94d8"
+                "reference": "f48adb16b886760b9d4be43f5bf2b7fdaed24b5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/a6e0ed56e8808e352d169def1606baf58a1a94d8",
-                "reference": "a6e0ed56e8808e352d169def1606baf58a1a94d8",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/f48adb16b886760b9d4be43f5bf2b7fdaed24b5e",
+                "reference": "f48adb16b886760b9d4be43f5bf2b7fdaed24b5e",
                 "shasum": ""
             },
             "require": {
@@ -2202,10 +2202,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.3",
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.4",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2026-06-09T08:42:27+00:00"
+            "time": "2026-06-09T12:11:34+00:00"
         },
         {
             "name": "dpb/pkg-tickets",
