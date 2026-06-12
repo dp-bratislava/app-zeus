@@ -18,6 +18,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/print
 /storage/*.key
 /storage/pail
 /vendor
