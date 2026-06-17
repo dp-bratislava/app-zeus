@@ -2057,16 +2057,16 @@
         },
         {
             "name": "dpb/pkg-task-ms",
-            "version": "v12.0.10",
+            "version": "v12.0.11",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms.git",
-                "reference": "991a5dd2c77f8538826950d668ab22a4d4220127"
+                "reference": "376deab407ee374cf7322198286458846df4096c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/991a5dd2c77f8538826950d668ab22a4d4220127",
-                "reference": "991a5dd2c77f8538826950d668ab22a4d4220127",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms/zipball/376deab407ee374cf7322198286458846df4096c",
+                "reference": "376deab407ee374cf7322198286458846df4096c",
                 "shasum": ""
             },
             "require": {
@@ -2106,10 +2106,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.10",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms/tree/v12.0.11",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms/issues"
             },
-            "time": "2026-06-11T15:26:22+00:00"
+            "time": "2026-06-17T14:18:30+00:00"
         },
         {
             "name": "dpb/pkg-task-ms-ui",
