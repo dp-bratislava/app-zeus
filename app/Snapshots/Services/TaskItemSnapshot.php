@@ -4,12 +4,13 @@ namespace App\Snapshots\Services;
 
 use App\Snapshots\Core\Contracts\SnapshotContract;
 use App\Snapshots\Core\Contracts\SnapshotExecutionStrategy;
+use App\Snapshots\Core\Snapshot;
 use App\Snapshots\Core\SnapshotExecutionState;
 use App\Snapshots\Core\SnapshotRunContext;
 use App\Snapshots\Strategies\TempTableStrategy;
 use Illuminate\Support\Facades\DB;
 
-class TaskItemSnapshot implements SnapshotContract
+class TaskItemSnapshot extends Snapshot
 {
     public function getKey(): string
     {
@@ -31,14 +32,6 @@ class TaskItemSnapshot implements SnapshotContract
         return app(TempTableStrategy::class);
     }
 
-    public function idQuery(SnapshotRunContext $context)
-    {
-        return DB::table('tsk_task_items')
-            ->where('updated_at', '>', $context->from)
-            ->orWhere('deleted_at', '>', $context->from)
-            ->select('id');
-    }
-
     public function run(SnapshotRunContext $context, SnapshotExecutionState $state): void
     {
         DB::statement(
@@ -55,11 +48,11 @@ class TaskItemSnapshot implements SnapshotContract
             ({$this->columns()})
             SELECT
                 {$this->select()}
-            {$this->from()}
-            {$this->joins($tempTable)}
+            FROM
+                {$this->from($tempTable)}            
             ON DUPLICATE KEY UPDATE
-                updated_at = VALUES(updated_at)            
-        ";
+                {$this->duplicateKeyUpdate('task_item_id')}
+            ";
     }
 
     protected function map(): array
@@ -97,19 +90,10 @@ class TaskItemSnapshot implements SnapshotContract
         ];
     }
 
-    protected function columns(): string
-    {
-        return implode(',', array_keys($this->map()));
-    }
-
-    protected function select(): string
-    {
-        return implode(",\n", $this->map());
-    }
-
-    protected function joins(string $tempTable): string
+    protected function from(string $tempTable): string
     {
         return "
+            tms_task_item_assignments tia
             JOIN {$tempTable} tmp ON tmp.id = tia.id
             LEFT JOIN tsk_task_items ti ON tia.task_item_id = ti.id
             LEFT JOIN tsk_task_item_groups tig ON tig.id = ti.group_id
@@ -119,13 +103,6 @@ class TaskItemSnapshot implements SnapshotContract
             LEFT JOIN tsk_task_groups tg ON tg.id = t.group_id
             LEFT JOIN users tu ON tu.id = ta.author_id
             LEFT JOIN tsk_places_of_origin po ON po.id = t.place_of_origin_id
-        ";
-    }
-
-    protected function from(): string
-    {
-        return "
-            FROM tms_task_item_assignments tia
         ";
     }
 }
