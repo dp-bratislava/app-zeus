@@ -9,26 +9,45 @@ use Dpb\DatahubSync\Models\EmployeeContract;
 use Dpb\Package\Fleet\Models\Vehicle;
 
 
+
 class CleanupScript extends Command
 {
-    protected $signature = 'cleanup:script';
+    protected $signature = 'cleanup:script {--mode=development : The mode (development or production)}';
 
     protected $mode = 'development'; // change to 'production' before running in production environment
 
-    protected $description = 'Perform cleanup operations on the database';
+    protected $description = 'Rozdeli sharable práce ktoré mali byť rozdelené, ale neboli.';
+
+    protected function configure()
+    {
+        $this->setHelp('Tento príkaz vykonáva opravy v databáze spojené so sharable prácami.' . PHP_EOL .
+            'Dostupné režimy (--mode):' . PHP_EOL .
+            '  production   Upraví dáta v databáze a vytvorí tabuľky zmien.' . PHP_EOL .
+            '  development  Vygeneruje iba excel reporty bez akýchkoľvek zmien v DB.' . PHP_EOL .
+            'Poznámka: Po spustení v režime production je možné zmeny vrátiť príkazom: php artisan restore:cleanup-script');
+    }
 
     public function handle()
     {
+
+    $mode = $this->option('mode'); // This will now correctly return 'production' or 'development'
+    
+    if (!in_array($mode, ['development', 'production'])) {
+        $this->error("Invalid mode. Please use 'development' or 'production'.");
+        return 1;
+    }
+    
+    $this->mode = $mode;
         if($this->mode === 'production') {
             if (DB::select("SHOW TABLES LIKE 'TEMP_activity_record_updates'") || DB::select("SHOW TABLES LIKE 'TEMP_work_task_updates'")) {
                 $this->error('FATAL ERROR: Temporary tables already exist. This likely means the script was already run. Please check the database and remove the temporary tables if you want to run the script again.');
                 return 1;
             }        
-        }
-        DB::affectingStatement('DROP TABLE IF EXISTS TEMP_activity_record_updates');
         DB::statement('CREATE TABLE TEMP_activity_record_updates (id BIGINT UNSIGNED, old_task_id BIGINT UNSIGNED, new_task_id BIGINT UNSIGNED, old_expected_duration INT UNSIGNED, new_expected_duration INT UNSIGNED)');
-        DB::affectingStatement('DROP TABLE IF EXISTS TEMP_work_task_updates');
         DB::statement('CREATE TABLE TEMP_work_task_updates (id BIGINT UNSIGNED, is_shareable_old TINYINT(1), is_shareable_new TINYINT(1))');        
+        }
+
+        
         
         $vehicleCodes = Vehicle::with(['codes', 'licencePlates'])
         ->get()
@@ -91,6 +110,7 @@ class CleanupScript extends Command
                         JOIN tsk_tasks tsks on ti.task_id = tsks.id
                         JOIN tms_task_assignments ta on tsks.id = ta.task_id
                         WHERE operation.is_shareable = 1
+                          AND wt.is_shareable = 0
                           AND ar.`date` < \'2026-05-16\'
                           AND ar.`date` >= \'2026-04-01\'
                           AND ar.`department_id` in (334, 339, 343)
@@ -146,7 +166,7 @@ class CleanupScript extends Command
                         $this->error('    POZOR: operation_duration je null! . id podzakazky: ' . $id_podzakazky . ' source_id: ' . $source_id . ' date: ' . $date);
                         continue;
                     }
-                    $durationPerTask = $duration / count($recordsList);
+                    $durationPerActivity = $duration / count($recordsList);
                     $uniqueTasks = $recordsList->pluck('task_id')->unique();
                     $worktaskToModify = $uniqueTasks->shift();
                     $restOfWorktasks = $uniqueTasks->values()->all();
@@ -158,7 +178,7 @@ class CleanupScript extends Command
                             'old_task_id' => $record->task_id,
                             'new_task_id' => $worktaskToModify,
                             'old_expected_duration' => $record->expected_duration,
-                            'new_expected_duration' => $durationPerTask,
+                            'new_expected_duration' => $durationPerActivity,
                         ];
                         // should execute only once per date group
                         if($record->task_id == $worktaskToModify) {
@@ -178,10 +198,10 @@ class CleanupScript extends Command
                             'Zamestnanec' => $employees[$record->personal_id] ?? '',
                             'Činnosť' => $record->title,
                             'Očakávané trvanie' => $record->expected_duration,
-                            'Očakávané trvanie po úprave' => $durationPerTask,
+                            'Očakávané trvanie po úprave' => $durationPerActivity,
                             'Reálne trvanie' => $record->real_duration,
                             'Plnenie (%)' => round(( $record->expected_duration / $record->real_duration) * 100, 2) . '%',
-                            'Plnenie (%) po úprave' => round(( $durationPerTask /$record->real_duration ) * 100, 2) . '%',
+                            'Plnenie (%) po úprave' => round(( $durationPerActivity /$record->real_duration ) * 100, 2) . '%',
                             ];
 
                     }
@@ -205,42 +225,47 @@ class CleanupScript extends Command
         $generator2 = new ExcelGenerator();
         $generator2->generate($excelSkippedRecordsData, 'skuska_preskocene');
 
-        // // 3. Insert the updates into the temporary table
-        // if (!empty($activityRecordUpdates)) {
-        // DB::table('TEMP_activity_record_updates')->insert($activityRecordUpdates);
-        // }
+        if($this->mode === 'development') {
+            $this->info('Running in development mode. The database will NOT be updated.');
+            return 0;
+        } 
 
-        // if (!empty($workTasksUpdates)) {
-        // DB::table('TEMP_work_task_updates')->insert($workTasksUpdates);
-        // }
+        // 3. Insert the updates into the temporary table
+        if (!empty($activityRecordUpdates)) {
+        DB::table('TEMP_activity_record_updates')->insert($activityRecordUpdates);
+        }
 
-        // if (!empty($workTasksToRemove)) {
-        //     // after deleting the tasks, cascade will remove records in TEMP_mm_workorder_task_removed so we back the values up first
-        //     DB::statement('DROP TABLE IF EXISTS TEMP_mm_workorder_task_removed');
-        //     DB::statement('CREATE TABLE TEMP_mm_workorder_task_removed AS SELECT workorder_id, taskitem_id FROM dpb_wtftmsbridge_mm_workorder_task WHERE taskitem_id IN (' . implode(',', $workTasksToRemove) . ')');
+        if (!empty($workTasksUpdates)) {
+        DB::table('TEMP_work_task_updates')->insert($workTasksUpdates);
+        }
+
+        if (!empty($workTasksToRemove)) {
+            // after deleting the tasks, cascade will remove records in TEMP_mm_workorder_task_removed so we back the values up first
+            DB::statement('DROP TABLE IF EXISTS TEMP_mm_workorder_task_removed');
+            DB::statement('CREATE TABLE TEMP_mm_workorder_task_removed AS SELECT workorder_id, taskitem_id FROM dpb_wtftmsbridge_mm_workorder_task WHERE taskitem_id IN (' . implode(',', $workTasksToRemove) . ')');
             
-        //     DB::statement('DROP TABLE IF EXISTS TEMP_work_tasks_removed');
-        //     DB::statement('CREATE TABLE TEMP_work_tasks_removed AS SELECT * FROM dpb_worktimefund_model_task WHERE id IN (' . implode(',', $workTasksToRemove) . ')');
-        //     DB::statement('DELETE FROM dpb_worktimefund_model_task WHERE id IN (' . implode(',', $workTasksToRemove) . ')');
+            DB::statement('DROP TABLE IF EXISTS TEMP_work_tasks_removed');
+            DB::statement('CREATE TABLE TEMP_work_tasks_removed AS SELECT * FROM dpb_worktimefund_model_task WHERE id IN (' . implode(',', $workTasksToRemove) . ')');
+            DB::statement('DELETE FROM dpb_worktimefund_model_task WHERE id IN (' . implode(',', $workTasksToRemove) . ')');
 
-        // }
+        }
 
-        // if (!empty($workTasksUpdates)) {
-        //     DB::statement('
-        //     UPDATE dpb_worktimefund_model_task
-        //     JOIN TEMP_work_task_updates ON dpb_worktimefund_model_task.id = TEMP_work_task_updates.id 
-        //     SET dpb_worktimefund_model_task.is_shareable = TEMP_work_task_updates.is_shareable_new
-        //     ');
-        // }
+        if (!empty($workTasksUpdates)) {
+            DB::statement('
+            UPDATE dpb_worktimefund_model_task
+            JOIN TEMP_work_task_updates ON dpb_worktimefund_model_task.id = TEMP_work_task_updates.id 
+            SET dpb_worktimefund_model_task.is_shareable = TEMP_work_task_updates.is_shareable_new
+            ');
+        }
 
-        // if (!empty($activityRecordUpdates)) {
-        //     DB::statement('
-        //     UPDATE dpb_worktimefund_model_activityrecord
-        //     JOIN TEMP_activity_record_updates ON dpb_worktimefund_model_activityrecord.id = TEMP_activity_record_updates.id 
-        //     SET dpb_worktimefund_model_activityrecord.task_id = TEMP_activity_record_updates.new_task_id,
-        //         dpb_worktimefund_model_activityrecord.expected_duration = TEMP_activity_record_updates.new_expected_duration
-        //     ');
-        // }
+        if (!empty($activityRecordUpdates)) {
+            DB::statement('
+            UPDATE dpb_worktimefund_model_activityrecord
+            JOIN TEMP_activity_record_updates ON dpb_worktimefund_model_activityrecord.id = TEMP_activity_record_updates.id 
+            SET dpb_worktimefund_model_activityrecord.task_id = TEMP_activity_record_updates.new_task_id,
+                dpb_worktimefund_model_activityrecord.expected_duration = TEMP_activity_record_updates.new_expected_duration
+            ');
+        }
 
 
 

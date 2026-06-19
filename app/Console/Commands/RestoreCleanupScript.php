@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Schema;
 
 class RestoreCleanupScript extends Command
 {
-    protected $signature = 'restore:cleanup-script {--cleanup : Drop the TEMP tables after successful restoration}';
+    protected $signature = 'restore:cleanup-script';
 
-    protected $description = 'Restore original state of activity records and work tasks from TEMP tables';
+    protected $description = 'Restore original state of activity records and work tasks from TEMP tables, drop all the TEMP tables after restoration is complete';
 
     public function handle(): int
     {
@@ -70,14 +70,11 @@ class RestoreCleanupScript extends Command
 
             $this->info('Restoration completed successfully.');
 
-            // Optional cleanup phase
-            if ($this->option('cleanup')) {
-                $this->line('Cleaning up temporary tables...');
-                foreach ($requiredTables as $table) {
-                    Schema::dropIfExists($table);
-                }
-                $this->info('Temporary tables dropped.');
+            $this->line('Cleaning up temporary tables...');
+            foreach ($requiredTables as $table) {
+                Schema::dropIfExists($table);
             }
+            $this->info('Temporary tables dropped.');
 
             return 0;
 
