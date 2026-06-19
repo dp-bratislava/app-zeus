@@ -2,21 +2,21 @@
 
 namespace App\Snapshots\Services;
 
-use App\Snapshots\Core\Contracts\SnapshotContract;
 use App\Snapshots\Core\Contracts\SnapshotExecutionStrategy;
+use App\Snapshots\Core\Snapshot;
 use App\Snapshots\Core\SnapshotExecutionState;
 use App\Snapshots\Core\SnapshotRunContext;
 use App\Snapshots\Strategies\TempTableStrategy;
 use Illuminate\Support\Facades\DB;
 
-class WorkTaskSubjectSnapshot implements SnapshotContract
+class WorkTaskSubjectSnapshot extends Snapshot
 {
     public function getKey(): string
     {
         return 'work-task-subject';
     }
 
-    protected function targetTable(): string
+    public function targetTable(): string
     {
         return 'mvw_work_task_subject_snapshots';
     }
@@ -122,15 +122,16 @@ class WorkTaskSubjectSnapshot implements SnapshotContract
     {
         return "
             INSERT INTO {$this->targetTable()}
-            ({$this->columns()})
-            WITH {$this->with($tempTable)}        
+                ({$this->columns()})
+            WITH 
+                {$this->with($tempTable)}        
             SELECT
                 {$this->select()}
-            {$this->from()}
+            FROM
+                {$this->from()}
             WHERE sr.type IS NOT NULL
-            
             ON DUPLICATE KEY UPDATE
-                updated_at = VALUES(updated_at)            
+                {$this->duplicateKeyUpdate('activity_id')}
         ";
     }
 
@@ -144,20 +145,10 @@ class WorkTaskSubjectSnapshot implements SnapshotContract
         ];
     }
 
-    protected function columns(): string
-    {
-        return implode(',', array_keys($this->map()));
-    }
-
-    protected function select(): string
-    {
-        return implode(",\n", $this->map());
-    }
-
     protected function from(): string
     {
         return "
-            FROM subject_resolved sr
+            subject_resolved sr
         ";
     }
 }

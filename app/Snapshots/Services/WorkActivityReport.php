@@ -2,14 +2,14 @@
 
 namespace App\Snapshots\Services;
 
-use App\Snapshots\Core\Contracts\SnapshotContract;
 use App\Snapshots\Core\Contracts\SnapshotExecutionStrategy;
+use App\Snapshots\Core\Snapshot;
 use App\Snapshots\Core\SnapshotExecutionState;
 use App\Snapshots\Core\SnapshotRunContext;
 use App\Snapshots\Strategies\TempTableStrategy;
 use Illuminate\Support\Facades\DB;
 
-class WorkActivityReport implements SnapshotContract
+class WorkActivityReport extends Snapshot
 {
     public function getKey(): string
     {
@@ -31,14 +31,6 @@ class WorkActivityReport implements SnapshotContract
         return app(TempTableStrategy::class);
     }
 
-    public function idQuery(SnapshotRunContext $context)
-    {
-        return DB::table($this->sourceTable())
-            ->where('updated_at', '>', $context->from)
-            ->orWhere('deleted_at', '>', $context->from)
-            ->select('id');
-    }
-
     public function run(SnapshotRunContext $context, SnapshotExecutionState $state): void
     {
         DB::statement(
@@ -52,14 +44,14 @@ class WorkActivityReport implements SnapshotContract
     {
         return "
             INSERT INTO {$this->targetTable()}
-            ({$this->columns()})
+                ({$this->columns()})
             SELECT
                 {$this->select()}
-            {$this->from()}
-            {$this->joins($tempTable)}
+            FROM    
+                {$this->from($tempTable)}                
             ON DUPLICATE KEY UPDATE
-                source_updated_at = VALUES(source_updated_at)            
-        ";
+                {$this->duplicateKeyUpdate('activity_id')}
+            ";
     }
 
     protected function map(): array
@@ -91,7 +83,7 @@ class WorkActivityReport implements SnapshotContract
                     WHEN "malfunction" THEN o.malfunction_sap_code
                     WHEN "maintenance" THEN o.maintenance_sap_code
                     ELSE NULL
-                END',            
+                END',
 
             // task snapshot
             'task_date' => 'tis.task_date',
@@ -124,19 +116,10 @@ class WorkActivityReport implements SnapshotContract
         ];
     }
 
-    protected function columns(): string
-    {
-        return implode(',', array_keys($this->map()));
-    }
-
-    protected function select(): string
-    {
-        return implode(",\n", $this->map());
-    }
-
-    protected function joins(string $tempTable): string
+    protected function from(string $tempTable): string
     {
         return "
+            dpb_worktimefund_model_activityrecord ar
             JOIN {$tempTable} tmp ON tmp.id = ar.id
             LEFT JOIN dpb_worktimefund_model_task wt ON wt.id = ar.task_id
             LEFT JOIN dpb_wtftmsbridge_mm_workorder_task wot ON wot.taskitem_id = wt.id
@@ -144,13 +127,6 @@ class WorkActivityReport implements SnapshotContract
             LEFT JOIN mvw_task_item_snapshots tis ON tis.task_item_id = wo.tms_task_item_id
             LEFT JOIN mvw_hr_contract_snapshots hrc ON hrc.pid = ar.personal_id
             LEFT JOIN dpb_worktimefund_model_operation o ON o.id = wt.source_id
-        ";
-    }
-
-    protected function from(): string
-    {
-        return "
-            FROM dpb_worktimefund_model_activityrecord ar
         ";
     }
 
