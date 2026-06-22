@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7022de8807d9f58b310c19284f05e5ff",
+    "content-hash": "20f8c728a8877f9a13423b15f18e7303",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.4",
+            "version": "v12.5.4.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "2b4a7c3acfceab3661103ceb79be138b95eebfc3"
+                "reference": "046f7685cb4892646b7a871eda870033b890dcdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/2b4a7c3acfceab3661103ceb79be138b95eebfc3",
-                "reference": "2b4a7c3acfceab3661103ceb79be138b95eebfc3",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/046f7685cb4892646b7a871eda870033b890dcdc",
+                "reference": "046f7685cb4892646b7a871eda870033b890dcdc",
                 "shasum": ""
             },
             "require": {
@@ -1381,10 +1381,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.4",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.4.1",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-06-05T09:43:53+00:00"
+            "time": "2026-06-22T09:23:34+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
