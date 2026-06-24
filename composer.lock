@@ -1960,16 +1960,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.3",
+            "version": "v12.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "b422428df769fc441d7f52dc97655d1585085256"
+                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/b422428df769fc441d7f52dc97655d1585085256",
-                "reference": "b422428df769fc441d7f52dc97655d1585085256",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/a6b8e5c52f28dbf0c381a28172980376f5906cda",
+                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda",
                 "shasum": ""
             },
             "require": {
@@ -2002,10 +2002,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.3",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.4",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-04-30T11:09:24+00:00"
+            "time": "2026-06-24T10:52:33+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
