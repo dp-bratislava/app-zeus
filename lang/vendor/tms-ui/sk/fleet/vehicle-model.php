@@ -2,6 +2,7 @@
 
 return [
     'create_heading' => 'Vytvoriť model vozidla',
+    'list_heading' => 'Modely vozidiel',
     'update_heading' => 'Upraviť model vozidila: :title',
     'form' => [
         'fields' => [
@@ -28,13 +29,17 @@ return [
             'length' => ['label' => 'Dĺžka m'],
             'type' => ['label' => 'Typ'],
             'fuel_consumption' => ['label' => 'Spotreba'],
+            'seats' => [
+                'label' => 'Poč. sedadiel',
+                'tooltip' => 'Celkový počet sedadiel',
+            ],
         ],
         'filters' => [
-            'brand' => ['label' => 'Výrobca'],
-            'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Ročník'],
-            'length' => ['label' => 'Dĺžka m'],
-            'type' => ['label' => 'Typ'],
+            'brand' => 'Výrobca',
+            'title' => 'Názov',
+            'year' => 'Ročník',
+            'length' => 'Dĺžka m',
+            'type' => 'Typ',
         ],
         'actions' => [
             'bulk_set_brand' => 'Priradiť výrobcu',
@@ -43,7 +48,7 @@ return [
     ],
     'navigation' => [
         'label' => 'Modely vozidiel',
-        'group' => 'Flotila',
+        'group' => 'Číselníky',
     ],
     'resource' => [
         'model_label' => 'Model vozidla',

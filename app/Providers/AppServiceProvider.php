@@ -65,5 +65,32 @@ class AppServiceProvider extends ServiceProvider
         // fleet
         Livewire::component('fleet-vehicle-model-list', VehicleModelList::class);
         Livewire::component('fleet-vehicle-card', VehicleCard::class);
+
+        // Cross-package relations for the "zariadenia" (asset movements) feature.
+        // The vendor TaskItem / TaskItemGroup classes can't be edited, so the relations
+        // that tie them to pkg-assets are attached at runtime.
+        \Dpb\Package\Tasks\Models\TaskItem::resolveRelationUsing(
+            'assetMovements',
+            fn ($taskItem) => $taskItem->hasMany(
+                \Dpb\Package\Assets\Models\AssetMovement::class,
+                'task_item_id'
+            )
+        );
+        \Dpb\Package\Tasks\Models\TaskItemGroup::resolveRelationUsing(
+            'assetType',
+            fn ($group) => $group->belongsTo(
+                \Dpb\Package\Assets\Models\AssetType::class,
+                'asset_type_id'
+            )
+        );
+        // Slots (mounting positions) defined for a vehicle model — drives the per-model
+        // positions manager. Cross-package: pkg-fleet's VehicleModel can't be edited.
+        \Dpb\Package\Fleet\Models\VehicleModel::resolveRelationUsing(
+            'slots',
+            fn ($model) => $model->hasMany(
+                \Dpb\Package\Assets\Models\AssetSlot::class,
+                'fleet_vehicle_model_id'
+            )
+        );
     }
 }

@@ -9,6 +9,8 @@
     ],
     "license": "MIT",
     "repositories": [
+        {"type": "path", "url": "../pkg-assets"},
+        {"type": "path", "url": "../pkg-assets-ui"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-departments.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-employee-manager.git"},
@@ -58,6 +60,8 @@
         "dpb/dpb-work-time-fund-filament": "^12.5",
         "dpb/ext-spatie-model-states": "^12.0",
         "dpb/pkg-activities": "^12.0",
+        "dpb/pkg-assets": "@dev",
+        "dpb/pkg-assets-ui": "@dev",
         "dpb/pkg-batchable": "^12.0",
         "dpb/pkg-devices": "^12.0",
         "dpb/pkg-eav": "^12.0",

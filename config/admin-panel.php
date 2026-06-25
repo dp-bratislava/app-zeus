@@ -3,6 +3,16 @@
 use App\Filament\Resources\ReportsResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
+use App\Filament\Resources\TaskItemGroupAssetTypeResource;
+use Dpb\Package\Assets\UI\Filament\Plugins\AssetPlugin;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetLocations\AssetLocationResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetMovements\AssetMovementResource;
+use Dpb\Package\Assets\UI\Filament\Resources\VehicleModelSlots\VehicleModelSlotResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetTemplates\AssetTemplateResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetTypes\AssetTypeResource;
+use Dpb\Package\Assets\UI\Filament\Resources\Assets\AssetResource;
+use Dpb\Package\Assets\UI\Filament\Resources\RepairOrders\RepairOrderResource;
+use Dpb\Package\Assets\UI\Filament\Resources\WarrantyClaims\WarrantyClaimResource;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
@@ -34,6 +44,7 @@ return [
     'plugins' => [
         UserAdminPlugin::class,
         TaskMSPlugin::class,
+        AssetPlugin::class,
         StickyTableHeaderPlugin::class,
     ],
 
@@ -56,14 +67,28 @@ return [
                 ],
             ],
             [
+                'title' => 'Zariadenia',
+                'items' => [
+                    AssetResource::class,
+                    AssetTypeResource::class,
+                    AssetTemplateResource::class,
+                    VehicleModelSlotResource::class,
+                    AssetMovementResource::class,
+                    AssetLocationResource::class,
+                    TaskItemGroupAssetTypeResource::class,
+                    WarrantyClaimResource::class,
+                    RepairOrderResource::class,
+                ],
+            ],
+            [
                 'title' => 'Číselníky',
                 'items' => [
-                    // VehicleResource::class,
-                    // VehicleModelResource::class,
-                    // MaintenanceGroupResource::class,
-                    // VehicleGroupResource::class,
-                    // BrandResource::class,
-                    // VehicleTypeResource::class,
+                    VehicleResource::class,
+                    VehicleModelResource::class,
+                    VehicleTypeResource::class,
+                    BrandResource::class,
+                    MaintenanceGroupResource::class,
+                    VehicleGroupResource::class,
                     // InspectionTemplateResource::class,
                     // InspectionTemplateGroupResource::class,
                     // TicketTypeResource::class,
