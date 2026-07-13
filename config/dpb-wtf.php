@@ -19,14 +19,17 @@ return [
         1 => [
             [
                 'departments' => [
+                    // autobusy
                     334,
                     339,
-                    343, // autobusy
-                    259,
-                    277,
-                    278, // elektricky
-                    270,
-                    269 // trolejbusy
+                    343,
+                    // elektricky
+                    // 259,
+                    // 277,
+                    // 278,
+                    // // trolejbusy
+                    // 270,
+                    // 269
                 ]
             ],
         ],
