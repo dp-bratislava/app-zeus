@@ -1330,7 +1330,7 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.14.1",
+            "version": "v12.5.15",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
@@ -1381,7 +1381,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.14.1",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.15",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
             "time": "2026-07-14T10:23:06+00:00"
