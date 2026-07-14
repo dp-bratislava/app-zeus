@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 
 class DataMigrateCommand extends Command
 {
-    protected $signature = 'app:data-migrate {profile}';
+    protected $signature = 'data:migrate {profile}';
 
     public function handle(): int
     {
