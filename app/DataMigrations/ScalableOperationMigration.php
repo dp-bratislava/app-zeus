@@ -4,12 +4,8 @@ namespace App\DataMigrations;
 
 use App\DataMigrations\Contracts\DataMigration;
 use Dpb\DatahubSync\Models\Department;
-use Dpb\Package\TaskMS\Models\DepartmentAssignment;
-use Dpb\Package\Tasks\Models\TaskGroup;
-use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Dpb\WorkTimeFund\Models\Category;
 use Dpb\WorkTimeFund\Models\Operation;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Set all operations as scalable for department 9486
