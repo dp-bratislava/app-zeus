@@ -32,4 +32,13 @@ return [
         Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource::class,
         Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Task subject adapters
+    |--------------------------------------------------------------------------
+    */
+    'task_subject_adapters' => [
+        'vehicle' => \Dpb\WtfTmsBridge\Adapters\FleetVehicleTaskSubjectAdapter::class,
+    ],    
 ];
