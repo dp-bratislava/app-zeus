@@ -19,8 +19,8 @@ class AssetsTable
         return $table
             ->heading('Agregáty')
             ->emptyStateHeading('Žiadne agregáty')
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
+            ->paginated([10, 25, 50])
+            ->defaultPaginationPageOption(10)
             ->columns([
                 TextColumn::make('serial_number')
                     ->label('Sériové číslo')
