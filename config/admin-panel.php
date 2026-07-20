@@ -3,6 +3,11 @@
 use App\Filament\Resources\ReportsResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
+use App\Filament\Resources\TaskItemGroupAssetTypeResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetLocations\AssetLocationResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetMovements\AssetMovementResource;
+use Dpb\Package\Assets\UI\Filament\Resources\VehicleModelSlots\VehicleModelSlotResource;
+use Dpb\Package\Assets\UI\Filament\Resources\AssetTemplates\AssetTemplateResource;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
@@ -29,6 +34,7 @@ use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
 use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
+use App\Filament\Resources\Asset\AssetResource;
 
 return [
     'plugins' => [
@@ -44,6 +50,8 @@ return [
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             WorktimeManagementPage::class,
+            AssetResource::class,
+
         ],
         'groups' => [
             [
@@ -60,10 +68,10 @@ return [
                 'items' => [
                     // VehicleResource::class,
                     // VehicleModelResource::class,
+                    // VehicleTypeResource::class,
+                    // BrandResource::class,
                     // MaintenanceGroupResource::class,
                     // VehicleGroupResource::class,
-                    // BrandResource::class,
-                    // VehicleTypeResource::class,
                     // InspectionTemplateResource::class,
                     // InspectionTemplateGroupResource::class,
                     // TicketTypeResource::class,

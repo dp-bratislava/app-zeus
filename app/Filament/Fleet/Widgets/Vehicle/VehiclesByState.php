@@ -25,19 +25,8 @@ class VehiclesByState extends BaseWidget
                 Tables\Columns\TextColumn::make('state')
                     ->label(__('fleet/dashboard.widgets.vehicles_by_state.table.columns.state'))
                     ->getStateUsing(fn ($record) => __('fleet/vehicle.states.' . $record->state)),
-                Tables\Columns\TextColumn::make('1TPA')
-                    ->label('1TPA'),
-                Tables\Columns\TextColumn::make('2TPA'),
-                    // ->label(__('fleet/vehicle.table.columns.model')),
-                Tables\Columns\TextColumn::make('3TPA'),
-                Tables\Columns\TextColumn::make('PEJ'),
-                Tables\Columns\TextColumn::make('PET'),
-                Tables\Columns\TextColumn::make('PTT'),
-                Tables\Columns\TextColumn::make('PTH'),
-                    // ->label(__('fleet/vehicle.table.columns.model'))
                 Tables\Columns\TextColumn::make('total')
                     ->label(__('fleet/dashboard.widgets.vehicles_by_state.table.columns.total')),
-
             ]);
     }
 }

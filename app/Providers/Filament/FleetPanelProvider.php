@@ -6,7 +6,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -40,12 +39,8 @@ class FleetPanelProvider extends PanelProvider
             ->pages([
                 // Pages\Dashboard::class,
             ])
-            ->navigationItems([
-                NavigationItem::make('tickets')
-                    ->label('tickets')
-                    // ->url(fn (): string => Dashboard::getUrl())
-                    ->url(fn (): string => route('filament.admin.resources.t-s.tickets.index'))
-            ])
+            // Navigation items can be added here once routes exist in this panel.
+            // ->navigationItems([])
             ->discoverWidgets(in: app_path('Filament/Fleet/Widgets'), for: 'App\\Filament\\Fleet\\Widgets')
             ->widgets([
                 // Widgets\AccountWidget::class,

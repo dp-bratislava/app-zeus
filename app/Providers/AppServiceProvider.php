@@ -13,6 +13,12 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use App\Services\Asset\AppSpecificTransitionValidator;
+use Dpb\Package\Assets\Contracts\TransitionValidatorInterface;
+use Dpb\Package\Assets\Models\AssetMovement;
+use Dpb\Package\Assets\Models\AssetSlot;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Tasks\Models\TaskItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,7 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // app()->register(EventServiceProvider::class);    
+        $this->app->bind(
+            TransitionValidatorInterface::class, 
+            AppSpecificTransitionValidator::class
+        );
     }
 
     /**
@@ -29,17 +38,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         FilamentAsset::register([
             Css::make('custom-styles', asset('css/app/custom-overrides.css')),
         ]);
 
-        // All future morphs *must* be mapped!
-        // Relation::enforceMorphMap([
-        //     'ticket' => \App\Models\TS\Ticket::class,
-        //     'user' => \App\Models\User::class,
-        //     'vehicle' => \App\Models\Fleet\Vehicle::class,
-        // ]);
         Relation::morphMap([
             'activity' => \Dpb\Package\Activities\Models\Activity::class,
             'activity-template' => \Dpb\Package\Activities\Models\ActivityTemplate::class,
@@ -55,15 +57,22 @@ class AppServiceProvider extends ServiceProvider
             'vehicle-model' => \Dpb\Package\Fleet\Models\VehicleModel::class,
             'vehicle' => \Dpb\Package\Fleet\Models\Vehicle::class,
             'maintenance-group' => \Dpb\Package\Fleet\Models\MaintenanceGroup::class,
-            //
-
         ]);
 
-        // Blade::component('ticket-item-activities', TicketItemActivities::class);
         Livewire::component('ticket-item-activities', TicketItemActivities::class);
         Livewire::component('ticket-item-materials', TicketItemMaterials::class);
-        // fleet
         Livewire::component('fleet-vehicle-model-list', VehicleModelList::class);
         Livewire::component('fleet-vehicle-card', VehicleCard::class);
+
+        AssetMovement::resolveRelationUsing('taskItem', function (AssetMovement $assetMovement) {
+        return $assetMovement->belongsTo(TaskItem::class, 'task_item_id');
+        });
+        TaskItem::resolveRelationUsing('assetMovements', function (TaskItem $taskItem) {
+            return $taskItem->hasMany(AssetMovement::class, 'task_item_id');
+        });
+
+        AssetSlot::resolveRelationUsing('vehicle', function (AssetSlot $assetSlot) {
+            return $assetSlot->belongsTo(Vehicle::class, 'vehicle_id');
+        });
     }
 }

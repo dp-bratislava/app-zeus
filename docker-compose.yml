@@ -20,6 +20,7 @@ services:
             GITHUB_TOKEN: '${GITHUB_TOKEN}'
         volumes:
             - '.:/var/www/html'
+            - '../dpb-wtf-tms-bridge:/var/www/dpb-wtf-tms-bridge'
         networks:
             - sail
         depends_on:
