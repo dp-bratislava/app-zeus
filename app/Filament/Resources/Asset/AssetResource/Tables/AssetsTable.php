@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Asset\AssetResource\Tables;
 
-use Dpb\Package\Assets\Enums\AssetState;
-use Dpb\Package\Assets\Enums\MovementType;
+use App\Enums\AssetState;
+use App\Enums\MovementType;
+use Dpb\Package\Assets\Contracts\AssetStateInterface;
+use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Models\Asset;
 use Dpb\Package\Assets\Models\AssetMovement;
 use Filament\Tables\Columns\TextColumn;
@@ -37,7 +39,7 @@ class AssetsTable
                 TextColumn::make('state_location')
                     ->label('Umiestnenie')
                     ->getStateUsing(fn ($record) => $record->state)
-                    ->formatStateUsing(fn (AssetState $state): string => $state->location())
+                    ->formatStateUsing(fn (AssetStateInterface $state): string => $state->location())
                     ->width('200px'),
 
                 TextColumn::make('kilometrage')
@@ -48,7 +50,7 @@ class AssetsTable
                 Textcolumn::make('last_movement')
                     ->label('Posledná operácia')
                     ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->movement_type ?? null)
-                    ->formatStateUsing(fn (MovementType $state): string => $state->label())
+                    ->formatStateUsing(fn (?MovementTypeInterface $state): string => $state?->label() ?? '')
                     ->width('100px')
                     ->sortable(),
 
@@ -110,15 +112,15 @@ class AssetsTable
                     ->label('Stav')
                     ->width('200px')
                     ->badge()
-                    ->formatStateUsing(fn (AssetState $state): string => $state->label())
+                    ->formatStateUsing(fn (AssetStateInterface $state): string => $state->label())
                     ->color('warning'),
             ])
             ->filters([])
             ->defaultSort('updated_at', 'desc')
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->whereNotIn('state', [
-                    AssetState::DIEL_NA_VOZE,
-                    AssetState::VYRADENE_SCHVALENE,
+                    AssetState::DIEL_NA_VOZE->value,
+                    AssetState::VYRADENE_SCHVALENE->value,
                 ])
             );
     }

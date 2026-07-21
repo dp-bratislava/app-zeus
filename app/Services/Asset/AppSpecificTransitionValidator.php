@@ -2,18 +2,24 @@
 namespace App\Services\Asset;
 
 use Dpb\Package\Assets\Contracts\TransitionValidatorInterface;
-use Dpb\Package\Assets\Enums\AssetState;
+use Dpb\Package\Assets\Contracts\AssetStateInterface;
+use App\Enums\AssetState;
 use Illuminate\Database\Eloquent\Model;
 
 class AppSpecificTransitionValidator implements TransitionValidatorInterface
 {
-    public function validate(Model $asset, AssetState $from, AssetState $to): bool
+    public function validate(Model $asset, AssetStateInterface $from, AssetStateInterface $to): bool
     {
-        return match ([$from, $to]) {
-            [AssetState::DIEL_NA_VOZE, AssetState::NA_VYRADENIE_NESCHVALENE] 
+        // Only handle App\Enums\AssetState instances
+        if (!($from instanceof AssetState && $to instanceof AssetState)) {
+            return true;
+        }
+
+        return match (true) {
+            $from === AssetState::DIEL_NA_VOZE && $to === AssetState::NA_VYRADENIE_NESCHVALENE 
                 => $this->canScrapFromVehicle($asset),
 
-            [AssetState::VYZISK, AssetState::NA_VYRADENIE_NESCHVALENE] 
+            $from === AssetState::VYZISK && $to === AssetState::NA_VYRADENIE_NESCHVALENE 
                 => $this->canScrapFromRecovery($asset),
 
             default => true,
@@ -23,7 +29,6 @@ class AppSpecificTransitionValidator implements TransitionValidatorInterface
     private function canScrapFromVehicle(Model $asset): bool
     {
         // Put application-specific business logic here
-        // (e.g., check user permissions, vehicle status, etc.)
         return true;
     }
 
