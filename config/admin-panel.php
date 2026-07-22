@@ -49,8 +49,8 @@ return [
             TaskItemResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
-            WorktimeManagementPage::class,
             AssetResource::class,
+            WorktimeManagementPage::class,
 
         ],
         'groups' => [
