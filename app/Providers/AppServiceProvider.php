@@ -15,10 +15,7 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use App\Services\Asset\AppSpecificTransitionValidator;
 use Dpb\Package\Assets\Contracts\TransitionValidatorInterface;
-use Dpb\Package\Assets\Models\AssetMovement;
-use Dpb\Package\Assets\Models\AssetSlot;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\Tasks\Models\TaskItem;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -64,15 +61,6 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('fleet-vehicle-model-list', VehicleModelList::class);
         Livewire::component('fleet-vehicle-card', VehicleCard::class);
 
-        AssetMovement::resolveRelationUsing('taskItem', function (AssetMovement $assetMovement) {
-        return $assetMovement->belongsTo(TaskItem::class, 'task_item_id');
-        });
-        TaskItem::resolveRelationUsing('assetMovements', function (TaskItem $taskItem) {
-            return $taskItem->hasMany(AssetMovement::class, 'task_item_id');
-        });
 
-        AssetSlot::resolveRelationUsing('vehicle', function (AssetSlot $assetSlot) {
-            return $assetSlot->belongsTo(Vehicle::class, 'vehicle_id');
-        });
     }
 }
