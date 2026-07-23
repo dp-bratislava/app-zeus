@@ -11,7 +11,7 @@ return [
     | operate without any hard dependency on concrete enum classes.
     |
     */
-    'state_enum' => \App\Enums\AssetState::class,
-    'movement_enum' => \App\Enums\MovementType::class,
+    'state_enum' => \Dpb\WtfTmsBridge\Enums\AssetState::class,
+    'movement_enum' => \Dpb\WtfTmsBridge\Enums\MovementType::class,
 
 ];

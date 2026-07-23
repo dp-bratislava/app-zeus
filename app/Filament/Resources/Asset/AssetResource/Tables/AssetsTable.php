@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Asset\AssetResource\Tables;
 
-use App\Enums\AssetState;
-use App\Enums\MovementType;
+use Dpb\WtfTmsBridge\Enums\AssetState;
+use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Models\Asset;

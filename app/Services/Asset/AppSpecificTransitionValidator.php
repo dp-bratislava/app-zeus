@@ -3,14 +3,13 @@ namespace App\Services\Asset;
 
 use Dpb\Package\Assets\Contracts\TransitionValidatorInterface;
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
-use App\Enums\AssetState;
+use Dpb\WtfTmsBridge\Enums\AssetState;
 use Illuminate\Database\Eloquent\Model;
 
 class AppSpecificTransitionValidator implements TransitionValidatorInterface
 {
     public function validate(Model $asset, AssetStateInterface $from, AssetStateInterface $to): bool
     {
-        // Only handle App\Enums\AssetState instances
         if (!($from instanceof AssetState && $to instanceof AssetState)) {
             return true;
         }

@@ -4,7 +4,7 @@ namespace Database\Seeders\LocalDev;
 
 use Dpb\Package\Assets\Models\AssetSlot;
 use Dpb\Package\Assets\Models\AssetType;
-use Dpb\Package\Assets\Enums\AssetState;
+use Dpb\WtfTmsBridge\Enums\AssetState;
 use Dpb\Package\Assets\Models\Asset;
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Dpb\Package\Fleet\Models\Vehicle;
