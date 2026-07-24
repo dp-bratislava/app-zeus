@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "a38147f723f8527b9058d157bbcbad8807d702b5"
+                "reference": "56a810b11c16372193039622dab18469c44c6b96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/a38147f723f8527b9058d157bbcbad8807d702b5",
-                "reference": "a38147f723f8527b9058d157bbcbad8807d702b5",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/56a810b11c16372193039622dab18469c44c6b96",
+                "reference": "56a810b11c16372193039622dab18469c44c6b96",
                 "shasum": ""
             },
             "require": {
@@ -1478,7 +1478,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/asset-movements",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-07-24T08:32:21+00:00"
+            "time": "2026-07-24T09:38:40+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -1776,12 +1776,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:andrej-horny/pkg-assets.git",
-                "reference": "3b7140c746a1215e8143dd6aac8da795913eca69"
+                "reference": "c6ba885ad45104f77ee6ae9629f7f21ce0e0cc96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrej-horny/pkg-assets/zipball/3b7140c746a1215e8143dd6aac8da795913eca69",
-                "reference": "3b7140c746a1215e8143dd6aac8da795913eca69",
+                "url": "https://api.github.com/repos/andrej-horny/pkg-assets/zipball/c6ba885ad45104f77ee6ae9629f7f21ce0e0cc96",
+                "reference": "c6ba885ad45104f77ee6ae9629f7f21ce0e0cc96",
                 "shasum": ""
             },
             "require": {
@@ -1815,7 +1815,7 @@
                 "source": "https://github.com/andrej-horny/pkg-assets/tree/fero/asset-movements-continuation",
                 "issues": "https://github.com/andrej-horny/pkg-assets/issues"
             },
-            "time": "2026-07-24T08:32:44+00:00"
+            "time": "2026-07-24T09:37:51+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
