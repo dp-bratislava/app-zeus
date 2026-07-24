@@ -46,7 +46,7 @@ return [
     'navigation' => [
         'items' => [
             TaskAssignmentResource::class,
-            TaskItemResource::class,
+            // TaskItemResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             AssetResource::class,
