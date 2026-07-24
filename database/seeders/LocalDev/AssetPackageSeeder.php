@@ -1,10 +1,10 @@
 <?php
-// run assetslot seeder and asset states seeder 
+
+// run assetslot seeder and asset states seeder
+
 namespace Database\Seeders\LocalDev;
 
-
 use Illuminate\Database\Seeder;
-use Database\Seeders\LocalDev\AssetSlotSeeder;
 
 /**
  * Run: ./vendor/bin/sail artisan db:seed --class="Database\Seeders\LocalDev\AssetPackageSeeder"
@@ -12,7 +12,7 @@ use Database\Seeders\LocalDev\AssetSlotSeeder;
 class AssetPackageSeeder extends Seeder
 {
     public function run(): void
-{
+    {
         $this->call(AssetSlotSeeder::class);
-}
+    }
 }

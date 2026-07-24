@@ -7,7 +7,6 @@ use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
 use App\Repositories\TicketAssignmentRepository;
 use Dpb\Package\Tickets\Models\TicketItem;
-use Illuminate\Database\ConnectionInterface;
 
 class TicketAssignmentService
 {
@@ -27,9 +26,9 @@ class TicketAssignmentService
 
     public function addTicketItem(array $payload): ?TicketItem
     {
-        // to do 
-        // dd($payload);        
-//         create ticket item
+        // to do
+        // dd($payload);
+        //         create ticket item
         $ticketItem = TicketItem::create($payload['ticket_item']);
 
         // create ticket item assignent
@@ -39,5 +38,5 @@ class TicketAssignmentService
 
         return $ticketItem;
         // return $this->ticketAssignmentRepository->save($ticketAssignment);
-    }    
+    }
 }

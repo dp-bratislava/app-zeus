@@ -19,7 +19,7 @@ class WorkTaskSubject extends Model
         return $this->belongsTo(
             WorkActivityReport::class,
             'wtf_task_id', // Foreign key on TaskSubject table
-            'wtf_task_id'  // Local key on Activity table            
+            'wtf_task_id'  // Local key on Activity table
         );
     }
 }

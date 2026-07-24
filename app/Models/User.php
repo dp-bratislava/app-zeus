@@ -18,11 +18,8 @@ class User extends BaseUser
         return [];
     }
 
-
     /**
      * Get array of maintenance group ids set in user properties
-     * 
-     * @return array
      */
     public function getMaintenanceGroupIds(): array
     {
@@ -31,12 +28,10 @@ class User extends BaseUser
         }
 
         return [];
-    }  
-    
+    }
+
     /**
      * Get array of vehicle type ids set in user properties
-     * 
-     * @return array
      */
     public function getVehicleTypeIds(): array
     {
@@ -45,5 +40,5 @@ class User extends BaseUser
         }
 
         return [];
-    }     
+    }
 }

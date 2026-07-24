@@ -2,9 +2,8 @@
 
 namespace App\Reports;
 
-use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\DetailReport;
-use App\Reports\Drivers\BatchReportDriver;
+use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\SumarReport;
 use InvalidArgumentException;
 
@@ -20,21 +19,23 @@ class ReportFactory
     {
         $available = [];
         foreach (self::$drivers as $key => $driverClass) {
-            $driver = new $driverClass();
+            $driver = new $driverClass;
             $available[$key] = $driver;
         }
+
         return $available;
     }
 
     public static function make(string $key): ReportDriver
     {
-        if (!isset(self::$drivers[$key])) {
+        if (! isset(self::$drivers[$key])) {
             throw new InvalidArgumentException(
-                "Report driver '{$key}' not found. Available: " . implode(', ', array_keys(self::$drivers))
+                "Report driver '{$key}' not found. Available: ".implode(', ', array_keys(self::$drivers))
             );
         }
 
         $driverClass = self::$drivers[$key];
-        return new $driverClass();
+
+        return new $driverClass;
     }
 }

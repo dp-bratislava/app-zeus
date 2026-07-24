@@ -90,12 +90,12 @@ return [
             ],
             'absence-manager' => [
                 AbsencesManagerPage::getAccessPermission(),
-                ...Absence::getTablePermissions()
+                ...Absence::getTablePermissions(),
             ],
             'spotlight-manager' => [
                 SpotlightTriggerComponent::getAccessPermission(),
                 ...SpotlightStep::getTablePermissions(),
-            ]
+            ],
         ],
     ],
 ];

@@ -11,6 +11,7 @@ class TestController extends Controller
         $ticketDtos = $ticketService->getTickets();
 
         dd($ticketDtos);
+
         return response()->json($ticketDtos);
     }
 }

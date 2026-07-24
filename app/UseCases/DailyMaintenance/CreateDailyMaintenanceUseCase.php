@@ -6,9 +6,9 @@ use App\Data\Inspection\InspectionAssignmentData;
 use App\Data\Inspection\InspectionData;
 use App\Models\InspectionAssignment;
 use App\Services\InspectionAssignmentService;
-use Illuminate\Contracts\Auth\Guard;
 use App\States;
 use App\UseCases\TicketAssignment\CreateFromDailyMaintenanceUseCase;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Carbon;
 
 class CreateDailyMaintenanceUseCase
@@ -46,7 +46,6 @@ class CreateDailyMaintenanceUseCase
             $this->createTicketAssignmentUseCase->execute($dailyMaintenance);
         }
 
-
-        return null; //$dailyMaintenance;
+        return null; // $dailyMaintenance;
     }
 }

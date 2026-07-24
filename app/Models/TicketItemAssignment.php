@@ -29,7 +29,7 @@ class TicketItemAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_item_assignments';
+        return config('database.table_prefix').'ticket_item_assignments';
     }
 
     public function ticket(): HasOneThrough
@@ -46,18 +46,18 @@ class TicketItemAssignment extends Model
 
     public function ticketItem(): BelongsTo
     {
-        return $this->belongsTo(TicketItem::class, "ticket_item_id");
+        return $this->belongsTo(TicketItem::class, 'ticket_item_id');
     }
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, "author_id");
+        return $this->belongsTo(User::class, 'author_id');
         // return $this->belongsTo(EmployeeContract::class, "author_id");
     }
 
     public function supervisedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, "supervised_by");
+        return $this->belongsTo(User::class, 'supervised_by');
         // return $this->belongsTo(EmployeeContract::class, "assigned_to");
     }
 

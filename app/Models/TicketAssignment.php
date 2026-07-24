@@ -36,12 +36,12 @@ class TicketAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_assignments';
+        return config('database.table_prefix').'ticket_assignments';
     }
 
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(Ticket::class, "ticket_id");
+        return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
     public function ticketItems(): HasManyThrough
@@ -58,12 +58,12 @@ class TicketAssignment extends Model
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "department_id");
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, "author_id");
+        return $this->belongsTo(User::class, 'author_id');
         // return $this->belongsTo(EmployeeContract::class, "author_id");
     }
 
@@ -86,11 +86,11 @@ class TicketAssignment extends Model
     {
         $ticketGroupShort = Str::of($this->ticket->group->title)
             ->explode(' ')                 // split by space
-            ->map(fn($word) => strtoupper(substr($word, 0, 1)))  // first char uppercase
+            ->map(fn ($word) => strtoupper(substr($word, 0, 1)))  // first char uppercase
             ->implode('');
         $date = $this->ticket->date->format('ymd');
         $subject = $this->subject->code?->code;
-        
-        return join('-', [$ticketGroupShort, $date, $subject]);
+
+        return implode('-', [$ticketGroupShort, $date, $subject]);
     }
 }

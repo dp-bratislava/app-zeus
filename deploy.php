@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -10,7 +10,7 @@ require 'recipe/laravel.php';
 require 'recipe/deploy/push.php';
 
 $dotenv = new Dotenv;
-$dotenv->load(__DIR__ . '/.env');
+$dotenv->load(__DIR__.'/.env');
 
 // Global Config
 set('repository', 'git@github.com:dp-bratislava/app-zeus.git');

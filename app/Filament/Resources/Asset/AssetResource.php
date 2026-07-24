@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources\Asset;
 
+use App\Filament\Resources\Asset\AssetResource\Pages\ListAssets;
+use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
 use Dpb\Package\Assets\Models\Asset;
 use Filament\Resources\Resource;
-use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
-use App\Filament\Resources\Asset\AssetResource\Pages\ListAssets;
 use Filament\Tables\Table;
 
 class AssetResource extends Resource
@@ -48,4 +48,3 @@ class AssetResource extends Resource
         ];
     }
 }
-

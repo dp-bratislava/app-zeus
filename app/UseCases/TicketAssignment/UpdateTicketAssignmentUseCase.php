@@ -6,11 +6,11 @@ use App\Data\Ticket\TicketAssignmentData;
 use App\Data\Ticket\TicketData;
 use App\Models\TicketAssignment;
 use App\Services\TicketAssignmentService;
-use Dpb\Package\Fleet\Models\MaintenanceGroup;
-use Illuminate\Support\Carbon;
 use App\States;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Carbon;
 
 class UpdateTicketAssignmentUseCase
 {
@@ -53,25 +53,25 @@ class UpdateTicketAssignmentUseCase
         return $this->ticketAssignmentSvc->update($taData);
     }
 
-//     public function execute1(TicketAssignment $ticketAssignment, array $data): ?TicketAssignment
-//     {
-//         // ticket
-//         $ticketData = $data['ticket'];
-//         $ticketAssignment->ticket->update([
-//             'date' => $ticketData['date'],
-//             'title' => $ticketData['title'] ?? null,
-//             'description' => $ticketData['description'] ?? null,
-//             'group_id' => $ticketData['group_id'],
-//             // 'state' => $ticketData['state'],
-//         ]);
+    //     public function execute1(TicketAssignment $ticketAssignment, array $data): ?TicketAssignment
+    //     {
+    //         // ticket
+    //         $ticketData = $data['ticket'];
+    //         $ticketAssignment->ticket->update([
+    //             'date' => $ticketData['date'],
+    //             'title' => $ticketData['title'] ?? null,
+    //             'description' => $ticketData['description'] ?? null,
+    //             'group_id' => $ticketData['group_id'],
+    //             // 'state' => $ticketData['state'],
+    //         ]);
 
-//         // subject TO DO
-//         $ticketAssignment->subject_id = $data['subject_id'];
-//         // assigned to TO DO
-//         $assignedTo = MaintenanceGroup::findSole($data['assigned_to_id']);
-//         $ticketAssignment->assignedTo()->associate($assignedTo);
+    //         // subject TO DO
+    //         $ticketAssignment->subject_id = $data['subject_id'];
+    //         // assigned to TO DO
+    //         $assignedTo = MaintenanceGroup::findSole($data['assigned_to_id']);
+    //         $ticketAssignment->assignedTo()->associate($assignedTo);
 
-//         return $this->ticketAssignmentSvc->update($ticketAssignment);
-// ;
-//     }
+    //         return $this->ticketAssignmentSvc->update($ticketAssignment);
+    // ;
+    //     }
 }

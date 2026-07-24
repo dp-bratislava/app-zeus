@@ -25,7 +25,7 @@ class IssueEnumSeeder extends Seeder
             ['code' => 'closed.operable-with-issues', 'title' => 'Ukončené - prevádzkyschopné s poruchou'],
             ['code' => 'assigned', 'title' => 'Prevzatá'],
         ];
-		
+
         foreach ($issueStatuses as $issueStatus) {
             Status::create($issueStatus);
         }

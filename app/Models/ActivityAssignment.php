@@ -25,16 +25,16 @@ class ActivityAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'activity_assignments';
+        return config('database.table_prefix').'activity_assignments';
     }
 
-    public function activity(): BelongsTo 
+    public function activity(): BelongsTo
     {
         return $this->belongsTo(Activity::class);
-    } 
+    }
 
     public function subject(): MorphTo
     {
         return $this->morphTo();
-    }    
+    }
 }

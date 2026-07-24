@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 
@@ -29,7 +28,7 @@ class ActivityTemplatable extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'activity_templatables';
+        return config('database.table_prefix').'activity_templatables';
     }
 
     public function template(): BelongsTo
@@ -41,7 +40,7 @@ class ActivityTemplatable extends Model
     {
         return $this->morphMany(
             VehicleModel::class,
-            'templatable',            
+            'templatable',
         );
     }
 

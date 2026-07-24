@@ -14,7 +14,7 @@ class WorkAssignment extends Model
 
     public function getTable(): string
     {
-        return config('database.table_prefix') . 'work_assignments';
+        return config('database.table_prefix').'work_assignments';
     }
 
     public function subject(): MorphTo
@@ -24,11 +24,11 @@ class WorkAssignment extends Model
 
     public function employeeContract(): BelongsTo
     {
-        return $this->belongsTo(EmployeeContract::class, "employee_contract_id");
+        return $this->belongsTo(EmployeeContract::class, 'employee_contract_id');
     }
 
     public function workInterval(): BelongsTo
     {
-        return $this->belongsTo(WorkInterval::class, "work_interval_id");
+        return $this->belongsTo(WorkInterval::class, 'work_interval_id');
     }
 }

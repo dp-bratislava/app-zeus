@@ -18,7 +18,7 @@ class BreakActivityMigration implements DataMigration
             'id' => 1,
             'title' => 'Sprcha',
             'duration' => 900,
-            'is_tolerated' => 1
+            'is_tolerated' => 1,
         ]);
 
         // build mapping between employee contract and break
@@ -34,7 +34,7 @@ class BreakActivityMigration implements DataMigration
             Artisan::call('wtf:generate-break-activities', [
                 'department-code' => $department,
                 'date-from' => $dateFrom,
-                'date-to' => $dateTo
+                'date-to' => $dateTo,
             ]);
         }
     }

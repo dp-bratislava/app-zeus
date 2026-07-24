@@ -3,10 +3,10 @@
 namespace App\Reports\Exports;
 
 use App\Models\Reports\Export;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 abstract class BaseReportExporter
 {
@@ -35,13 +35,13 @@ abstract class BaseReportExporter
         $query = $this->query($filters);
 
         $response = Http::timeout(300)->post("$this->baseUrl/export/generate", [
-            'sql'     => $query->toSql(),
-            'params'  => $query->getBindings(),
-            'columns' => $this->columns()
+            'sql' => $query->toSql(),
+            'params' => $query->getBindings(),
+            'columns' => $this->columns(),
         ]);
 
-        if (!$response->successful()) {
-            throw new \Exception("Exporter Service Error (" . $response->status() . "): " . $response->body());
+        if (! $response->successful()) {
+            throw new \Exception('Exporter Service Error ('.$response->status().'): '.$response->body());
         }
 
         return $response->json();
@@ -54,14 +54,14 @@ abstract class BaseReportExporter
     {
         $fullUrl = str_starts_with($fileUrl, 'http')
             ? $fileUrl
-            : rtrim($this->baseUrl, '/') . '/' . ltrim($fileUrl, '/');
+            : rtrim($this->baseUrl, '/').'/'.ltrim($fileUrl, '/');
 
-        Log::info("Attempting to download export from: " . $fullUrl);
+        Log::info('Attempting to download export from: '.$fullUrl);
 
         $file = Http::timeout(120)->get($fullUrl);
 
-        if (!$file->successful()) {
-            throw new \Exception("Could not download file from exporter at: " . $fullUrl);
+        if (! $file->successful()) {
+            throw new \Exception('Could not download file from exporter at: '.$fullUrl);
         }
 
         Storage::disk('report-exports')->put($fileName, $file->body());
@@ -89,8 +89,8 @@ abstract class BaseReportExporter
     {
         $responseData = $this->handlePayload($filters);
 
-        if (!isset($responseData['url'])) {
-            throw new \Exception("Export failed: " . json_encode($responseData));
+        if (! isset($responseData['url'])) {
+            throw new \Exception('Export failed: '.json_encode($responseData));
         }
 
         $localFileName = $this->storeFile($responseData['url'], $fileName);

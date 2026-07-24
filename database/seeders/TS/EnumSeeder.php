@@ -60,6 +60,6 @@ class EnumSeeder extends Seeder
 
         foreach ($ticketGroups as $group) {
             TicketGroup::create($group);
-        }        
+        }
     }
 }

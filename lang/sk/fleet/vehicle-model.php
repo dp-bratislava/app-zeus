@@ -14,7 +14,7 @@ return [
             'activity-templates' => 'Normy',
             'parameters' => 'Parametre',
             'vehicles' => 'Vozidlá',
-        ]
+        ],
     ],
     'table' => [
         'heading' => 'Modely vozidiel',
@@ -39,7 +39,7 @@ return [
         'actions' => [
             'bulk_set_brand' => 'Priradiť výrobcu',
             'bulk_set_vehicle_type' => 'Priradiť typ',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Modely vozidiel',

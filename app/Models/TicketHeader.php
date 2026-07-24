@@ -30,33 +30,33 @@ class TicketHeader extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_headers';
+        return config('database.table_prefix').'ticket_headers';
     }
-        
+
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(Ticket::class, "ticket_id");
+        return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "department_id");
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function author(): BelongsTo
     {
         // return $this->belongsTo(User::class, "author_id");
-        return $this->belongsTo(EmployeeContract::class, "author_id");
+        return $this->belongsTo(EmployeeContract::class, 'author_id');
     }
 
     public function assignedTo(): BelongsTo
     {
         // return $this->belongsTo(User::class, "assigned_to");
-        return $this->belongsTo(EmployeeContract::class, "assigned_to");
+        return $this->belongsTo(EmployeeContract::class, 'assigned_to');
     }
-    
+
     public function source(): MorphTo
     {
         return $this->morphTo();
-    }    
+    }
 }

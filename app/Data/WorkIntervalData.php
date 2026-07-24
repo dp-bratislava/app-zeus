@@ -5,7 +5,6 @@ namespace App\Data;
 use DateTime;
 use Illuminate\Support\Facades\Date;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\DataCollection;
 
 class WorkIntervalData extends Data
 {

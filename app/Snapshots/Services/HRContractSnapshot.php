@@ -34,13 +34,13 @@ class HRContractSnapshot extends Snapshot
     public function idQuery(SnapshotRunContext $context)
     {
         return DB::table($this->sourceTable())
-            ->when($context->from, fn($q) => $q->where('updated_at', '>=', $context->from))
-            ->when($context->to, fn($q) => $q->where('updated_at', '<=', $context->to))
+            ->when($context->from, fn ($q) => $q->where('updated_at', '>=', $context->from))
+            ->when($context->to, fn ($q) => $q->where('updated_at', '<=', $context->to))
             ->whereNotNull([
                 'datahub_department_id',
                 'datahub_profession_id',
                 'datahub_contract_type_id',
-                'circuit_id'
+                'circuit_id',
             ])
             ->select('id');
     }

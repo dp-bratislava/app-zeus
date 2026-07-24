@@ -25,16 +25,16 @@ class DepartmentAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'department_assignments';
+        return config('database.table_prefix').'department_assignments';
     }
 
-    public function department(): BelongsTo 
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
-    } 
+    }
 
     public function subject(): MorphTo
     {
         return $this->morphTo();
-    }    
+    }
 }

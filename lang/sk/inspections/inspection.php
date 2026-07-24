@@ -25,7 +25,7 @@ return [
             'note' => 'Poznámka',
             'maintenance_group' => 'Prevádzka',
             'contracts' => 'Vykonal',
-            'total_time' => 'Celkový čas'
+            'total_time' => 'Celkový čas',
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
@@ -51,5 +51,5 @@ return [
         'upcoming' => 'Nadchádzajúca',
         'overdue' => 'Po termíne',
         'in-progress' => 'Prebieha',
-    ]
+    ],
 ];

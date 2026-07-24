@@ -21,8 +21,7 @@ class DataMigrateCommand extends Command
             // default => throw new InvalidArgumentException(...),
             default => null
         };
-        
-        return self::SUCCESS;    
-    }
 
+        return self::SUCCESS;
+    }
 }

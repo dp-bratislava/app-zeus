@@ -16,15 +16,15 @@ class MaterialService
     // }
 
     public function getMaterials(Ticket $ticket): Collection
-    {        
-        return $this->material            
+    {
+        return $this->material
             ->where('ticket_id', '=', $ticket->id)
             ->get();
     }
 
     public function getTotalMaterialExpenses(Ticket $ticket)
-    {        
-        return $this->material            
+    {
+        return $this->material
             ->where('ticket_id', '=', $ticket->id)
             ->get()
             ->sum('price');

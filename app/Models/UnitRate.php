@@ -28,7 +28,7 @@ class UnitRate extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'unit_rates';
+        return config('database.table_prefix').'unit_rates';
     }
 
     /**
@@ -47,23 +47,24 @@ class UnitRate extends Model
     public function getFormattedRateAttribute(): ?string
     {
         if (($this->unit_price != null) && ($this->has('unit'))) {
-            return $this->unit_price . ' / ' . $this->unit?->code;
+            return $this->unit_price.' / '.$this->unit?->code;
         }
-        return null;
-    } 
 
-    public function currency(): BelongsTo 
+        return null;
+    }
+
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
-    } 
+    }
 
-    public function unit(): BelongsTo 
+    public function unit(): BelongsTo
     {
         return $this->belongsTo(MeasurementUnit::class);
-    } 
+    }
 
     public function rateable(): MorphTo
     {
         return $this->morphTo();
-    }    
+    }
 }

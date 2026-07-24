@@ -6,9 +6,9 @@ use App\Data\Incident\IncidentAssignmentData;
 use App\Data\Incident\IncidentData;
 use App\Models\IncidentAssignment;
 use App\Services\IncidentAssignmentService;
-use Illuminate\Contracts\Auth\Guard;
 use App\States;
 use App\UseCases\TicketAssignment\CreateFromIncidentUseCase;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Carbon;
 
 class CreateIncidentAssignmentUseCase
@@ -29,7 +29,7 @@ class CreateIncidentAssignmentUseCase
             $data['type_id'],
             States\Incident\Created::$name,
         );
-        
+
         // create incident assignment
         $taData = new IncidentAssignmentData(
             null,

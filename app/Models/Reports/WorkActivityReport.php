@@ -2,12 +2,11 @@
 
 namespace App\Models\Reports;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Snapshots\WorkTaskSubject;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class WorkActivityReport extends Model
 {
@@ -29,7 +28,7 @@ class WorkActivityReport extends Model
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => ucfirst($this->last_name) . ' ' . ucfirst($this->first_name),
+            get: fn () => ucfirst($this->last_name).' '.ucfirst($this->first_name),
         );
     }
 

@@ -15,7 +15,7 @@ return [
                     'note' => 'Poznámka',
                     'vehicle' => 'Vozidlo',
                 ],
-            ]
+            ],
         ],
     ],
     'table' => [
@@ -32,7 +32,7 @@ return [
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť štrkáč',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Štrkáč',
@@ -46,5 +46,5 @@ return [
         'in-service' => 'Jazdí',
         'split-service' => 'Delená',
         'out-of-service' => 'Odstavený',
-    ]
+    ],
 ];

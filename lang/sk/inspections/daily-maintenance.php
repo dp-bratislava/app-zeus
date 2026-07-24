@@ -16,7 +16,7 @@ return [
             'vehicles' => 'Vozidlá',
             'contracts' => 'Zamestnanci',
             'activity-templates' => 'Činnosti / normy',
-       ]
+        ],
     ],
     'table' => [
         'heading' => 'Denné ošetrenie',
@@ -29,7 +29,7 @@ return [
             'note' => 'Poznámka',
             'maintenance_group' => 'Prevádzka',
             'contracts' => 'Vykonal',
-            'total_time' => 'Celkový čas'
+            'total_time' => 'Celkový čas',
         ],
         'filters' => [
             'date' => 'Dátum',

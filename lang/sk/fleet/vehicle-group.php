@@ -23,7 +23,7 @@ return [
             'title' => 'Názov',
             'description' => 'Popis',
             'vehicles' => 'Vozidlá',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Skupiny vozidiel',

@@ -52,5 +52,5 @@ return [
         'in-service' => 'V prevádzke',
         'under-repair' => 'V oprave',
         'discarded' => 'Vyradené',
-    ]
+    ],
 ];

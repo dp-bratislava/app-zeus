@@ -1,5 +1,26 @@
 <?php
 
+use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\BrandResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\MaintenanceGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\HR\DepartmentAssignmentResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\UpcomingInspectionResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Reports\VehicleStatusReportResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Task\PlaceOfOriginResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemGroupResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketTypeResource;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -13,7 +34,7 @@ return [
             // 'view' => 'dpb-wtf-tms-bridge::filament.pages.work-order-page',
             // 'navigation_icon' => 'heroicon-o-clipboard-document-list',
             'navigation_group' => 'Ostatné',
-        ]
+        ],
     ],
 
     /*
@@ -23,35 +44,35 @@ return [
     */
     'filament_resources' => [
         // eav
-        Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource::class,
+        AttributeResource::class,
+        AttributeGroupResource::class,
         // tasks
-        Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskGroupResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemGroupResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskItemResource::class,
+        TaskGroupResource::class,
+        TaskItemGroupResource::class,
+        TaskItemResource::class,
         // Dpb\Package\TaskMS\UI\Filament\Resources\Task\TaskAssignmentResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Task\PlaceOfOriginResource::class,
+        PlaceOfOriginResource::class,
         // tickets
-        Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketTypeResource::class,
+        TicketAssignmentResource::class,
+        TicketTypeResource::class,
         // inspections
-        Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource::class,
+        InspectionAssignmentResource::class,
         // Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\UpcomingInspectionResource::class,
+        InspectionTemplateGroupResource::class,
+        InspectionTemplateResource::class,
+        UpcomingInspectionResource::class,
         // // fleet
         // Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\DailyExpeditionResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\MaintenanceGroupResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\BrandResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleGroupResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource::class,
-        Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource::class,
+        MaintenanceGroupResource::class,
+        VehicleResource::class,
+        BrandResource::class,
+        VehicleGroupResource::class,
+        VehicleModelResource::class,
+        VehicleTypeResource::class,
         // reports
-        Dpb\Package\TaskMS\UI\Filament\Resources\Reports\VehicleStatusReportResource::class,
+        VehicleStatusReportResource::class,
         // HR
-        Dpb\Package\TaskMS\UI\Filament\Resources\HR\DepartmentAssignmentResource::class,
+        DepartmentAssignmentResource::class,
 
     ],
 
@@ -83,4 +104,3 @@ return [
         ],
     ],
 ];
-

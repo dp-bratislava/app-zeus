@@ -16,7 +16,7 @@ return [
     */
     'classes' => [
         'ticket_state_class' => '\Dpb\Package\TaskMS\States\Ticket\TicketState::class',
-    ],    
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -29,5 +29,5 @@ return [
         'ticket-group' => 3,
         'ticket-item-group' => 4,
         'ticket-source' => 5,
-    ], 
+    ],
 ];

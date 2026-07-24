@@ -24,27 +24,27 @@ class DispatchReport extends Model
     ];
 
     protected $casts = [
-        'date' => 'date'
+        'date' => 'date',
     ];
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'dispatch_reports';
-    }    
+        return config('database.table_prefix').'dispatch_reports';
+    }
 
-    public function author(): BelongsTo 
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    } 
+    }
 
-    public function vehicle(): BelongsTo 
+    public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class);
-    }     
+    }
 
     // public function perex(): string
     // {
-    //     return 
-    // }     
+    //     return
+    // }
 
 }

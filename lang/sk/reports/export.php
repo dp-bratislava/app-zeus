@@ -10,6 +10,6 @@ return [
         'body' => 'Súbor :filename je pripravený na stiahnutie',
     ],
     'actions' => [
-        'download' => 'Stiahnuť'
-    ]
+        'download' => 'Stiahnuť',
+    ],
 ];

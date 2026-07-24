@@ -26,7 +26,7 @@ class CreateTicketService
         protected TicketCreateTicketService $createTicketService
     ) {}
 
-    public function createTicket(Inspection $inspection): Ticket|null
+    public function createTicket(Inspection $inspection): ?Ticket
     {
         $this->db->transaction(function () use ($inspection) {
             // create main ticket based on inspection type
@@ -40,7 +40,7 @@ class CreateTicketService
                 'source_id' => TicketSource::byCode('planned-maintenance')->first()->id,
                 States\Ticket\Created::$name,
                 'department_id' => Department::where('code', '=', '9800')->first()->id,
-                'subject_id' => $subjectId
+                'subject_id' => $subjectId,
             ];
 
             $ticket = $this->createTicketService->create($data);
@@ -49,9 +49,9 @@ class CreateTicketService
                 ->where('subject_type', 'activity-template')
                 ->with('subject')
                 ->get()
-                ->map(fn($assignment) => $assignment->subject);
+                ->map(fn ($assignment) => $assignment->subject);
 
-            // create activities from templates 
+            // create activities from templates
             $activities = [];
             foreach ($activityTempaltes as $key => $activityTempalte) {
                 $activities[] = Activity::create([
@@ -61,13 +61,14 @@ class CreateTicketService
             }
 
             $this->activitySvc->addActivities($ticket, collect($activities));
+
             return $ticket;
         });
 
         return null;
     }
 
-    public function createTicket1(Inspection $inspection): Ticket|null
+    public function createTicket1(Inspection $inspection): ?Ticket
     {
         $this->db->transaction(function () use ($inspection) {
             // create main ticket based on inspection type

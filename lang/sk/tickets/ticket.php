@@ -23,7 +23,7 @@ return [
             'activities' => 'Práca',
             'materials' => 'Materiál',
             'services' => 'Služby',
-        ]
+        ],
     ],
     'table' => [
         'heading' => 'Zakázky',
@@ -44,11 +44,11 @@ return [
             'group' => 'Typ zákazky',
             'activities' => [
                 'label' => 'Normy',
-                'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
+                'tooltip' => 'Predpokladané trvanie/skutočné trvanie',
             ],
             'source' => 'Miesto výskytu',
             'parent' => 'Patrí pod',
-            'total_expenses' => 'Náklady'
+            'total_expenses' => 'Náklady',
         ],
         'filters' => [
             'date' => 'Dátum',
@@ -64,8 +64,8 @@ return [
                 'heading' => 'Podzákazky',
                 'empty_state_heading' => 'Žiadne podzákazky na zobrazenie',
                 'empty_state_description' => 'Pre pokračovanie vytvorte podzákazku',
-            ]
-        ]
+            ],
+        ],
     ],
     'navigation' => [
         'label' => 'Zákazky',
@@ -80,5 +80,5 @@ return [
         'cancelled' => 'Zrušená',
         'closed' => 'Uzavretá',
         'in-progress' => 'V riešení',
-    ]
+    ],
 ];

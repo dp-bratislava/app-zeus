@@ -16,17 +16,17 @@ class ServiceService
     // }
 
     public function getServices(Ticket $ticket): Collection
-    {        
+    {
         return $this->service
             ->where('ticket_id', '=', $ticket->id)
             ->get();
     }
 
     public function getTotalServiceExpenses(Ticket $ticket)
-    {        
-        return $this->service            
+    {
+        return $this->service
             ->where('ticket_id', '=', $ticket->id)
             ->get()
             ->sum('price');
-    }    
+    }
 }

@@ -26,7 +26,7 @@ class DepartmentGroupSeeder extends Seeder
         //     // set default group for department
         //     $group->departments()->attach($department);
         // }
-            
+
         $customGroups = [
             ['code' => 'bm', 'title' => 'Správa budov'],
             ['code' => 'fleet', 'title' => 'Správa vozidiel'],

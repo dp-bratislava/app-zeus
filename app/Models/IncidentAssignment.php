@@ -26,17 +26,17 @@ class IncidentAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'incident_assignments';
+        return config('database.table_prefix').'incident_assignments';
     }
 
     public function incident(): BelongsTo
     {
-        return $this->belongsTo(Incident::class, "incident_id");
+        return $this->belongsTo(Incident::class, 'incident_id');
     }
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, "author_id");
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function subject(): MorphTo

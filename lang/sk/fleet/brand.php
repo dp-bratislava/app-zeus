@@ -7,7 +7,7 @@ return [
             'create_heading' => 'Vytvoriť výrobcu vozidla',
             'update_heading' => 'Upraviť výrobca vozidila: :title',
         ],
-    ],    
+    ],
     'form' => [
         'create_heading' => 'Vytvoriť výrobcu vozidla',
         'update_heading' => 'Upraviť výrobcu vozidla: :title',
@@ -20,7 +20,7 @@ return [
         'empty_state_heading' => 'Žiadne výrobcovia vozidiel na zobrazenie',
         'columns' => [
             'title' => 'Názov',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Výrobcovia vozidiel',

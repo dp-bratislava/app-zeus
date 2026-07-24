@@ -11,7 +11,7 @@ class Activity extends BaseActivity
 {
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(Ticket::class, "ticket_id");
+        return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
     public function workAssignments(): HasMany

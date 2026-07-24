@@ -25,12 +25,12 @@ class TicketSubject extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_subjects';
+        return config('database.table_prefix').'ticket_subjects';
     }
-    
+
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(Ticket::class, "ticket_id");
+        return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
     public function subject(): MorphTo

@@ -3,7 +3,6 @@
 namespace App\Snapshots\Core;
 
 use App\Snapshots\Core\Contracts\SnapshotContract;
-use Illuminate\Support\Facades\DB;
 
 class SnapshotEngine
 {

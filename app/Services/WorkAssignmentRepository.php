@@ -24,8 +24,8 @@ class WorkAssignmentRepository
         foreach ($workAssignmentsData as $key => $workAssignmentData) {
             $contract = $this->employeeContractModel->findSole($workAssignmentData['employee_contract_id']);
 
-            // create 
-            if (!isset($workAssignmentData['id']) || ($workAssignmentData['id'] == null)) {
+            // create
+            if (! isset($workAssignmentData['id']) || ($workAssignmentData['id'] == null)) {
                 // work interval
                 $workInterval = $this->workIntervalModel->create($workAssignmentData['work_interval']);
                 // work assignment

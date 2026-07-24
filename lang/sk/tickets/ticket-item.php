@@ -30,7 +30,7 @@ return [
                     'time_from' => 'Od',
                     'time_to' => 'Do',
                     'contract' => 'Úväzok',
-                ]
+                ],
             ],
         ],
         'tabs' => [
@@ -39,7 +39,7 @@ return [
             'services' => 'Služby',
             'history' => 'História',
             'comments' => 'Komentáre',
-        ]
+        ],
     ],
     'table' => [
         'heading' => 'Podzakázky',
@@ -59,21 +59,21 @@ return [
             'ticket' => ['label' => 'Zákazka'],
             'assigned_to' => [
                 'label' => 'TP',
-                'tooltip' => 'Technická prevádzka'
+                'tooltip' => 'Technická prevádzka',
             ],
             'activities' => [
                 'label' => 'Normy',
-                'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
+                'tooltip' => 'Predpokladané trvanie/skutočné trvanie',
             ],
             'source' => ['label' => 'Miesto výskytu'],
-            'expenses' => 'Náklady'
+            'expenses' => 'Náklady',
         ],
         'filters' => [
             'date' => 'Dátum',
             'group' => 'Detail poruchy',
             'state' => 'Stav',
             'subject' => 'Vozidlo',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Podzákazky',
@@ -89,5 +89,5 @@ return [
         'closed' => 'Uzavretá',
         'in-progress' => 'V riešení',
         'awaiting-parts' => 'Čaká na ND',
-    ]
+    ],
 ];

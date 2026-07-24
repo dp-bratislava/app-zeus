@@ -29,7 +29,7 @@ return [
             'code' => 'Kód',
             'title' => 'Názov',
             'models' => 'Modely vozidiel',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Typy vozidiel',

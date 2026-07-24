@@ -25,16 +25,16 @@ class InspectionTemplateAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'inspection_templatables';
+        return config('database.table_prefix').'inspection_templatables';
     }
 
-    public function template(): BelongsTo 
+    public function template(): BelongsTo
     {
         return $this->belongsTo(InspectionTemplate::class);
-    } 
+    }
 
     public function subject(): MorphTo
     {
         return $this->morphTo();
-    }    
+    }
 }

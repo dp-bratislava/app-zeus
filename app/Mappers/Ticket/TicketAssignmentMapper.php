@@ -9,7 +9,6 @@ use App\Models\TicketAssignment;
 
 class TicketAssignmentMapper
 {
-
     public function __construct(
         private TicketAssignment $eloquentModel
     ) {}

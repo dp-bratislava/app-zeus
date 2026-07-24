@@ -6,9 +6,9 @@ use App\Data\Inspection\InspectionAssignmentData;
 use App\Data\Inspection\InspectionData;
 use App\Models\InspectionAssignment;
 use App\Services\InspectionAssignmentService;
-use Illuminate\Contracts\Auth\Guard;
 use App\States;
 use App\UseCases\TicketAssignment\CreateFromInspectionUseCase;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Carbon;
 
 class UpdateInspectionAssignmentUseCase
@@ -28,7 +28,7 @@ class UpdateInspectionAssignmentUseCase
             $data['template_id'] ?? null,
             States\Inspection\Upcoming::$name,
         );
-        
+
         // create inspection assignment
         $iaData = new InspectionAssignmentData(
             $inspectionAssignment->id,

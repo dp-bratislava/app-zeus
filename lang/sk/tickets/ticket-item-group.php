@@ -9,7 +9,7 @@ return [
             'label' => 'Skupina podzákazky',
             'create_heading' => 'Vytvoriť skupinu podzákazky',
             'update_heading' => 'Upraviť skupinu podzákazky: :title',
-        ]
+        ],
     ],
     'form' => [
         'fields' => [
@@ -32,7 +32,7 @@ return [
             ],
             'title' => 'Názov',
             'parent' => 'Patrí pod',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Skupiny podzákazok',

@@ -18,5 +18,5 @@ return [
         'activity' => 1,
         'activity-tempalte' => 2,
         'template-group' => 3,
-    ],   
+    ],
 ];

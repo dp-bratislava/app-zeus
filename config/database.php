@@ -191,12 +191,11 @@ return [
 
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | Custom additions
     |--------------------------------------------------------------------------
-    | 
+    |
     | App specific custom database config settings
     |
     */
@@ -211,5 +210,5 @@ return [
     'tables' => [
         'currency' => env('TABLE_UTILS_CURRENCY', 'util_currency'),
         'units' => env('TABLE_UTILS_MEASUREMENT_UNITS', 'util_measurement_units'),
-    ]    
+    ],
 ];

@@ -13,5 +13,5 @@ class Dashboard extends Page
     public static function shouldRegisterNavigation(): bool
     {
         return false; // We override the default dashboard, so no sidebar item
-    }    
+    }
 }

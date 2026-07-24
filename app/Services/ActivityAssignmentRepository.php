@@ -18,8 +18,8 @@ class ActivityAssignmentRepository
     {
         foreach ($activitiesData as $key => $activityData) {
             // dd($activityData);
-            // create 
-            if (!isset($activityData['id']) || ($activityData['id'] == null)) {
+            // create
+            if (! isset($activityData['id']) || ($activityData['id'] == null)) {
                 // activity
                 $activity = $this->activityModel->create($activityData);
                 // activity assignment

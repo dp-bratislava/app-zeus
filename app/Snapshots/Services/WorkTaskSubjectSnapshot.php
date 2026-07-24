@@ -72,7 +72,7 @@ class WorkTaskSubjectSnapshot extends Snapshot
 
     protected function resolvedTableCTE(): string
     {
-        return "
+        return '
             latest_location AS (
                 SELECT device_id, location_id
                 FROM (
@@ -90,7 +90,7 @@ class WorkTaskSubjectSnapshot extends Snapshot
                     LEFT JOIN latest_location ll ON ll.device_id = d.id
                     LEFT JOIN dvc_device_locations dl ON dl.id = ll.location_id
             )        
-        ";
+        ';
     }
 
     protected function with(string $tempTable): string
@@ -147,8 +147,8 @@ class WorkTaskSubjectSnapshot extends Snapshot
 
     protected function from(): string
     {
-        return "
+        return '
             subject_resolved sr
-        ";
+        ';
     }
 }

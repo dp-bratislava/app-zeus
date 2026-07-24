@@ -4,8 +4,6 @@ namespace App\Snapshots\Core;
 
 use App\Snapshots\Core\Contracts\SnapshotContract;
 use App\Snapshots\Core\Contracts\SnapshotExecutionStrategy;
-use App\Snapshots\Core\SnapshotExecutionState;
-use App\Snapshots\Core\SnapshotRunContext;
 use Illuminate\Support\Facades\DB;
 
 abstract class Snapshot implements SnapshotContract
@@ -38,8 +36,8 @@ abstract class Snapshot implements SnapshotContract
     protected function duplicateKeyUpdate(string $pkColumn): string
     {
         return collect(array_keys($this->map()))
-            ->reject(fn($column) => $column === $pkColumn) // PK
-            ->map(fn($column) => "{$column} = VALUES({$column})")
+            ->reject(fn ($column) => $column === $pkColumn) // PK
+            ->map(fn ($column) => "{$column} = VALUES({$column})")
             ->implode(",\n");
     }
 

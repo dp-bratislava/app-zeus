@@ -3,10 +3,9 @@
 namespace App\Services\Activity\ActivityTemplate;
 
 use App\Models\UnitRate;
-use Dpb\DatahubSync\Models\Department;
 use Dpb\Package\Activities\Models\ActivityTemplate;
-use Dpb\PkgTickets\Models\Ticket;
 use Dpb\Packages\Vehicles\Models\Vehicle;
+use Dpb\PkgTickets\Models\Ticket;
 
 // use Illuminate\Database\Eloquent\Collection;
 
@@ -17,7 +16,7 @@ class UnitRateService
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');
     // }
 
-    public function getUnitRate(ActivityTemplate $template): UnitRate|null
+    public function getUnitRate(ActivityTemplate $template): ?UnitRate
     {
         return UnitRate::whereLike('rateable_type', 'activity-template')
             ->where('rateable_id', '=', $template->id)

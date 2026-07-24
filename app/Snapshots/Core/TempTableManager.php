@@ -2,10 +2,12 @@
 
 namespace App\Snapshots\Core;
 
+use Illuminate\Database\ConnectionInterface;
+
 class TempTableManager
 {
     public function __construct(
-        protected \Illuminate\Database\ConnectionInterface $db
+        protected ConnectionInterface $db
     ) {}
 
     public function create(string $table): void
@@ -20,7 +22,7 @@ class TempTableManager
     public function insertIds(string $table, array $ids): void
     {
         $this->db->table($table)->insert(
-            array_map(fn($id) => ['id' => $id], $ids)
+            array_map(fn ($id) => ['id' => $id], $ids)
         );
     }
 

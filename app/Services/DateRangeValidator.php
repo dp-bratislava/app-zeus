@@ -14,7 +14,7 @@ class DateRangeValidator
     public function validate(?string $from, ?string $to): array
     {
         return [
-            'isValid' => !$this->isExceeded($from, $to),
+            'isValid' => ! $this->isExceeded($from, $to),
             'error' => $this->getErrorMessage($from, $to),
             'daysDifference' => $this->getDaysDifference($from, $to),
         ];
@@ -22,7 +22,7 @@ class DateRangeValidator
 
     public function isExceeded(?string $from, ?string $to): bool
     {
-        if (!$from || !$to) {
+        if (! $from || ! $to) {
             return false;
         }
 
@@ -35,7 +35,7 @@ class DateRangeValidator
 
     public function getDaysDifference(?string $from, ?string $to): int
     {
-        if (!$from || !$to) {
+        if (! $from || ! $to) {
             return 0;
         }
 

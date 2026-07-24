@@ -17,7 +17,7 @@ class WorkService
             ->where('subject_id', '=', $activity->id)
             ->where('subject_type', '=', 'activity')
             ->get()
-            ->map(fn($assignment) => $assignment->workInterval);
+            ->map(fn ($assignment) => $assignment->workInterval);
     }
 
     public function getWorkAssignments(Activity $activity): Collection
@@ -26,7 +26,7 @@ class WorkService
             ->with(['workInterval', 'employeeContract'])
             ->where('subject_id', '=', $activity->id)
             ->where('subject_type', '=', 'activity')
-            ->get();            
+            ->get();
     }
 
     public function getTotalDuration(Activity $activity)
@@ -36,8 +36,8 @@ class WorkService
             ->where('subject_id', '=', $activity->id)
             ->where('subject_type', '=', 'activity')
             ->get()
-            ->sum('workInterval.duration');            
-    }    
+            ->sum('workInterval.duration');
+    }
     // public function assignVehicle(Ticket $ticket, Vehicle $vehicle)
     // {
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');

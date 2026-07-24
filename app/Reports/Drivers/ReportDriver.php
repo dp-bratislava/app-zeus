@@ -2,8 +2,8 @@
 
 namespace App\Reports\Drivers;
 
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 interface ReportDriver
 {
@@ -32,9 +32,8 @@ interface ReportDriver
      */
     public function getFilters(): array;
 
-
     public function getExporter(): string;
-    
+
     public function generateExportFilename(): string;
 
     /**
@@ -43,5 +42,4 @@ interface ReportDriver
     public function applyQueryModifications(Builder $query): Builder;
 
     public function lastSyncedAt(): ?string;
-
 }

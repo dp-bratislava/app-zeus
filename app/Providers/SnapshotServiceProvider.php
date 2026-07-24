@@ -8,7 +8,6 @@ use App\Snapshots\Services\HRContractSnapshot;
 use App\Snapshots\Services\TaskItemSnapshot;
 use App\Snapshots\Services\WorkActivityReport;
 use App\Snapshots\Services\WorkTaskSubjectSnapshot;
-use App\Snapshots\Services\WorkTaskSubjectSnapshot2;
 use Illuminate\Support\ServiceProvider;
 
 class SnapshotServiceProvider extends ServiceProvider
@@ -16,7 +15,7 @@ class SnapshotServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(SnapshotRegistry::class, function () {
-            $registry = new SnapshotRegistry();
+            $registry = new SnapshotRegistry;
             // snapshots
             $registry->register('hr-contract', HRContractSnapshot::class);
             $registry->register('tms-task-item', TaskItemSnapshot::class);

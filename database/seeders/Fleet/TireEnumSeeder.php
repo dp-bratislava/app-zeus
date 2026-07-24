@@ -29,7 +29,7 @@ class TireEnumSeeder extends Seeder
             Season::create($tireSeason);
         }
 
-        // tire construction types 
+        // tire construction types
         $constructionTypes = [
             ['code' => 'R', 'title' => 'Radial'],
             ['code' => 'D', 'title' => 'Diagonal'],

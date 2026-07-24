@@ -2,38 +2,30 @@
 
 namespace App\Services\TS;
 
-use App\Data\ActivityData;
-use App\Data\ActivityTemplateData;
-use App\Data\MaterialData;
-use App\Data\TicketData;
-use App\Data\WorkIntervalData;
 use App\Models\ActivityAssignment;
 use App\Models\DispatchReport;
-use App\Models\Expense\Material;
 use App\Models\IncidentAssignment;
 use App\Models\InspectionAssignment;
 use App\Models\InspectionTemplateAssignment;
 use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
 use App\Models\WorkAssignment;
-use App\States\Inspection\InspectionState;
+use App\States;
 use Dpb\Package\Activities\Models\Activity;
 use Dpb\Package\Activities\Models\ActivityTemplate;
-use Dpb\Package\Inspections\Models\Inspection;
-use Dpb\Package\Tickets\Models\Ticket;
-use Illuminate\Support\Carbon;
-use App\States;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Incidents\Models\Incident;
+use Dpb\Package\Inspections\Models\Inspection;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
+use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
 use Illuminate\Contracts\Auth\Guard;
-use Spatie\LaravelData\DataCollection;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Support\Carbon;
 
 // use Illuminate\Database\Eloquent\Collection;
 
@@ -147,12 +139,12 @@ class TicketAssignmentService
                 // create ticket items
                 $ticketItem = $this->createTicketItem($ticket);
 
-                // create activities from activity templates 
+                // create activities from activity templates
                 // $activities = $this->createActivities($ticketItem, $formData['activity-templates']);
 
                 // for each contract
                 foreach ($formData['contracts'] as $contractId) {
-                    // create activities from activity templates 
+                    // create activities from activity templates
                     foreach ($formData['activity-templates'] as $activityTemplateId) {
                         $activity = $this->activityRepo->create([
                             'date' => $date,
@@ -169,7 +161,7 @@ class TicketAssignmentService
                         $duration = $activity->template->duration;
                         $workInterval = $this->workIntervalRepo->create([
                             'date' => $formData['date'],
-                            'duration' => $duration
+                            'duration' => $duration,
                         ]);
 
                         // assign worktime to contract and activity
@@ -191,8 +183,8 @@ class TicketAssignmentService
                     'ticket_item_id' => $ticketItem->id,
                     'assigned_to_id' => $ticketSubject->maintenanceGroup->id,
                     'assigned_to_type' => app(MaintenanceGroup::class)->getMorphClass(),
-                    'author_id' => $this->guard->id()
-                ]);                
+                    'author_id' => $this->guard->id(),
+                ]);
             }
         });
     }
@@ -208,7 +200,7 @@ class TicketAssignmentService
                 // 'title' => $incident->type->title . ' - nahlasene z dispec',
                 'state' => States\TS\Ticket\Created::$name,
                 'description' => $incident->description,
-                'group_id' => TicketGroup::byCode($incident->type->code)
+                'group_id' => TicketGroup::byCode($incident->type->code),
             ]);
 
             // create ticket items
@@ -279,7 +271,7 @@ class TicketAssignmentService
                 ->where('subject_type', $this->activityTemplateRepo->getMorphClass())
                 ->with('subject')
                 ->get()
-                ->map(fn($assignment) => $assignment->subject);
+                ->map(fn ($assignment) => $assignment->subject);
 
             foreach ($activityTemplates as $key => $activityTemplate) {
                 $activity = Activity::create([
@@ -290,7 +282,7 @@ class TicketAssignmentService
                 ActivityAssignment::create([
                     'activity_id' => $activity->id,
                     'subject_id' => $ticket->id,
-                    'subject_type' => $ticket->getMorphClass()
+                    'subject_type' => $ticket->getMorphClass(),
                 ]);
             }
 

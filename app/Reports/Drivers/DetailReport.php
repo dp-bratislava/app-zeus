@@ -2,22 +2,21 @@
 
 namespace App\Reports\Drivers;
 
+use App\Filament\Components\DurationColumn;
 use App\Filament\Exports\Reports\DetailReportExporter;
-use App\Services\DateRangeValidator;
 use App\Models\Reports\WorkActivityReport;
 use App\Models\Snapshots\WorkTaskSubject;
+use App\Services\DateRangeValidator;
 use Carbon\CarbonInterval;
-use Dpb\Departments\Services\DepartmentService;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DatePicker;
 use Dpb\DatahubSync\Models\Department;
+use Dpb\Departments\Services\DepartmentService;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
-use App\Filament\Components\DurationColumn;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
-use Filament\Forms\Components\Placeholder;
 
 class DetailReport implements ReportDriver
 {
@@ -46,7 +45,7 @@ class DetailReport implements ReportDriver
     public function getColumns(): array
     {
         $departmentValues = $this->departmentService->getAvailableDepartments()->pluck('code');
-            
+
         $subjectTypesWithDepartments = WorkTaskSubject::query()
             ->join('mvw_work_activity_report_v2', 'mvw_work_task_subject_snapshots.wtf_task_id', '=', 'mvw_work_activity_report_v2.wtf_task_id') // Adjust foreign/primary keys to match your schema
             ->whereIn('mvw_work_activity_report_v2.department_code', $departmentValues)
@@ -54,13 +53,13 @@ class DetailReport implements ReportDriver
             ->select('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
             ->get()
             ->groupBy('subject_type')
-            ->map(fn($group) => $group->pluck('department_code')->toArray());
+            ->map(fn ($group) => $group->pluck('department_code')->toArray());
 
-            $dynamicColumns = [];
+        $dynamicColumns = [];
 
         foreach ($subjectTypesWithDepartments as $type => $allowedDepartments) {
             $dynamicColumns[] = TextColumn::make("subject_{$type}")
-                ->label(fn() => match ($type) {
+                ->label(fn () => match ($type) {
                     'vehicle' => 'Vozidlo',
                     'table' => 'Tabuľa',
                     default => $type
@@ -100,26 +99,29 @@ class DetailReport implements ReportDriver
             TextColumn::make('task_item_group_title')
                 ->label(__('reports/detail-report.table.columns.task_item_group_title'))
                 ->limit(20)
-                ->tooltip(fn($record) => $record->task_item_group_title),
+                ->tooltip(fn ($record) => $record->task_item_group_title),
             TextColumn::make('activity_title')
                 ->label(__('reports/detail-report.table.columns.activity_title'))
                 ->limit(20)
-                ->tooltip(fn($record) => $record->activity_title),
+                ->tooltip(fn ($record) => $record->activity_title),
             TextColumn::make('activity_expected_duration')
                 ->label(__('reports/detail-report.table.columns.activity_expected_duration.label'))
                 ->tooltip(__('reports/detail-report.table.columns.activity_expected_duration.tooltip'))
                 ->formatStateUsing(function ($record) {
                     // Determine which value to use
-                    $seconds = $record->activity_expected_duration >= 0 
-                        ? $record->activity_expected_duration 
+                    $seconds = $record->activity_expected_duration >= 0
+                        ? $record->activity_expected_duration
                         : $record->activity_real_duration;
 
-                    if (!$seconds) return '0:00';
+                    if (! $seconds) {
+                        return '0:00';
+                    }
 
                     $interval = CarbonInterval::seconds($seconds)->cascade();
+
                     return sprintf('%d:%02d', floor($interval->totalHours), $interval->minutes);
                 }),
-                
+
             DurationColumn::make('activity_real_duration')
                 ->label(__('reports/detail-report.table.columns.activity_real_duration.label'))
                 ->tooltip(__('reports/detail-report.table.columns.activity_real_duration.tooltip')),
@@ -128,12 +130,12 @@ class DetailReport implements ReportDriver
             TextColumn::make('task_id')
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(
-                    fn($record) => $record->task_id
+                    fn ($record) => $record->task_id
                         ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
                         : null
                 )
-                ->color(fn($state) => $state ? 'primary' : 'gray')
-                ->extraAttributes(fn($state) => [
+                ->color(fn ($state) => $state ? 'primary' : 'gray')
+                ->extraAttributes(fn ($state) => [
                     'class' => $state ? 'underline cursor-pointer' : '',
                 ]),
             TextColumn::make('task_item_author_lastname')
@@ -162,10 +164,10 @@ class DetailReport implements ReportDriver
                             $to = $get('date_to');
                             $validation = $validator->validate($from, $to);
 
-                            if (!$validation['isValid']) {
+                            if (! $validation['isValid']) {
                                 return new HtmlString('
                                     <span style="color: red">
-                                        ' . $validation['error'] . '
+                                        '.$validation['error'].'
                                     </span>
                                 ');
                             }
@@ -177,7 +179,7 @@ class DetailReport implements ReportDriver
                 ->query(function (Builder $query, array $data) use ($validator): Builder {
                     // Validate the date range before querying
                     if ($data['date_from'] && $data['date_to']) {
-                        if (!$validator->validate($data['date_from'], $data['date_to'])['isValid']) {
+                        if (! $validator->validate($data['date_from'], $data['date_to'])['isValid']) {
                             return $query->whereRaw('1 = 0');
                         }
                     }
@@ -185,11 +187,11 @@ class DetailReport implements ReportDriver
                     return $query
                         ->when(
                             $data['date_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
+                            fn (Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
                         )
                         ->when(
                             $data['date_to'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
+                            fn (Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
                         );
                 })
                 ->columns(2),
@@ -197,7 +199,7 @@ class DetailReport implements ReportDriver
             // department
             SelectFilter::make('department')
                 ->label(__('reports/detail-report.table.filters.department'))
-                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
+                ->options(fn (DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()
                 ->attribute('department_code'),
@@ -211,7 +213,7 @@ class DetailReport implements ReportDriver
 
     public function generateExportFilename(): string
     {
-        return 'work_activity_' . now()->format('Ymd_His') . '.xlsx';
+        return 'work_activity_'.now()->format('Ymd_His').'.xlsx';
     }
 
     public function applyQueryModifications(Builder $query): Builder

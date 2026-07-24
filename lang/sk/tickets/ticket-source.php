@@ -24,7 +24,7 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => ['label' => 'Názov'],
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Miesta výskytu',

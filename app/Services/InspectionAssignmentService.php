@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Data\Inspection\InspectionAssignmentData;
 use App\Models\InspectionAssignment;
 use App\Repositories\InspectionAssignmentRepository;
-use Illuminate\Database\ConnectionInterface;
 
 class InspectionAssignmentService
 {
@@ -21,5 +20,5 @@ class InspectionAssignmentService
     public function update(InspectionAssignmentData $inspectionAssignmentData): ?InspectionAssignment
     {
         return $this->inspectionAssignmentRepository->save($inspectionAssignmentData);
-    } 
+    }
 }

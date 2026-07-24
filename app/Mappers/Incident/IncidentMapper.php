@@ -9,7 +9,6 @@ use Dpb\Package\Incidents\Models\Incident;
 
 class IncidentMapper
 {
-
     public function __construct(
         private Incident $eloquentModel
     ) {}

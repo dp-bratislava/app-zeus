@@ -8,7 +8,6 @@ use App\States\Ticket\Cancelled;
 use App\States\Ticket\InProgress;
 use App\StateTransitions\Ticket\InProgressToCancelled;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;

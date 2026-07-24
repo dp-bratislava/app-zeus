@@ -1,8 +1,13 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\Filament\FleetPanelProvider;
+use App\Providers\SnapshotServiceProvider;
+use App\Providers\TelescopeServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\FleetPanelProvider::class,
-    App\Providers\SnapshotServiceProvider::class,
-    App\Providers\TelescopeServiceProvider::class,
+    AppServiceProvider::class,
+    FleetPanelProvider::class,
+    SnapshotServiceProvider::class,
+    TelescopeServiceProvider::class,
 ];

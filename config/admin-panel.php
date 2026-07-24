@@ -1,13 +1,9 @@
 <?php
 
+use App\Filament\Resources\Asset\AssetResource;
 use App\Filament\Resources\ReportsResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
-use App\Filament\Resources\TaskItemGroupAssetTypeResource;
-use Dpb\Package\Assets\UI\Filament\Resources\AssetLocations\AssetLocationResource;
-use Dpb\Package\Assets\UI\Filament\Resources\AssetMovements\AssetMovementResource;
-use Dpb\Package\Assets\UI\Filament\Resources\VehicleModelSlots\VehicleModelSlotResource;
-use Dpb\Package\Assets\UI\Filament\Resources\AssetTemplates\AssetTemplateResource;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
@@ -16,8 +12,8 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\MaintenanceGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
 // use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource;
@@ -31,10 +27,9 @@ use Dpb\UserAdmin\Filament\Resources\RoleResource;
 use Dpb\UserAdmin\Filament\Resources\UserResource;
 use Dpb\UserAdmin\UserAdminPlugin;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
-use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
+use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
-use App\Filament\Resources\Asset\AssetResource;
 
 return [
     'plugins' => [

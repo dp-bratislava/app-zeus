@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Fleet\Vehicle\VehicleResource\Components;
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Livewire\Component;
+
 class VehicleCard extends Component
 {
     public array $vehicle;

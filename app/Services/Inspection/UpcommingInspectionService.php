@@ -4,9 +4,9 @@ namespace App\Services\Inspection;
 
 use App\Services\Fleet\VehicleService;
 use App\UseCases\InspectionAssignment\CreateInspectionAssignmentUseCase;
-use Dpb\Package\Inspections\Models\Inspection;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleModel;
+use Dpb\Package\Inspections\Models\Inspection;
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -30,14 +30,14 @@ class UpcommingInspectionService
 
             // based on condition met, get upcoming inspection template
             // TO DO
-            // get all inspection templates associated 
+            // get all inspection templates associated
             // with this vehicle via vehicle model
             $templates = $this->templateAssignmentSvc->getTemplatesBySubject($vehicleModel);
             if ($templates->isEmpty()) {
                 continue;
             }
 
-            // for all vehicles of this model 
+            // for all vehicles of this model
             foreach ($vehicleModel->vehicles as $vehicle) {
                 foreach ($templates as $template) {
                     // if inspection template is eligible for creation
@@ -45,7 +45,7 @@ class UpcommingInspectionService
                         $data = [
                             'date' => Carbon::now()->format('Y-m-d'),
                             'template_id' => $template->id,
-                            'subject_id' => $vehicle->id
+                            'subject_id' => $vehicle->id,
                         ];
 
                         $this->createInspectionAssignmentUseCase->execute($data);
@@ -69,12 +69,12 @@ class UpcommingInspectionService
 
     //         // based on condition met, get upcoming inspection template
     //         // TO DO
-    //         // get all inspection templates associated 
+    //         // get all inspection templates associated
     //         // with this vehicle via vehicle model
     //         $templates = $this->templateRepo->all();
     //         foreach ($templates as $template) {
     //             if ($this->inspectionTresholdReached($vehicle, $template)) {
-    //                 $this->inspectionSvc->create($vehicle, $template);                    
+    //                 $this->inspectionSvc->create($vehicle, $template);
     //             }
     //         }
 
@@ -92,6 +92,7 @@ class UpcommingInspectionService
         if ($inspectionTreshold == null) {
             return false;
         }
+
         return $inspectionTreshold < $this->vehicleService->getTotalDistanceTraveled($vehicle);
     }
 }

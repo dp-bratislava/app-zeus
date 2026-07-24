@@ -13,9 +13,9 @@ return [
                     'total' => 'Spolu',
                     'model' => 'Model',
 
-                ]
+                ],
             ],
-        ],            
+        ],
         'vehicles_by_maintenance_group' => [
             'table' => [
                 'heading' => 'Správka podľa prevádzok',
@@ -25,7 +25,7 @@ return [
                     'total' => 'Spolu',
                     'model' => 'Model',
                     'maintenance_group' => 'Technická prevádzka',
-                ]
+                ],
             ],
         ],
         'vehicles_by_model' => [
@@ -36,8 +36,8 @@ return [
                     'state' => 'V správke',
                     'total' => 'Spolu',
                     'model' => 'Model',
-                ]
+                ],
             ],
-        ],        
+        ],
     ],
 ];

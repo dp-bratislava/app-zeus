@@ -26,7 +26,7 @@ return [
             ],
             'title' => 'Názov',
             'parent' => 'Patrí pod',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Skupiny zákazok',

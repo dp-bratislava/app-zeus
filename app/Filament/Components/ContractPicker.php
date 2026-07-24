@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Extends Filament Select component.
- * 
+ *
  * Presets label and filtering. If needed it can be overriden
  * and used like original Select component.
  * Both custom methods have to be called with null as input parameter
- * to apply custom bevaiour.  
+ * to apply custom bevaiour.
  */
 class ContractPicker extends Select
 {
@@ -22,7 +22,7 @@ class ContractPicker extends Select
         if ($callback !== null) {
             $this->getOptionLabelFromRecordUsing = $callback;
         } else {
-            $this->getOptionLabelFromRecordUsing = fn(Contract $record) => $record->formattedTitle . ' ' . $record->department->code;
+            $this->getOptionLabelFromRecordUsing = fn (Contract $record) => $record->formattedTitle.' '.$record->department->code;
         }
 
         return $this;
@@ -33,8 +33,7 @@ class ContractPicker extends Select
         if ($callback !== null) {
             $this->getSearchResultsUsing = $callback;
         } else {
-            $this->getSearchResultsUsing = fn($search) =>
-            Contract::query()
+            $this->getSearchResultsUsing = fn ($search) => Contract::query()
                 ->where('pid', 'like', "%{$search}%")
                 ->orWhereHas('employee', function (Builder $query) use ($search) {
                     $query
@@ -43,7 +42,7 @@ class ContractPicker extends Select
                 })
                 ->active()
                 ->get()
-                ->mapWithKeys(fn(Contract $contract) => [$contract->id => $contract->formattedTitle . ' - ' . $contract->department->code]);
+                ->mapWithKeys(fn (Contract $contract) => [$contract->id => $contract->formattedTitle.' - '.$contract->department->code]);
         }
 
         return $this;

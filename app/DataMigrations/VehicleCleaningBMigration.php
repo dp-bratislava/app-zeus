@@ -34,7 +34,7 @@ class VehicleCleaningBMigration implements DataMigration
             ]
         );
 
-        // assign cleaning group and item group to 
+        // assign cleaning group and item group to
         // cleaning department
         $cleaningDepartmentId = Department::where('code', '=', '9486')->first()->id;
         DepartmentAssignment::firstOrCreate([
@@ -59,7 +59,7 @@ class VehicleCleaningBMigration implements DataMigration
                 '5522',
                 '7213',
                 '7223',
-                '7233'
+                '7233',
             ])
             ->pluck('id');
 

@@ -19,7 +19,7 @@ return [
             'activities' => 'Činnosti / normy',
             'materials' => 'Materiál',
             'services' => 'Služby',
-        ]
+        ],
     ],
     'table' => [
         'heading' => 'Nadchádzajúce kontroly',
@@ -50,7 +50,7 @@ return [
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
             'bulk_create_tickets' => 'Vyvoriť zákazky',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Nadchádzajúce kontroly',
@@ -62,5 +62,5 @@ return [
     ],
     'states' => [
         'upcoming' => 'Nadchádzajúca',
-    ]
+    ],
 ];

@@ -4,13 +4,11 @@ namespace App\Services\Inspection;
 
 use App\Models\Datahub\Department;
 use App\Models\InspectionAssignment;
-use App\Models\InspectionTemplateAssignment;
 use App\Models\WorkAssignment;
 use App\Services\TS\ActivityService;
 use App\Services\TS\CreateTicketService as TicketCreateTicketService;
 use App\Services\TS\SubjectService;
 use App\States;
-use Carbon\Carbon;
 use Dpb\Package\Activities\Models\Activity;
 use Dpb\Package\Activities\Models\ActivityTemplate;
 use Dpb\Package\Fleet\Models\Vehicle;
@@ -60,12 +58,12 @@ class DailyMaintenanceService
                     'source_id' => TicketSource::byCode('planned-maintenance')->first()->id,
                     States\TS\Ticket\Created::$name,
                     'department_id' => Department::where('code', '=', '9800')->first()->id,
-                    'subject_id' => $vehicleId
+                    'subject_id' => $vehicleId,
                 ];
 
                 $ticket = $this->createTicketSvc->create($ticketData);
 
-                // create activities from activity templates 
+                // create activities from activity templates
                 $activities = [];
                 foreach ($formData['activity-templates'] as $activityTempalteId) {
                     $activities[] = $this->activityRepo->create([
@@ -85,11 +83,11 @@ class DailyMaintenanceService
                         // create worktime
                         $workInterval = $this->workIntervalRepo->create([
                             'date' => $formData['date'],
-                            'duration' => $duration
+                            'duration' => $duration,
                         ]);
 
                         // assign worktime to contract and activity
-                        $workAssignment = new $this->workAssignmentRepo();
+                        $workAssignment = new $this->workAssignmentRepo;
                         $workAssignment->subject()->associate($activity);
                         $workAssignment->workInterval()->associate($workInterval);
                         $workAssignment->employeeContract()->associate($contractId);

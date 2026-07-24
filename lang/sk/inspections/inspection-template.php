@@ -43,7 +43,7 @@ return [
             'groups' => ['label' => 'Typ údržby'],
             'templatables' => [
                 'label' => 'Predmety kontroly',
-                'hint' => 'Modley vozidiel, ktorých sa daná kontrola týka'
+                'hint' => 'Modley vozidiel, ktorých sa daná kontrola týka',
             ],
             'vehicle_models' => 'Modely vozidiel',
             'ticket_item_groups' => 'Typy podzákazok',
@@ -52,7 +52,7 @@ return [
             // 'activity-templates' => 'Normy',
             'ticket_item_groups' => 'Typy podzákazok',
             'vehicle_models' => 'Modely vozidiel',
-        ]
+        ],
     ],
     'table' => [
         'heading' => 'Typy kontrol',
@@ -89,7 +89,7 @@ return [
                 'tooltip' => 'dni',
             ],
             'groups' => ['label' => 'Typ údržby'],
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Typy kontrol',

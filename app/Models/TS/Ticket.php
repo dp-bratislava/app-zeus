@@ -9,6 +9,7 @@ use App\Models\Expense\Service;
 use App\States\Ticket\TicketState;
 use App\Traits\HasStateHistory;
 use Dpb\Package\Tickets\Models\Ticket as BaseTicket;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -17,8 +18,8 @@ use Spatie\ModelStates\HasStatesContract;
 
 class Ticket extends BaseTicket implements HasStatesContract
 {
-    use HasStates;
     use HasStateHistory;
+    use HasStates;
 
     protected $casts = [
         'state' => TicketState::class,
@@ -27,7 +28,6 @@ class Ticket extends BaseTicket implements HasStatesContract
     /**
      * Create a new Eloquent model instance.
      *
-     * @param  array  $attributes
      * @return void
      */
     public function __construct(array $attributes = [])
@@ -39,38 +39,38 @@ class Ticket extends BaseTicket implements HasStatesContract
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "department_id");
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function activities(): HasMany
     {
-        return $this->hasMany(Activity::class, "ticket_id");
+        return $this->hasMany(Activity::class, 'ticket_id');
     }
 
     /**
      * External materials used outside of SAP to solve this ticket
-     * 
+     *
      * @return HasMany<Material, Ticket>
      */
     public function materials(): HasMany
     {
-        return $this->hasMany(Material::class, "ticket_id");
+        return $this->hasMany(Material::class, 'ticket_id');
     }
 
     /**
      * External services used to solve this ticket
-     * 
+     *
      * @return HasMany<Service, Ticket>
      */
     public function services(): HasMany
     {
-        return $this->hasMany(Service::class, "ticket_id");
-    }    
+        return $this->hasMany(Service::class, 'ticket_id');
+    }
 
     /**
      * Subject of this ticket. E.g. vehicle, building, device ...
-     * 
-     * @return MorphTo<\Illuminate\Database\Eloquent\Model, Ticket>
+     *
+     * @return MorphTo<Model, Ticket>
      */
     public function subject(): MorphTo
     {

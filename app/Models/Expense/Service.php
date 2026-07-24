@@ -11,8 +11,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Service extends Model implements HasMedia
 {
-    use SoftDeletes;
     use InteractsWithMedia;
+    use SoftDeletes;
 
     protected $table = 'app_expenses_services';
 
@@ -44,6 +44,6 @@ class Service extends Model implements HasMedia
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(Ticket::class, "ticket_id");
-    }   
+        return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
 }

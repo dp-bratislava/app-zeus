@@ -6,8 +6,8 @@ use App\Data\Inspection\InspectionAssignmentData;
 use App\Data\Inspection\InspectionData;
 use App\Models\InspectionAssignment;
 use App\Services\InspectionAssignmentService;
-use Illuminate\Contracts\Auth\Guard;
 use App\States;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Carbon;
 
 class CreateInspectionAssignmentUseCase
@@ -27,7 +27,7 @@ class CreateInspectionAssignmentUseCase
             $data['template_id'] ?? null,
             States\Inspection\Upcoming::$name,
         );
-        
+
         // create inspection assignment
         $iaData = new InspectionAssignmentData(
             null,

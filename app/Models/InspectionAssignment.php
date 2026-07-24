@@ -28,7 +28,7 @@ class InspectionAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'inspection_assignments';
+        return config('database.table_prefix').'inspection_assignments';
     }
 
     public function inspection(): BelongsTo
@@ -53,10 +53,10 @@ class InspectionAssignment extends Model
     {
         $codes = Arr::wrap($codes);
         $subjectMorphClasses = Arr::wrap($subjectMorphClasses);
-        
+
         $query->hasMorph('subject', $subjectMorphClasses)
             ->whereHas('subject', function ($q) use ($codes) {
                 $q->byMaintenanceGroup($codes);
             });
-    }    
+    }
 }

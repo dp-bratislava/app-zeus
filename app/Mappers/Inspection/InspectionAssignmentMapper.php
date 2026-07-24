@@ -9,7 +9,6 @@ use App\Models\InspectionAssignment;
 
 class InspectionAssignmentMapper
 {
-
     public function __construct(
         private InspectionAssignment $eloquentModel
     ) {}

@@ -22,7 +22,7 @@ return [
             'title' => ['label' => 'Názov'],
             'description' => ['label' => 'Popis'],
             'parent' => ['label' => 'Patrí pod'],
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Skupiny noriem',

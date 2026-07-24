@@ -2,22 +2,20 @@
 
 namespace App\Reports\Drivers;
 
-
+use App\Filament\Components\DurationColumn;
 use App\Filament\Exports\Reports\SumarReportExporter;
 use App\Models\Reports\WorktimeFundPerformanceReport;
+use App\Services\DateRangeValidator;
+use Dpb\DatahubSync\Models\Department;
 use Dpb\Departments\Services\DepartmentService;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\DatePicker;
-use Filament\Tables\Filters\SelectFilter;
-use Dpb\DatahubSync\Models\Department;
-use App\Filament\Components\DurationColumn;
-use Carbon\Carbon;
 use Illuminate\Support\HtmlString;
-use App\Services\DateRangeValidator;
-use Filament\Forms\Components\Placeholder;
 
 class SumarReport implements ReportDriver
 {
@@ -43,14 +41,14 @@ class SumarReport implements ReportDriver
         return WorktimeFundPerformanceReport::query()
             ->select([
                 'd.code as stredisko',
-                new Expression("
+                new Expression('
                     ROW_NUMBER() OVER (ORDER BY c.pid) as id
-                "),
+                '),
                 new Expression("TRIM(LEADING '0' FROM c.pid) as osob_cislo"),
                 new Expression("CONCAT(wt.last_name, ' ', wt.first_name) AS meno"),
-                new Expression("SUM(dpb_worktimefund_model_activityrecord.real_duration) AS suma_cas_skutocny"),
-                new Expression("SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_norma"),
-                new Expression("ROUND(100 * SUM(dpb_worktimefund_model_activityrecord.expected_duration) / SUM(dpb_worktimefund_model_activityrecord.real_duration), 0) AS plnenie"),
+                new Expression('SUM(dpb_worktimefund_model_activityrecord.real_duration) AS suma_cas_skutocny'),
+                new Expression('SUM(dpb_worktimefund_model_activityrecord.expected_duration) AS suma_cas_norma'),
+                new Expression('ROUND(100 * SUM(dpb_worktimefund_model_activityrecord.expected_duration) / SUM(dpb_worktimefund_model_activityrecord.real_duration), 0) AS plnenie'),
             ])
             ->leftJoin('dpb_worktimefund_model_worktime as wt', 'wt.id', '=', 'dpb_worktimefund_model_activityrecord.parent_id')
             ->leftJoin('datahub_employee_contracts as c', 'c.pid', '=', 'wt.personal_id')
@@ -98,10 +96,10 @@ class SumarReport implements ReportDriver
                             $to = $get('date_to');
                             $validation = $validator->validate($from, $to);
 
-                            if (!$validation['isValid']) {
+                            if (! $validation['isValid']) {
                                 return new HtmlString('
                                     <span style="color: red">
-                                        ' . $validation['error'] . '
+                                        '.$validation['error'].'
                                     </span>
                                 ');
                             }
@@ -112,10 +110,11 @@ class SumarReport implements ReportDriver
                 ])
                 ->query(function (Builder $query, array $data) use ($validator): Builder {
                     if ($data['date_from'] && $data['date_to']) {
-                        if (!$validator->validate($data['date_from'], $data['date_to'])['isValid']) {
+                        if (! $validator->validate($data['date_from'], $data['date_to'])['isValid']) {
                             return $query->whereRaw('1 = 0');
                         }
                     }
+
                     return $query
                         ->when(
                             $data['date_from'],
@@ -129,15 +128,15 @@ class SumarReport implements ReportDriver
 
             SelectFilter::make('department')
                 ->label(__('reports/detail-report.table.filters.department'))
-                ->options(fn(DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
+                ->options(fn (DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()
                 ->query(function (Builder $query, array $data): Builder {
-            return $query->when(
-                $data['values'],
-                fn (Builder $query, $values): Builder => $query->whereIn('d.code', $values)
-            );
-        }),
+                    return $query->when(
+                        $data['values'],
+                        fn (Builder $query, $values): Builder => $query->whereIn('d.code', $values)
+                    );
+                }),
         ];
     }
 
@@ -148,7 +147,7 @@ class SumarReport implements ReportDriver
 
     public function generateExportFilename(): string
     {
-        return 'sumar_' . now()->format('Ymd_His') . '.xlsx';
+        return 'sumar_'.now()->format('Ymd_His').'.xlsx';
     }
 
     public function applyQueryModifications(Builder $query): Builder

@@ -2,24 +2,16 @@
 
 namespace App\Services;
 
-use App\Data\ActivityData;
-use App\Data\ActivityTemplateData;
-use App\Data\MaterialData;
-use App\Data\TicketData;
-use App\Data\WorkIntervalData;
 use App\Models\ActivityAssignment;
-use App\Models\Expense\Material;
 use App\Models\TicketAssignment;
 use App\Models\TicketItemAssignment;
 use App\Models\WorkAssignment;
 use Dpb\Package\Activities\Models\Activity;
-use Dpb\Package\Activities\Models\ActivityTemplate;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
 use Illuminate\Contracts\Auth\Guard;
-use Spatie\LaravelData\DataCollection;
 
 // use Illuminate\Database\Eloquent\Collection;
 
@@ -42,19 +34,19 @@ class TicketItemRepository
             'title' => $data['title'] ?? null,
             'description' => $data['description'] ?? null,
             'group_id' => $data['group_id'] ?? null,
-            'state' => $data['state'] ?? null
+            'state' => $data['state'] ?? null,
         ]);
 
         // ticket item assignment
         // if (isset($data['assigned_to'])) {
-            $author = $this->guard->id();
-            $assignedTo = MaintenanceGroup::findSole($data['assigned_to']) ?? null;
-            $tiAssignmet = $this->ticketItemAssignmentRepo->newInstance();
-            $tiAssignmet->ticketItem()->associate($ticketItem);
-            $tiAssignmet->assignedTo()->associate($assignedTo);
-            $tiAssignmet->author()->associate($author);
-            $tiAssignmet->save();
-            // dd($tiAssignmet);
+        $author = $this->guard->id();
+        $assignedTo = MaintenanceGroup::findSole($data['assigned_to']) ?? null;
+        $tiAssignmet = $this->ticketItemAssignmentRepo->newInstance();
+        $tiAssignmet->ticketItem()->associate($ticketItem);
+        $tiAssignmet->assignedTo()->associate($assignedTo);
+        $tiAssignmet->author()->associate($author);
+        $tiAssignmet->save();
+        // dd($tiAssignmet);
         // }
 
         // ticket item activities
@@ -67,7 +59,7 @@ class TicketItemRepository
         //         $activityAssignment->subject()->associate($ticketItem);
         //         $activityAssignment->save();
 
-        //         // ticket item activities work        
+        //         // ticket item activities work
         //         if (isset($activitiesData['workAssignments'])) {
         //             $workAssignmentsData = $activitiesData['workAssignments'];
         //             foreach ($workAssignmentsData as $workAssignmentData) {
@@ -83,12 +75,11 @@ class TicketItemRepository
         //     }
         // }
 
-
         // services
         // $materials = $data['materials'];
         // materials
         // $services = $data['services'];
-// dd($ticketItem);
+        // dd($ticketItem);
         return $ticketItem;
     }
 
@@ -100,7 +91,7 @@ class TicketItemRepository
             'title' => $data['title'] ?? null,
             'description' => $data['description'] ?? null,
             'group_id' => $data['group_id'],
-            'state' => $data['state'] ?? null
+            'state' => $data['state'] ?? null,
         ]);
 
         // ticket item assignment
@@ -127,7 +118,7 @@ class TicketItemRepository
         //         $activityAssignment->subject()->associate($ticketItem);
         //         $activityAssignment->save();
 
-        //         // ticket item activities work        
+        //         // ticket item activities work
         //         if (isset($activitiesData['workAssignments'])) {
         //             $workAssignmentsData = $activitiesData['workAssignments'];
         //             foreach ($workAssignmentsData as $workAssignmentData) {
@@ -141,7 +132,6 @@ class TicketItemRepository
         //         }
         //     }
         // }
-
 
         // services
         // $materials = $data['materials'];

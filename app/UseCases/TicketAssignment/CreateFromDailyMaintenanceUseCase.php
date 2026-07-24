@@ -7,9 +7,9 @@ use App\Data\Ticket\TicketData;
 use App\Models\InspectionAssignment;
 use App\Models\TicketAssignment;
 use App\Services\TicketAssignmentService;
-use Illuminate\Contracts\Auth\Guard;
 use App\States;
 use Dpb\Package\Tickets\Models\TicketGroup;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Carbon;
 
 class CreateFromDailyMaintenanceUseCase

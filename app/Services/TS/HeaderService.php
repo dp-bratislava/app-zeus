@@ -14,19 +14,18 @@ class HeaderService
     //     $this->erService->createRelation($ticket, $vehicle, 'assigned');
     // }
 
-    public function setHeader(Ticket $ticket, TicketHeader $header): TicketHeader|null
-    {       
+    public function setHeader(Ticket $ticket, TicketHeader $header): ?TicketHeader
+    {
         $ticketHeader = $this->ticketHeader->where('ticket_id', '=', $ticket->id)->first();
-        
+
         // update
         if ($ticketHeader !== null) {
             $ticketHeader->ticket = $ticket;
             $ticketHeader->header = $header;
             // $ticketHeader->author = $this->auth->getAuthIdentifier();
             $ticketHeader->save();
-        }
-        else {
-            $ticketHeader = new TicketHeader();
+        } else {
+            $ticketHeader = new TicketHeader;
             $ticketHeader->ticket = $ticket;
             $ticketHeader->department = null;
             // $ticketHeader->author = $this->auth->getAuthIdentifier();
@@ -37,11 +36,11 @@ class HeaderService
         return $this->ticketHeader;
     }
 
-    public function getHeader(Ticket $ticket): TicketHeader|null
-    {        
+    public function getHeader(Ticket $ticket): ?TicketHeader
+    {
         return $this->ticketHeader
             ->with(['department', 'author', 'assignedTo'])
             ->where('ticket_id', '=', $ticket->id)
-            ->first();            
+            ->first();
     }
 }

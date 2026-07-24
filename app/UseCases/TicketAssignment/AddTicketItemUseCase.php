@@ -2,8 +2,8 @@
 
 namespace App\UseCases\TicketAssignment;
 
-use App\Services\Ticket\TicketAssignmentService;
 use App\Repositories\Ticket\TicketAssignmentRepository;
+use App\Services\Ticket\TicketAssignmentService;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Illuminate\Contracts\Auth\Guard;
@@ -18,7 +18,7 @@ class AddTicketItemUseCase
 
     public function execute(int $ticketAssignmentId, array $data): ?TicketItem
     {
-        // get ticket assignemtn 
+        // get ticket assignemtn
         $ta = $this->ticketAssignmentRepo->findById($ticketAssignmentId);
 
         $ta->ticket_id;
@@ -28,7 +28,7 @@ class AddTicketItemUseCase
             'title' => $data['title'] ?? null,
             'description' => $data['description'] ?? null,
             'group_id' => $data['group_id'] ?? null,
-            'state' => $data['state'] ?? null
+            'state' => $data['state'] ?? null,
         ];
 
         // ticket item assignment
@@ -38,12 +38,12 @@ class AddTicketItemUseCase
         $ticketItemAssignmentData = [
             'assigned_to_id' => $data['assigned_to'] ?? null,
             'assigned_to_type' => $assignedTo?->getMorphClass() ?? null,
-            'author_id' => $author
-        ];       
-        
+            'author_id' => $author,
+        ];
+
         $payload = [
             'ticket_item' => $ticketItemData,
-            'ticket_item_assignment' => $ticketItemAssignmentData
+            'ticket_item_assignment' => $ticketItemAssignmentData,
         ];
 
         return $this->ticketAssignmentSvc->addTicketItem($payload);

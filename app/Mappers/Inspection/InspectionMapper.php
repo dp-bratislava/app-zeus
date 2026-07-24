@@ -7,7 +7,6 @@ use Dpb\Package\Inspections\Models\Inspection;
 
 class InspectionMapper
 {
-
     public function __construct(
         private Inspection $eloquentModel
     ) {}

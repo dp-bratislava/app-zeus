@@ -23,7 +23,7 @@ return [
             'code' => 'Kód',
             'title' => 'Názov',
             'description' => 'Popis',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Dopravné prevádzky',

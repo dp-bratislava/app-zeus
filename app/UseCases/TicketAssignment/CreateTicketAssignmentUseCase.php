@@ -6,11 +6,11 @@ use App\Data\Ticket\TicketAssignmentData;
 use App\Data\Ticket\TicketData;
 use App\Models\TicketAssignment;
 use App\Services\TicketAssignmentService;
+use App\States;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Illuminate\Contracts\Auth\Guard;
-use App\States;
 use Illuminate\Support\Carbon;
 
 class CreateTicketAssignmentUseCase

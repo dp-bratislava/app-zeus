@@ -4,7 +4,6 @@ namespace App\Services\TS;
 
 use App\Models\ActivityAssignment;
 use App\Models\TicketHeader;
-use App\Models\TicketSubject;
 use App\States;
 use Dpb\Package\Activities\Models\Activity;
 use Dpb\Package\Fleet\Models\Vehicle;
@@ -22,8 +21,6 @@ class CreateTicketService
         // protected TicketHeader $ticketHeader,
     ) {}
 
-
-
     public function create($data): ?Ticket
     {
         // ticket
@@ -32,24 +29,24 @@ class CreateTicketService
             'title' => $data['title'],
             'description' => $data['description'] ?? null,
             'source_id' => $data['source_id'],
-            'state' => States\TS\Ticket\Created::$name
+            'state' => States\TS\Ticket\Created::$name,
         ]);
         // ticket header
         $header = TicketHeader::create([
             'ticket_id' => $ticket->id,
             'department_id' => $data['department_id'] ?? null,
-            'author_id' => $this->auth->getAuthIdentifier()
+            'author_id' => $this->auth->getAuthIdentifier(),
         ]);
 
         // ticket subject
         $this->subjectSvc->setSubject($ticket, Vehicle::find($data['subject_id']));
 
-        // activities        
+        // activities
         if (isset($data['activities'])) {
             $activitiesData = $data['activities'];
             foreach ($activitiesData as $activityData) {
                 $activity = Activity::create($activityData);
-                $activityAssignment = new ActivityAssignment();
+                $activityAssignment = new ActivityAssignment;
                 $activityAssignment->activity()->associate($activity);
                 $activityAssignment->subject()->associate($ticket);
                 $activityAssignment->save();
@@ -83,7 +80,7 @@ class CreateTicketService
         // ticket subject
         $this->subjectSvc->setSubject($ticket, Vehicle::find($data['subject_id']));
 
-        // activities        
+        // activities
         // if (isset($data['activities'])) {
         //     $activitiesData = $data['activities'];
         //     foreach ($activitiesData as $activityData) {
@@ -101,5 +98,5 @@ class CreateTicketService
         // $services = $data['services'];
 
         return $ticket;
-    }    
+    }
 }

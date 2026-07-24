@@ -132,22 +132,20 @@ class WorkActivityReport extends Snapshot
 
     /**
      * @TODO
-     * @param array $activityIds
-     * @return string
      */
     public function polymorphicContext(array $activityIds = []): string
     {
-        $base = "
+        $base = '
             SELECT
                 ar.id as activity_id,
                 ar.type as activity_type,
                 t.id as task_id
             FROM dpb_worktimefund_model_activityrecord ar
             LEFT JOIN dpb_worktimefund_model_task t ON t.id = ar.task_id
-        ";
+        ';
 
-        if (!empty($activityIds)) {
-            $base .= " WHERE ar.id IN (" . implode(',', $activityIds) . ")";
+        if (! empty($activityIds)) {
+            $base .= ' WHERE ar.id IN ('.implode(',', $activityIds).')';
         }
 
         return $base;

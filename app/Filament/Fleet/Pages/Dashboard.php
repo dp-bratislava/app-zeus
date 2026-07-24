@@ -6,10 +6,10 @@ use App\Filament\Fleet\Widgets\Vehicle\VehiclesByMaintenanceGroup;
 use App\Filament\Fleet\Widgets\Vehicle\VehiclesByModel;
 use App\Filament\Fleet\Widgets\Vehicle\VehiclesByState;
 use Filament\Forms\Components\DatePicker;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 
 class Dashboard extends BaseDashboard
@@ -19,7 +19,7 @@ class Dashboard extends BaseDashboard
     // protected static string $routePath = 'finance';
     // protected static ?string $title = 'Fleet dashboard';
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('fleet/dashboard.title');
     }

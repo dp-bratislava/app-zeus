@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources\Asset\AssetResource\Tables;
 
-use Dpb\WtfTmsBridge\Enums\AssetState;
-use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Models\Asset;
-use Dpb\Package\Assets\Models\AssetMovement;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\Models\TaskAssignment;
+use Dpb\WtfTmsBridge\Enums\AssetState;
+use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\Package\Fleet\Models\Vehicle;
 
 class AssetsTable
 {
@@ -47,23 +46,23 @@ class AssetsTable
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),
 
-                Textcolumn::make('last_movement')
+                TextColumn::make('last_movement')
                     ->label('Posledná operácia')
                     ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->movement_type ?? null)
                     ->formatStateUsing(fn (?MovementTypeInterface $state): string => $state?->label() ?? '')
                     ->width('100px')
                     ->sortable(),
 
-                Textcolumn::make('last_movement_vehicle')
+                TextColumn::make('last_movement_vehicle')
                     ->label('Posledné vozidlo')
-                    ->getStateUsing(function (Asset $record) { 
+                    ->getStateUsing(function (Asset $record) {
                         $latestMovement = $record->movements()
                             ->with('taskItem.task')
                             ->latest()
                             ->first();
 
                         $task = $latestMovement?->taskItem?->task;
-                        if (!$task) {
+                        if (! $task) {
                             return '';
                         }
 
@@ -71,7 +70,7 @@ class AssetsTable
                             ->with('subject')
                             ->first();
 
-                        if (!$assignment || !$assignment->subject) {
+                        if (! $assignment || ! $assignment->subject) {
                             return '';
                         }
 
@@ -83,7 +82,7 @@ class AssetsTable
                     })
                     ->width('100px'),
 
-                Textcolumn::make('last_task_item')
+                TextColumn::make('last_task_item')
                     ->label('Posledná podzákazka')
                     ->getStateUsing(function (Asset $record) {
                         return $record->latestMovement?->taskItem?->id;
@@ -92,16 +91,20 @@ class AssetsTable
                     ->url(function (Asset $record) {
                         $movement = $record->movements()->with('taskItem.task')->latest()->first();
                         $task = $movement?->taskItem?->task;
-                        if (!$task) return null;
+                        if (! $task) {
+                            return null;
+                        }
 
                         $assignment = TaskAssignment::where('task_id', $task->id)->first();
-                        if (!$assignment) return null;
+                        if (! $assignment) {
+                            return null;
+                        }
 
                         $taskItemId = $movement->taskItem->id;
 
-                        return \Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource::getUrl('edit', [
+                        return TaskAssignmentResource::getUrl('edit', [
                             'record' => $assignment,
-                        ]) . '?taskItemId=' . $taskItemId;
+                        ]).'?taskItemId='.$taskItemId;
                     })
                     ->openUrlInNewTab()
                     ->width('100px')

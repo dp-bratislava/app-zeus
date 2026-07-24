@@ -3,18 +3,19 @@
 namespace App\Filament\Resources\ReportsResource\Pages;
 
 use App\Filament\Resources\ReportsResource;
+use App\Jobs\Reports\ExportReportJob;
 use App\Reports\ReportFactory;
+use App\Services\DateRangeValidator;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
-use Filament\Notifications\Notification;
-use App\Jobs\Reports\ExportReportJob;
 use Illuminate\Support\Facades\Blade;
-use App\Services\DateRangeValidator;
+use Illuminate\Support\HtmlString;
 
 class ListReports extends ListRecords
 {
     protected static string $resource = ReportsResource::class;
-    
+
     public ?string $currentReportType = null;
 
     public function mount(): void
@@ -24,7 +25,7 @@ class ListReports extends ListRecords
         $this->currentReportType = request()->query('report', 'work-activity');
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return '';
     }
@@ -34,17 +35,17 @@ class ListReports extends ListRecords
         return [];
     }
 
-    public function getSubHeading(): string | Htmlable | null
+    public function getSubHeading(): string|Htmlable|null
     {
         $currentReport = $this->currentReportType;
         $reports = ReportFactory::getAvailable();
-        
+
         // Get current driver and last synced date
         $driver = ReportFactory::make($currentReport);
         $lastSyncedAt = $driver->lastSyncedAt();
-        
-        $options = collect($reports)->mapWithKeys(fn($driver, $key) => [
-            $key => $driver->name()
+
+        $options = collect($reports)->mapWithKeys(fn ($driver, $key) => [
+            $key => $driver->name(),
         ])->toArray();
 
         $onChange = <<<'JS'
@@ -52,12 +53,13 @@ class ListReports extends ListRecords
             window.location.href = window.location.pathname + '?report=' + value;
         JS;
 
-        $optionsHtml = collect($options)->map(function($label, $key) use ($currentReport) {
+        $optionsHtml = collect($options)->map(function ($label, $key) use ($currentReport) {
             $selected = $currentReport === $key ? 'selected' : '';
+
             return "<option value=\"{$key}\" {$selected}>{$label}</option>";
         })->join('');
 
-        return new \Illuminate\Support\HtmlString(Blade::render('
+        return new HtmlString(Blade::render('
         <div class="flex items-center justify-between gap-x-4">
             <div class="flex items-center gap-x-3">
                 <label class="whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-200">Zvoľte typ reportu:</label>
@@ -80,15 +82,16 @@ class ListReports extends ListRecords
             </x-filament::button>
         </div>
     ', [
-        'onChange' => $onChange,
-        'optionsHtml' => $optionsHtml,
-        'lastSyncedAt' => $lastSyncedAt,
-    ]));
-}
+            'onChange' => $onChange,
+            'optionsHtml' => $optionsHtml,
+            'lastSyncedAt' => $lastSyncedAt,
+        ]));
+    }
+
     public function runExport(): void
     {
         $driver = ReportFactory::make($this->currentReportType);
-        
+
         $filters = $this->getTableFiltersForm()->getState();
 
         $exporter = $driver->getExporter();
@@ -100,17 +103,18 @@ class ListReports extends ListRecords
         if ($dateFrom && $dateTo) {
             $validation = $this->validateDateRange($dateFrom, $dateTo);
 
-            if (!$validation['isValid']) {
+            if (! $validation['isValid']) {
                 Notification::make()
                     ->body($validation['error'])
-                    ->danger() 
+                    ->danger()
                     ->send();
+
                 return;
             }
         }
 
         ExportReportJob::dispatch(
-            new $exporter(),
+            new $exporter,
             $filters,
             $filename,
             auth()->id(),
@@ -122,14 +126,11 @@ class ListReports extends ListRecords
             ->success()
             ->send();
     }
+
     private function validateDateRange($from, $to): array
     {
-        $validator = new DateRangeValidator();
+        $validator = new DateRangeValidator;
 
         return $validator->validate($from, $to);
     }
-
-
 }
-
-

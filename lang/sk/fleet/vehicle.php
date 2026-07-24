@@ -17,15 +17,15 @@ return [
             'vin' => 'VIN',
             'model' => 'Model',
             'department' => [
-               'label' => 'Stredisko',
-               'hint' => 'Nákladové stredisko v SAPe',
+                'label' => 'Stredisko',
+                'hint' => 'Nákladové stredisko v SAPe',
             ],
             'groups' => 'Skupiny',
             'construction_year' => 'Rok výroby',
             'warranty_initial_date' => [
                 'label' => 'Záruka platí od',
                 'hint' => '',
-            ],            
+            ],
             'warranty_months' => [
                 'label' => 'Záruka',
                 'hint' => 'V mesiacoch',
@@ -33,11 +33,11 @@ return [
             'warranty_initial_km' => [
                 'label' => 'Záruka platí od km',
                 'hint' => '',
-            ],            
+            ],
             'warranty_km' => [
                 'label' => 'Záruka',
                 'hint' => 'V km',
-            ]            
+            ],
         ],
     ],
     'table' => [
@@ -61,9 +61,9 @@ return [
             ],
             'maintenance_group' => [
                 'label' => 'TP',
-                'tooltip' => 'Technciká prevádzka'
+                'tooltip' => 'Technciká prevádzka',
             ],
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Vozidlá',
@@ -82,5 +82,5 @@ return [
         'missing-parts' => 'Čaká na náhr. diely',
         'waiting-for-repair-spot' => 'Čaká na voľné pracovisko',
         'waiting-for-insurance' => 'Čaká na poisťovňu',
-    ]     
+    ],
 ];

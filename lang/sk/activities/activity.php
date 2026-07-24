@@ -29,7 +29,7 @@ return [
             'maintenance_group' => 'Prevádzka',
             'finished_at' => 'Ukončená',
             'expected_duration' => 'Očakávané trvanie (min)',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Normované činnosti',

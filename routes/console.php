@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schedule;
-use Illuminate\Support\Facades\Bus;
 use App\Jobs\Snapshots\RunSnapshotJob;
 use App\Snapshots\Core\SnapshotRunContext;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('datahub:update')->hourly();
 
@@ -12,10 +12,10 @@ Schedule::command('datahub:update')->hourly();
 
 Schedule::call(function () {
     Bus::chain([
-        new RunSnapshotJob('hr-contract', new SnapshotRunContext()),
-        new RunSnapshotJob('fleet-vehicle', new SnapshotRunContext()),
-        new RunSnapshotJob('work-task-subject', new SnapshotRunContext()),
-        new RunSnapshotJob('tms-task-item', new SnapshotRunContext()),
-        new RunSnapshotJob('work-activity', new SnapshotRunContext()),
+        new RunSnapshotJob('hr-contract', new SnapshotRunContext),
+        new RunSnapshotJob('fleet-vehicle', new SnapshotRunContext),
+        new RunSnapshotJob('work-task-subject', new SnapshotRunContext),
+        new RunSnapshotJob('tms-task-item', new SnapshotRunContext),
+        new RunSnapshotJob('work-activity', new SnapshotRunContext),
     ])->dispatch();
 })->everyMinute();

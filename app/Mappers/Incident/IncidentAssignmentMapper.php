@@ -9,7 +9,6 @@ use App\Models\IncidentAssignment;
 
 class IncidentAssignmentMapper
 {
-
     public function __construct(
         private IncidentAssignment $eloquentModel
     ) {}

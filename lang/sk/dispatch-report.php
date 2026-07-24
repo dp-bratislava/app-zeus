@@ -32,7 +32,7 @@ return [
         ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Dispečerské hlásenia',
@@ -47,5 +47,5 @@ return [
         'cancelled' => 'Zrušená',
         'closed' => 'Uzavretá',
         'in-progress' => 'V riešení',
-    ]
+    ],
 ];

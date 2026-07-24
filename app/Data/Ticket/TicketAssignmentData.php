@@ -2,7 +2,6 @@
 
 namespace App\Data\Ticket;
 
-use Illuminate\Support\Carbon;
 use Spatie\LaravelData\Data;
 
 class TicketAssignmentData extends Data

@@ -11,12 +11,12 @@ trait InteractsWithDateRangeOptions
     {
         $input = [
             'from' => $this->option('from'),
-            'to'   => $this->option('to'),
+            'to' => $this->option('to'),
         ];
 
         Validator::make($input, [
             'from' => ['nullable', 'date'],
-            'to'   => ['nullable', 'date', 'after_or_equal:from'],
+            'to' => ['nullable', 'date', 'after_or_equal:from'],
         ])->validate();
 
         $from = $input['from']

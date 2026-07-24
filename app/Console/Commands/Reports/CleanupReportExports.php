@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class CleanupReportExports extends Command
 {
     protected $signature = 'report:exports:cleanup';
+
     protected $description = 'Delete all old report export files from storage and from DB';
 
     public function handle()
@@ -17,7 +18,7 @@ class CleanupReportExports extends Command
 
         foreach ($exports as $export) {
             // delete file from storage
-            $path = $export->file_name . ".xlsx";
+            $path = $export->file_name.'.xlsx';
 
             Storage::disk($export->file_disk)
                 ->delete($path);

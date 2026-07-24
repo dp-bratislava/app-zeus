@@ -3,7 +3,6 @@
 namespace App\Snapshots\Core;
 
 use App\Snapshots\Core\Contracts\SnapshotContract;
-use Error;
 
 class SnapshotRegistry
 {
@@ -17,7 +16,7 @@ class SnapshotRegistry
     public function resolve(string $key): SnapshotContract
     {
         try {
-            if (!isset($this->snapshots[$key])) {
+            if (! isset($this->snapshots[$key])) {
                 throw new \InvalidArgumentException("Snapshot [$key] not registered");
             }
 

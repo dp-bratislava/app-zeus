@@ -26,12 +26,12 @@ class DailyExpedition extends Model
     ];
 
     protected $casts = [
-        'date' => 'date'
+        'date' => 'date',
     ];
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'daily_expeditions';
+        return config('database.table_prefix').'daily_expeditions';
     }
 
     public function vehicle(): BelongsTo

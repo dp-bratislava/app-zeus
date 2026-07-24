@@ -2,7 +2,6 @@
 
 namespace App\Snapshots\Services;
 
-use App\Snapshots\Core\Contracts\SnapshotContract;
 use App\Snapshots\Core\Contracts\SnapshotExecutionStrategy;
 use App\Snapshots\Core\Snapshot;
 use App\Snapshots\Core\SnapshotExecutionState;

@@ -10,12 +10,12 @@ class AssignmentService
 {
     public function __construct(protected InspectionAssignment $inspectionAssignment) {}
 
-    public function setSubject(Inspection $inspection, Model $subject): InspectionAssignment|null
-    {       
+    public function setSubject(Inspection $inspection, Model $subject): ?InspectionAssignment
+    {
         $inspectionAssignment = $this->inspectionAssignment
             ->where('inspection_id', '=', $inspection->id)
             ->first();
-        
+
         // update
         if ($inspectionAssignment !== null) {
             $inspectionAssignment->subject()->associate($subject);
@@ -23,7 +23,7 @@ class AssignmentService
         }
         // create
         else {
-            $inspectionAssignment = new InspectionAssignment();
+            $inspectionAssignment = new InspectionAssignment;
             $inspectionAssignment->inspection()->associate($inspection);
             $inspectionAssignment->subject()->associate($subject);
             $inspectionAssignment->save();
@@ -32,8 +32,8 @@ class AssignmentService
         return $this->inspectionAssignment;
     }
 
-    public function getSubject(Inspection $inspection): Model|null
-    {        
+    public function getSubject(Inspection $inspection): ?Model
+    {
         return $this->inspectionAssignment
             ->with('subject')
             ->where('inspection_id', '=', $inspection->id)
@@ -41,12 +41,13 @@ class AssignmentService
             ?->subject;
     }
 
-    public function update(Model $model, array $data): Model|null
-    {        
+    public function update(Model $model, array $data): ?Model
+    {
         $model->subject_id = $data['subject_id'];
         $model->inspection->date = $data['inspection_date'];
 
         $model->push();
+
         return $model;
-    }    
+    }
 }

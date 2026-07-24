@@ -7,8 +7,8 @@ use App\Models\Reports\WorkActivityReport;
 use App\Reports\ReportFactory;
 use BackedEnum;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Table;
 
 class ReportsResource extends Resource
 {
@@ -41,7 +41,7 @@ class ReportsResource extends Resource
             ->filters($driver->getFilters())
             ->filtersFormColumns(2)
             ->extraAttributes([
-            'class' => 'report-filters-inline-container'
+                'class' => 'report-filters-inline-container',
             ])
             ->filtersLayout(FiltersLayout::AboveContent)
             ->recordActions([])

@@ -2,18 +2,15 @@
 
 namespace App\Jobs\Reports;
 
-use App\Filament\Exports\Reports\DetailReportExporter;
 use App\Models\User;
+use App\Reports\Exports\BaseReportExporter;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Reports\Exports\BaseReportExporter;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 
 class ExportReportJob implements ShouldQueue
 {
@@ -28,7 +25,6 @@ class ExportReportJob implements ShouldQueue
         public string $fileName,
         public int $userId,
     ) {}
-
 
     public function handle()
     {

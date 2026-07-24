@@ -19,19 +19,19 @@ class CreateInspectionService
         protected InspectionAssignment $inspectionAssignment,
     ) {}
 
-    public function create(Model $subject, InspectionTemplate $template): Inspection|null
+    public function create(Model $subject, InspectionTemplate $template): ?Inspection
     {
-        $this->db->transaction(function () use ($subject, $template) {                    
+        $this->db->transaction(function () use ($subject, $template) {
             // create inspection
             $data = [
                 'date' => Carbon::now(),
                 'template_id' => $template->id,
                 'state' => States\Inspection\Upcoming::$name,
             ];
-            
+
             $inspection = $this->inspection->create($data);
 
-            // add inspection subject relation            
+            // add inspection subject relation
             $this->assignmentSvc->setSubject($inspection, $subject);
 
             return $inspection;

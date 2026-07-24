@@ -1,5 +1,10 @@
 <?php
 
+use Dpb\DatahubSync\Models\Department;
+use Dpb\DatahubSync\Models\Employee;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
+use Dpb\Package\Fleet\Models\VehicleType;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +48,7 @@ return [
             'label' => 'Prístup ku strediskám',
             'is_multiple' => true,
             'type' => 'model',
-            'type_detail' => Dpb\DatahubSync\Models\Department::class,
+            'type_detail' => Department::class,
             'option_label' => 'titleWithCode',
             'is_readonly' => false,
         ],
@@ -52,7 +57,7 @@ return [
             'label' => 'Zamestnanec',
             'is_multiple' => false,
             'type' => 'model',
-            'type_detail' => Dpb\DatahubSync\Models\Employee::class,
+            'type_detail' => Employee::class,
             'scope' => 'active',
             'option_label' => 'fullNameWithPid',
             'is_readonly' => false,
@@ -62,7 +67,7 @@ return [
             'label' => 'Typ vozidla',
             'is_multiple' => true,
             'type' => 'model',
-            'type_detail' => Dpb\Package\Fleet\Models\VehicleType::class,
+            'type_detail' => VehicleType::class,
             // 'scope' => 'active',
             'option_label' => 'title',
             'is_readonly' => false,
@@ -72,11 +77,11 @@ return [
             'label' => 'Technická prevádzka',
             'is_multiple' => true,
             'type' => 'model',
-            'type_detail' => Dpb\Package\Fleet\Models\MaintenanceGroup::class,
+            'type_detail' => MaintenanceGroup::class,
             // 'scope' => 'active',
             'option_label' => 'title',
             'is_readonly' => false,
-        ],        
+        ],
         /*
         [
             'key' => 'value',

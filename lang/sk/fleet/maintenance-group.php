@@ -9,7 +9,7 @@ return [
             'create_heading' => 'Vytvoriť technickú prevádzku',
             'update_heading' => 'Upraviť technickú prevádzku: :title',
         ],
-    ],     
+    ],
     'form' => [
         'fields' => [
             'code' => [
@@ -36,7 +36,7 @@ return [
             'color' => 'Farba',
             'vehicle_type' => 'Typ',
             'vehicles' => 'Vozidlá',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Technické prevádzky',

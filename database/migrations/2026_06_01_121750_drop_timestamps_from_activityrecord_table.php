@@ -15,7 +15,7 @@ return new class extends Migration
             $table->dropIndex('idx_updated_at');
             $table->dropTimestamps();
             $table->dropSoftDeletes();
-        });        
+        });
     }
 
     /**

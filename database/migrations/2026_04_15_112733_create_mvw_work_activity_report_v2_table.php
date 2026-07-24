@@ -68,7 +68,7 @@ return new class extends Migration
             $table->unsignedBigInteger('task_id')->nullable();
             $table->dateTime('task_created_at')
                 ->nullable()
-                ->comment('Task management system task created at');;
+                ->comment('Task management system task created at');
             $table->unsignedBigInteger('task_item_id')->nullable();
 
             $table->unsignedBigInteger('department_id')->nullable();

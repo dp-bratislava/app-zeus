@@ -9,7 +9,6 @@ use Dpb\Package\Tickets\Models\Ticket;
 
 class TicketMapper
 {
-
     public function __construct(
         private Ticket $eloquentModel
     ) {}
@@ -24,7 +23,7 @@ class TicketMapper
         // $model->group_id = $ticket->groupId;
 
         // $model->sate = $task->state();
-        // map items 
+        // map items
         // $model->items = collect($task->taskItems())
         //     ->map(fn($item) => $this->tiMapper->toEloquent($item))
         //     ->toArray();

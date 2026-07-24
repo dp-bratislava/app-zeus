@@ -30,10 +30,10 @@ return [
             'type' => 'Typ',
             'state' => 'Stav',
             'subject' => 'Vozidlo',
-        ],        
+        ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Udalosti',
@@ -46,5 +46,5 @@ return [
     'states' => [
         'created' => 'Nová',
         'closed' => 'Uzavretá',
-    ]
+    ],
 ];

@@ -21,13 +21,13 @@ return [
             'duration' => [
                 'label' => 'Trvanie min',
                 'helper' => 'Hodnota uvádzná v minútach',
-        ],
+            ],
             'man_minutes' => 'Človekominúty',
             'is_divisible' => 'Deliteľná',
             'is_catalogised' => 'Katalogizovaná',
             'people' => 'Počet ľudí',
             'unit_price' => 'Jedn. sadzba',
-            'subject' => 'Model vozidla'
+            'subject' => 'Model vozidla',
         ],
     ],
     'table' => [
@@ -44,14 +44,14 @@ return [
             'is_catalogised' => ['label' => 'Katalogizovaná'],
             'people' => ['label' => 'Počet ľudí'],
             'unit_price' => ['label' => 'Jedn. sadzba'],
-        ]
+        ],
     ],
     'navigation' => [
         'label' => 'Normy',
         'group' => 'Normy',
     ],
     'page' => [
-        'title'=> 'Norma'
+        'title' => 'Norma',
     ],
     'resource' => [
         'model_label' => 'Norma',

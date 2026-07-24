@@ -22,7 +22,7 @@ class VehiclesByModel extends BaseWidget
                 Tables\Columns\TextColumn::make('total')
                     ->label(__('fleet/dashboard.widgets.vehicles_by_model.table.columns.total')),
                 Tables\Columns\TextColumn::make('under-repair')
-                    ->label(__('fleet/dashboard.widgets.vehicles_by_model.table.columns.state'))
+                    ->label(__('fleet/dashboard.widgets.vehicles_by_model.table.columns.state')),
             ]);
     }
 }

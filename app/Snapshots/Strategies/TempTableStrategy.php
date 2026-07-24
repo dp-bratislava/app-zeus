@@ -24,7 +24,7 @@ class TempTableStrategy implements SnapshotExecutionStrategy
         $this->tempTables->create($state->tempTable);
 
         try {
-            // fill tmp table 
+            // fill tmp table
             DB::table('tmp_snapshot_ids')->insertUsing(['id'], $snapshot->idQuery($context));
 
             // run snapshot

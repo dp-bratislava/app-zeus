@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
         $fileName = $export->file_name;
         abort_unless(Storage::disk('report-exports')->exists($fileName), 404);
 
-        // get download 
+        // get download
         return Storage::disk('report-exports')->download($fileName);
     })->name('exports.download');
 });

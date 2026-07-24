@@ -66,7 +66,7 @@ return [
             'serve' => true,
             'throw' => false,
             'report' => false,
-        ],   
+        ],
     ],
 
     /*
