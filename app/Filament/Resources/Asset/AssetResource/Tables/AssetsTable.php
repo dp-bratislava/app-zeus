@@ -86,8 +86,7 @@ class AssetsTable
                 Textcolumn::make('last_task_item')
                     ->label('Posledná podzákazka')
                     ->getStateUsing(function (Asset $record) {
-                        $movement = $record->movements()->with('taskItem.task')->latest()->first();
-                        return $movement?->taskItem?->id;
+                        return $record->latestMovement?->taskItem?->id;
                     })
                     ->color('primary')
                     ->url(function (Asset $record) {
@@ -117,11 +116,9 @@ class AssetsTable
             ])
             ->filters([])
             ->defaultSort('updated_at', 'desc')
-            ->modifyQueryUsing(fn (Builder $query) => $query
-                ->whereNotIn('state', [
-                    AssetState::DIEL_NA_VOZE->value,
-                    AssetState::VYRADENE_SCHVALENE->value,
-                ])
-            );
+            ->modifyQueryUsing(fn (Builder $query) => $query->whereNotInState([
+                AssetState::DIEL_NA_VOZE,
+                AssetState::VYRADENE_SCHVALENE,
+            ]));
     }
 }

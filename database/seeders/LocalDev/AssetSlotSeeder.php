@@ -56,9 +56,7 @@ class AssetSlotSeeder extends Seeder
                             'id'            => $id,
                             'serial_number' => 'SN-' . strtoupper(uniqid()),
                             'type_id' => $assetTypeId,
-                            'slot_id' => $id,
                             'kilometrage' => rand(0, 100000),
-                            'state' => $onVehicleState,
                             'created_at' => $now,
                             'updated_at' => $now,
                         ];
