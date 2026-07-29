@@ -74,10 +74,6 @@ class AssetsTable
                             return '';
                         }
 
-                        if ($assignment->subject instanceof Vehicle) {
-                            return $assignment->subject->label ?? '';
-                        }
-
                         return $assignment->subject->label ?? '';
                     })
                     ->width('100px'),
@@ -118,10 +114,6 @@ class AssetsTable
                     ->color('warning'),
             ])
             ->filters([])
-            ->defaultSort('updated_at', 'desc')
-            ->modifyQueryUsing(fn (Builder $query) => $query->whereNotInState([
-                AssetState::DIEL_NA_VOZE,
-                AssetState::VYRADENE_SCHVALENE,
-            ]));
+            ->defaultSort('updated_at', 'desc');
     }
 }
