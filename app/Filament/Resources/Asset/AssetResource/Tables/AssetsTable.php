@@ -53,6 +53,13 @@ class AssetsTable
                     ->width('100px')
                     ->sortable(),
 
+                TextColumn::make('last_movement_date')
+                    ->label('Dátum poslednej operácie')
+                    ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->updated_at ?? null)
+                    ->date('d.m.Y')
+                    ->width('100px')
+                    ->sortable(),                    
+
                 TextColumn::make('last_movement_vehicle')
                     ->label('Posledné vozidlo')
                     ->getStateUsing(function (Asset $record) {

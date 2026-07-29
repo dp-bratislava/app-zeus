@@ -1438,12 +1438,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "7acc62bbfc0be4a9ca5f652adb6df0a6533c0b4a"
+                "reference": "22d22a5707e1710a7ecca43a035e18e110495388"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/7acc62bbfc0be4a9ca5f652adb6df0a6533c0b4a",
-                "reference": "7acc62bbfc0be4a9ca5f652adb6df0a6533c0b4a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/22d22a5707e1710a7ecca43a035e18e110495388",
+                "reference": "22d22a5707e1710a7ecca43a035e18e110495388",
                 "shasum": ""
             },
             "require": {
@@ -1478,7 +1478,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/asset-movements",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-07-29T10:21:56+00:00"
+            "time": "2026-07-29T11:33:00+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
