@@ -4,6 +4,7 @@ use App\Http\Controllers\TestController;
 use App\Models\Reports\Export;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 Route::prefix('dev')->group(function () {
     Route::get('/tickets-test', [TestController::class, 'index']);
@@ -23,3 +24,8 @@ Route::middleware('auth')->group(function () {
         return Storage::disk('report-exports')->download($fileName);
     })->name('exports.download');
 });
+
+// spatie media library private media route
+Route::middleware(['web', 'auth'])->get('/media/private/{media}/{fileName?}', function (Media $media, ?string $fileName = null) {
+    return response()->file($media->getPath());
+})->where('fileName', '.*')->name('media.private.show');
