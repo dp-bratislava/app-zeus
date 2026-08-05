@@ -6,12 +6,15 @@ use App\Filament\Resources\ReportsResource\Pages\ListReports;
 use App\Models\Reports\WorkActivityReport;
 use App\Reports\ReportFactory;
 use BackedEnum;
+use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
 use Filament\Resources\Resource;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 
 class ReportsResource extends Resource
 {
+    use HasResourceGuard;
+
     public static ?string $model = WorkActivityReport::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -57,3 +60,4 @@ class ReportsResource extends Resource
         ];
     }
 }
+

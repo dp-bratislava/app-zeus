@@ -20,6 +20,13 @@ use Dpb\WorkTimeFundFilament\Filament\Pages\OperationsManagementPage;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Pages\DailyMaintenanceWorkOrdersPage;
 use Dpb\WtfTmsBridge\Filament\Pages\WorkOrderPage;
+use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
+use App\Filament\Resources\Asset\AssetResource;
+use App\Filament\Resources\ReportsResource;
+use Dpb\WorkTimeFund\Filament\Pages\VehicleReport\VehicleReportPage;
 
 return [
     'enabled' => false,
@@ -28,6 +35,22 @@ return [
             'veduci-pracovnik' => [
                 // Pages
                 InsightsPage::getAccessPermission(),
+                OperationsManagementPage::getAccessPermission(),
+                OperationsCategoryManagementPage::getAccessPermission(),
+                WorktimeManagementPage::getAccessPermission(),
+                EmployeeManagerPage::getAccessPermission(),
+                DeferredTasksManagementPage::getAccessPermission(),
+                WorkOrderPage::getAccessPermission(),
+                DailyMaintenanceWorkOrdersPage::getAccessPermission(),
+                VehicleReportPage::getAccessPermission(),
+                // Resources (gate via HasResourceGuard)
+                TaskAssignmentResource::getAccessPermission(),
+                DailyMaintenanceResource::getAccessPermission(),
+                InspectionAssignmentResource::getAccessPermission(),
+                TicketAssignmentResource::getAccessPermission(),
+                AssetResource::getAccessPermission(),
+                ReportsResource::getAccessPermission(),
+                // Components
                 OperationsManagementPage::getAccessPermission(),
                 OperationsCategoryManagementPage::getAccessPermission(),
                 WorktimeManagementPage::getAccessPermission(),

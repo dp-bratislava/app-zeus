@@ -4,12 +4,15 @@ namespace App\Filament\Resources\Asset;
 
 use App\Filament\Resources\Asset\AssetResource\Pages\ListAssets;
 use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
+use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
 use Dpb\Package\Assets\Models\Asset;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 
 class AssetResource extends Resource
 {
+    use HasResourceGuard;
+
     protected static ?string $model = Asset::class;
 
     protected static ?string $recordTitleAttribute = 'serial_number';
@@ -48,3 +51,4 @@ class AssetResource extends Resource
         ];
     }
 }
+

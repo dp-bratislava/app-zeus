@@ -48,7 +48,7 @@
         "dpb/dpb-departments": "^12.5",
         "dpb/dpb-employee-manager": "^12.5",
         "dpb/dpb-insights": "^12.5",
-        "dpb/dpb-master-permission-guard": "^12.5",
+        "dpb/dpb-master-permission-guard": "^12.5.1",
         "dpb/dpb-utils": "^12.5",
         "dpb/dpb-work-time-fund": "^12.5",
         "dpb/dpb-work-time-fund-filament": "^12.5",
