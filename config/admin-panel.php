@@ -30,6 +30,7 @@ use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
+use App\Filament\Pages\AssetsPhotoPage;
 
 return [
     'plugins' => [
@@ -40,13 +41,13 @@ return [
 
     'navigation' => [
         'items' => [
+            AssetsPhotoPage::class,
             TaskAssignmentResource::class,
             // TaskItemResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             AssetResource::class,
             WorktimeManagementPage::class,
-
         ],
         'groups' => [
             [

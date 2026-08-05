@@ -27,6 +27,7 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
 use App\Filament\Resources\Asset\AssetResource;
 use App\Filament\Resources\ReportsResource;
 use Dpb\WorkTimeFund\Filament\Pages\VehicleReport\VehicleReportPage;
+use App\Filament\Pages\AssetsPhotoPage;
 
 return [
     'enabled' => false,
@@ -34,6 +35,7 @@ return [
         'web' => [
             'veduci-pracovnik' => [
                 // Pages
+                AssetsPhotoPage::getAccessPermission(),
                 InsightsPage::getAccessPermission(),
                 OperationsManagementPage::getAccessPermission(),
                 OperationsCategoryManagementPage::getAccessPermission(),
