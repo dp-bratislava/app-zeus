@@ -31,6 +31,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/.continue
+/skills
 /docker
 composer.json.old
 composer.lock.old
