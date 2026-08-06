@@ -1777,12 +1777,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:andrej-horny/pkg-assets.git",
-                "reference": "10d098202b562771d5a7f8501dd1b64e5e70c310"
+                "reference": "4c6ef3cebc27d25cc9dd8761adcdf9ba38695b6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrej-horny/pkg-assets/zipball/10d098202b562771d5a7f8501dd1b64e5e70c310",
-                "reference": "10d098202b562771d5a7f8501dd1b64e5e70c310",
+                "url": "https://api.github.com/repos/andrej-horny/pkg-assets/zipball/4c6ef3cebc27d25cc9dd8761adcdf9ba38695b6d",
+                "reference": "4c6ef3cebc27d25cc9dd8761adcdf9ba38695b6d",
                 "shasum": ""
             },
             "require": {
@@ -1816,7 +1816,7 @@
                 "source": "https://github.com/andrej-horny/pkg-assets/tree/fero/asset-movements-continuation",
                 "issues": "https://github.com/andrej-horny/pkg-assets/issues"
             },
-            "time": "2026-07-29T07:51:55+00:00"
+            "time": "2026-08-04T07:06:11+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
