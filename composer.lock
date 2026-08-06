@@ -1531,16 +1531,16 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v5.2.1",
+            "version": "v5.2.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "19ed23adcd862d558330404ea8eb7dc6034a7fda"
+                "reference": "ca5a1c4fbcf68a85dbdc2bfee5bc822830157622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/19ed23adcd862d558330404ea8eb7dc6034a7fda",
-                "reference": "19ed23adcd862d558330404ea8eb7dc6034a7fda",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/ca5a1c4fbcf68a85dbdc2bfee5bc822830157622",
+                "reference": "ca5a1c4fbcf68a85dbdc2bfee5bc822830157622",
                 "shasum": ""
             },
             "require": {
