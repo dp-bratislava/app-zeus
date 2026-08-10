@@ -33,7 +33,7 @@ class AssetsPhotoPage extends Page implements HasForms
 
     protected static ?string $navigationLabel = 'Foto';
 
-    protected static ?string $title = 'Fotky agregátov';
+    protected static ?string $title = '';
 
     public ?array $data = [];
 
@@ -102,6 +102,7 @@ class AssetsPhotoPage extends Page implements HasForms
 
                 return [
                     SpatieMediaLibraryFileUpload::make('photos_upload')
+                        ->hiddenLabel()
                         ->model($movement)
                         ->collection('movement-photos')
                         ->multiple()
@@ -111,6 +112,7 @@ class AssetsPhotoPage extends Page implements HasForms
                         ->reorderable()
                         ->downloadable()
                         ->openable()
+                        ->placeholder('Kliknite sem pre pridanie fotky')
                         ->extraInputAttributes(['accept' => 'image/*', 'capture' => 'environment']),
                 ];
             })
