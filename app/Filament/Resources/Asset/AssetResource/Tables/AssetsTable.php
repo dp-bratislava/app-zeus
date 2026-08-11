@@ -4,18 +4,22 @@ namespace App\Filament\Resources\Asset\AssetResource\Tables;
 
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
+use Dpb\Package\Assets\Enums\ApprovalStatus;
 use Dpb\Package\Assets\Models\Asset;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\WtfTmsBridge\Enums\AssetState;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Filament\Actions\BulkAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class AssetsTable
 {
-    public static function configure(Table $table): Table
+    public static function configure(Table $table, bool $showApproveBulkAction = false): Table
     {
         return $table
             ->heading('Agregáty')
@@ -120,7 +124,50 @@ class AssetsTable
                     ->formatStateUsing(fn (AssetStateInterface $state): string => $state->label())
                     ->color('warning'),
             ])
+            ->bulkActions($showApproveBulkAction ? [self::approveBulkAction()] : [])
             ->filters([])
             ->defaultSort('updated_at', 'desc');
+    }
+
+    public static function approveBulkAction(): BulkAction
+    {
+        return BulkAction::make('approveMovements')
+            ->label('Schváliť pohyby')
+            ->icon('heroicon-o-check-badge')
+            ->requiresConfirmation()
+            ->modalHeading('Schváliť vybrané pohyby')
+            ->modalDescription('Budú schválené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
+            ->action(fn (Collection $records) => self::approveMovements($records));
+    }
+
+    public static function approveMovements(Collection $records): void
+    {
+        $approvedCount = 0;
+
+        foreach ($records as $asset) {
+            if (! $asset instanceof Asset || ! $asset->waitingForApproval()) {
+                continue;
+            }
+
+            $movement = $asset->latestMovement;
+
+            if (! $movement || $movement->approval_status === ApprovalStatus::APPROVED) 
+            {
+                continue;
+            }
+
+            $movement->update([
+                'approval_status' => ApprovalStatus::APPROVED,
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $approvedCount++;
+        }
+
+        Notification::make()
+            ->title('Schválené pohyby: '.$approvedCount)
+            ->success()
+            ->send();
     }
 }

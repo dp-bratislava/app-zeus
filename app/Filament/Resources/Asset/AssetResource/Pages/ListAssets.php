@@ -3,12 +3,16 @@
 namespace App\Filament\Resources\Asset\AssetResource\Pages;
 
 use App\Filament\Resources\Asset\AssetResource;
+use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
+use Dpb\Package\Assets\Models\Asset;
+use Dpb\Package\Assets\Models\AssetMovement;
 use Dpb\WtfTmsBridge\Enums\AssetState;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
+use Dpb\Package\Assets\Enums\ApprovalStatus;
 
 class ListAssets extends ListRecords
 {
@@ -16,11 +20,13 @@ class ListAssets extends ListRecords
 
     public bool $showNaSklade = false;
     public bool $showNaVozoch = false;
+    public bool $showRequiresApproval = false;
 
     public function toggleNaSklade(): void
     {
         $this->showNaSklade = ! $this->showNaSklade;
         $this->showNaVozoch = false;
+        $this->showRequiresApproval = false;
         $this->resetTable();
     }
 
@@ -28,6 +34,15 @@ class ListAssets extends ListRecords
     {
         $this->showNaVozoch = ! $this->showNaVozoch;
         $this->showNaSklade = false;
+        $this->showRequiresApproval = false;
+        $this->resetTable();
+    }
+
+    public function toggleRequiresApproval(): void
+    {
+        $this->showRequiresApproval = ! $this->showRequiresApproval;
+        $this->showNaSklade = false;
+        $this->showNaVozoch = false;
         $this->resetTable();
     }
 
@@ -43,7 +58,16 @@ class ListAssets extends ListRecords
                 ->label('Na vozoch')
                 ->color(fn (): string => $this->showNaVozoch ? 'primary' : 'gray')
                 ->action('toggleNaVozoch'),
+
+            Action::make('toggleRequiresApproval')
+                ->label('Vyžadujú schválenie')
+                ->color(fn (): string => $this->showRequiresApproval ? 'primary' : 'gray')
+                ->action('toggleRequiresApproval'),
         ]);
+
+        if ($this->showRequiresApproval) {
+            $table->pushBulkActions([AssetsTable::approveBulkAction()]);
+        }
 
         return $table;
     }
@@ -51,6 +75,12 @@ class ListAssets extends ListRecords
     protected function getTableQuery(): Builder|Relation|null
     {
         $query = parent::getTableQuery();
+
+        if ($this->showRequiresApproval) {
+            return $query->whereHas('latestMovement', function (Builder $movementQuery) {
+                $movementQuery->where('approval_status', '=', ApprovalStatus::PENDING);
+            });
+        }
 
         if ($this->showNaSklade) {
             return $query->byState(AssetState::PRIJEM_Z_DIELNE);
@@ -67,4 +97,5 @@ class ListAssets extends ListRecords
         return $query;
     }
 }
+
 
