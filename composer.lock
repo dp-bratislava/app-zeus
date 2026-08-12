@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30fbbeeae0ae6d080a4591d4c53ade7a",
+    "content-hash": "5db152b3de14bfecf61b374fc40be4a2",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1330,17 +1330,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.18",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "1645c8f32eef5d777e4a1a40498443560063f71c"
-            },
+            "version": "dev-fix/remove-break-activity-when-full-day-absence-added",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/1645c8f32eef5d777e4a1a40498443560063f71c",
-                "reference": "1645c8f32eef5d777e4a1a40498443560063f71c",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund",
+                "reference": "1645c8f32eef5d777e4a1a40498443560063f71c"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1380,11 +1374,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.18",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2026-08-05T07:27:50+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -16538,9 +16531,17 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-fix/remove-break-activity-when-full-day-absence-added",
+            "alias": "12.99.x-dev",
+            "alias_normalized": "12.99.9999999.9999999-dev"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-assets": 20
     },
@@ -16553,5 +16554,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

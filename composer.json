@@ -9,6 +9,7 @@
     ],
     "license": "MIT",
     "repositories": [
+        {"type": "path", "url": "./packages/dpb/*", "options": {"symlink": true}},
         {"type": "vcs", "url": "git@github.com:andrej-horny/pkg-assets.git"},
         {"type": "vcs", "url": "git@github.com:andrej-horny/pkg-assets-ui.git"},
         {"type": "vcs", "url": "git@github.com:dp-bratislava/dpb-auditing.git"},
@@ -50,7 +51,7 @@
         "dpb/dpb-insights": "^12.5",
         "dpb/dpb-master-permission-guard": "^12.5.1",
         "dpb/dpb-utils": "^12.5",
-        "dpb/dpb-work-time-fund": "^12.5",
+        "dpb/dpb-work-time-fund": "dev-fix/remove-break-activity-when-full-day-absence-added as 12.99.x-dev",
         "dpb/dpb-work-time-fund-filament": "^12.5",
         "dpb/dpb-wtf-tms-bridge": "dev-fero/asset-movements",
         "dpb/ext-spatie-model-states": "^12.0",
