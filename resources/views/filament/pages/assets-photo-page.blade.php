@@ -19,6 +19,15 @@
                 class="whitespace-nowrap">
                 Podľa vozidla
             </x-filament::button>
+
+            <x-filament::button
+                wire:click="useTaskForm"
+                :color="$this->findMode === 'task' ? 'primary' : 'gray'"
+                icon="heroicon-o-arrow-path"
+                :outlined="$this->findMode !== 'task'"
+                class="whitespace-nowrap">
+                Aktívne podzákazky
+            </x-filament::button>
         </div>
 
         <div class="p-6 sm:p-8">
@@ -34,6 +43,90 @@
                             Nahrať fotky
                         </x-filament::button>
                     </div>
+                            @endif
+            @elseif ($this->findMode === 'task')
+                {{ $this->taskForm }}
+
+                @if (! empty($taskData['task_id'] ?? null))
+                    <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+                        <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+                            <span class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <x-filament::icon icon="heroicon-o-truck" class="h-5 w-5 text-gray-400" />
+                                Vozidlo:
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $this->selectedTaskInfo['vehicle_label'] }}</span>
+                            </span>
+                            <span class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <x-filament::icon icon="heroicon-o-cog-6-tooth" class="h-5 w-5 text-gray-400" />
+                                Model:
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $this->selectedTaskInfo['vehicle_model'] }}</span>
+                            </span>
+                            <span class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <x-filament::icon icon="heroicon-o-tag" class="h-5 w-5 text-gray-400" />
+                                Skupina:
+                                <span class="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                    {{ $this->selectedTaskInfo['group_title'] }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    @if ($this->selectedTaskItems->isEmpty())
+                        <div class="col-span-full px-6 py-16 text-center">
+                            <x-filament::icon icon="heroicon-o-arrow-path" class="mx-auto mb-4 h-12 w-12 text-gray-400" />
+                            <p class="text-lg font-semibold text-gray-600 dark:text-gray-300">Žiadne podzákazky pre túto zákazku</p>
+                        </div>
+                    @else
+                        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            @foreach ($this->selectedTaskItems as $item)
+                                <div class="flex flex-col rounded-xl border-2 border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+                                    <div class="flex items-start justify-between gap-3">
+                                        <p class="truncate text-base font-bold text-gray-900 dark:text-white">
+                                            {{ $item['group_title'] ?: ('Podzákazka #' . $item['id']) }}
+                                        </p>
+                                        <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold
+                                                     {{ $item['photo_count'] > 0
+                                                         ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400'
+                                                         : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300' }}">
+                                            <x-filament::icon icon="heroicon-o-photo" class="h-4 w-4" />
+                                            {{ $item['photo_count'] }}
+                                        </span>
+                                    </div>
+
+                                    @if ($item['photos']->isNotEmpty())
+                                        <div class="mt-3 grid grid-cols-3 gap-2">
+                                            @foreach ($item['photos'] as $photo)
+                                                <a
+                                                    href="{{ $photo['url'] }}"
+                                                    target="_blank"
+                                                    title="{{ $photo['name'] }}"
+                                                    class="group relative block aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
+                                                    <img
+                                                        src="{{ $photo['url'] }}"
+                                                        alt="{{ $photo['name'] }}"
+                                                        loading="lazy"
+                                                        class="h-full w-full object-cover transition group-hover:scale-105" />
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="mt-3 flex items-center justify-center rounded-lg border border-dashed border-gray-300 py-8 text-gray-400 dark:border-gray-600">
+                                            <span class="text-sm">Žiadne fotky</span>
+                                        </div>
+                                    @endif
+
+                                    <div class="mt-auto pt-4">
+                                        <x-filament::button
+                                            size="sm"
+                                            wire:click="openTaskItemPhotos({{ $item['id'] }})"
+                                            icon="heroicon-m-photo"
+                                            class="w-full">
+                                            Nahrať / spravovať fotky
+                                        </x-filament::button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 @endif
             @else
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -41,7 +134,7 @@
                         <button
                             type="button"
                             wire:click="openMovementPhotos({{ $demontaz['id'] }})"
-                            title="Nahratať / spravovať fotky"
+                            title="Nahrať / spravovať fotky"
                             class="group rounded-xl border-2 border-gray-200 p-5 text-left transition hover:shadow-md
                                    {{ $demontaz['photo_count'] > 0
                                        ? 'bg-orange-50/70 hover:bg-orange-100 dark:bg-orange-500/10 dark:hover:bg-orange-500/15'

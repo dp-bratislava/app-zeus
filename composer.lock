@@ -2211,16 +2211,16 @@
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "v12.0.5",
+            "version": "v12.0.7",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "1379572918f9b28a23b27da2278cdd0d4158225b"
+                "reference": "22902c3bba59559104adf64381373f0aa3799046"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/1379572918f9b28a23b27da2278cdd0d4158225b",
-                "reference": "1379572918f9b28a23b27da2278cdd0d4158225b",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/22902c3bba59559104adf64381373f0aa3799046",
+                "reference": "22902c3bba59559104adf64381373f0aa3799046",
                 "shasum": ""
             },
             "require": {
@@ -2253,10 +2253,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.5",
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.7",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2026-06-11T15:25:20+00:00"
+            "time": "2026-08-12T10:58:16+00:00"
         },
         {
             "name": "dpb/pkg-tickets",

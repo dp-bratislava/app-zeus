@@ -6,26 +6,23 @@ use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
 use Dpb\Package\Assets\Models\Asset;
-use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\WtfTmsBridge\Enums\AssetState;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Filament\Actions\BulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Repeater\TableColumn;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class AssetsTable
 {
-    public static function configure(Table $table, bool $showApproveBulkAction = false): Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->heading('')
@@ -139,17 +136,6 @@ class AssetsTable
                 ->color(fn (Asset $record): string => 
                     $record->latestMovement?->approval_status === ApprovalStatus::PENDING ? 'warning' : 'info'
                 ),
-                TextColumn::make('latestMovement.approval_status')
-                    ->label('Stav schválenia')
-                    ->width('200px')
-                    ->badge()
-                    ->formatStateUsing(fn (?ApprovalStatus $state): string => $state?->label() ?? '—')
-                    ->color(fn (?ApprovalStatus $state): string => match ($state) {
-                        ApprovalStatus::APPROVED => 'success',
-                        ApprovalStatus::REJECTED => 'danger',
-                        ApprovalStatus::PENDING => 'warning',
-                        default => 'gray',
-                    }),
             ])
             ->filters([])
             ->defaultSort('updated_at', 'desc');
@@ -303,7 +289,7 @@ class AssetsTable
 
             $movement->update([
                 'approval_status' => $targetStatus,
-                'approved_by' => auth()->id(),
+                'approved_by' => Auth::user()->id,
                 'approved_at' => now(),
             ]);
 
