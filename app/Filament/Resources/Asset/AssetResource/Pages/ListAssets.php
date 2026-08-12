@@ -66,7 +66,10 @@ class ListAssets extends ListRecords
         ]);
 
         if ($this->showRequiresApproval) {
-            $table->pushBulkActions([AssetsTable::approveBulkAction()]);
+            $table->pushBulkActions([
+                AssetsTable::approveBulkAction(),
+                AssetsTable::rejectBulkAction(),
+            ]);
         }
 
         return $table;

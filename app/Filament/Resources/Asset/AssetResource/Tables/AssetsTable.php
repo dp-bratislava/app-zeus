@@ -11,7 +11,13 @@ use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\WtfTmsBridge\Enums\AssetState;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Filament\Actions\BulkAction;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Repeater\TableColumn;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,7 +28,7 @@ class AssetsTable
     public static function configure(Table $table, bool $showApproveBulkAction = false): Table
     {
         return $table
-            ->heading('Agregáty')
+            ->heading('')
             ->emptyStateHeading('Žiadne agregáty')
             ->paginated([10, 25, 50])
             ->defaultPaginationPageOption(10)
@@ -65,7 +71,7 @@ class AssetsTable
                     ->sortable(),                    
 
                 TextColumn::make('last_movement_vehicle')
-                    ->label('Posledné vozidlo')
+                    ->label('Vozidlo')
                     ->getStateUsing(function (Asset $record) {
                         $latestMovement = $record->movements()
                             ->with('taskItem.task')
@@ -114,17 +120,37 @@ class AssetsTable
                         ]).'?taskItemId='.$taskItemId;
                     })
                     ->openUrlInNewTab()
-                    ->width('100px')
+                    ->width('50px')
                     ->sortable(),
 
                 TextColumn::make('state')
-                    ->label('Stav')
+                ->label('Stav')
+                ->width('200px')
+                ->badge()
+                ->formatStateUsing(function (AssetStateInterface $state, Asset $record): string {
+                    $label = $state->label();
+                    
+                    if ($record->latestMovement?->approval_status === ApprovalStatus::PENDING) {
+                        $label .= ' (' . ApprovalStatus::PENDING->label() . ')';
+                    }
+                    
+                    return $label;
+                })
+                ->color(fn (Asset $record): string => 
+                    $record->latestMovement?->approval_status === ApprovalStatus::PENDING ? 'warning' : 'info'
+                ),
+                TextColumn::make('latestMovement.approval_status')
+                    ->label('Stav schválenia')
                     ->width('200px')
                     ->badge()
-                    ->formatStateUsing(fn (AssetStateInterface $state): string => $state->label())
-                    ->color('warning'),
+                    ->formatStateUsing(fn (?ApprovalStatus $state): string => $state?->label() ?? '—')
+                    ->color(fn (?ApprovalStatus $state): string => match ($state) {
+                        ApprovalStatus::APPROVED => 'success',
+                        ApprovalStatus::REJECTED => 'danger',
+                        ApprovalStatus::PENDING => 'warning',
+                        default => 'gray',
+                    }),
             ])
-            ->bulkActions($showApproveBulkAction ? [self::approveBulkAction()] : [])
             ->filters([])
             ->defaultSort('updated_at', 'desc');
     }
@@ -134,40 +160,160 @@ class AssetsTable
         return BulkAction::make('approveMovements')
             ->label('Schváliť pohyby')
             ->icon('heroicon-o-check-badge')
+            ->color('success')
             ->requiresConfirmation()
             ->modalHeading('Schváliť vybrané pohyby')
             ->modalDescription('Budú schválené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
-            ->action(fn (Collection $records) => self::approveMovements($records));
+            ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
+            ->action(fn (Collection $records) => self::approveMovements($records))
+            ->modalWidth('full')
+            ->closeModalByClickingAway(false);
     }
 
-    public static function approveMovements(Collection $records): void
+    public static function rejectBulkAction(): BulkAction
     {
-        $approvedCount = 0;
+        return BulkAction::make('rejectMovements')
+            ->label('Zamietnuť pohyby')
+            ->icon('heroicon-o-x-mark')
+            ->color('danger')
+            ->requiresConfirmation()
+            ->modalHeading('Zamietnuť vybrané pohyby')
+            ->modalDescription('Budú zamietnuté len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
+            ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
+            ->action(fn (Collection $records) => self::rejectMovements($records))
+            ->modalWidth('full')
+            ->closeModalByClickingAway(false);
+    }
+
+    protected static function movementInfoSchema(Collection $records): array
+    {
+        $rows = [];
 
         foreach ($records as $asset) {
-            if (! $asset instanceof Asset || ! $asset->waitingForApproval()) {
+            if (! $asset instanceof Asset) {
                 continue;
             }
 
             $movement = $asset->latestMovement;
 
-            if (! $movement || $movement->approval_status === ApprovalStatus::APPROVED) 
-            {
-                continue;
-            }
+            $rows[] = [
+                'serial_number' => $asset->serial_number,
+                'movement_type' => $movement?->movement_type?->label() ?? '—',
+                'date' => $movement?->date?->format('Y-m-d'),
+                'state_result' => $movement?->state_result?->label() ?? '—',
+                'approval_status' => $movement?->approval_status?->label() ?? '—',
+            ];
+        }
 
-            $movement->update([
-                'approval_status' => ApprovalStatus::APPROVED,
-                'approved_by' => auth()->id(),
-                'approved_at' => now(),
-            ]);
+        return [
+            Repeater::make('movements')
+                ->hiddenLabel()
+                ->table([
+                    TableColumn::make('Sériové číslo')
+                        ->alignment(Alignment::Start)
+                        ->markAsRequired(),
+                    TableColumn::make('Typ pohybu'),
+                    TableColumn::make('Dátum'),
+                    TableColumn::make('Stav po schválení'),
+                    TableColumn::make('Stav schválenia'),
+                ])
+                ->schema(self::movementRowSchema())
+                ->columns(8)
+                ->columnSpanFull()
+                ->default($rows)
+                ->addable(false)
+                ->deletable(false)
+                ->reorderable(false)
+                ->disabled(),
+        ];
+    }
 
-            $approvedCount++;
+    private static function movementRowSchema(): array
+    {
+        return [
+            TextInput::make('serial_number')
+                ->disabled()
+                ->dehydrated(),
+            TextInput::make('movement_type')
+                ->disabled()
+                ->dehydrated(),
+            DatePicker::make('date')
+                ->disabled()
+                ->dehydrated(),
+            TextInput::make('state_result')
+                ->disabled()
+                ->dehydrated(),
+            TextInput::make('approval_status')
+                ->disabled()
+                ->dehydrated(),
+        ];
+    }
+
+    public static function approveMovements(Collection $records): void
+    {
+        [$approvedCount, $rejectedCount] = self::processMovements($records, ApprovalStatus::APPROVED);
+
+        if ($rejectedCount > 0) {
+            Notification::make()
+                ->title('Neschválené (nie je potrebné / už schválené): '.$rejectedCount)
+                ->warning()
+                ->send();
         }
 
         Notification::make()
             ->title('Schválené pohyby: '.$approvedCount)
             ->success()
             ->send();
+    }
+
+    public static function rejectMovements(Collection $records): void
+    {
+        [$processedApproved, $processedRejected] = self::processMovements($records, ApprovalStatus::REJECTED);
+
+        if ($processedApproved > 0) {
+            Notification::make()
+                ->title('Schválené (nie je potrebné / už schválené): '.$processedApproved)
+                ->success()
+                ->send();
+        }
+
+        Notification::make()
+            ->title('Zamietnuté pohyby: '.$processedRejected)
+            ->danger()
+            ->send();
+    }
+
+    protected static function processMovements(Collection $records, ApprovalStatus $targetStatus): array
+    {
+        $processedApproved = 0;
+        $processedRejected = 0;
+
+        foreach ($records as $asset) {
+            
+            if (! $asset instanceof Asset || ! $asset->waitingForApproval()) {
+                continue;
+            }
+
+            $movement = $asset->latestMovement;
+
+            
+            if (! $movement || $movement->approval_status === ApprovalStatus::APPROVED) {
+                continue;
+            }
+
+            $movement->update([
+                'approval_status' => $targetStatus,
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            if ($targetStatus === ApprovalStatus::REJECTED) {
+                $processedRejected++;
+            } else {
+                $processedApproved++;
+            }
+        }
+
+        return [$processedApproved, $processedRejected];
     }
 }
