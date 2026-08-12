@@ -8,16 +8,7 @@
                 icon="heroicon-o-wrench-screwdriver"
                 :outlined="$this->findMode !== 'recent'"
                 class="whitespace-nowrap">
-                Nedávne demontáže
-            </x-filament::button>
-
-            <x-filament::button
-                wire:click="useVehicleForm"
-                :color="$this->findMode === 'vehicle' ? 'primary' : 'gray'"
-                icon="heroicon-o-truck"
-                :outlined="$this->findMode !== 'vehicle'"
-                class="whitespace-nowrap">
-                Podľa vozidla
+                Fotky - demontáže
             </x-filament::button>
 
             <x-filament::button
@@ -26,25 +17,12 @@
                 icon="heroicon-o-arrow-path"
                 :outlined="$this->findMode !== 'task'"
                 class="whitespace-nowrap">
-                Aktívne podzákazky
+                Fotky Havárie
             </x-filament::button>
         </div>
 
         <div class="p-6 sm:p-8">
-            @if ($this->findMode === 'vehicle')
-                {{ $this->form }}
-
-                @if (! empty($data['asset_movement_id'] ?? null))
-                    <div class="mt-6">
-                        <x-filament::button
-                            size="lg"
-                            wire:click="openMovementPhotos({{ $data['asset_movement_id'] }})"
-                            class="!rounded-xl shadow-lg shadow-primary-500/20 sm:!px-12 !py-4 !text-base">
-                            Nahrať fotky
-                        </x-filament::button>
-                    </div>
-                            @endif
-            @elseif ($this->findMode === 'task')
+            @if ($this->findMode === 'task')
                 {{ $this->taskForm }}
 
                 @if (! empty($taskData['task_id'] ?? null))
@@ -62,7 +40,6 @@
                             </span>
                             <span class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                                 <x-filament::icon icon="heroicon-o-tag" class="h-5 w-5 text-gray-400" />
-                                Skupina:
                                 <span class="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700 dark:bg-red-500/15 dark:text-red-400">
                                     {{ $this->selectedTaskInfo['group_title'] }}
                                 </span>
