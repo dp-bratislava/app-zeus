@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5db152b3de14bfecf61b374fc40be4a2",
+    "content-hash": "8ac5a20c2d678670815696ad5c95afdc",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1334,7 +1334,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/dpb/dpb-work-time-fund",
-                "reference": "1645c8f32eef5d777e4a1a40498443560063f71c"
+                "reference": "b03274561727487c2df8d7ee6be520a6a1c0f08c"
             },
             "require": {
                 "dpb/dpb-auditing": "^12.0",
@@ -1381,17 +1381,11 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.7.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "35ecc4cd5af28d7ee60d978e69bd19d49ba973ec"
-            },
+            "version": "dev-fix/remove-break-activity-when-full-day-absence-added",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/35ecc4cd5af28d7ee60d978e69bd19d49ba973ec",
-                "reference": "35ecc4cd5af28d7ee60d978e69bd19d49ba973ec",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/dpb/dpb-work-time-fund-filament",
+                "reference": "b6445324184ce17f201828752c93cc9d84c77260"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
@@ -1419,11 +1413,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.7.1",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-07-10T09:52:16+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -16537,11 +16530,18 @@
             "version": "dev-fix/remove-break-activity-when-full-day-absence-added",
             "alias": "12.99.x-dev",
             "alias_normalized": "12.99.9999999.9999999-dev"
+        },
+        {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-fix/remove-break-activity-when-full-day-absence-added",
+            "alias": "12.99.x-dev",
+            "alias_normalized": "12.99.9999999.9999999-dev"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
+        "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-assets": 20
     },
