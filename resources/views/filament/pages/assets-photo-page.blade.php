@@ -14,7 +14,7 @@
             <x-filament::button
                 wire:click="useTaskForm"
                 :color="$this->findMode === 'task' ? 'primary' : 'gray'"
-                icon="heroicon-o-arrow-path"
+                icon="fas-bus"
                 :outlined="$this->findMode !== 'task'"
                 class="whitespace-nowrap">
                 Fotky Havárie
@@ -27,9 +27,9 @@
 
                 @if (! empty($taskData['task_id'] ?? null))
                     <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-                        <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                             <span class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                                <x-filament::icon icon="heroicon-o-truck" class="h-5 w-5 text-gray-400" />
+                                <x-filament::icon icon="fas-bus" class="h-5 w-5 text-gray-400" />
                                 Vozidlo:
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $this->selectedTaskInfo['vehicle_label'] }}</span>
                             </span>
@@ -97,7 +97,7 @@
                                             wire:click="openTaskItemPhotos({{ $item['id'] }})"
                                             icon="heroicon-m-photo"
                                             class="w-full">
-                                            Nahrať / spravovať fotky
+                                            Nahrať fotky
                                         </x-filament::button>
                                     </div>
                                 </div>

@@ -207,6 +207,7 @@ class AssetsPhotoPage extends Page implements HasForms
                             ->searchable()
                             ->live()
                             ->getSearchResultsUsing(fn (string $search) => $this->activeTaskOptions($search))
+                            ->allowHtml()
                             ->required(),
                     ]),
             ])
@@ -241,12 +242,26 @@ class AssetsPhotoPage extends Page implements HasForms
             $vehicleLabel = $vehicle ? trim((string) $vehicle->label) : '';
             $vehicleModel = $vehicle ? trim((string) $vehicle->model?->title) : '';
 
-            $optionText = trim("#{$task->id} " . 'Vozidlo: ' . trim((string) $task->title) . " {$vehicleLabel} {$vehicleModel}");
+            $taskDate = $task->date?->format('d.m.Y');
+            $vehicleText = trim("Vozidlo: " . trim((string) $task->title) . " {$vehicleLabel} {$vehicleModel}");
+
+            $optionText = trim("{$vehicleText} {$taskDate}");
 
             if (filled($search) && ! str_contains(mb_strtolower($optionText), mb_strtolower($search))) {
                 continue;
             }
-            $options[$task->id] = $optionText;
+            $options[$task->id] = sprintf(
+                '<div class="filament-option">
+                    <div>%s</div>
+                    <div class="flex items-center gap-2 text-xs text-gray-400">
+                        <span>ID: %d</span>
+                        %s
+                    </div>
+                </div>',
+                e($vehicleText),
+                $task->id,
+                $taskDate ? '<span>· ' . e($taskDate) . '</span>' : '',
+            );
         }
 
         return $options;
