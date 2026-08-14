@@ -6,8 +6,10 @@ use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
 use Dpb\WtfTmsBridge\Models\Asset;
+use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
@@ -51,8 +53,17 @@ class AssetsTable
                 TextColumn::make('calculated_kilometrage')
                     ->label('Km')
                     ->numeric(decimalPlaces: 2)
-                    ->sortable(),
-
+                    ->sortable()
+                    ->color('primary')
+                    ->action(
+                        Action::make('kmDetail')
+                            ->modalHeading(fn (Asset $record) => 'Kilometráž – '.$record->serial_number)
+                            ->modalDescription('Rozpis kilometrov podľa vozidiel, na ktorých bol agregát namontovaný.')
+                            ->modalSubmitAction(false)
+                            ->modalCancelActionLabel('Zavrieť')
+                            ->modalWidth('2xl')
+                            ->schema(fn (Asset $record): array => self::kilometrageDetailSchema($record))
+                    ),
                 TextColumn::make('last_movement')
                     ->label('Posledná operácia')
                     ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->movement_type ?? null)
@@ -174,7 +185,6 @@ class AssetsTable
     protected static function movementInfoSchema(Collection $records): array
     {
         $rows = [];
-
         foreach ($records as $asset) {
             if (! $asset instanceof Asset) {
                 continue;
@@ -232,6 +242,43 @@ class AssetsTable
             TextInput::make('approval_status')
                 ->disabled()
                 ->dehydrated(),
+        ];
+    }
+
+    protected static function kilometrageDetailSchema(Asset $record): array
+    {
+        $rows = collect($record->getKilometrageByVehicle())
+            ->map(fn (array $row) => [
+                'vehicle' => $row['label'],
+                'km' => number_format($row['km'], 2, ',', ' '),
+            ])
+            ->values()
+            ->all();
+
+        return [
+            Repeater::make('vehicles')
+                ->hiddenLabel()
+                ->table([
+                    TableColumn::make('Vozidlo')
+                        ->alignment(Alignment::Start),
+                    TableColumn::make('km')
+                        ->alignment(Alignment::End),
+                ])
+                ->schema([
+                    TextInput::make('vehicle')
+                        ->disabled()
+                        ->dehydrated(),
+                    TextInput::make('km')
+                        ->disabled()
+                        ->dehydrated(),
+                ])
+                ->columns(2)
+                ->columnSpanFull()
+                ->default($rows)
+                ->addable(false)
+                ->deletable(false)
+                ->reorderable(false)
+                ->disabled(),
         ];
     }
 
@@ -303,3 +350,4 @@ class AssetsTable
         return [$processedApproved, $processedRejected];
     }
 }
+
