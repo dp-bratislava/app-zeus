@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Asset\AssetResource\Tables;
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
-use Dpb\Package\Assets\Models\Asset;
+use Dpb\WtfTmsBridge\Models\Asset;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Filament\Actions\BulkAction;
@@ -48,7 +48,7 @@ class AssetsTable
                     ->formatStateUsing(fn (AssetStateInterface $state): string => $state->location())
                     ->width('200px'),
 
-                TextColumn::make('kilometrage')
+                TextColumn::make('calculated_kilometrage')
                     ->label('Km')
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),

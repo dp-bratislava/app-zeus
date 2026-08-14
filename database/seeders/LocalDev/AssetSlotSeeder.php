@@ -56,7 +56,6 @@ class AssetSlotSeeder extends Seeder
                                 'id' => $id,
                                 'serial_number' => 'SN-'.strtoupper(uniqid()),
                                 'type_id' => $assetTypeId,
-                                'kilometrage' => rand(0, 100000),
                                 'created_at' => $now,
                                 'updated_at' => $now,
                             ];
@@ -110,8 +109,8 @@ class AssetSlotSeeder extends Seeder
     private function getSlotCountsPerType(array $assetTypes): array
     {
         return [
-            $assetTypes['pneumatiky'] => rand(2, 7) * 2,
-            $assetTypes['motor'] => rand(1, 3),
+            $assetTypes['pneumatiky'] => rand(2, 6) * 2,
+            $assetTypes['motor'] => rand(1, 2),
             $assetTypes['dvere'] => rand(2, 5),
             $assetTypes['brzdy'] => rand(1, 3),
             $assetTypes['prevodovka'] => 1,

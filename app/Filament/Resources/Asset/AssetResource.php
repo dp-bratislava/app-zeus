@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Asset;
 use App\Filament\Resources\Asset\AssetResource\Pages\ListAssets;
 use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
-use Dpb\Package\Assets\Models\Asset;
+use Dpb\WtfTmsBridge\Models\Asset;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 
