@@ -30,7 +30,7 @@ class AssetsPhotoPage extends Page implements HasForms
 
     protected string $view = 'filament.pages.assets-photo-page';
 
-    protected static ?string $navigationLabel = 'Foto';
+    protected static ?string $navigationLabel = 'Fotky';
 
     protected static ?string $title = '';
 
