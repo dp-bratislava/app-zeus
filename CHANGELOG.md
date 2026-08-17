@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-17
+### Added
+- Page for making photos of assets when "demontáž" happens and making photos after vehicle accidents for warranty claims.
+- Resource for displaying assets, it includes showing kilometrage overview in a modal, approval/rejection functionality using bulk actions, filtering by asset location and state and jumping to related task items.
+
 ## 2026-06-12
 ### Added
 - Added individual day worktime shif sync 
