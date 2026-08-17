@@ -66,14 +66,14 @@ class AssetsTable
                     ),
                 TextColumn::make('last_movement')
                     ->label('Posledná operácia')
-                    ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->movement_type ?? null)
+                    ->getStateUsing(fn (Asset $record) => $record->latestMovement->movement_type ?? null)
                     ->formatStateUsing(fn (?MovementTypeInterface $state): string => $state?->label() ?? '')
                     ->width('100px')
                     ->sortable(),
 
                 TextColumn::make('last_movement_date')
                     ->label('Dátum poslednej operácie')
-                    ->getStateUsing(fn (Asset $record) => $record->movements()->latest()->first()?->updated_at ?? null)
+                    ->getStateUsing(fn (Asset $record) => $record->latestMovement?->updated_at ?? null)
                     ->date('d.m.Y')
                     ->width('100px')
                     ->sortable(),                    
@@ -81,10 +81,7 @@ class AssetsTable
                 TextColumn::make('last_movement_vehicle')
                     ->label('Vozidlo')
                     ->getStateUsing(function (Asset $record) {
-                        $latestMovement = $record->movements()
-                            ->with('taskItem.task')
-                            ->latest()
-                            ->first();
+                        $latestMovement = $record->latestMovement;
 
                         $task = $latestMovement?->taskItem?->task;
                         if (! $task) {
@@ -110,7 +107,7 @@ class AssetsTable
                     })
                     ->color('primary')
                     ->url(function (Asset $record) {
-                        $movement = $record->movements()->with('taskItem.task')->latest()->first();
+                        $movement = $record->latestMovement;
                         $task = $movement?->taskItem?->task;
                         if (! $task) {
                             return null;

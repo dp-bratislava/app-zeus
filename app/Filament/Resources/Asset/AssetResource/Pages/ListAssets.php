@@ -4,8 +4,6 @@ namespace App\Filament\Resources\Asset\AssetResource\Pages;
 
 use App\Filament\Resources\Asset\AssetResource;
 use App\Filament\Resources\Asset\AssetResource\Tables\AssetsTable;
-use Dpb\Package\Assets\Models\Asset;
-use Dpb\Package\Assets\Models\AssetMovement;
 use Dpb\WtfTmsBridge\Enums\AssetState;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
@@ -18,13 +16,24 @@ class ListAssets extends ListRecords
 {
     protected static string $resource = AssetResource::class;
 
+    public bool $showDismantled = true;
     public bool $showNaSklade = false;
     public bool $showNaVozoch = false;
     public bool $showRequiresApproval = false;
 
+    public function toggleDismantled(): void
+    {
+        $this->showDismantled = true;
+        $this->showNaSklade = false;
+        $this->showNaVozoch = false;
+        $this->showRequiresApproval = false;
+        $this->resetTable();
+    }
+
     public function toggleNaSklade(): void
     {
         $this->showNaSklade = ! $this->showNaSklade;
+        $this->showDismantled = false;
         $this->showNaVozoch = false;
         $this->showRequiresApproval = false;
         $this->resetTable();
@@ -33,6 +42,7 @@ class ListAssets extends ListRecords
     public function toggleNaVozoch(): void
     {
         $this->showNaVozoch = ! $this->showNaVozoch;
+        $this->showDismantled = false;
         $this->showNaSklade = false;
         $this->showRequiresApproval = false;
         $this->resetTable();
@@ -41,6 +51,7 @@ class ListAssets extends ListRecords
     public function toggleRequiresApproval(): void
     {
         $this->showRequiresApproval = ! $this->showRequiresApproval;
+        $this->showDismantled = false;
         $this->showNaSklade = false;
         $this->showNaVozoch = false;
         $this->resetTable();
@@ -49,6 +60,11 @@ class ListAssets extends ListRecords
     public function table(Table $table): Table
     {
         $table->pushToolbarActions([
+            Action::make('toggleDismantled')
+                ->label('Demontované')
+                ->color(fn (): string => $this->showDismantled ? 'primary' : 'gray')
+                ->action('toggleDismantled'),
+
             Action::make('toggleNaSklade')
                 ->label('Na sklade')
                 ->color(fn (): string => $this->showNaSklade ? 'primary' : 'gray')
@@ -92,13 +108,14 @@ class ListAssets extends ListRecords
         if ($this->showNaVozoch) {
             return $query->byState(AssetState::DIEL_NA_VOZE);
         }
-        $query->whereNotInState([
+        if ($this->showDismantled) {
+            $query->whereNotInState([
                 AssetState::VYRADENE_SCHVALENE,
                 AssetState::DIEL_NA_VOZE,
                 AssetState::PRIJEM_Z_DIELNE,
             ]);
+        }
         return $query;
     }
 }
-
 
