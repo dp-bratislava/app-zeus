@@ -6,7 +6,6 @@ use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
 use Dpb\WtfTmsBridge\Models\Asset;
-use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Filament\Actions\Action;
@@ -21,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Dpb\DpbUtils\Helpers\UserPermissionHelper;
 
 class AssetsTable
 {
@@ -281,6 +281,7 @@ class AssetsTable
 
     public static function approveMovements(Collection $records): void
     {
+        self::checkIfCanApprove();
         [$approvedCount, $rejectedCount] = self::processMovements($records, ApprovalStatus::APPROVED);
 
         if ($rejectedCount > 0) {
@@ -298,6 +299,7 @@ class AssetsTable
 
     public static function rejectMovements(Collection $records): void
     {
+        self::checkIfCanApprove();
         [$processedApproved, $processedRejected] = self::processMovements($records, ApprovalStatus::REJECTED);
 
         if ($processedApproved > 0) {
@@ -346,5 +348,14 @@ class AssetsTable
 
         return [$processedApproved, $processedRejected];
     }
+
+    protected static function checkIfCanApprove(): void
+    {
+        abort_unless(
+            UserPermissionHelper::hasPermission('pkg-assets.asset-movement.approve'),
+            403,
+        );
+    }
+
 }
 

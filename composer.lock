@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.6.2",
+            "version": "v12.6.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "f9ed19f2fa7380612b0122df0d08598b73774211"
+                "reference": "79c87580125d6737711bc66d9cb18354df32c459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/f9ed19f2fa7380612b0122df0d08598b73774211",
-                "reference": "f9ed19f2fa7380612b0122df0d08598b73774211",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/79c87580125d6737711bc66d9cb18354df32c459",
+                "reference": "79c87580125d6737711bc66d9cb18354df32c459",
                 "shasum": ""
             },
             "require": {
@@ -1774,16 +1774,16 @@
         },
         {
             "name": "dpb/pkg-assets",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-assets.git",
-                "reference": "78be4100d9b95bc442d62dfc8689351c2a499452"
+                "reference": "b5de1908d1592f57d05d8886b030df8d41d749d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/78be4100d9b95bc442d62dfc8689351c2a499452",
-                "reference": "78be4100d9b95bc442d62dfc8689351c2a499452",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/b5de1908d1592f57d05d8886b030df8d41d749d0",
+                "reference": "b5de1908d1592f57d05d8886b030df8d41d749d0",
                 "shasum": ""
             },
             "require": {

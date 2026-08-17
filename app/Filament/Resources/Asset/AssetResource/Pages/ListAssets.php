@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
+use Dpb\DpbUtils\Helpers\UserPermissionHelper;
 
 class ListAssets extends ListRecords
 {
@@ -77,6 +78,7 @@ class ListAssets extends ListRecords
 
             Action::make('toggleRequiresApproval')
                 ->label('Vyžadujú schválenie')
+                ->visible(fn (): bool => UserPermissionHelper::hasPermission('pkg-assets.asset-movement.approve'))
                 ->color(fn (): string => $this->showRequiresApproval ? 'primary' : 'gray')
                 ->action('toggleRequiresApproval'),
         ]);
