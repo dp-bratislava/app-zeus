@@ -99,7 +99,7 @@ class AssetsTable
                             return '';
                         }
 
-                        return $assignment->subject->label ?? '';
+                        return $assignment->subject->LabelWithModel ?? '';
                     })
                     ->width('100px'),
 
