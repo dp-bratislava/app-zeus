@@ -21,6 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Dpb\DpbUtils\Helpers\UserPermissionHelper;
+use Filament\Support\RawJs;
 
 class AssetsTable
 {
@@ -52,8 +53,10 @@ class AssetsTable
 
                 TextColumn::make('calculated_kilometrage')
                     ->label('Km')
-                    ->numeric(decimalPlaces: 2)
                     ->sortable()
+                    ->numeric(
+                        thousandsSeparator: ' ',
+                    )
                     ->color('primary')
                     ->action(
                         Action::make('kmDetail')
@@ -247,7 +250,7 @@ class AssetsTable
         $rows = collect($record->getKilometrageByVehicle())
             ->map(fn (array $row) => [
                 'vehicle' => $row['label'],
-                'km' => number_format($row['km'], 2, ',', ' '),
+                'km' => number_format($row['km'], 0, ',', ' '),
             ])
             ->values()
             ->all();
