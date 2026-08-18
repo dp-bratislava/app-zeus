@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.16",
+            "version": "v12.5.16.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "eb40460d3e393a3d6f269ad1f38ddd8791a9269f"
+                "reference": "326319f93c3eb912d2afc88dae2754c50b3cfd90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/eb40460d3e393a3d6f269ad1f38ddd8791a9269f",
-                "reference": "eb40460d3e393a3d6f269ad1f38ddd8791a9269f",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/326319f93c3eb912d2afc88dae2754c50b3cfd90",
+                "reference": "326319f93c3eb912d2afc88dae2754c50b3cfd90",
                 "shasum": ""
             },
             "require": {
@@ -1388,16 +1388,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.7.1",
+            "version": "v12.5.8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "35ecc4cd5af28d7ee60d978e69bd19d49ba973ec"
+                "reference": "88cd41987d48f6048eecd2516f3a5f9756d98c48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/35ecc4cd5af28d7ee60d978e69bd19d49ba973ec",
-                "reference": "35ecc4cd5af28d7ee60d978e69bd19d49ba973ec",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/88cd41987d48f6048eecd2516f3a5f9756d98c48",
+                "reference": "88cd41987d48f6048eecd2516f3a5f9756d98c48",
                 "shasum": ""
             },
             "require": {
@@ -1530,16 +1530,16 @@
         },
         {
             "name": "dpb/filament-admin-panel",
-            "version": "v5.0.2",
+            "version": "v5.0.2.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/filament-admin-panel.git",
-                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b"
+                "reference": "40f17d2b516b51a20f2709dd845969a205b44c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/f46d0727c0d681015c2a047ab3f78c9463f97e4b",
-                "reference": "f46d0727c0d681015c2a047ab3f78c9463f97e4b",
+                "url": "https://api.github.com/repos/dp-bratislava/filament-admin-panel/zipball/40f17d2b516b51a20f2709dd845969a205b44c6c",
+                "reference": "40f17d2b516b51a20f2709dd845969a205b44c6c",
                 "shasum": ""
             },
             "require": {
