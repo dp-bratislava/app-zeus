@@ -35,9 +35,8 @@ class AssetsTable
             ->columns([
                 TextColumn::make('serial_number')
                     ->label('Sériové číslo')
-                    ->searchable(isIndividual: true)
                     ->width('400px')
-                    ->sortable(),
+                    ->color(fn (Asset $record): ?string => $record->hasVirtualSerialNumber() ? 'danger' : null),
 
                 TextColumn::make('type.title')
                     ->label('Typ')
@@ -84,22 +83,8 @@ class AssetsTable
                 TextColumn::make('last_movement_vehicle')
                     ->label('Vozidlo')
                     ->getStateUsing(function (Asset $record) {
-                        $latestMovement = $record->latestMovement;
-
-                        $task = $latestMovement?->taskItem?->task;
-                        if (! $task) {
-                            return '';
-                        }
-
-                        $assignment = TaskAssignment::where('task_id', $task->id)
-                            ->with('subject')
-                            ->first();
-
-                        if (! $assignment || ! $assignment->subject) {
-                            return '';
-                        }
-
-                        return $assignment->subject->label ?? '';
+                        $vehicle = $record->latestMovement?->vehicle;
+                        return $vehicle->label ?? '';
                     })
                     ->width('100px'),
 
@@ -250,19 +235,22 @@ class AssetsTable
         $rows = collect($record->getKilometrageByVehicle())
             ->map(fn (array $row) => [
                 'vehicle' => $row['label'],
-                'km' => number_format($row['km'], 0, ',', ' '),
+                'date' => $row['date'] ? $row['date']->format('Y-m-d') : null,
+                'km' => number_format($row['km'], 0, ',', ' ') . ' km',
+
             ])
             ->values()
             ->all();
-
         return [
             Repeater::make('vehicles')
                 ->hiddenLabel()
                 ->table([
                     TableColumn::make('Vozidlo')
                         ->alignment(Alignment::Start),
-                    TableColumn::make('km')
-                        ->alignment(Alignment::End),
+                    TableColumn::make('Najazdené kilometre')
+                        ->alignment(Alignment::Center),
+                    TableColumn::make('Ku dňu')
+                        ->alignment(Alignment::Start),
                 ])
                 ->schema([
                     TextInput::make('vehicle')
@@ -271,8 +259,11 @@ class AssetsTable
                     TextInput::make('km')
                         ->disabled()
                         ->dehydrated(),
+                    DatePicker::make('date')
+                        ->disabled()
+                        ->dehydrated(),
                 ])
-                ->columns(2)
+                ->columns(3)
                 ->columnSpanFull()
                 ->default($rows)
                 ->addable(false)

@@ -3,7 +3,7 @@
 namespace App\Filament\Pages;
 
 use Dpb\MasterPermissionGuard\Concerns\HasPageGuard;
-use Dpb\Package\Assets\Models\AssetMovement;
+use Dpb\WtfTmsBridge\Models\AssetMovement;
 use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Fleet\Models\Vehicle;

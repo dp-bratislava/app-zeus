@@ -51,15 +51,15 @@ class AssetSlotSeeder extends Seeder
                             'updated_at' => $now,
                         ];
 
-                        if (rand(0, 1) === 1) {
-                            $assetsToInsert[] = [
-                                'id' => $id,
-                                'serial_number' => 'SN-'.strtoupper(uniqid()),
-                                'type_id' => $assetTypeId,
-                                'created_at' => $now,
-                                'updated_at' => $now,
-                            ];
-                        }
+                        // if (rand(0, 1) === 1) {
+                        //     $assetsToInsert[] = [
+                        //         'id' => $id,
+                        //         'serial_number' => 'SN-'.strtoupper(uniqid()),
+                        //         'type_id' => $assetTypeId,
+                        //         'created_at' => $now,
+                        //         'updated_at' => $now,
+                        //     ];
+                        // }
                     }
                 }
             }
@@ -70,10 +70,10 @@ class AssetSlotSeeder extends Seeder
                 $slotsToInsert = []; // Reset array so the next model starts fresh
             }
 
-            if (! empty($assetsToInsert)) {
-                Asset::insertOrIgnore($assetsToInsert);
-                $assetsToInsert = []; // Reset array so the next model starts fresh
-            }
+            // if (! empty($assetsToInsert)) {
+            //     Asset::insertOrIgnore($assetsToInsert);
+            //     $assetsToInsert = []; // Reset array so the next model starts fresh
+            // }
         }
     }
 
