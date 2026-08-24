@@ -36,7 +36,8 @@ class AssetsTable
                 TextColumn::make('serial_number')
                     ->label('Sériové číslo')
                     ->width('400px')
-                    ->color(fn (Asset $record): ?string => $record->hasVirtualSerialNumber() ? 'danger' : null),
+                    ->color(fn (Asset $record): ?string => $record->hasVirtualSerialNumber() ? 'danger' : null)
+                    ->tooltip(fn (Asset $record): ?string => $record->hasVirtualSerialNumber() ? 'Virtuálne sériové číslo' : null),
 
                 TextColumn::make('type.title')
                     ->label('Typ')
