@@ -67,6 +67,14 @@ return [
             'throw' => false,
             'report' => false,
         ],
+
+        'photos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/photos'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
     ],
 
     /*
@@ -85,3 +93,4 @@ return [
     ],
 
 ];
+

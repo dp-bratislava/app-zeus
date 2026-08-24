@@ -4,22 +4,19 @@ namespace App\Filament\Pages;
 
 use Dpb\MasterPermissionGuard\Concerns\HasPageGuard;
 use Dpb\WtfTmsBridge\Models\AssetMovement;
+use Dpb\WtfTmsBridge\Models\Photo;
 use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Livewire;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Tasks\Models\Task;
 
@@ -51,14 +48,13 @@ class AssetsPhotoPage extends Page implements HasForms
     public function getRecentDemontazesProperty(): Collection
     {
         return AssetMovement::query()
-            ->with(['media', 'asset', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
+            ->with(['asset', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
             ->where('movement_type', MovementType::DEMONTAZ->value)
             ->latest('created_at')
             ->limit(20)
             ->get()
             ->map(function (AssetMovement $movement): array {
                 $vehicle = $movement->taskItem?->assetSlots?->first()?->vehicle;
-
                 return [
                     'id' => $movement->id,
                     'date' => $movement->date?->format('d.m.Y'),
@@ -66,7 +62,7 @@ class AssetsPhotoPage extends Page implements HasForms
                     'vehicle_label' => $vehicle?->label,
                     'vehicle_model' => $vehicle?->model?->title,
                     'task_item_group' => $movement->taskItem?->group?->title,
-                    'photo_count' => $movement->getMedia('movement-photos')->count(),
+                    'photo_count' => Photo::query()->for($movement, 'movement-photos')->count(),
                     'slot_label' => $movement->slotContext?->label,
                 ];
             });
@@ -80,53 +76,30 @@ class AssetsPhotoPage extends Page implements HasForms
     public function photosAction(): Action
     {
         return Action::make('photos')
-            ->label('Nahratať fotky')
+            ->label('Nahrať fotky')
             ->icon('heroicon-m-photo')
             ->color('primary')
-            ->modalHeading('Nahratať fotky')
-            ->modalWidth('3xl')
-            ->modalCancelActionLabel('Zatvoriť')
-            ->modalSubmitActionLabel('Uložiť')
-            ->mountUsing(function (Action $action, Schema $schema): void {
-                $movement = AssetMovement::with('media')->find(
-                    $action->getArguments()['movement'] ?? null,
-                );
-
-                $schema->fill([
-                    'photos_upload' => $movement?->getMedia('movement-photos')
-                        ->mapWithKeys(fn (Media $media): array => [
-                            $media->getAttributeValue('uuid') => $media->getAttributeValue('uuid'),
-                        ])
-                        ->toArray() ?? [],
-                ]);
-            })
+            ->modalHeading('Nahrať fotky')
+            ->modalWidth('7xl')
+            ->modalCancelActionLabel('Ok')
+            ->modalSubmitAction(false)
             ->schema(function (Action $action): array {
                 $movement = AssetMovement::find($action->getArguments()['movement'] ?? null);
 
-                return [
-                    SpatieMediaLibraryFileUpload::make('photos_upload')
-                        ->hiddenLabel()
-                        ->model($movement)
-                        ->collection('movement-photos')
-                        ->multiple()
-                        ->image()
-                        ->imagePreviewHeight('420')
-                        ->panelLayout('grid')
-                        ->reorderable()
-                        ->downloadable()
-                        ->openable()
-                        ->placeholder('Kliknite sem pre pridanie fotky')
-                        ->extraInputAttributes(['accept' => 'image/*', 'capture' => 'environment']),
-                ];
-            })
-            ->action(function (Action $action, Schema $schema): void {
-                $schema->saveRelationships();
-                $this->dispatch('refresh-page');
+                if (! $movement) {
+                    return [];
+                }
 
-                Notification::make()
-                    ->title('Fotky boli úspešne uložené.')
-                    ->success()
-                    ->send();
+                return [
+                    Livewire::make(
+                        'dpb.wtftmsbridge.photo-gallery',
+                        data: [
+                            'photoableType' => AssetMovement::class,
+                            'photoableId' => $movement->id,
+                            'collection' => 'movement-photos',
+                        ],
+                    ),
+                ];
             });
     }
 
@@ -138,53 +111,30 @@ class AssetsPhotoPage extends Page implements HasForms
     public function taskPhotosAction(): Action
     {
         return Action::make('taskPhotos')
-            ->label('Nahratať fotky')
+            ->label('Nahrať fotky')
             ->icon('heroicon-m-photo')
             ->color('primary')
-            ->modalHeading('Nahratať fotky k podzákazke')
-            ->modalWidth('3xl')
-            ->modalCancelActionLabel('Zatvoriť')
-            ->modalSubmitActionLabel('Uložiť')
-            ->mountUsing(function (Action $action, Schema $schema): void {
-                $taskItem = TaskItem::with('media')->find(
-                    $action->getArguments()['taskItem'] ?? null,
-                );
-
-                $schema->fill([
-                    'photos_upload' => $taskItem?->getMedia('task-item-photos')
-                        ->mapWithKeys(fn (Media $media): array => [
-                            $media->getAttributeValue('uuid') => $media->getAttributeValue('uuid'),
-                        ])
-                        ->toArray() ?? [],
-                ]);
-            })
+            ->modalHeading('Nahrať fotky k podzákazke')
+            ->modalWidth('7xl')
+            ->modalCancelActionLabel('Ok')
+            ->modalSubmitAction(false)
             ->schema(function (Action $action): array {
                 $taskItem = TaskItem::find($action->getArguments()['taskItem'] ?? null);
 
-                return [
-                    SpatieMediaLibraryFileUpload::make('photos_upload')
-                        ->hiddenLabel()
-                        ->model($taskItem)
-                        ->collection('task-item-photos')
-                        ->multiple()
-                        ->image()
-                        ->imagePreviewHeight('420')
-                        ->panelLayout('grid')
-                        ->reorderable()
-                        ->downloadable()
-                        ->openable()
-                        ->placeholder('Kliknite sem pre pridanie fotky')
-                        ->extraInputAttributes(['accept' => 'image/*', 'capture' => 'environment']),
-                ];
-            })
-            ->action(function (Action $action, Schema $schema): void {
-                $schema->saveRelationships();
-                $this->dispatch('refresh-page');
+                if (! $taskItem) {
+                    return [];
+                }
 
-                Notification::make()
-                    ->title('Fotky boli úspešne uložené.')
-                    ->success()
-                    ->send();
+                return [
+                    Livewire::make(
+                        'dpb.wtftmsbridge.photo-gallery',
+                        data: [
+                            'photoableType' => TaskItem::class,
+                            'photoableId' => $taskItem->id,
+                            'collection' => 'task-item-photos',
+                        ],
+                    ),
+                ];
             });
     }
 
@@ -277,23 +227,23 @@ class AssetsPhotoPage extends Page implements HasForms
 
         return TaskItem::query()
             ->where('task_id', $taskId)
-            ->with(['group', 'media'])
+            ->with(['group'])
             ->orderBy('id')
             ->get()
             ->map(fn (TaskItem $taskItem) => [
                 'id' => $taskItem->id,
                 'group_title' => $taskItem->group?->title,
-                'photos' => $taskItem->media
-                    ->where('collection_name', 'task-item-photos')
-                    ->map(fn (Media $media) => [
-                        'id' => $media->getAttributeValue('id'),
-                        'url' => $media->getUrl(),
-                        'name' => $media->getAttributeValue('name'),
+                'photos' => Photo::query()
+                    ->for($taskItem, 'task-item-photos')
+                    ->orderBy('id')
+                    ->get()
+                    ->map(fn (Photo $photo) => [
+                        'id' => $photo->id,
+                        'url' => $photo->url,
+                        'name' => $photo->original_name,
                     ])
                     ->values(),
-                'photo_count' => $taskItem->media
-                    ->where('collection_name', 'task-item-photos')
-                    ->count(),
+                'photo_count' => Photo::query()->for($taskItem, 'task-item-photos')->count(),
             ]);
     }
 
@@ -322,3 +272,4 @@ class AssetsPhotoPage extends Page implements HasForms
         ];
     }
 }
+
