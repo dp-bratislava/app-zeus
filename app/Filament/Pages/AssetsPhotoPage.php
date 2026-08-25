@@ -9,13 +9,10 @@ use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Filament\Actions\Action;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Livewire;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
 use Illuminate\Support\Collection;
 use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Tasks\Models\Task;
@@ -29,80 +26,94 @@ class AssetsPhotoPage extends Page implements HasForms
 
     protected static ?string $navigationLabel = 'Fotky';
 
-    protected static ?string $title = '';
-
     public ?array $taskData = [];
-    /** Which finding mode the user is in: 'recent' or 'task'. */
     public string $findMode = 'recent';
 
-    private function inactiveTaskItemStates(): array
-    {
-        return ['closed', 'cancelled', 'closed-with-malfunction'];
-    }
+    public int $accidentOffset = 0;
+    public array $accidents = [];
+    public bool $hasMoreAccidents = true;
+
+    public int $demontazOffset = 0;
+    public array $demontazes = [];
+    public bool $hasMoreDemontazes = true;
+
+    public const ACCIDENTS_PER_PAGE = 12;
+    public const DEMONTAZES_PER_PAGE = 12;
+
+    private array $inactiveStates = ['closed', 'cancelled', 'closed-with-malfunction'];
 
     public function mount(): void
     {
-        $this->taskForm->fill();
+        $this->resetAccidentScroll();
+        $this->resetDemontazScroll();
     }
 
-    public function getRecentDemontazesProperty(): Collection
+    private function paginatedDemontazes(): Collection
     {
-        return AssetMovement::query()
+        $movements = AssetMovement::query()
             ->with(['asset', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
             ->where('movement_type', MovementType::DEMONTAZ->value)
             ->latest('created_at')
-            ->limit(20)
-            ->get()
-            ->map(function (AssetMovement $movement): array {
-                $vehicle = $movement->taskItem?->assetSlots?->first()?->vehicle;
-                return [
-                    'id' => $movement->id,
-                    'date' => $movement->date?->format('d.m.Y'),
-                    'created_at' => $movement->created_at,
-                    'vehicle_label' => $vehicle?->label,
-                    'vehicle_model' => $vehicle?->model?->title,
-                    'task_item_group' => $movement->taskItem?->group?->title,
-                    'photo_count' => Photo::query()->for($movement, 'movement-photos')->count(),
-                    'slot_label' => $movement->slotContext?->label,
-                ];
-            });
+            ->skip($this->demontazOffset)
+            ->limit(static::DEMONTAZES_PER_PAGE)
+            ->get();
+
+        $photoCounts = $this->photoCountsFor(AssetMovement::class, $movements->pluck('id'), 'movement-photos');
+
+        return $movements->map(function (AssetMovement $movement) use ($photoCounts): array {
+            $vehicle = $movement->taskItem?->assetSlots?->first()?->vehicle;
+            return [
+                'id' => $movement->id,
+                'date' => $movement->date?->format('d.m.Y'),
+                'created_at' => $movement->created_at,
+                'vehicle_label' => $vehicle?->label,
+                'vehicle_model' => $vehicle?->model?->title,
+                'task_item_group' => $movement->taskItem?->group?->title,
+                'photo_count' => $photoCounts[$movement->id] ?? 0,
+                'slot_label' => $movement->slotContext?->label,
+            ];
+        });
     }
 
-    public function getRecentAccidentsProperty(): Collection
+    public function loadMoreDemontazes(): void
     {
-        return Task::query()
-            ->whereHas('items', fn ($q) => $q->whereNotIn('state', $this->inactiveTaskItemStates()))
-            ->whereHas('group', fn ($q) => $q->where('code', 'accident'))
-            ->with(['items.group'])
-            ->latest('id')
-            ->limit(20)
-            ->get()
-            ->map(function (Task $task): array {
-        $assignment = TaskAssignment::query()
-                    ->where('task_id', $task->id)
-            ->first();
-                $vehicle = $assignment?->subject instanceof Vehicle ? $assignment->subject : null;
-                $vehicle?->loadMissing(['model', 'codes', 'licencePlates']);
+        $this->demontazOffset += static::DEMONTAZES_PER_PAGE;
+        $page = $this->paginatedDemontazes();
 
-                $items = $task->items->filter(
-                    fn ($item) => ! in_array($item->state, $this->inactiveTaskItemStates(), true)
-                );
-
-                $photoCount = 0;
-                foreach ($items as $item) {
-                    $photoCount += Photo::query()->for($item, 'task-item-photos')->count();
+        if ($page->isEmpty()) {
+            $this->hasMoreDemontazes = false;
+            return;
         }
 
-        return [
-                    'id' => $task->id,
-                    'date' => $task->date?->format('d.m.Y'),
-                    'vehicle_label' => $vehicle?->label ?? $task->title ?? ('Zákazka #' . $task->id),
-                    'vehicle_model' => $vehicle?->model?->title,
-                    'group_title' => $task->group?->title,
-                    'item_count' => $items->count(),
-                    'photo_count' => $photoCount,
-        ];
-            });
+        $this->demontazes = array_merge($this->demontazes, $page->all());
+    }
+
+    public function resetDemontazScroll(): void
+    {
+        $this->demontazOffset = 0;
+        $this->hasMoreDemontazes = true;
+        $this->demontazes = $this->paginatedDemontazes()->all();
+    }
+
+    private function photoCountsFor(string $photoableType, $ids, string $collection): array
+    {
+        $ids = collect($ids)->unique()->values();
+
+        if ($ids->isEmpty()) {
+            return [];
+        }
+
+        $type = Photo::typeFor(new $photoableType);
+
+        return Photo::query()
+            ->selectRaw('photoable_id, count(*) as total')
+            ->where('photoable_type', $type)
+            ->whereIn('photoable_id', $ids)
+            ->where('collection', $collection)
+            ->groupBy('photoable_id')
+            ->pluck('total', 'photoable_id')
+            ->map(fn ($n) => (int) $n)
+            ->all();
     }
 
     public function selectAccident(int $taskId): void
@@ -111,10 +122,92 @@ class AssetsPhotoPage extends Page implements HasForms
         $this->findMode = 'task';
     }
 
-    public function showAccidentList(): void
+    public function showAccidents(): void
     {
         $this->taskData = [];
+        $this->resetAccidentScroll();
         $this->findMode = 'accidents';
+    }
+
+    public function loadMoreAccidents(): void
+    {
+        $this->accidentOffset += static::ACCIDENTS_PER_PAGE;
+        $page = $this->paginatedAccidents();
+
+        if ($page->isEmpty()) {
+            $this->hasMoreAccidents = false;
+            return;
+        }
+
+        $this->accidents = array_merge($this->accidents, $page->all());
+    }
+
+    public function resetAccidentScroll(): void
+    {
+        $this->accidentOffset = 0;
+        $this->hasMoreAccidents = true;
+        $this->accidents = $this->paginatedAccidents()->all();
+    }
+
+    private function paginatedAccidents(): Collection
+    {
+        $tasks = Task::query()
+            ->whereHas('items', fn ($q) => $q->whereNotIn('state', $this->inactiveStates))
+            ->whereHas('group', fn ($q) => $q->where('code', 'accident'))
+            ->with(['items.group'])
+            ->latest('id')
+            ->skip($this->accidentOffset)
+            ->limit(static::ACCIDENTS_PER_PAGE)
+            ->get();
+
+        $itemIds = collect();
+        foreach ($tasks as $task) {
+            foreach ($task->items as $item) {
+                if (!in_array($item->state, $this->inactiveStates, true)) {
+                    $itemIds->push($item->id);
+                }
+            }
+        }
+        $itemIds = $itemIds->unique()->values();
+
+        $photoCounts = $this->photoCountsFor(TaskItem::class, $itemIds, 'task-item-photos');
+
+        $assignments = TaskAssignment::query()
+            ->whereIn('task_id', $tasks->pluck('id'))
+            ->get()
+            ->keyBy('task_id');
+
+        $vehicles = $assignments
+            ->map(fn ($a) => $a->subject)
+            ->filter(fn ($s) => $s instanceof Vehicle)
+            ->unique('id');
+        $vehicles->load(['model', 'codes', 'licencePlates']);
+        $vehicles = $vehicles->keyBy('id');
+
+        return $tasks->map(function (Task $task) use ($photoCounts, $assignments, $vehicles): array {
+            $assignment = $assignments->get($task->id);
+            $vehicle = $assignment && $assignment->subject instanceof Vehicle
+                ? $vehicles->get($assignment->subject->getKey())
+                : null;
+            $itemIds = $task->items
+                ->filter(fn ($i) => !in_array($i->state, $this->inactiveStates, true))
+                ->pluck('id');
+
+            $photoCount = 0;
+            foreach ($itemIds as $itemId) {
+                $photoCount += $photoCounts[$itemId] ?? 0;
+            }
+
+            return [
+                'id' => $task->id,
+                'date' => $task->date?->format('d.m.Y'),
+                'vehicle_label' => $vehicle?->label ?? $task->title ?? ('Zákazka #' . $task->id),
+                'vehicle_model' => $vehicle?->model?->title,
+                'group_title' => $task->group?->title,
+                'item_count' => $itemIds->count(),
+                'photo_count' => $photoCount,
+            ];
+        });
     }
 
     public function openMovementPhotos(int $id): void
@@ -135,7 +228,7 @@ class AssetsPhotoPage extends Page implements HasForms
             ->schema(function (Action $action): array {
                 $movement = AssetMovement::find($action->getArguments()['movement'] ?? null);
 
-                if (! $movement) {
+                if (!$movement) {
                     return [];
                 }
 
@@ -170,7 +263,7 @@ class AssetsPhotoPage extends Page implements HasForms
             ->schema(function (Action $action): array {
                 $taskItem = TaskItem::find($action->getArguments()['taskItem'] ?? null);
 
-                if (! $taskItem) {
+                if (!$taskItem) {
                     return [];
                 }
 
@@ -187,83 +280,9 @@ class AssetsPhotoPage extends Page implements HasForms
             });
     }
 
-    public function useTaskForm(): void
+    public function showRecent(): void
     {
-        $this->findMode = 'accidents';
-    }
-
-    public function taskForm(Schema $schema): Schema
-    {
-        return $schema
-            ->schema([
-                Section::make('')
-                    ->schema([
-                        Select::make('task_id')
-                            ->label('Zákazka')
-                            ->placeholder('Vyberte zákazku s aktívnymi podzákazkami')
-                            ->options(fn () => $this->activeTaskOptions())
-                            ->preload()
-                            ->searchable()
-                            ->live()
-                            ->getSearchResultsUsing(fn (string $search) => $this->activeTaskOptions($search))
-                            ->allowHtml()
-                            ->required(),
-                    ]),
-            ])
-            ->statePath('taskData');
-    }
-
-    private function activeTaskOptions(string $search = ''): array
-    {
-        $tasks = Task::query()
-            ->whereHas('items', fn ($q) => $q->whereNotIn('state', $this->inactiveTaskItemStates()))
-            ->whereHas('group', fn ($q) => $q->where('code', 'accident'))
-            ->latest('id')
-            ->limit(200)
-            ->get();
-
-        $assignments = TaskAssignment::query()
-            ->whereIn('task_id', $tasks->pluck('id'))
-            ->get()
-            ->keyBy('task_id');
-
-        $vehicles = $assignments
-            ->map(fn ($a) => $a->subject)
-            ->filter(fn ($s) => $s instanceof Vehicle)
-            ->unique('id');
-        $vehicles->load(['model', 'codes', 'licencePlates']);
-
-        $options = [];
-        foreach ($tasks as $task) {
-            $assignment = $assignments->get($task->id);
-            $vehicle = $assignment?->subject instanceof Vehicle ? $assignment->subject : null;
-
-            $vehicleLabel = $vehicle ? trim((string) $vehicle->label) : '';
-            $vehicleModel = $vehicle ? trim((string) $vehicle->model?->title) : '';
-
-            $taskDate = $task->date?->format('d.m.Y');
-            $vehicleText = trim("Vozidlo: " . trim((string) $task->title) . " {$vehicleLabel} {$vehicleModel}");
-
-            $optionText = trim("{$vehicleText} {$taskDate}");
-
-            if (filled($search) && ! str_contains(mb_strtolower($optionText), mb_strtolower($search))) {
-                continue;
-            }
-            $options[$task->id] = sprintf(
-                '<div class="filament-option">
-                    <div>%s</div>
-                    <div class="flex items-center gap-2 text-xs text-gray-400">
-                        <span>ID: %d</span>
-                        %s
-                    </div>
-                </div>',
-                e($vehicleText),
-                $task->id,
-                $taskDate ? '<span>· ' . e($taskDate) . '</span>' : '',
-            );
-        }
-
-        return $options;
+        $this->findMode = 'recent';
     }
 
     public function getSelectedTaskItemsProperty(): Collection
@@ -274,26 +293,32 @@ class AssetsPhotoPage extends Page implements HasForms
             return collect();
         }
 
-        return TaskItem::query()
+        $taskItems = TaskItem::query()
             ->where('task_id', $taskId)
             ->with(['group'])
             ->orderBy('id')
+            ->get();
+
+        $photos = Photo::query()
+            ->where('photoable_type', TaskItem::class)
+            ->whereIn('photoable_id', $taskItems->pluck('id'))
+            ->where('collection', 'task-item-photos')
+            ->orderBy('id')
             ->get()
-            ->map(fn (TaskItem $taskItem) => [
-                'id' => $taskItem->id,
-                'group_title' => $taskItem->group?->title,
-                'photos' => Photo::query()
-                    ->for($taskItem, 'task-item-photos')
-                    ->orderBy('id')
-                    ->get()
-                    ->map(fn (Photo $photo) => [
-                        'id' => $photo->id,
-                        'url' => $photo->url,
-                        'name' => $photo->original_name,
-                    ])
-                    ->values(),
-                'photo_count' => Photo::query()->for($taskItem, 'task-item-photos')->count(),
-            ]);
+            ->groupBy('photoable_id');
+
+        return $taskItems->map(fn (TaskItem $taskItem) => [
+            'id' => $taskItem->id,
+            'group_title' => $taskItem->group?->title,
+            'photos' => collect($photos[$taskItem->id] ?? [])
+                ->map(fn (Photo $photo) => [
+                    'id' => $photo->id,
+                    'url' => $photo->url,
+                    'name' => $photo->original_name,
+                ])
+                ->values(),
+            'photo_count' => ($photos[$taskItem->id] ?? collect())->count(),
+        ]);
     }
 
     public function getSelectedTaskInfoProperty(): ?array
@@ -321,4 +346,3 @@ class AssetsPhotoPage extends Page implements HasForms
         ];
     }
 }
-
