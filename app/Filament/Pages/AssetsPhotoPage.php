@@ -68,6 +68,55 @@ class AssetsPhotoPage extends Page implements HasForms
             });
     }
 
+    public function getRecentAccidentsProperty(): Collection
+    {
+        return Task::query()
+            ->whereHas('items', fn ($q) => $q->whereNotIn('state', $this->inactiveTaskItemStates()))
+            ->whereHas('group', fn ($q) => $q->where('code', 'accident'))
+            ->with(['items.group'])
+            ->latest('id')
+            ->limit(20)
+            ->get()
+            ->map(function (Task $task): array {
+        $assignment = TaskAssignment::query()
+                    ->where('task_id', $task->id)
+            ->first();
+                $vehicle = $assignment?->subject instanceof Vehicle ? $assignment->subject : null;
+                $vehicle?->loadMissing(['model', 'codes', 'licencePlates']);
+
+                $items = $task->items->filter(
+                    fn ($item) => ! in_array($item->state, $this->inactiveTaskItemStates(), true)
+                );
+
+                $photoCount = 0;
+                foreach ($items as $item) {
+                    $photoCount += Photo::query()->for($item, 'task-item-photos')->count();
+        }
+
+        return [
+                    'id' => $task->id,
+                    'date' => $task->date?->format('d.m.Y'),
+                    'vehicle_label' => $vehicle?->label ?? $task->title ?? ('Zákazka #' . $task->id),
+                    'vehicle_model' => $vehicle?->model?->title,
+                    'group_title' => $task->group?->title,
+                    'item_count' => $items->count(),
+                    'photo_count' => $photoCount,
+        ];
+            });
+    }
+
+    public function selectAccident(int $taskId): void
+    {
+        $this->taskData['task_id'] = $taskId;
+        $this->findMode = 'task';
+    }
+
+    public function showAccidentList(): void
+    {
+        $this->taskData = [];
+        $this->findMode = 'accidents';
+    }
+
     public function openMovementPhotos(int $id): void
     {
         $this->mountAction('photos', ['movement' => $id]);
@@ -140,7 +189,7 @@ class AssetsPhotoPage extends Page implements HasForms
 
     public function useTaskForm(): void
     {
-        $this->findMode = 'task';
+        $this->findMode = 'accidents';
     }
 
     public function taskForm(Schema $schema): Schema

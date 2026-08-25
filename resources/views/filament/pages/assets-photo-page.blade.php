@@ -13,16 +13,90 @@
 
             <x-filament::button
                 wire:click="useTaskForm"
-                :color="$this->findMode === 'task' ? 'primary' : 'gray'"
+                :color="$this->findMode === 'task' || $this->findMode === 'accidents' ? 'primary' : 'gray'"
                 icon="fas-bus"
-                :outlined="$this->findMode !== 'task'"
+                :outlined="$this->findMode !== 'task' && $this->findMode !== 'accidents'"
                 class="whitespace-nowrap">
                 Fotky Havárie
             </x-filament::button>
         </div>
 
         <div class="p-6 sm:p-8">
-            @if ($this->findMode === 'task')
+            @if ($this->findMode === 'accidents')
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    @forelse ($this->recentAccidents as $accident)
+                        <button
+                            type="button"
+                            wire:click="selectAccident({{ $accident['id'] }})"
+                            title="Otvoriť fotky podzákaziek"
+                            class="group rounded-xl border-2 border-gray-200 p-5 text-left transition hover:shadow-md
+                                   {{ $accident['photo_count'] > 0
+                                       ? 'bg-orange-50/70 hover:bg-orange-100 dark:bg-orange-500/10 dark:hover:bg-orange-500/15'
+                                       : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-800/60' }}">
+                            <div class="flex items-center justify-between gap-3">
+                                <p class="truncate text-base font-bold text-gray-900 dark:text-white">
+                                    {{ $accident['vehicle_label'] ?? 'N/A' }}
+                                </p>
+                                <span class="inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-sm font-bold
+                                             {{ $accident['photo_count'] > 0
+                                                 ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400'
+                                                 : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300' }}">
+                                    <x-filament::icon
+                                        icon="heroicon-o-photo"
+                                        class="h-5 w-5" />
+                                    {{ $accident['photo_count'] }} {{ $accident['photo_count'] === 1 ? 'fotka' : ($accident['photo_count'] >= 2 && $accident['photo_count'] <= 4 ? 'fotky' : 'fotiek') }}
+                                </span>
+                            </div>
+
+                            @if ($accident['vehicle_model'])
+                                <p class="mt-2 truncate text-sm text-gray-600 dark:text-gray-300">
+                                    {{ $accident['vehicle_model'] }}
+                                </p>
+                            @endif
+
+                            <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                @if ($accident['date'])
+                                    <span class="inline-flex items-center gap-2">
+                                        <x-filament::icon icon="heroicon-o-calendar" class="h-4 w-4" />
+                                        {{ $accident['date'] }}
+                                    </span>
+                                @endif
+                                @if ($accident['item_count'] > 0)
+                                    <span class="inline-flex items-center gap-2">
+                                        <x-filament::icon icon="heroicon-o-arrow-path" class="h-4 w-4" />
+                                        {{ $accident['item_count'] }} podzákazky
+                                    </span>
+                                @endif
+                                @if ($accident['group_title'])
+                                    <span class="inline-flex items-center gap-2">
+                                        <x-filament::icon icon="heroicon-o-tag" class="h-4 w-4" />
+                                        {{ $accident['group_title'] }}
+                                    </span>
+                                @endif
+                            </div>
+                        </button>
+                    @empty
+                        <div class="col-span-full px-6 py-16 text-center">
+                            <x-filament::icon icon="fas-bus" class="mx-auto mb-4 h-12 w-12 text-gray-400" />
+                            <p class="text-lg font-semibold text-gray-600 dark:text-gray-300">Žiadne nedávne havárie</p>
+                        </div>
+                    @endforelse
+                </div>
+            @elseif ($this->findMode === 'task')
+                <div class="mb-5 flex items-center justify-between">
+                    <x-filament::button
+                        size="sm"
+                        color="gray"
+                        outlined
+                        icon="heroicon-o-arrow-left"
+                        wire:click="showAccidentList">
+                        Späť na prehľad haváríí
+                    </x-filament::button>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                        Zákazka #{{ $taskData['task_id'] ?? '' }}
+                    </span>
+                </div>
+
                 {{ $this->taskForm }}
 
                 @if (! empty($taskData['task_id'] ?? null))
