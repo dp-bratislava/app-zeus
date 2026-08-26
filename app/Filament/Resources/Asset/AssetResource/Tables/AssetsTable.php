@@ -124,15 +124,22 @@ class AssetsTable
                 ->formatStateUsing(function (AssetStateInterface $state, Asset $record): string {
                     $label = $state->label();
                     
-                    if ($record->latestMovement?->approval?->status === ApprovalStatus::PENDING) {
+                    if ($record->latestMovement?->getApprovalStatus() === ApprovalStatus::PENDING) {
                         $label .= ' (' . ApprovalStatus::PENDING->label() . ')';
                     }
                     
                     return $label;
                 })
-                ->color(fn (Asset $record): string => 
-                    $record->latestMovement?->approval?->status === ApprovalStatus::PENDING ? 'warning' : 'info'
-                ),
+                ->color(function (Asset $record): string {
+                    $status = $record->latestMovement?->getApprovalStatus();
+                    return match ($status) {
+                        ApprovalStatus::PENDING => 'warning',
+                        ApprovalStatus::APPROVED => 'success',
+                        ApprovalStatus::REJECTED => 'danger',
+                        ApprovalStatus::NOT_REQUIRED => 'success',
+                        default => 'primary',
+                    };
+                }),
             ])
             ->filters([])
             ->defaultSort('updated_at', 'desc');
@@ -183,7 +190,7 @@ class AssetsTable
                 'movement_type' => $movement?->movement_type?->label() ?? '—',
                 'date' => $movement?->date?->format('Y-m-d'),
                 'state_result' => $movement?->state_result?->label() ?? '—',
-                'approval_status' => $movement?->approval?->status?->label() ?? '—',
+                'approval_status' => $movement?->getApprovalStatus()?->label() ?? '—',
             ];
         }
 
@@ -324,7 +331,7 @@ class AssetsTable
             $movement = $asset->latestMovement;
 
             
-            if (! $movement || $movement->approval?->status === ApprovalStatus::APPROVED) {
+            if (! $movement || $movement->getApprovalStatus() === ApprovalStatus::APPROVED) {
                 continue;
             }
             
