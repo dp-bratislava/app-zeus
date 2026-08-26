@@ -10,8 +10,7 @@ use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
-use Dpb\Package\Assets\Enums\ApprovalStatus;
-use Dpb\DpbUtils\Helpers\UserPermissionHelper;
+use App\Filament\Resources\Asset\AssetResource\Tables\Schemas\MovementApprovalUI;
 
 class ListAssets extends ListRecords
 {
@@ -20,14 +19,12 @@ class ListAssets extends ListRecords
     public bool $showDismantled = true;
     public bool $showNaSklade = false;
     public bool $showNaVozoch = false;
-    public bool $showRequiresApproval = false;
 
     public function toggleDismantled(): void
     {
         $this->showDismantled = true;
         $this->showNaSklade = false;
         $this->showNaVozoch = false;
-        $this->showRequiresApproval = false;
         $this->resetTable();
     }
 
@@ -36,7 +33,6 @@ class ListAssets extends ListRecords
         $this->showNaSklade = ! $this->showNaSklade;
         $this->showDismantled = false;
         $this->showNaVozoch = false;
-        $this->showRequiresApproval = false;
         $this->resetTable();
     }
 
@@ -45,16 +41,6 @@ class ListAssets extends ListRecords
         $this->showNaVozoch = ! $this->showNaVozoch;
         $this->showDismantled = false;
         $this->showNaSklade = false;
-        $this->showRequiresApproval = false;
-        $this->resetTable();
-    }
-
-    public function toggleRequiresApproval(): void
-    {
-        $this->showRequiresApproval = ! $this->showRequiresApproval;
-        $this->showDismantled = false;
-        $this->showNaSklade = false;
-        $this->showNaVozoch = false;
         $this->resetTable();
     }
 
@@ -75,20 +61,12 @@ class ListAssets extends ListRecords
                 ->label('Na vozoch')
                 ->color(fn (): string => $this->showNaVozoch ? 'primary' : 'gray')
                 ->action('toggleNaVozoch'),
-
-            Action::make('toggleRequiresApproval')
-                ->label('Vyžadujú schválenie')
-                ->visible(fn (): bool => UserPermissionHelper::hasPermission('pkg-assets.asset-movement.approve'))
-                ->color(fn (): string => $this->showRequiresApproval ? 'primary' : 'gray')
-                ->action('toggleRequiresApproval'),
         ]);
 
-        if ($this->showRequiresApproval) {
-            $table->pushBulkActions([
-                AssetsTable::approveBulkAction(),
-                AssetsTable::rejectBulkAction(),
-            ]);
-        }
+        $table->pushToolbarActions([
+            MovementApprovalUI::approveBulkAction(),
+            MovementApprovalUI::rejectBulkAction(),
+        ]);
 
         return $table;
     }
@@ -97,14 +75,6 @@ class ListAssets extends ListRecords
     {
         $query = parent::getTableQuery();
 
-        if ($this->showRequiresApproval) {
-            return $query->whereHas('latestMovement', function (Builder $movementQuery) {
-                $movementQuery->whereHas( 'approval', function (Builder $approvalQuery) {
-                    $approvalQuery->where('status', '=', ApprovalStatus::PENDING);
-                });
-            });
-        }
-
         if ($this->showNaSklade) {
             return $query->byState(AssetState::PRIJEM_Z_DIELNE);
         }
@@ -112,6 +82,7 @@ class ListAssets extends ListRecords
         if ($this->showNaVozoch) {
             return $query->byState(AssetState::DIEL_NA_VOZE);
         }
+
         if ($this->showDismantled) {
             $query->whereNotInState([
                 AssetState::VYRADENE_SCHVALENE,
@@ -119,7 +90,7 @@ class ListAssets extends ListRecords
                 AssetState::PRIJEM_Z_DIELNE,
             ]);
         }
+
         return $query;
     }
 }
-
