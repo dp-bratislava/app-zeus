@@ -99,7 +99,9 @@ class ListAssets extends ListRecords
 
         if ($this->showRequiresApproval) {
             return $query->whereHas('latestMovement', function (Builder $movementQuery) {
-                $movementQuery->where('approval_status', '=', ApprovalStatus::PENDING);
+                $movementQuery->whereHas( 'approval', function (Builder $approvalQuery) {
+                    $approvalQuery->where('status', '=', ApprovalStatus::PENDING);
+                });
             });
         }
 

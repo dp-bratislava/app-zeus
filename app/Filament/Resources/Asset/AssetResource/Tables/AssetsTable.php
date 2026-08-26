@@ -124,14 +124,14 @@ class AssetsTable
                 ->formatStateUsing(function (AssetStateInterface $state, Asset $record): string {
                     $label = $state->label();
                     
-                    if ($record->latestMovement?->approval_status === ApprovalStatus::PENDING) {
+                    if ($record->latestMovement?->approval?->status === ApprovalStatus::PENDING) {
                         $label .= ' (' . ApprovalStatus::PENDING->label() . ')';
                     }
                     
                     return $label;
                 })
                 ->color(fn (Asset $record): string => 
-                    $record->latestMovement?->approval_status === ApprovalStatus::PENDING ? 'warning' : 'info'
+                    $record->latestMovement?->approval?->status === ApprovalStatus::PENDING ? 'warning' : 'info'
                 ),
             ])
             ->filters([])
@@ -183,7 +183,7 @@ class AssetsTable
                 'movement_type' => $movement?->movement_type?->label() ?? '—',
                 'date' => $movement?->date?->format('Y-m-d'),
                 'state_result' => $movement?->state_result?->label() ?? '—',
-                'approval_status' => $movement?->approval_status?->label() ?? '—',
+                'approval_status' => $movement?->approval?->status?->label() ?? '—',
             ];
         }
 
@@ -324,14 +324,14 @@ class AssetsTable
             $movement = $asset->latestMovement;
 
             
-            if (! $movement || $movement->approval_status === ApprovalStatus::APPROVED) {
+            if (! $movement || $movement->approval?->status === ApprovalStatus::APPROVED) {
                 continue;
             }
-
-            $movement->update([
-                'approval_status' => $targetStatus,
-                'approved_by' => Auth::user()->id,
-                'approved_at' => now(),
+            
+            $movement->approval()->create([
+                'status' => $targetStatus,
+                'actioned_by' => Auth::id(),
+                'actioned_at' => now(),
             ]);
 
             if ($targetStatus === ApprovalStatus::REJECTED) {
