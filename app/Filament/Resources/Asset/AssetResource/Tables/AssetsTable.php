@@ -102,12 +102,15 @@ class AssetsTable
                 ->badge()
                 ->formatStateUsing(function (AssetStateInterface $state, Asset $record): string {
                     $label = $state->label();
-                    
-                    if ($record->latestMovement?->getApprovalStatus() === ApprovalStatus::PENDING) {
-                        $label .= ' (' . ApprovalStatus::PENDING->label() . ')';
-                    }
-                    
-                    return $label;
+                    $approvalStatus = $record->latestMovement?->getApprovalStatus();
+
+                    return match ($approvalStatus) {
+                        ApprovalStatus::PENDING => $label . ' (' . ApprovalStatus::PENDING->label() . ')',
+                        ApprovalStatus::APPROVED => $label . ' (' . ApprovalStatus::APPROVED->label() . ')',
+                        ApprovalStatus::REJECTED => $label . ' (' . ApprovalStatus::REJECTED->label() . ')',
+                        ApprovalStatus::NOT_REQUIRED => $label,
+                        default => $label,
+                    };
                 })
                 ->color(function (Asset $record): string {
                     $status = $record->latestMovement?->getApprovalStatus();

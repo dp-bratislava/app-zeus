@@ -44,45 +44,28 @@ class MovementApprovalService
     public static function rejectMovements(Collection $records): void
     {
         self::authorizeApproval();
-
-        [$skippedCount, $rejectedCount] = self::processMovements(
+        self::processMovements(
             $records,
             ApprovalStatus::REJECTED
         );
+    }
 
-        if ($skippedCount > 0) {
-            Notification::make()
-                ->title('Schválené (nie je potrebné / už schválené): ' . $skippedCount)
-                ->success()
-                ->send();
-        }
-
-        Notification::make()
-            ->title('Zamietnuté pohyby: ' . $rejectedCount)
-            ->danger()
-            ->send();
+    public static function postponeMovements(Collection $records): void
+    {
+        self::authorizeApproval();
+        self::processMovements(
+            $records,
+            ApprovalStatus::PENDING
+        );
     }
 
     public static function resetMovementsToPending(Collection $records): void
     {
         self::authorizeApproval();
-
-        [$processedCount, $skippedCount] = self::processMovements(
+        self::processMovements(
             $records,
             ApprovalStatus::PENDING
         );
-
-        if ($skippedCount > 0) {
-            Notification::make()
-                ->title('Nepospracované (neboli schválené / zamietnuté): ' . $skippedCount)
-                ->info()
-                ->send();
-        }
-
-        Notification::make()
-            ->title('Vrátené do schválenia: ' . $processedCount)
-            ->success()
-            ->send();
     }
 
     protected static function processMovements(
@@ -93,27 +76,14 @@ class MovementApprovalService
         $skippedCount = 0;
 
         foreach ($records as $asset) {
-            if (!$asset instanceof Asset) {
+            $movement = $asset->latestMovement;
+            if (!$movement) {
                 $skippedCount++;
                 continue;
             }
 
-            // For pending reset, skip assets that don't have approval history
-            if ($targetStatus === ApprovalStatus::PENDING) {
-                if (!self::canResetToPending($asset)) {
-                    $skippedCount++;
-                    continue;
-                }
-            } else {
-                // For approve/reject, skip assets not waiting for approval
-                if (!$asset->waitingForApproval()) {
-                    $skippedCount++;
-                    continue;
-                }
-            }
-
-            $movement = $asset->latestMovement;
-            if (!$movement) {
+            $currentStatus = $movement->getApprovalStatus();
+            if ($currentStatus === $targetStatus) {
                 $skippedCount++;
                 continue;
             }
@@ -123,17 +93,6 @@ class MovementApprovalService
         }
 
         return [$processedCount, $skippedCount];
-    }
-
-    protected static function canResetToPending(Asset $asset): bool
-    {
-        $movement = $asset->latestMovement;
-        if (!$movement) {
-            return false;
-        }
-
-        $status = $movement->getApprovalStatus();
-        return $status === ApprovalStatus::APPROVED || $status === ApprovalStatus::REJECTED;
     }
 
     protected static function createApprovalRecord($movement, ApprovalStatus $status): void

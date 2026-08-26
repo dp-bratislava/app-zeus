@@ -66,6 +66,7 @@ class ListAssets extends ListRecords
         $table->pushToolbarActions([
             MovementApprovalUI::approveBulkAction(),
             MovementApprovalUI::rejectBulkAction(),
+            MovementApprovalUI::postponeBulkAction(),
         ]);
 
         return $table;

@@ -18,11 +18,11 @@ final class MovementApprovalUI
     public static function approveBulkAction(): BulkAction
     {
         return BulkAction::make('approveMovements')
-            ->label('Schváliť pohyby')
+            ->label('Schváliť operácie')
             ->icon('heroicon-o-check-badge')
             ->color('success')
             ->requiresConfirmation()
-            ->modalHeading('Schváliť vybrané pohyby')
+            ->modalHeading('Schváliť vybrané operácie')
             ->modalDescription('Budú schválené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
             ->action(fn (Collection $records) => MovementApprovalService::approveMovements($records))
@@ -33,14 +33,29 @@ final class MovementApprovalUI
     public static function rejectBulkAction(): BulkAction
     {
         return BulkAction::make('rejectMovements')
-            ->label('Zamietnuť pohyby')
+            ->label('Zamietnuť operácie')
             ->icon('heroicon-o-x-mark')
             ->color('danger')
             ->requiresConfirmation()
-            ->modalHeading('Zamietnuť vybrané pohyby')
+            ->modalHeading('Zamietnuť vybrané operácie')
             ->modalDescription('Budú zamietnuté len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
             ->action(fn (Collection $records) => MovementApprovalService::rejectMovements($records))
+            ->modalWidth('full')
+            ->closeModalByClickingAway(false);
+    }
+
+    public static function postponeBulkAction(): BulkAction
+    {
+        return BulkAction::make('postponeMovements')
+            ->label('Vrátiť do schvalovania')
+            ->icon('heroicon-o-clock')
+            ->color('warning')
+            ->requiresConfirmation()
+            ->modalHeading('Vrátiť do schvalovania')
+            ->modalDescription('Budú odložené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
+            ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
+            ->action(fn (Collection $records) => MovementApprovalService::postponeMovements($records))
             ->modalWidth('full')
             ->closeModalByClickingAway(false);
     }
@@ -73,7 +88,7 @@ final class MovementApprovalUI
                         ->markAsRequired(),
                     TableColumn::make('Typ pohybu'),
                     TableColumn::make('Dátum'),
-                    TableColumn::make('Stav po schválení'),
+                    TableColumn::make('Stav'),
                     TableColumn::make('Stav schválenia'),
                 ])
                 ->schema(self::movementRowSchema())
