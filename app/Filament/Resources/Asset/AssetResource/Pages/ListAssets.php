@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Asset\AssetResource\Tables\Schemas\MovementApprovalUI;
+use App\Filament\Resources\Asset\AssetResource\Tables\Services\MovementApprovalService;
 
 class ListAssets extends ListRecords
 {
@@ -63,11 +64,14 @@ class ListAssets extends ListRecords
                 ->action('toggleNaVozoch'),
         ]);
 
-        $table->pushToolbarActions([
-            MovementApprovalUI::approveBulkAction(),
-            MovementApprovalUI::rejectBulkAction(),
-            MovementApprovalUI::postponeBulkAction(),
-        ]);
+        if(MovementApprovalService::canApproveMovements()) {
+            $table->pushToolbarActions([
+                MovementApprovalUI::approveBulkAction(),
+                MovementApprovalUI::rejectBulkAction(),
+                MovementApprovalUI::postponeBulkAction(),
+            ]);
+        }   
+
 
         return $table;
     }

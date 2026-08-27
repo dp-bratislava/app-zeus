@@ -3,7 +3,7 @@ namespace App\Filament\Resources\Asset\AssetResource\Tables\Schemas;
 
 use App\Filament\Resources\Asset\AssetResource\Tables\Services\MovementApprovalService;
 use Dpb\WtfTmsBridge\Models\Asset;
-use Filament\Actions\BulkAction;
+use App\Filament\Actions\VisibleBulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Repeater\TableColumn;
@@ -14,9 +14,9 @@ use Filament\Forms\Components\Hidden;
 
 final class MovementApprovalUI
 {
-    public static function approveBulkAction(): BulkAction
+    public static function approveBulkAction(): VisibleBulkAction
     {
-        return BulkAction::make('approveMovements')
+        return VisibleBulkAction::make('approveMovements')
             ->label('Schváliť operácie')
             ->icon('heroicon-o-check-badge')
             ->color('success')
@@ -30,9 +30,9 @@ final class MovementApprovalUI
             ->closeModalByClickingAway(false);
     }
 
-    public static function rejectBulkAction(): BulkAction
+    public static function rejectBulkAction(): VisibleBulkAction
     {
-        return BulkAction::make('rejectMovements')
+        return VisibleBulkAction::make('rejectMovements')
             ->label('Zamietnuť operácie')
             ->icon('heroicon-o-x-mark')
             ->color('danger')
@@ -46,9 +46,9 @@ final class MovementApprovalUI
             ->closeModalByClickingAway(false);
     }
 
-    public static function postponeBulkAction(): BulkAction
+    public static function postponeBulkAction(): VisibleBulkAction
     {
-        return BulkAction::make('postponeMovements')
+        return VisibleBulkAction::make('postponeMovements')
             ->label('Vrátiť do schvalovania')
             ->icon('heroicon-o-clock')
             ->color('warning')

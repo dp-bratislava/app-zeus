@@ -14,9 +14,13 @@ class MovementApprovalService
     public static function authorizeApproval(): void
     {
         abort_unless(
-            UserPermissionHelper::hasPermission('pkg-assets.asset-movement.approve'),
+            self::canApproveMovements(),
             403,
         );
+    }
+    public static function canApproveMovements(): bool
+    {
+        return UserPermissionHelper::hasPermission('pkg-assets.asset-movement.approve');
     }
 
     public static function approveMovements(Collection $records, array $data): void
