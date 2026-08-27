@@ -27,6 +27,7 @@ final class MovementApprovalUI
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
             ->action(fn (Collection $records) => MovementApprovalService::approveMovements($records))
             ->modalWidth('full')
+            ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
     }
 
@@ -42,6 +43,7 @@ final class MovementApprovalUI
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
             ->action(fn (Collection $records) => MovementApprovalService::rejectMovements($records))
             ->modalWidth('full')
+            ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
     }
 
@@ -57,6 +59,7 @@ final class MovementApprovalUI
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
             ->action(fn (Collection $records) => MovementApprovalService::postponeMovements($records))
             ->modalWidth('full')
+            ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
     }
 

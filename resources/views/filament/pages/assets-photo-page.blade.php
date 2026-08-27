@@ -8,7 +8,7 @@
                 icon="heroicon-o-wrench-screwdriver"
                 :outlined="$this->findMode !== 'recent'"
                 class="whitespace-nowrap">
-                Fotky - demontáže
+                Fotky - agregáty
             </x-filament::button>
 
             <x-filament::button
@@ -208,6 +208,10 @@
                                         {{ $demontaz['task_item_group'] }}
                                     </span>
                                 @endif
+                                    <span class="inline-flex items-center gap-2">
+                                        <x-filament::icon icon="heroicon-o-cog-6-tooth" class="h-4 w-4" />
+                                        demontáž
+                                    </span>
                             </div>
                         </button>
                     @empty

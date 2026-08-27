@@ -48,6 +48,11 @@ class AssetsPhotoPage extends Page implements HasForms
         $this->resetDemontazScroll();
     }
 
+    public function getTitle(): string
+    {
+        return '';
+    }
+
     private function paginatedDemontazes(): Collection
     {
         $movements = AssetMovement::query()
