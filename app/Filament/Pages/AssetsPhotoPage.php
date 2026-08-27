@@ -229,7 +229,7 @@ class AssetsPhotoPage extends Page implements HasForms
             ->icon('heroicon-m-photo')
             ->color('primary')
             ->modalHeading('Nahrať fotky')
-            ->modalWidth('7xl')
+            ->modalWidth('screen-2xl')
             ->modalCancelActionLabel('Ok')
             ->modalSubmitAction(false)
             ->schema(function (Action $action): array {
@@ -265,7 +265,7 @@ class AssetsPhotoPage extends Page implements HasForms
             ->icon('heroicon-m-photo')
             ->color('primary')
             ->modalHeading('Nahrať fotky k podzákazke')
-            ->modalWidth('7xl')
+            ->modalWidth('screen-2xl')
             ->modalCancelActionLabel('Ok')
             ->modalSubmitAction(false)
             ->schema(function (Action $action): array {
