@@ -27,7 +27,9 @@ class AssetsPhotoPage extends Page implements HasForms
     protected static ?string $navigationLabel = 'Fotky';
 
     public ?array $taskData = [];
-    public string $findMode = 'recent';
+    public string $findMode = 'agregaty';
+
+    protected $listeners = ['photos-changed' => 'resetDemontazScroll'];
 
     public int $accidentOffset = 0;
     public array $accidents = [];
@@ -244,6 +246,7 @@ class AssetsPhotoPage extends Page implements HasForms
                             'photoableType' => AssetMovement::class,
                             'photoableId' => $movement->id,
                             'collection' => 'movement-photos',
+                            'withBufferPicker' => true,
                         ],
                     ),
                 ];
@@ -279,15 +282,21 @@ class AssetsPhotoPage extends Page implements HasForms
                             'photoableType' => TaskItem::class,
                             'photoableId' => $taskItem->id,
                             'collection' => 'task-item-photos',
+                            'withBufferPicker' => true,
                         ],
                     ),
                 ];
             });
     }
 
-    public function showRecent(): void
+    public function showAgregaty(): void
     {
-        $this->findMode = 'recent';
+        $this->findMode = 'agregaty';
+    }
+
+    public function showBuffer(): void
+    {
+        $this->findMode = 'buffer';
     }
 
     public function getSelectedTaskItemsProperty(): Collection
