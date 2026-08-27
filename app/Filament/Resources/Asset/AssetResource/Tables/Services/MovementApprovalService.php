@@ -19,12 +19,13 @@ class MovementApprovalService
         );
     }
 
-    public static function approveMovements(Collection $records): void
+    public static function approveMovements(Collection $records, array $data): void
     {
         self::authorizeApproval();
 
         [$approvedCount, $skippedCount] = self::processMovements(
             $records,
+            $data,
             ApprovalStatus::APPROVED
         );
 
@@ -41,43 +42,50 @@ class MovementApprovalService
             ->send();
     }
 
-    public static function rejectMovements(Collection $records): void
+    public static function rejectMovements(Collection $records, array $data): void
     {
         self::authorizeApproval();
         self::processMovements(
             $records,
+            $data,
             ApprovalStatus::REJECTED
         );
     }
 
-    public static function postponeMovements(Collection $records): void
+    public static function postponeMovements(Collection $records, array $data): void
     {
         self::authorizeApproval();
         self::processMovements(
             $records,
+            $data,
             ApprovalStatus::PENDING
         );
     }
 
-    public static function resetMovementsToPending(Collection $records): void
+    public static function resetMovementsToPending(Collection $records, array $data = []): void
     {
         self::authorizeApproval();
         self::processMovements(
             $records,
+            $data,
             ApprovalStatus::PENDING
         );
     }
 
     protected static function processMovements(
         Collection $records,
+        array $data,
         ApprovalStatus $targetStatus
     ): array {
         $processedCount = 0;
         $skippedCount = 0;
 
+        $movementsData = collect($data['movements'] ?? [])
+            ->keyBy('movement_id');
+
         foreach ($records as $asset) {
             $movement = $asset->latestMovement;
-            if (!$movement) {
+            if (! $movement) {
                 $skippedCount++;
                 continue;
             }
@@ -88,17 +96,21 @@ class MovementApprovalService
                 continue;
             }
 
-            self::createApprovalRecord($movement, $targetStatus);
+            $row = $movementsData->get($movement->id);
+            $comment = $row['comment'] ?? null;
+
+            self::createApprovalRecord($movement, $targetStatus, $comment);
             $processedCount++;
         }
 
         return [$processedCount, $skippedCount];
     }
 
-    protected static function createApprovalRecord($movement, ApprovalStatus $status): void
+    protected static function createApprovalRecord($movement, ApprovalStatus $status, ?string $comment = null): void
     {
         $movement->approval()->create([
             'status' => $status,
+            'comment' => $comment,
             'actioned_by' => Auth::id(),
             'actioned_at' => now(),
         ]);

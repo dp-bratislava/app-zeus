@@ -1,17 +1,16 @@
 <?php
-
 namespace App\Filament\Resources\Asset\AssetResource\Tables\Schemas;
 
+use App\Filament\Resources\Asset\AssetResource\Tables\Services\MovementApprovalService;
+use Dpb\WtfTmsBridge\Models\Asset;
 use Filament\Actions\BulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Repeater\TableColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Collection;
-use Dpb\WtfTmsBridge\Models\Asset;
 use Filament\Support\Enums\Alignment;
-use App\Filament\Resources\Asset\AssetResource\Tables\Services\MovementApprovalService;
-
+use Illuminate\Support\Collection;
+use Filament\Forms\Components\Hidden;
 
 final class MovementApprovalUI
 {
@@ -25,7 +24,7 @@ final class MovementApprovalUI
             ->modalHeading('Schváliť vybrané operácie')
             ->modalDescription('Budú schválené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
-            ->action(fn (Collection $records) => MovementApprovalService::approveMovements($records))
+            ->action(fn (Collection $records, array $data) => MovementApprovalService::approveMovements($records, $data))
             ->modalWidth('full')
             ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
@@ -41,7 +40,7 @@ final class MovementApprovalUI
             ->modalHeading('Zamietnuť vybrané operácie')
             ->modalDescription('Budú zamietnuté len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
-            ->action(fn (Collection $records) => MovementApprovalService::rejectMovements($records))
+            ->action(fn (Collection $records, array $data) => MovementApprovalService::rejectMovements($records, $data))
             ->modalWidth('full')
             ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
@@ -57,7 +56,7 @@ final class MovementApprovalUI
             ->modalHeading('Vrátiť do schvalovania')
             ->modalDescription('Budú odložené len agregáty, ktoré vyžadujú schválenie poslednej operácie.')
             ->schema(fn (Collection $records): array => self::movementInfoSchema($records))
-            ->action(fn (Collection $records) => MovementApprovalService::postponeMovements($records))
+            ->action(fn (Collection $records, array $data) => MovementApprovalService::postponeMovements($records, $data))
             ->modalWidth('full')
             ->deselectRecordsAfterCompletion()
             ->closeModalByClickingAway(false);
@@ -74,11 +73,13 @@ final class MovementApprovalUI
             $movement = $asset->latestMovement;
 
             $rows[] = [
+                'movement_id' => $movement?->id,
                 'serial_number' => $asset->serial_number,
                 'movement_type' => $movement?->movement_type?->label() ?? '—',
                 'date' => $movement?->date?->format('Y-m-d'),
                 'state_result' => $movement?->state_result?->label() ?? '—',
                 'approval_status' => $movement?->getApprovalStatus()?->label() ?? '—',
+                'comment' => '',
             ];
         }
 
@@ -93,6 +94,7 @@ final class MovementApprovalUI
                     TableColumn::make('Dátum'),
                     TableColumn::make('Stav'),
                     TableColumn::make('Stav schválenia'),
+                    TableColumn::make('Poznámka'),
                 ])
                 ->schema(self::movementRowSchema())
                 ->columns(8)
@@ -100,14 +102,14 @@ final class MovementApprovalUI
                 ->default($rows)
                 ->addable(false)
                 ->deletable(false)
-                ->reorderable(false)
-                ->disabled(),
+                ->reorderable(false),
         ];
     }
 
     private static function movementRowSchema(): array
     {
         return [
+            Hidden::make('movement_id'),
             TextInput::make('serial_number')
                 ->disabled()
                 ->dehydrated(),
@@ -123,6 +125,8 @@ final class MovementApprovalUI
             TextInput::make('approval_status')
                 ->disabled()
                 ->dehydrated(),
+            TextInput::make('comment')
+                ->nullable(),
         ];
     }
 }
