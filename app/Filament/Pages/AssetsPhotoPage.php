@@ -16,6 +16,7 @@ use Filament\Schemas\Components\Livewire;
 use Illuminate\Support\Collection;
 use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Tasks\Models\Task;
+use \Dpb\Package\Assets\Enums\SerialNumberType;
 
 class AssetsPhotoPage extends Page implements HasForms
 {
@@ -58,7 +59,7 @@ class AssetsPhotoPage extends Page implements HasForms
     private function paginatedDemontazes(): Collection
     {
         $movements = AssetMovement::query()
-            ->with(['asset', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
+            ->with(['asset','serialNumber', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
             ->where('movement_type', MovementType::DEMONTAZ->value)
             ->latest('created_at')
             ->skip($this->demontazOffset)
@@ -78,6 +79,8 @@ class AssetsPhotoPage extends Page implements HasForms
                 'task_item_group' => $movement->taskItem?->group?->title,
                 'photo_count' => $photoCounts[$movement->id] ?? 0,
                 'slot_label' => $movement->slotContext?->label,
+                'serial_number' => $movement->serialNumber?->serial_number,
+                'is_serial_number_virtual' => $movement->serialNumber?->type === SerialNumberType::Virtual,
             ];
         });
     }

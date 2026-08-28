@@ -54,6 +54,15 @@
                                     {{ $demontaz['photo_count'] }} {{ $demontaz['photo_count'] === 1 ? 'fotka' : ($demontaz['photo_count'] >= 2 && $demontaz['photo_count'] <= 4 ? 'fotky' : 'fotiek') }}
                                 </span>
                             </div>
+                            @if ($demontaz['serial_number'])
+                                <p @class([
+                                    'mt-2 truncate text-sm',
+                                    'text-red-600' => $demontaz['is_serial_number_virtual'] === true,
+                                    'text-gray-600' => $demontaz['is_serial_number_virtual'] === false,
+                                ])>
+                                    {{ $demontaz['serial_number'] ?? 'N/A' }}
+                                </p>
+                            @endif
 
                             @if ($demontaz['vehicle_model'])
                                 <p class="mt-2 truncate text-sm text-gray-600">
