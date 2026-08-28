@@ -257,18 +257,6 @@
                                         {{ $item['photo_count'] }}
                                     </span>
                                 </div>
-
-                                @if ($item['photos']->isNotEmpty())
-                                    <div class="mt-3 flex flex-wrap gap-2">
-                                        @foreach ($item['photos'] as $photo)
-                                            <img
-                                                src="{{ $photo['url'] }}"
-                                                alt="{{ $photo['name'] }}"
-                                                class="h-16 w-16 rounded-lg border border-gray-200 object-cover"
-                                                loading="lazy" />
-                                        @endforeach
-                                    </div>
-                                @endif
                             </button>
                         @endforeach
                     </div>
