@@ -42,7 +42,7 @@
     "require": {
         "php": "^8.2",
         "deployer/deployer": "^7.4",
-        "dpb/dpb-wtf-tms-bridge": "^12.5",
+        "dpb/dpb-wtf-tms-bridge": "12.5.12",
         "dpb/filament-admin-panel": "^5.0",
         "dpb/laravel-datahub-sync": "^12.4",
         "dpb/laravel-user-admin": "^5.1",

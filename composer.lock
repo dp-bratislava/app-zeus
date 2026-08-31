@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7022de8807d9f58b310c19284f05e5ff",
+    "content-hash": "a16b0209e219c05b95e18c2f661c3c37",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.5.10",
+            "version": "v12.5.12",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "b243ef7caa77b1e25b21e60440a507c5fc90247a"
+                "reference": "336edcbfa8cb2c6885c16d13bd731f8db887dd8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/b243ef7caa77b1e25b21e60440a507c5fc90247a",
-                "reference": "b243ef7caa77b1e25b21e60440a507c5fc90247a",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/336edcbfa8cb2c6885c16d13bd731f8db887dd8b",
+                "reference": "336edcbfa8cb2c6885c16d13bd731f8db887dd8b",
                 "shasum": ""
             },
             "require": {
@@ -1475,10 +1475,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.10",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.12",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-07-10T09:34:44+00:00"
+            "time": "2026-08-31T12:02:40+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
