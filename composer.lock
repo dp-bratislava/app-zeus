@@ -2400,16 +2400,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.5.4",
+            "version": "v12.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "da81fdfd2084d00756d748b50a934cecf351ff33"
+                "reference": "118e775986c911ebdfd0f4c7b563f33cca44c182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/da81fdfd2084d00756d748b50a934cecf351ff33",
-                "reference": "da81fdfd2084d00756d748b50a934cecf351ff33",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/118e775986c911ebdfd0f4c7b563f33cca44c182",
+                "reference": "118e775986c911ebdfd0f4c7b563f33cca44c182",
                 "shasum": ""
             },
             "require": {
