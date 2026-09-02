@@ -55,14 +55,7 @@ task('build', function () {
     }
 });
 
-// Disable caching for Blade components temporarily to avoid issues during deployment
-task('artisan:view:cache', function () {
-    run('{{bin/php}} {{release_or_current_path}}/artisan view:clear');
-});
-
 // Hooks
 after('deploy:vendors', 'build');
-after('deploy:symlink', 'artisan:cache:clear');
-after('deploy:symlink', 'artisan:config:clear');
-after('deploy:symlink', 'artisan:view:clear');
+after('deploy:symlink', 'artisan:optimize:clear');
 after('deploy:failed', 'deploy:unlock');
