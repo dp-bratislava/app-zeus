@@ -47,12 +47,6 @@ return [
             'view' => 'dpb-work-time-fund::filament.pages.deferred-tasks-management-page',
             'navigation_icon' => 'heroicon-o-clock',
         ],
-        'operations_category_management_page' => [
-            'navigation_label' => 'Kategórie operácií',
-            'slug' => 'operations-category-management',
-            'view' => 'dpb-work-time-fund::filament.pages.operations-category-management-page',
-            'navigation_icon' => 'heroicon-o-folder',
-        ],
         'vehicle_report_page' => [
             'navigation_label' => 'Report vozidiel',
             'slug' => 'vehicle-report',
