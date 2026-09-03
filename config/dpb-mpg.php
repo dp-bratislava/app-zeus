@@ -118,6 +118,11 @@ return [
                 SpotlightTriggerComponent::getAccessPermission(),
                 ...SpotlightStep::getTablePermissions(),
             ],
+            'assets-photo-page' => [
+               'assets-photo-page.view_agregaty_tab',
+               'assets-photo-page.view_accidents_tab',
+               'assets-photo-page.view_buffer_tab',
+            ],
         ],
     ],
 ];

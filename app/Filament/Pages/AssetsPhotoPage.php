@@ -17,6 +17,11 @@ use Illuminate\Support\Collection;
 use Dpb\WtfTmsBridge\Enums\MovementType;
 use Dpb\Package\Tasks\Models\Task;
 use \Dpb\Package\Assets\Enums\SerialNumberType;
+use Dpb\Departments\Services\DepartmentService;
+use Dpb\Package\TaskMS\Models\DepartmentMaintenanceGroup;
+use Dpb\Package\Fleet\Models\MaintenanceGroup;
+use Dpb\Departments\Livewire\DepartmentSwitcherComponent;
+use Illuminate\Support\Facades\Gate;
 
 class AssetsPhotoPage extends Page implements HasForms
 {
@@ -30,11 +35,12 @@ class AssetsPhotoPage extends Page implements HasForms
     public ?array $taskData = [];
     public string $findMode = 'agregaty';
 
-    protected $listeners = ['photos-changed' => 'resetDemontazScroll'];
+    protected $listeners = ['photos-changed' => 'resetDemontazScroll', DepartmentSwitcherComponent::EVENT_DEPARTMENT_CHANGED => 'refreshData'];
 
     public int $accidentOffset = 0;
     public array $accidents = [];
     public bool $hasMoreAccidents = true;
+
 
     public int $demontazOffset = 0;
     public array $demontazes = [];
@@ -43,9 +49,21 @@ class AssetsPhotoPage extends Page implements HasForms
     public const ACCIDENTS_PER_PAGE = 12;
     public const DEMONTAZES_PER_PAGE = 12;
 
-    private array $inactiveStates = ['closed', 'cancelled', 'closed-with-malfunction'];
-
     public function mount(): void
+    {
+        if ($this->canViewAgregaty()) {
+        $this->findMode = 'agregaty';
+        } 
+        elseif ($this->canViewAccidents()) {
+            $this->findMode = 'accidents';
+        } 
+        elseif ($this->canViewBuffer()) {
+            $this->findMode = 'buffer';
+        }
+        $this->refreshData();
+    }
+
+    public function refreshData(): void
     {
         $this->resetAccidentScroll();
         $this->resetDemontazScroll();
@@ -56,12 +74,33 @@ class AssetsPhotoPage extends Page implements HasForms
         return '';
     }
 
+    public function canViewAgregaty(): bool
+    {
+        return Gate::allows('assets-photo-page.view_agregaty_tab');
+    }
+
+    public function canViewAccidents(): bool
+    {
+        return Gate::allows('assets-photo-page.view_accidents_tab');
+    }
+
+    public function canViewBuffer(): bool
+    {
+        return Gate::allows('assets-photo-page.view_buffer_tab');
+    }
+
     private function paginatedDemontazes(): Collection
     {
         $movements = AssetMovement::query()
-            ->with(['asset','serialNumber', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
+            ->with(['taskItem', 'asset','serialNumber', 'taskItem.assetSlots.vehicle.model', 'taskItem.group'])
             ->where('movement_type', MovementType::DEMONTAZ->value)
             ->latest('created_at')
+            ->whereHas('taskItem', function ($query) {
+                $query->whereHas('taskItemAssignment', function ($q){
+                    $q->where('assigned_to_type', app(MaintenanceGroup::class)->getMorphClass())
+                    ->where('assigned_to_id', $this->getActiveMaintenanceGroupId());
+                });
+            })
             ->skip($this->demontazOffset)
             ->limit(static::DEMONTAZES_PER_PAGE)
             ->get();
@@ -159,23 +198,40 @@ class AssetsPhotoPage extends Page implements HasForms
         $this->accidents = $this->paginatedAccidents()->all();
     }
 
+    private function getActiveMaintenanceGroupId(): ?int
+    {
+        $departmentService = app(DepartmentService::class);
+        $activeDepartment = $departmentService->getActiveDepartment();
+        if ($activeDepartment) {
+            return DepartmentMaintenanceGroup::query()
+                ->byDepartmentId($activeDepartment->id)
+                ->first()?->maintenanceGroup?->id;
+        }
+
+        return null;
+    }
+
     private function paginatedAccidents(): Collection
     {
-        $tasks = Task::query()
-            ->whereHas('items', fn ($q) => $q->whereNotIn('state', $this->inactiveStates))
-            ->whereHas('group', fn ($q) => $q->where('code', 'accident'))
-            ->with(['items.group'])
-            ->latest('id')
+
+        $tasks = TaskAssignment::query()
+            ->where('assigned_to_type', app(MaintenanceGroup::class)->getMorphClass())
+            ->where('assigned_to_id', $this->getActiveMaintenanceGroupId())
+            ->whereHas('task', function ($query) {
+                $query->whereHas('group', fn ($q) => $q->where('code', 'accident'));
+            })
+            ->with(['task.items.group'])
+            ->latest('task_id')
             ->skip($this->accidentOffset)
             ->limit(static::ACCIDENTS_PER_PAGE)
-            ->get();
+            ->get()
+            ->pluck('task')
+            ->filter();
 
         $itemIds = collect();
         foreach ($tasks as $task) {
             foreach ($task->items as $item) {
-                if (!in_array($item->state, $this->inactiveStates, true)) {
                     $itemIds->push($item->id);
-                }
             }
         }
         $itemIds = $itemIds->unique()->values();
@@ -200,7 +256,6 @@ class AssetsPhotoPage extends Page implements HasForms
                 ? $vehicles->get($assignment->subject->getKey())
                 : null;
             $itemIds = $task->items
-                ->filter(fn ($i) => !in_array($i->state, $this->inactiveStates, true))
                 ->pluck('id');
 
             $photoCount = 0;
