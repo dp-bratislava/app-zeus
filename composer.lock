@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.6.5",
+            "version": "v12.6.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "1fdf390fcc67fc383e76256529085bdbee9a6604"
+                "reference": "220ac6b6f5d517daa68f6bc270db69d0ac27b02f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/1fdf390fcc67fc383e76256529085bdbee9a6604",
-                "reference": "1fdf390fcc67fc383e76256529085bdbee9a6604",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/220ac6b6f5d517daa68f6bc270db69d0ac27b02f",
+                "reference": "220ac6b6f5d517daa68f6bc270db69d0ac27b02f",
                 "shasum": ""
             },
             "require": {
@@ -1477,10 +1477,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.6.5",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.6.6",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-09-01T13:40:12+00:00"
+            "time": "2026-09-03T11:23:34+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -1774,16 +1774,16 @@
         },
         {
             "name": "dpb/pkg-assets",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-assets.git",
-                "reference": "f714c41297b1e5032829d736c93b4795238ca7c9"
+                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/f714c41297b1e5032829d736c93b4795238ca7c9",
-                "reference": "f714c41297b1e5032829d736c93b4795238ca7c9",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/e17f59ae0ee730c312e452e4b3231b3adc5e7918",
+                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918",
                 "shasum": ""
             },
             "require": {
@@ -1814,10 +1814,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-assets/tree/v1.0.3",
+                "source": "https://github.com/dp-bratislava/pkg-assets/tree/v1.0.4",
                 "issues": "https://github.com/dp-bratislava/pkg-assets/issues"
             },
-            "time": "2026-08-26T12:57:39+00:00"
+            "time": "2026-09-03T07:46:50+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
