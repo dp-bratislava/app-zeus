@@ -90,7 +90,6 @@ class ListAssets extends ListRecords
 
         if ($this->showDismantled) {
             $query->whereNotInState([
-                AssetState::VYRADENE_SCHVALENE,
                 AssetState::DIEL_NA_VOZE,
                 AssetState::PRIJEM_Z_DIELNE,
             ]);

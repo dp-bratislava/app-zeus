@@ -16,9 +16,9 @@ class AppSpecificTransitionValidator implements TransitionValidatorInterface
         }
 
         return match (true) {
-            $from === AssetState::DIEL_NA_VOZE && $to === AssetState::NA_VYRADENIE_NESCHVALENE => $this->canScrapFromVehicle($asset),
+            $from === AssetState::DIEL_NA_VOZE && $to === AssetState::NA_VYRADENIE => $this->canScrapFromVehicle($asset),
 
-            $from === AssetState::VYZISK && $to === AssetState::NA_VYRADENIE_NESCHVALENE => $this->canScrapFromRecovery($asset),
+            $from === AssetState::VYZISK && $to === AssetState::NA_VYRADENIE => $this->canScrapFromRecovery($asset),
 
             default => true,
         };
