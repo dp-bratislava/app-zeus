@@ -58,6 +58,7 @@ return [
             'is_multiple' => false,
             'type' => 'model',
             'type_detail' => Employee::class,
+            'eager_load' => ['primaryContract'],
             'scope' => 'active',
             'option_label' => 'fullNameWithPid',
             'is_readonly' => false,
