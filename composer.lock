@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64526e2863441d261274e3a87b20a75d",
+    "content-hash": "11adb039fe031562da381e2165da50bd",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.5.12",
+            "version": "v12.5.14",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "336edcbfa8cb2c6885c16d13bd731f8db887dd8b"
+                "reference": "ccb1db0b82473ac337a9870edee5ed4a4bfec281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/336edcbfa8cb2c6885c16d13bd731f8db887dd8b",
-                "reference": "336edcbfa8cb2c6885c16d13bd731f8db887dd8b",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/ccb1db0b82473ac337a9870edee5ed4a4bfec281",
+                "reference": "ccb1db0b82473ac337a9870edee5ed4a4bfec281",
                 "shasum": ""
             },
             "require": {
@@ -1475,10 +1475,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.12",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.14",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-08-31T12:02:40+00:00"
+            "time": "2026-09-03T11:25:53+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2400,16 +2400,16 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.5.4",
+            "version": "v12.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "da81fdfd2084d00756d748b50a934cecf351ff33"
+                "reference": "118e775986c911ebdfd0f4c7b563f33cca44c182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/da81fdfd2084d00756d748b50a934cecf351ff33",
-                "reference": "da81fdfd2084d00756d748b50a934cecf351ff33",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/118e775986c911ebdfd0f4c7b563f33cca44c182",
+                "reference": "118e775986c911ebdfd0f4c7b563f33cca44c182",
                 "shasum": ""
             },
             "require": {
