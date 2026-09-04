@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a16b0209e219c05b95e18c2f661c3c37",
+    "content-hash": "b73d18722542ed0cb83195f8ec19d6e6",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1658,21 +1658,25 @@
         },
         {
             "name": "dpb/laravel-user-admin",
-            "version": "v5.1.3",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/laravel-user-admin.git",
-                "reference": "335512e2270f37c2f448478797f818036a7b10ca"
+                "reference": "2e8d13a2024e726753fdb21f4cdabbe6608f4a79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/335512e2270f37c2f448478797f818036a7b10ca",
-                "reference": "335512e2270f37c2f448478797f818036a7b10ca",
+                "url": "https://api.github.com/repos/dp-bratislava/laravel-user-admin/zipball/2e8d13a2024e726753fdb21f4cdabbe6608f4a79",
+                "reference": "2e8d13a2024e726753fdb21f4cdabbe6608f4a79",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^5.0",
-                "laravel/framework": "^11.0 || ^12.0",
+                "illuminate/database": "^11.0||^12.0||^13.0",
+                "illuminate/http": "^11.0||^12.0||^13.0",
+                "illuminate/notifications": "^11.0||^12.0||^13.0",
+                "illuminate/support": "^11.0||^12.0||^13.0",
+                "illuminate/validation": "^11.0||^12.0||^13.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
@@ -1718,10 +1722,10 @@
                 "users"
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.1.3",
+                "source": "https://github.com/dp-bratislava/laravel-user-admin/tree/v5.4.0",
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
-            "time": "2026-05-13T12:06:41+00:00"
+            "time": "2026-09-04T11:33:59+00:00"
         },
         {
             "name": "dpb/pkg-activities",

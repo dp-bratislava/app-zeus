@@ -45,7 +45,7 @@
         "dpb/dpb-wtf-tms-bridge": "~12.5.0",
         "dpb/filament-admin-panel": "^5.0",
         "dpb/laravel-datahub-sync": "^12.4",
-        "dpb/laravel-user-admin": "^5.1",
+        "dpb/laravel-user-admin": "^5.4",
         "dpb/pkg-closing-summary": "^0.3",
         "dpb/wtf-ui": "^12.5",
         "dpb/dpb-auditing": "^12.0",
