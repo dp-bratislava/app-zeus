@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11adb039fe031562da381e2165da50bd",
+    "content-hash": "ab110add3537937992b65bbbd5f95d4d",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.16.1",
+            "version": "dev-release/v12.5.20",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "326319f93c3eb912d2afc88dae2754c50b3cfd90"
+                "reference": "15140ed2716bef25456657be4d30d695421b6619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/326319f93c3eb912d2afc88dae2754c50b3cfd90",
-                "reference": "326319f93c3eb912d2afc88dae2754c50b3cfd90",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/15140ed2716bef25456657be4d30d695421b6619",
+                "reference": "15140ed2716bef25456657be4d30d695421b6619",
                 "shasum": ""
             },
             "require": {
@@ -1380,11 +1380,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.16",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
-            },
-            "time": "2026-07-17T11:21:17+00:00"
+            "time": "2026-09-04T09:39:46+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -16476,9 +16472,18 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-release/v12.5.20",
+            "alias": "12.5.20",
+            "alias_normalized": "12.5.20.0"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "dpb/dpb-work-time-fund": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -16488,5 +16493,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
