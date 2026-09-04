@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab110add3537937992b65bbbd5f95d4d",
+    "content-hash": "8279cfe304dd5670d729349b86966af2",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1334,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "15140ed2716bef25456657be4d30d695421b6619"
+                "reference": "4337f1ac1e9d3ab5c91b50203103d72238da918c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/15140ed2716bef25456657be4d30d695421b6619",
-                "reference": "15140ed2716bef25456657be4d30d695421b6619",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/4337f1ac1e9d3ab5c91b50203103d72238da918c",
+                "reference": "4337f1ac1e9d3ab5c91b50203103d72238da918c",
                 "shasum": ""
             },
             "require": {
@@ -1380,20 +1380,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-09-04T09:39:46+00:00"
+            "time": "2026-09-04T12:03:14+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.8",
+            "version": "dev-release/v12.5.10",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "88cd41987d48f6048eecd2516f3a5f9756d98c48"
+                "reference": "d2a55ba9b05790bd65fb9ba3c83c9df150f9a883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/88cd41987d48f6048eecd2516f3a5f9756d98c48",
-                "reference": "88cd41987d48f6048eecd2516f3a5f9756d98c48",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/d2a55ba9b05790bd65fb9ba3c83c9df150f9a883",
+                "reference": "d2a55ba9b05790bd65fb9ba3c83c9df150f9a883",
                 "shasum": ""
             },
             "require": {
@@ -1422,24 +1422,20 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.7.1",
-                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
-            },
-            "time": "2026-07-10T09:52:16+00:00"
+            "time": "2026-09-04T12:02:33+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.5.14",
+            "version": "dev-release/v12.5.14",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "ccb1db0b82473ac337a9870edee5ed4a4bfec281"
+                "reference": "168acf8980a4139901b3aba0144888cb96fb8218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/ccb1db0b82473ac337a9870edee5ed4a4bfec281",
-                "reference": "ccb1db0b82473ac337a9870edee5ed4a4bfec281",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/168acf8980a4139901b3aba0144888cb96fb8218",
+                "reference": "168acf8980a4139901b3aba0144888cb96fb8218",
                 "shasum": ""
             },
             "require": {
@@ -1470,11 +1466,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.14",
-                "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
-            },
-            "time": "2026-09-03T11:25:53+00:00"
+            "time": "2026-09-04T12:02:04+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -16478,11 +16470,25 @@
             "version": "dev-release/v12.5.20",
             "alias": "12.5.20",
             "alias_normalized": "12.5.20.0"
+        },
+        {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-release/v12.5.10",
+            "alias": "12.5.10",
+            "alias_normalized": "12.5.10.0"
+        },
+        {
+            "package": "dpb/dpb-wtf-tms-bridge",
+            "version": "dev-release/v12.5.14",
+            "alias": "12.5.15",
+            "alias_normalized": "12.5.15.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dpb/dpb-work-time-fund": 20
+        "dpb/dpb-work-time-fund": 20,
+        "dpb/dpb-work-time-fund-filament": 20,
+        "dpb/dpb-wtf-tms-bridge": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
