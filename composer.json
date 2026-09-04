@@ -63,7 +63,7 @@
         "dpb/pkg-eav": "^12.0",
         "dpb/pkg-fleet": "^12.0",
         "dpb/pkg-inspections": "^12.0",
-        "dpb/pkg-task-ms": "^12.0",
+        "dpb/pkg-task-ms": "~12.0.0",
         "dpb/pkg-task-ms-ui": "^12.5",
         "dpb/pkg-tasks": "^12.0",
         "dpb/pkg-tickets": "^12.0",
