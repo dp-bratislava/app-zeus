@@ -141,6 +141,16 @@ class SumarReport implements ReportDriver
         ];
     }
 
+    public function getSortColumn(): string
+    {
+        return 'id';
+    }
+
+    public function getSortOrder(): string
+    {
+        return 'asc';
+    }
+
     public function getExporter(): string
     {
         return SumarReportExporter::class;

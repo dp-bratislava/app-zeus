@@ -48,7 +48,7 @@ class ReportsResource extends Resource
             ->emptyStateHeading('Žiadne údaje')
             ->defaultKeySort(false)
             ->toolbarActions([])
-            ->defaultSort('id', 'asc');
+            ->defaultSort($driver->getSortColumn(), $driver->getSortOrder());
     }
 
     public static function getPages(): array
