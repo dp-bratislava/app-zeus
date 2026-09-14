@@ -32,51 +32,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // DB::listen(function ($query) {
-        //     $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        //     $logPath = storage_path('logs/queries.log');
 
-        //     $callers = [];
-
-        //     // foreach ($trace as $i => $t) {
-        //     //     if (isset($t['file'])) {
-        //     //         $callers[] = sprintf(
-        //     //             '#%d %s:%s %s%s',
-        //     //             $i,
-        //     //             $t['file'],
-        //     //             $t['line'] ?? '?',
-        //     //             $t['class'] ?? '',
-        //     //             $t['function'] ?? ''
-        //     //         );
-        //     //     }
-        //     // }
-
-        //     file_put_contents(
-        //         storage_path('logs/queries.log'),
-        //         sprintf(
-        //             "\n[%s] [%sms]\nSQL: %s\n%s\n",
-        //             date('Y-m-d H:i:s'),
-        //             $query->time,
-        //             $query->sql,
-        //             implode("\n", $callers)
-        //         ),
-        //         FILE_APPEND
+        //     // Format a single, lightweight line of text
+        //     $line = sprintf(
+        //         "[%s] [%s ms] %s | Bindings: %s\n",
+        //         date('Y-m-d H:i:s'),
+        //         $query->time,
+        //         $query->sql,
+        //         json_encode($query->bindings)
         //     );
+
+        //     // Quick, low-memory file append
+        //     file_put_contents($logPath, $line, FILE_APPEND);
         // });
-
-        DB::listen(function ($query) {
-            $logPath = storage_path('logs/queries.log');
-
-            // Format a single, lightweight line of text
-            $line = sprintf(
-                "[%s] [%s ms] %s | Bindings: %s\n",
-                date('Y-m-d H:i:s'),
-                $query->time,
-                $query->sql,
-                json_encode($query->bindings)
-            );
-
-            // Quick, low-memory file append
-            file_put_contents($logPath, $line, FILE_APPEND);
-        });
 
         FilamentAsset::register([
             Css::make('custom-styles', asset('css/app/custom-overrides.css')),
