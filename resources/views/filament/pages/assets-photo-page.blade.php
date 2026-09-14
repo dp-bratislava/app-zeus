@@ -268,7 +268,7 @@
             {{-- TAB 3: Buffer / Fotosérie --}}
             @if ($this->canViewBuffer())
                 @if ($this->findMode === 'buffer')
-                    <livewire:dpb.wtftmsbridge.photo-buffer-manager wire:key="photo-buffer-manager" />
+                    <livewire:dpb.wtftmsbridge.photoshoot-manager/>
                 @endif
             @endif
         </div>
