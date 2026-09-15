@@ -1334,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "9e4aeb4e33925085f14624f93148c48acda8eb66"
+                "reference": "05c0b0a47a75af037439026847974f266079d1cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/9e4aeb4e33925085f14624f93148c48acda8eb66",
-                "reference": "9e4aeb4e33925085f14624f93148c48acda8eb66",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/05c0b0a47a75af037439026847974f266079d1cb",
+                "reference": "05c0b0a47a75af037439026847974f266079d1cb",
                 "shasum": ""
             },
             "require": {
@@ -1380,7 +1380,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-09-14T11:40:32+00:00"
+            "time": "2026-09-15T09:11:01+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -2396,12 +2396,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "8bb6854f5b04a079ddcebebf7848fdbef6a26cdc"
+                "reference": "127ad11aa0d17d297898ac444d8987ae0170045c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/8bb6854f5b04a079ddcebebf7848fdbef6a26cdc",
-                "reference": "8bb6854f5b04a079ddcebebf7848fdbef6a26cdc",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/127ad11aa0d17d297898ac444d8987ae0170045c",
+                "reference": "127ad11aa0d17d297898ac444d8987ae0170045c",
                 "shasum": ""
             },
             "require": {
@@ -2432,7 +2432,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-09-11T09:57:33+00:00"
+            "time": "2026-09-15T09:10:27+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
