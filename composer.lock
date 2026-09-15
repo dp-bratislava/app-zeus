@@ -2396,12 +2396,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "127ad11aa0d17d297898ac444d8987ae0170045c"
+                "reference": "2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/127ad11aa0d17d297898ac444d8987ae0170045c",
-                "reference": "127ad11aa0d17d297898ac444d8987ae0170045c",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70",
+                "reference": "2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70",
                 "shasum": ""
             },
             "require": {
@@ -2432,7 +2432,7 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
-            "time": "2026-09-15T09:10:27+00:00"
+            "time": "2026-09-15T09:17:43+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
