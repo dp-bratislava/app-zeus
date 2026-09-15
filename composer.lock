@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15150c5a66dca68263a2f77b49bade52",
+    "content-hash": "e0af34bf7d3236a514a9bcdbd5a72c6d",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1330,7 +1330,7 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.5.20-test",
+            "version": "v12.5.20",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
@@ -1380,11 +1380,15 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.20",
+                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
+            },
             "time": "2026-09-15T09:11:01+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.5.10",
+            "version": "v12.5.10",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
@@ -1422,11 +1426,15 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.10",
+                "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
+            },
             "time": "2026-09-08T14:00:35+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-release/v12.5.15-test",
+            "version": "v12.5.15",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
@@ -1467,7 +1475,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/andrej/v12.5.15-test",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.5.15",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
             "time": "2026-09-14T07:55:30+00:00"
@@ -2396,7 +2404,7 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "dev-release/v12.5.6-test",
+            "version": "v12.5.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
@@ -2436,6 +2444,10 @@
                     "email": "babocky.lubos@dpb.sk"
                 }
             ],
+            "support": {
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.5.6",
+                "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
+            },
             "time": "2026-09-15T09:17:43+00:00"
         },
         {
@@ -16468,39 +16480,9 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "dpb/dpb-work-time-fund",
-            "version": "dev-release/v12.5.20-test",
-            "alias": "12.5.20",
-            "alias_normalized": "12.5.20.0"
-        },
-        {
-            "package": "dpb/dpb-work-time-fund-filament",
-            "version": "dev-release/v12.5.10",
-            "alias": "12.5.10",
-            "alias_normalized": "12.5.10.0"
-        },
-        {
-            "package": "dpb/dpb-wtf-tms-bridge",
-            "version": "dev-release/v12.5.15-test",
-            "alias": "12.5.15",
-            "alias_normalized": "12.5.15.0"
-        },
-        {
-            "package": "dpb/wtf-ui",
-            "version": "dev-release/v12.5.6-test",
-            "alias": "12.5.6",
-            "alias_normalized": "12.5.6.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "dpb/dpb-work-time-fund": 20,
-        "dpb/dpb-work-time-fund-filament": 20,
-        "dpb/dpb-wtf-tms-bridge": 20,
-        "dpb/wtf-ui": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -16510,5 +16492,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

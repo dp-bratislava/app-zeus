@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-09-15 - 1.0.15
+### Added
+- Batch category operations assignment
+### Refactored
+- Operations assignment processing to eliminate unneccessary queries
+- TaskAssignment resource
+  - updated namespace
+  - refactored form and table fields and dir structure
+  - replaced read only repeaters in form with custom read only table for performance gain
+
 ## 2026-06-12 - 1.0.12
 ### Added
 - Added individual day worktime shif sync 
