@@ -129,7 +129,7 @@ class DetailReport implements ReportDriver
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(
                     fn($record) => $record->task_id
-                        ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
+                        ? route('filament.admin.resources.task-assignments.edit', ['record' => $record->task_id])
                         : null
                 )
                 ->color(fn($state) => $state ? 'primary' : 'gray')
