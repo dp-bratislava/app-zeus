@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f9fced7599950b7333db3e8ebca2e86",
+    "content-hash": "8d56442e79c91243077a0b3ddfb9020d",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1434,16 +1434,16 @@
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
-            "version": "v12.6.7",
+            "version": "dev-fero/agraty",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "fcd3e3df31af577d2f97f44061eb2eaca1288134"
+                "reference": "b3366e2f774f9ff0383e6fb6c1804744873336a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/fcd3e3df31af577d2f97f44061eb2eaca1288134",
-                "reference": "fcd3e3df31af577d2f97f44061eb2eaca1288134",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/b3366e2f774f9ff0383e6fb6c1804744873336a5",
+                "reference": "b3366e2f774f9ff0383e6fb6c1804744873336a5",
                 "shasum": ""
             },
             "require": {
@@ -1477,10 +1477,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/v12.6.7",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agraty",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-09-04T07:36:48+00:00"
+            "time": "2026-09-16T11:42:55+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -16545,7 +16545,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "dpb/dpb-wtf-tms-bridge": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
