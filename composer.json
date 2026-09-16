@@ -39,18 +39,20 @@
         {"type": "vcs", "url": "git@github.com:dp-bratislava/ui-components.git"},
         
         {"type": "vcs", "url": "git@github.com:dp-bratislava/pkg-assets.git"},
-        {"type": "path", "url": "packages/dpb/dpb-wtf-tms-bridge", "options": {"symlink": true}}        
+        {"type": "path", "url": "packages/dpb/dpb-wtf-tms-bridge", "options": {"symlink": true}},
+        {"type": "path", "url": "packages/dpb/pkg-wtf-finance", "options": {"symlink": true}},
+
+        {
+            "type": "path",
+            "url": "app-modules/*",
+            "options": {
+                "symlink": true
+            }
+        }        
     ],
     "require": {
         "php": "^8.2",
-        "dpb/dpb-wtf-tms-bridge": "dev-main as 12.5.14",
-
         "deployer/deployer": "^7.4",
-        "dpb/filament-admin-panel": "^5.0",
-        "dpb/laravel-datahub-sync": "^12.4",
-        "dpb/laravel-user-admin": "^5.4",
-        "dpb/pkg-closing-summary": "^0.3",
-        "dpb/wtf-ui": "^12.5",
         "dpb/dpb-auditing": "^12.0",
         "dpb/dpb-departments": "^12.5",
         "dpb/dpb-employee-manager": "^12.5",
@@ -59,9 +61,15 @@
         "dpb/dpb-utils": "^12.5",
         "dpb/dpb-work-time-fund": "^12.5",
         "dpb/dpb-work-time-fund-filament": "^12.5",
+        "dpb/dpb-wtf-tms-bridge": "dev-main as 12.5.14",
         "dpb/ext-spatie-model-states": "^12.0",
+        "dpb/filament-admin-panel": "^5.0",
+        "dpb/laravel-datahub-sync": "^12.4",
+        "dpb/laravel-user-admin": "^5.4",
+        "dpb/mod-wtf-finance": "^1.0",
         "dpb/pkg-activities": "^12.0",
         "dpb/pkg-batchable": "^12.0",
+        "dpb/pkg-closing-summary": "^0.3",
         "dpb/pkg-devices": "^12.0",
         "dpb/pkg-eav": "^12.0",
         "dpb/pkg-fleet": "^12.0",
@@ -71,8 +79,10 @@
         "dpb/pkg-tasks": "^12.0",
         "dpb/pkg-tickets": "^12.0",
         "dpb/pkg-work-log": "^12.0",
+        "dpb/pkg-wtf-finance": "dev-main",
         "dpb/spotlight": "^12.5",
         "dpb/ui-components": "^12.5",
+        "dpb/wtf-ui": "^12.5",
         "filament/spatie-laravel-media-library-plugin": "^5.0",
         "laravel/framework": "^12.0",
         "laravel/nightwatch": "^1.22",

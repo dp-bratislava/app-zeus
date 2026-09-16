@@ -6,6 +6,7 @@ use App\DataMigrations\BreakActivityMigration;
 use App\DataMigrations\OperationCategoryDepartmentSync;
 use App\DataMigrations\ScalableOperationMigration;
 use App\DataMigrations\VehicleCleaningBMigration;
+use App\DataMigrations\WtfFinanceMigration;
 use Illuminate\Console\Command;
 
 class DataMigrateCommand extends Command
@@ -21,6 +22,7 @@ class DataMigrateCommand extends Command
             'operation-category-department-sync' => app(OperationCategoryDepartmentSync::class)->run(),
             // 'inspection-rules'   => app(InspectionRulesMigration::class)->run(),
             // default => throw new InvalidArgumentException(...),
+            'wtf-finance' => app(WtfFinanceMigration::class)->run(),
             default => null
         };
         

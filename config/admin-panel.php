@@ -26,6 +26,7 @@ use Dpb\UserAdmin\Filament\Resources\RoleResource;
 use Dpb\UserAdmin\Filament\Resources\UserResource;
 use Dpb\UserAdmin\UserAdminPlugin;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
+use Dpb\Packages\WtfFinance\Filament\Plugins\WtfFinancePlugin;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
 use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
@@ -34,6 +35,7 @@ return [
     'plugins' => [
         UserAdminPlugin::class,
         TaskMSPlugin::class,
+        WtfFinancePlugin::class,
         StickyTableHeaderPlugin::class,
     ],
 
