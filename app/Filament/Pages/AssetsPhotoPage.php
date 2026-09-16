@@ -304,7 +304,7 @@ class AssetsPhotoPage extends Page implements HasForms
                             'photoableType' => AssetMovement::class,
                             'photoableId' => $movement->id,
                             'collection' => 'movement-photos',
-                            'withBufferPicker' => true,
+                            'withPhotoshootPicker' => true,
                         ],
                     ),
                 ];
@@ -340,7 +340,7 @@ class AssetsPhotoPage extends Page implements HasForms
                             'photoableType' => TaskItem::class,
                             'photoableId' => $taskItem->id,
                             'collection' => 'task-item-photos',
-                            'withBufferPicker' => true,
+                            'withPhotoshootPicker' => true,
                         ],
                     ),
                 ];
