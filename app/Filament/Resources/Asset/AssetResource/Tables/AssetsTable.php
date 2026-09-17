@@ -7,7 +7,7 @@ use Dpb\Package\Assets\Contracts\MovementTypeInterface;
 use Dpb\Package\Assets\Enums\ApprovalStatus;
 use Dpb\WtfTmsBridge\Models\Asset;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use App\Filament\Resources\Asset\AssetResource\Tables\Actions\KilometrageAction;

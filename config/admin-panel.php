@@ -28,7 +28,7 @@ use Dpb\UserAdmin\Filament\Resources\UserResource;
 use Dpb\UserAdmin\UserAdminPlugin;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
-use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
 use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
 use App\Filament\Pages\AssetsPhotoPage;
 

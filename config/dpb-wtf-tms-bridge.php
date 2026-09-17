@@ -2,7 +2,7 @@
 
 use Dpb\WtfTmsBridge\Adapters\FleetVehicleTaskSubjectAdapter;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
-use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
 
 return [
 

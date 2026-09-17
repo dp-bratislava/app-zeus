@@ -19,7 +19,7 @@ use Dpb\WorkTimeFundFilament\Filament\Pages\OperationsManagementPage;
 use Dpb\WorkTimeFundFilament\Filament\Pages\WorktimeManagementPage;
 use Dpb\WtfTmsBridge\Filament\Pages\DailyMaintenanceWorkOrdersPage;
 use Dpb\WtfTmsBridge\Filament\Pages\WorkOrderPage;
-use Dpb\WtfTmsBridge\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
