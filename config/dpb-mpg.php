@@ -27,6 +27,7 @@ use App\Filament\Resources\Asset\AssetResource;
 use App\Filament\Resources\ReportsResource;
 use Dpb\WorkTimeFund\Filament\Pages\VehicleReport\VehicleReportPage;
 use App\Filament\Pages\AssetsPhotoPage;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleGroupResource;
 
 return [
     'enabled' => false,
@@ -49,6 +50,7 @@ return [
                 InspectionAssignmentResource::getAccessPermission(),
                 TicketAssignmentResource::getAccessPermission(),
                 AssetResource::getAccessPermission(),
+                VehicleGroupResource::getAccessPermission(),
                 ReportsResource::getAccessPermission(),
                 // Components
                 OperationsManagementPage::getAccessPermission(),

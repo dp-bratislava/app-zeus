@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcc4a8887fa0c20c8d7b45fb640bb34b",
+    "content-hash": "00a57fcc10643db4032664c05a097d56",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2013,16 +2013,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.4",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda"
+                "reference": "5642408495dcffc7dde5a65bac8b38af730641c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/a6b8e5c52f28dbf0c381a28172980376f5906cda",
-                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/5642408495dcffc7dde5a65bac8b38af730641c0",
+                "reference": "5642408495dcffc7dde5a65bac8b38af730641c0",
                 "shasum": ""
             },
             "require": {
@@ -2032,6 +2032,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2055,10 +2056,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.4",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-06-24T10:52:33+00:00"
+            "time": "2026-09-21T12:40:26+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -2166,16 +2167,16 @@
         },
         {
             "name": "dpb/pkg-task-ms-ui",
-            "version": "v12.5.5",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "1327b71bb285ffce23dcb61b4d8de42b6f58e1ba"
+                "reference": "79e26c02f069198c6d020a7cd7c7ab70a30e50f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/1327b71bb285ffce23dcb61b4d8de42b6f58e1ba",
-                "reference": "1327b71bb285ffce23dcb61b4d8de42b6f58e1ba",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/79e26c02f069198c6d020a7cd7c7ab70a30e50f7",
+                "reference": "79e26c02f069198c6d020a7cd7c7ab70a30e50f7",
                 "shasum": ""
             },
             "require": {
@@ -2186,6 +2187,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2209,10 +2211,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/v12.5.5",
+                "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-08-05T07:42:54+00:00"
+            "time": "2026-09-21T12:38:53+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
@@ -16543,10 +16545,25 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/pkg-fleet",
+            "version": "dev-main",
+            "alias": "12.0.5",
+            "alias_normalized": "12.0.5.0"
+        },
+        {
+            "package": "dpb/pkg-task-ms-ui",
+            "version": "dev-main",
+            "alias": "12.5.6",
+            "alias_normalized": "12.5.6.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dpb/dpb-wtf-tms-bridge": 20
+        "dpb/dpb-wtf-tms-bridge": 20,
+        "dpb/pkg-fleet": 20,
+        "dpb/pkg-task-ms-ui": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
