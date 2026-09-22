@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00a57fcc10643db4032664c05a097d56",
+    "content-hash": "33cd0369dbf4942caa242b08494997a0",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1330,16 +1330,16 @@
         },
         {
             "name": "dpb/dpb-work-time-fund",
-            "version": "v12.5.20",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund.git",
-                "reference": "05c0b0a47a75af037439026847974f266079d1cb"
+                "reference": "b8d8a0140375593d396f3fe2516d8c94b9578f3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/05c0b0a47a75af037439026847974f266079d1cb",
-                "reference": "05c0b0a47a75af037439026847974f266079d1cb",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund/zipball/b8d8a0140375593d396f3fe2516d8c94b9578f3c",
+                "reference": "b8d8a0140375593d396f3fe2516d8c94b9578f3c",
                 "shasum": ""
             },
             "require": {
@@ -1357,6 +1357,7 @@
                 "saade/filament-fullcalendar": "^4.0",
                 "staudenmeir/laravel-adjacency-list": "^1.9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1381,10 +1382,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/v12.5.20",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund/tree/main",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund/issues"
             },
-            "time": "2026-09-15T09:11:01+00:00"
+            "time": "2026-09-22T08:45:41+00:00"
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
@@ -2456,21 +2457,22 @@
         },
         {
             "name": "dpb/wtf-ui",
-            "version": "v12.5.6",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70"
+                "reference": "642b84e938891a7cc092ae9680eceff96e52f4d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70",
-                "reference": "2a238b0b7be5a89b77b04e7ab23ed0e0c5aefb70",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/642b84e938891a7cc092ae9680eceff96e52f4d6",
+                "reference": "642b84e938891a7cc092ae9680eceff96e52f4d6",
                 "shasum": ""
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2497,10 +2499,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/v12.5.6",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-09-15T09:17:43+00:00"
+            "time": "2026-09-22T08:51:31+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -16547,6 +16549,12 @@
     ],
     "aliases": [
         {
+            "package": "dpb/dpb-work-time-fund",
+            "version": "dev-main",
+            "alias": "12.5.21",
+            "alias_normalized": "12.5.21.0"
+        },
+        {
             "package": "dpb/pkg-fleet",
             "version": "dev-main",
             "alias": "12.0.5",
@@ -16557,13 +16565,21 @@
             "version": "dev-main",
             "alias": "12.5.6",
             "alias_normalized": "12.5.6.0"
+        },
+        {
+            "package": "dpb/wtf-ui",
+            "version": "dev-main",
+            "alias": "12.5.7",
+            "alias_normalized": "12.5.7.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-fleet": 20,
-        "dpb/pkg-task-ms-ui": 20
+        "dpb/pkg-task-ms-ui": 20,
+        "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
