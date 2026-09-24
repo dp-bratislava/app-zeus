@@ -21,7 +21,7 @@ use Dpb\WtfTmsBridge\Filament\Pages\DailyMaintenanceWorkOrdersPage;
 use Dpb\WtfTmsBridge\Filament\Pages\WorkOrderPage;
 use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Ticket\TicketAssignmentResource;
 use App\Filament\Resources\Asset\AssetResource;
 use App\Filament\Resources\ReportsResource;

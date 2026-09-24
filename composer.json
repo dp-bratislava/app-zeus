@@ -52,7 +52,7 @@
         "dpb/dpb-utils": "^12.5",
         "dpb/dpb-work-time-fund": "dev-main as 12.5.21",
         "dpb/dpb-work-time-fund-filament": "^12.5",
-        "dpb/dpb-wtf-tms-bridge": "dev-fero/agregaty-merged-with-main",
+        "dpb/dpb-wtf-tms-bridge": "dev-fero/agregaty-merged-with-main as 12.6.8",
         "dpb/ext-spatie-model-states": "^12.0",
         "dpb/filament-admin-panel": "^5.0",
         "dpb/laravel-datahub-sync": "^12.4",

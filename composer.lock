@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33cd0369dbf4942caa242b08494997a0",
+    "content-hash": "859cb1e72691d77d501abd566e270a6d",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1439,12 +1439,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "b3bd5cbc993e131e3d230481ba0a2e741536e9f0"
+                "reference": "a596c36deb79f4d4b0c544c3b24fd81924d271cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/b3bd5cbc993e131e3d230481ba0a2e741536e9f0",
-                "reference": "b3bd5cbc993e131e3d230481ba0a2e741536e9f0",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/a596c36deb79f4d4b0c544c3b24fd81924d271cc",
+                "reference": "a596c36deb79f4d4b0c544c3b24fd81924d271cc",
                 "shasum": ""
             },
             "require": {
@@ -1453,7 +1453,7 @@
                 "dpb/dpb-work-time-fund": "^12.5.0",
                 "dpb/dpb-work-time-fund-filament": "^12.5.0",
                 "dpb/pkg-assets": "^1.0.0",
-                "dpb/pkg-task-ms-ui": "^12.5.0"
+                "dpb/pkg-task-ms-ui": "^12.5.6"
             },
             "type": "library",
             "extra": {
@@ -1481,7 +1481,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agregaty-merged-with-main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-09-21T07:25:30+00:00"
+            "time": "2026-09-24T12:03:36+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2172,12 +2172,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "79e26c02f069198c6d020a7cd7c7ab70a30e50f7"
+                "reference": "dbde4c2916676a1c94b2bbef807ce8fb977341be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/79e26c02f069198c6d020a7cd7c7ab70a30e50f7",
-                "reference": "79e26c02f069198c6d020a7cd7c7ab70a30e50f7",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/dbde4c2916676a1c94b2bbef807ce8fb977341be",
+                "reference": "dbde4c2916676a1c94b2bbef807ce8fb977341be",
                 "shasum": ""
             },
             "require": {
@@ -2215,7 +2215,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-09-21T12:38:53+00:00"
+            "time": "2026-09-24T12:02:03+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
@@ -16553,6 +16553,12 @@
             "version": "dev-main",
             "alias": "12.5.21",
             "alias_normalized": "12.5.21.0"
+        },
+        {
+            "package": "dpb/dpb-wtf-tms-bridge",
+            "version": "dev-fero/agregaty-merged-with-main",
+            "alias": "12.6.8",
+            "alias_normalized": "12.6.8.0"
         },
         {
             "package": "dpb/pkg-fleet",

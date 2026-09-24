@@ -14,7 +14,7 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource;
 // use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Task\PlaceOfOriginResource;

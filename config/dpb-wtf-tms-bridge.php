@@ -3,6 +3,7 @@
 use Dpb\WtfTmsBridge\Adapters\FleetVehicleTaskSubjectAdapter;
 use Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource;
 use Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource;
+use Dpb\WtfTmsBridge\Filament\Resources\InspectionAssignmentResource;
 
 return [
 
@@ -35,6 +36,7 @@ return [
         // tasks
         TaskAssignmentResource::class,
         DailyMaintenanceResource::class,
+        InspectionAssignmentResource::class,
     ],
 
     /*

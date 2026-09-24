@@ -9,7 +9,6 @@ use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\HR\DepartmentAssignmentResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\UpcomingInspectionResource;
@@ -55,8 +54,6 @@ return [
         // tickets
         TicketAssignmentResource::class,
         TicketTypeResource::class,
-        // inspections
-        InspectionAssignmentResource::class,
         // Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource::class,
         InspectionTemplateGroupResource::class,
         InspectionTemplateResource::class,
