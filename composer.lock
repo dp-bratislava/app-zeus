@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e3f037fa4f1c223ff99225dc6a47298",
+    "content-hash": "e4b63f066c599591f81d1c1504f6de2b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1500,7 +1500,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "7218ed69358708202334ac0669e94deb543fcdf2"
+                "reference": "a819dc2ed48fcafbac8d64fc5c44da468bb2fac4"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
@@ -1783,6 +1783,49 @@
                 "issues": "https://github.com/dp-bratislava/laravel-user-admin/issues"
             },
             "time": "2026-09-04T11:44:49+00:00"
+        },
+        {
+            "name": "dpb/mod-tasks",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/tms-tasks",
+                "reference": "e5be30ba8dc56db9332dc0e66eebef9e51450feb"
+            },
+            "require": {
+                "dpb/dpb-departments": "^12.0",
+                "dpb/dpb-master-permission-guard": "^12.5.1",
+                "dpb/dpb-work-time-fund": "^12.5.0",
+                "dpb/dpb-work-time-fund-filament": "^12.5.0",
+                "dpb/pkg-assets": "^1.0.0",
+                "dpb/pkg-task-ms-ui": "^12.5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dpb\\Modules\\Tasks\\Providers\\TasksModuleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dpb\\Modules\\Tasks\\": "src/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Andrej",
+                    "email": "horny.andrej@dpb.sk"
+                }
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dpb/mod-wtf-finance",
@@ -2463,7 +2506,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/pkg-wtf-finance",
-                "reference": "0011f9b0f4e11bfeff0e4ff94ca447ea8fdabc67"
+                "reference": "72f8e6da91a84f0628178cbab08c15aee025df65"
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5",

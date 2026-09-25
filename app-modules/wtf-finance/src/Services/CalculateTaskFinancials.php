@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Packages\WtfFinance\Services;
+namespace Dpb\Modules\WtfFinance\Services;
 
 use Dpb\Packages\WtfFinance\Filament\Services\FinancialRecordWriter;
-use Dpb\Packages\WtfFinance\Filament\Services\PricingBasisResolver;
-use Dpb\Packages\WtfFinance\Filament\Services\PricingGroupResolver;
+use Dpb\Modules\WtfFinance\Filament\Services\PricingBasisResolver;
+use Dpb\Modules\WtfFinance\Filament\Services\PricingGroupResolver;
 use Dpb\WorkTimeFund\Models\Task;
 
 final class CalculateTaskFinancials
@@ -22,33 +22,27 @@ final class CalculateTaskFinancials
             ->with(['operation', 'maintainable'])
             ->get();
 
-        $groups = $this->groupByPricingGroup($activities);
+        $groups = $this->pricingGroups
+            ->groupActivities($activities);
 
-        foreach ($groups as $group => $groupActivities) {
-            $calculator = $this->calculators->for(
-                $group->rule
-            );
-
-            $calculations = [];
-
-            foreach ($groupActivities as $activity) {
-                $basis = $this->basisResolver->resolve(
-                    $activity,
-                    $group
-                );
-
-                $calculations[] = $calculator->calculate(
-                    $group,
-                    $basis
-                );
-            }
-
-            $this->writer->write(
-                task: $task,
-                pricingGroup: $group,
-                activities: $groupActivities,
-                calculations: $calculations,
+        foreach ($groups as $group) {
+            $this->calculateGroup(
+                $task,
+                $group->pricingGroup,
+                $group->activities,
             );
         }
+    }
+
+    private function calculateGroup(
+        Task $task,
+        PricingGroup $pricingGroup,
+        Collection $activities,
+    ): void {
+        $calculator = $this->calculators->for(
+            $pricingGroup->rule
+        );
+
+        // ...
     }
 }

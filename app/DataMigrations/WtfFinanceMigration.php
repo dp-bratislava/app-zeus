@@ -6,6 +6,7 @@ use App\DataMigrations\Contracts\DataMigration;
 use Dpb\Packages\WtfFinance\Models\PricingDimension;
 use Dpb\Packages\WtfFinance\Models\PricingGroup;
 use Dpb\Packages\WtfFinance\Models\PricingRule;
+use Illuminate\Support\Facades\DB;
 
 class WtfFinanceMigration implements DataMigration
 {
@@ -26,7 +27,7 @@ class WtfFinanceMigration implements DataMigration
         // add pricing rules
         $ruleIds = [];
         $rules = [
-            ['code' => 'per_meter', 'title' => 'za meterr', 'dimension_id' => $dimensionIds['meter']],
+            ['code' => 'per_meter', 'title' => 'za meter', 'dimension_id' => $dimensionIds['meter']],
             ['code' => 'per_seats', 'title' => 'za sedadlo', 'dimension_id' => $dimensionIds['seat']],
             ['code' => 'per_subject', 'title' => 'za vozidlo', 'dimension_id' => $dimensionIds['vehicle']],
         ];
@@ -70,14 +71,22 @@ class WtfFinanceMigration implements DataMigration
                 // 'unit_price' => 0.18,
                 'currency' => $currency,
                 'valid_from' => $validFrom,
-            ],            
-        ];        
+            ],
+        ];
         foreach ($groups as $group) {
             $groupIds[$group['code']] = PricingGroup::firstOrCreate($group)->id;
         }
 
         // add pricing group operations
+        $pgOperations = [
+            [
+                'pricing_group_id' => 3,
+                'operation_id' => 290019271,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+        DB::table('dpb_wtf_fin_pricing_group_operations')
+            ->insert($pgOperations);
     }
-
-    
 }

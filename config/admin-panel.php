@@ -3,6 +3,8 @@
 use App\Filament\Resources\ReportsResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
+use Dpb\Modules\Tasks\Filament\Plugins\TaskBatchPlugin;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
@@ -36,13 +38,15 @@ return [
         UserAdminPlugin::class,
         TaskMSPlugin::class,
         WtfFinancePlugin::class,
+        TaskBatchPlugin::class,
         StickyTableHeaderPlugin::class,
     ],
 
     'navigation' => [
         'items' => [
             TaskAssignmentResource::class,
-            TaskItemResource::class,
+            // TaskItemResource::class,
+            TaskBatchResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             WorktimeManagementPage::class,
