@@ -3,12 +3,12 @@
 namespace App\DataMigrations;
 
 use App\DataMigrations\Contracts\DataMigration;
-use Dpb\WorkTimeFund\Models\ActivityRecord;
-use Dpb\WorkTimeFund\Models\BreakActivity;
+use Dpb\Package\Fleet\Models\VehicleModel;
+use Dpb\WorkTimeFund\Models\Category;
+use Dpb\WorkTimeFund\Models\Operation;
 use Dpb\WorkTimeFund\Models\Task;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -25,30 +25,121 @@ class ActivityMigration9486 implements DataMigration
 
     public function run(): void
     {
+        // fix existing data
+        $this->fixExistingData();
+
         // create import specific temp categories and operations
-        // $this->createOperations();
+        $this->createOperations();
 
         // // build operations map
         // $this->buildOperationsMapTable();
 
         // // build operations
-        // $this->buildOperationsTable();
+        $this->buildOperationsTable();
 
         // // fill import table
-        // $this->fillImportTable();
+        $this->fillImportTable();
 
         // create tasks and activity records
-        $this->createActivityRecords();
+        // $this->createActivityRecords();
     }
 
-    private function createOperations(): void {}
+    private function createOperations(): void
+    {
+        $category = Category::where('title', '9486 - import - grafity')->first();
+
+        if ($category == null) {
+            $category = Category::create([
+                'title' => '9486 - import - grafity',
+                'type' => 'vehicles',
+                'parent_id' => NULL,
+                'sorting' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'is_official' => 1,
+            ]);
+        }
+
+        $operation = Operation::where('title', '9486 - import - grafity')->first();
+        if ($operation == null) {
+            Operation::create([
+                'title' => '9486 - import - grafity',
+                'description' => '',
+                'duration' => 900,
+                'parent_id' => $category->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'is_official' => 1,
+                'is_shareable' => 0,
+                'is_scalable' => 0
+            ]);
+        }
+
+        $exists = DB::table('dpb_departments_mm_morphable_department')
+            ->where('department_id', self::DEPARTMENT_ID)
+            ->where('morphable_id', $category->id)
+            ->where('morphable_type', 'Dpb\\WorkTimeFund\\Models\\Category')
+            ->exists();
+
+        if (!$exists) {
+            DB::table('dpb_departments_mm_morphable_department')
+                ->insert([
+                    'department_id' => self::DEPARTMENT_ID,
+                    'morphable_id' => $category->id,
+                    'morphable_type' => 'Dpb\\WorkTimeFund\\Models\\Category',
+                ]);
+        }
+    }
+
+    private function fixExistingData(): void
+    {
+        $lengths = [
+            'Ikarus 280' => 18,
+            'K2' => 20.4,
+            'Karosa B 732 CNG' => 16.53,
+            'Karosa B 741 CNG' => 17.35,
+            'Otokar E-kent' => 12,
+            'Škoda 21 Tr' => 11.76,
+            'Škoda Sanos S 200' => 17.72,
+            'SOR C 10,5' => 10.78,
+            'SOR NSG 18' => 18.75,
+            'T2' => 20.4,
+            'TAM 272' => 18,
+            'Škoda 15 Tr 13/6 M' => 17.72,
+            'FBW' => 12.12,
+            'Škoda ŠM 11' => 18,
+            'DPMB' => 20.4, // historicka elektricka
+        ];
+
+        foreach ($lengths as $model => $length) {
+            VehicleModel::where('title', $model)->update(['length' => $length]);
+            DB::table(self::RAW_DATA_TABLE)
+                ->where('vehicle_model_title', $model)
+                ->update(['vehicle_length' => $length]);
+        }
+        // VehicleModel::where('title', 'K2')->update(['length' => 20.4]);
+        // VehicleModel::where('title', 'Karosa B 732 CNG')->update(['length' => 16.53]);
+        // VehicleModel::where('title', 'Karosa B 741 CNG')->update(['length' => 17.35]);
+        // VehicleModel::where('title', 'Otokar E-kent')->update(['length' => 12]);
+        // VehicleModel::where('title', 'Škoda 21 Tr')->update(['length' => 11.76]);
+        // VehicleModel::where('title', 'Škoda Sanos S 200')->update(['length' => 17.72]);
+        // VehicleModel::where('title', 'SOR C 10,5')->update(['length' => 10.78]);
+        // VehicleModel::where('title', 'SOR NSG 18')->update(['length' => 18.75]);
+        // VehicleModel::where('title', 'T2')->update(['length' => 20.4]);
+        // VehicleModel::where('title', 'TAM 272')->update(['length' => 18]);
+
+        // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'Ikarus 280')->update(['vehicle_length' => 12]);
+        // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'Otokar E-kent')->update(['vehicle_length' => 12]);
+        // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'SOR C 10,5')->update(['vehicle_length' => 10.78]);
+        // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'SOR NSG 18')->update(['vehicle_length' => 18.75]);
+    }
 
     private function createActivityRecords(): void
     {
         DB::transaction(function () {
             // cleanup previous attempt
             Task::where('created_at', '>=', '2026-09-30 14:00:00')->forceDelete();
-    
+
             $currentGroupId = null;
             $currentNormalisedRecords = collect();
 
@@ -249,62 +340,70 @@ WHERE
             $table->string('wtf_task_grouping_id', 32)->nullable();
         });
 
-        $baseSql = "
-            INSERT INTO `" . self::PREPROCESSED_DATA_TABLE . "`
+        $table = self::PREPROCESSED_DATA_TABLE;
+        $rawDataTable = self::RAW_DATA_TABLE;
+
+        $baseSql = <<<SQL
+            INSERT INTO `{$table}`
             SELECT distinct
-                ku.`Osobné číslo`,
-                SUBSTRING_INDEX(ku.`Osobné číslo`, ' - ', 1) AS pid,
+                kpd.`Osobné číslo`,
+                SUBSTRING_INDEX(kpd.`Osobné číslo`, ' - ', 1) AS pid,
                 DATE_FORMAT(
-                STR_TO_DATE(ku.`Dátum`, '%e.%c.%Y'),
+                STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
                 '%Y-%m-%d'
                 ) AS `date`,
                 vss.`code` AS vehicle_code,
                 vm.title AS model,
                 vss.`type`,
-                ku.`Typ čistenia` AS typ_cistenia,
+                kpd.`Typ čistenia` AS typ_cistenia,
                 o.operation as operation,
                 vm.`length`,
                 o.min_length,
                 o.max_length,
                 o.operation_duration,
-                ku.`Počet pracovníkov` AS people_total,	
+                kpd.`Počet pracovníkov` AS people_total,	
                 o.operation_id AS operation_id,
                 v.id AS maintainable_id,
                 'Dpb\\\\WorkTimeFund\\\\Models\\\\Maintainables\\\\Vehicle' AS maintainable_type,
-            MD5(CONCAT_WS('|',
-                COALESCE(
-                    DATE_FORMAT(
-                    STR_TO_DATE(ku.`Dátum`, '%e.%c.%Y'),
-                    '%Y-%m-%d'
-                    ), ''),
-                COALESCE(vss.`code`, ''),
-                COALESCE(o.operation_id, '')
-            )) AS wtf_task_grouping_id	
+                MD5(CONCAT_WS('|',
+                    COALESCE(
+                        DATE_FORMAT(
+                        STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+                        '%Y-%m-%d'
+                        ), ''),
+                    COALESCE(vss.`code`, ''),
+                    COALESCE(o.operation_id, '')
+                )) AS wtf_task_grouping_id	
             FROM
-            mvw_fleet_vehicle_snapshots vss
-            LEFT JOIN fleet_vehicles v ON v.id = vss.vehicle_id
-            left JOIN fleet_vehicle_models vm ON vm.id = v.model_id
-            left JOIN " . self::RAW_DATA_TABLE . " ku ON ku.`Čislo vozidla` = vss.`code`
-            left JOIN tmp_kahatova_operations_map o ON         
-        ";
+                `{$rawDataTable}` kpd 
+                left join mvw_fleet_vehicle_snapshots vss ON 
+                    kpd.`Čislo vozidla` = vss.`code`               
+                    AND kpd.vehicle_model_id IS NOT NULL
+                left JOIN fleet_vehicles v ON v.id = vss.vehicle_id
+                left JOIN fleet_vehicle_models vm ON vm.id = v.model_id
+                JOIN tmp_kahatova_operations_map o ON         
+        SQL;
 
         // Normal operations 
-        $normalCond = "
-            o.v_type = vss.`type` 
-            AND o.typ_cistenia = ku.`Typ čistenia`
-            AND FLOOR(vm.`length`) > o.min_length 
-            AND FLOOR(vm.`length`) <= o.max_length    
-        WHERE
-            ku.`Typ čistenia` not IN ('Grafity')
-        ";
+        $normalCond = <<<SQL
+                o.v_type = vss.`type` 
+                AND o.typ_cistenia = kpd.`Typ čistenia`
+                AND FLOOR(vm.`length`) > o.min_length 
+                AND FLOOR(vm.`length`) <= o.max_length    
+            WHERE
+                kpd.`Typ čistenia` not IN ('Grafity', 'Predumytie vozidla')
+        SQL;
+
         $normalQuery = $baseSql . " " . $normalCond;
         DB::statement($normalQuery);
 
         // Grafity operations 
-        $grafityCond = "
-            o.typ_cistenia = ku.`Typ čistenia`
-            and ku.`Typ čistenia` = 'Grafity'
-        ";
+        $grafityCond = <<<SQL
+            o.typ_cistenia = kpd.`Typ čistenia`
+            AND kpd.`Typ čistenia` = 'Grafity'
+        SQL;
+        // --            AND kpd.vehicle_model_id IS NOT NULL
+
         $grafitylQuery = $baseSql . " " . $grafityCond;
         DB::statement($grafitylQuery);
 

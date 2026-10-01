@@ -6,9 +6,13 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class DataCheckCommand extends Command
-{
+{   
+    private const PREPROCESSED_DATA_TABLE = 'tmp_kahatova_preprocessed_data';
+
     protected $signature = 'data:check-worktime {--from=2026-07-01 : Start date} {--department=460 : Department ID}';
     protected $description = 'Check differences between worktime duration and daily operation duration';
+
+
 
     public function handle(): void
     {
@@ -17,19 +21,19 @@ class DataCheckCommand extends Command
 
         $this->info("Checking worktime from {$from}, department {$department}...");
 
-        $rows = DB::table('tmp_kahatova_operations as o')
+        $rows = DB::table(self::PREPROCESSED_DATA_TABLE . ' as kpd')
             ->join('dpb_worktimefund_model_worktime as wt', function ($join) {
-                $join->on('wt.personal_id', '=', 'o.pid')->on('wt.date', '=', 'o.date');
+                $join->on('wt.personal_id', '=', 'kpd.pid')->on('wt.date', '=', 'kpd.date');
             })
             ->where('wt.department', $department)
-            ->where('o.date', '>=', $from)
+            ->where('kpd.date', '>=', $from)
             ->select([
-                'o.date as o_date',
-                'o.pid',
+                'kpd.date as o_date',
+                'kpd.pid',
                 DB::raw('ROUND(MAX(wt.shift_duration) / 3600, 2) AS wt_dur'),
-                DB::raw(' ROUND( SUM(o.operation_duration / NULLIF(o.people_total, 0)) / 3600, 2 ) AS o_dur '),
-                DB::raw(' ROUND( SUM(o.operation_duration / NULLIF(o.people_total, 0)) / 3600, 2 ) - ROUND(MAX(wt.shift_duration) / 3600, 2) AS diff '),
-            ])->groupBy('o.date', 'o.pid')
+                DB::raw(' ROUND( SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) AS o_dur '),
+                DB::raw(' ROUND( SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) - ROUND(MAX(wt.shift_duration) / 3600, 2) AS diff '),
+            ])->groupBy('kpd.date', 'kpd.pid')
             ->orderBy('diff')
             ->get();
 
