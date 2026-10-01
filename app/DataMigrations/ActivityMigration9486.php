@@ -21,6 +21,8 @@ class ActivityMigration9486 implements DataMigration
     private const DEFAULT_STATUS = 'completed';
     private const NORMALISED_DATA_TABLE = 'import_format_example';
     private const PREPROCESSED_DATA_TABLE = 'tmp_kahatova_preprocessed_data';
+    private const MAPPED_DATA_TABLE = 'tmp_kahatova_mapped_data';
+    private const UNMAPPED_DATA_TABLE = 'tmp_kahatova_unmapped_data';
     private const RAW_DATA_TABLE = '9486_combined';
 
     public function run(): void
@@ -35,7 +37,7 @@ class ActivityMigration9486 implements DataMigration
         $this->buildOperationsMapTable();
 
         // // build operations
-        $this->buildOperationsTable();
+        $this->fillPreprocessedDataTable();
 
         // // fill import table
         $this->fillImportTable();
@@ -46,48 +48,55 @@ class ActivityMigration9486 implements DataMigration
 
     private function createOperations(): void
     {
-        $category = Category::where('title', '9486 - import - grafity')->first();
+        $records = [
+            '9486 - import - grafity' => 900,
+            '9486 - import - nenamapované' => ((7 * 60 + 30) * 60), // 7,5h
+        ];
 
-        if ($category == null) {
-            $category = Category::create([
-                'title' => '9486 - import - grafity',
-                'type' => 'vehicles',
-                'parent_id' => NULL,
-                'sorting' => '',
-                'created_at' => now(),
-                'updated_at' => now(),
-                'is_official' => 1,
-            ]);
-        }
+        foreach ($records as $title => $duration) {
+            $category = Category::where('title', $title)->first();
 
-        $operation = Operation::where('title', '9486 - import - grafity')->first();
-        if ($operation == null) {
-            Operation::create([
-                'title' => '9486 - import - grafity',
-                'description' => '',
-                'duration' => 900,
-                'parent_id' => $category->id,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'is_official' => 1,
-                'is_shareable' => 0,
-                'is_scalable' => 0
-            ]);
-        }
-
-        $exists = DB::table('dpb_departments_mm_morphable_department')
-            ->where('department_id', self::DEPARTMENT_ID)
-            ->where('morphable_id', $category->id)
-            ->where('morphable_type', 'Dpb\\WorkTimeFund\\Models\\Category')
-            ->exists();
-
-        if (!$exists) {
-            DB::table('dpb_departments_mm_morphable_department')
-                ->insert([
-                    'department_id' => self::DEPARTMENT_ID,
-                    'morphable_id' => $category->id,
-                    'morphable_type' => 'Dpb\\WorkTimeFund\\Models\\Category',
+            if ($category == null) {
+                $category = Category::create([
+                    'title' => $title,
+                    'type' => 'vehicles',
+                    'parent_id' => NULL,
+                    'sorting' => '',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'is_official' => 1,
                 ]);
+            }
+
+            $operation = Operation::where('title', $title)->first();
+            if ($operation == null) {
+                Operation::create([
+                    'title' => $title,
+                    'description' => '',
+                    'duration' => $duration,
+                    'parent_id' => $category->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'is_official' => 1,
+                    'is_shareable' => 0,
+                    'is_scalable' => 0
+                ]);
+            }
+
+            $exists = DB::table('dpb_departments_mm_morphable_department')
+                ->where('department_id', self::DEPARTMENT_ID)
+                ->where('morphable_id', $category->id)
+                ->where('morphable_type', 'Dpb\\WorkTimeFund\\Models\\Category')
+                ->exists();
+
+            if (!$exists) {
+                DB::table('dpb_departments_mm_morphable_department')
+                    ->insert([
+                        'department_id' => self::DEPARTMENT_ID,
+                        'morphable_id' => $category->id,
+                        'morphable_type' => 'Dpb\\WorkTimeFund\\Models\\Category',
+                    ]);
+            }
         }
     }
 
@@ -132,74 +141,6 @@ class ActivityMigration9486 implements DataMigration
         // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'Otokar E-kent')->update(['vehicle_length' => 12]);
         // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'SOR C 10,5')->update(['vehicle_length' => 10.78]);
         // DB::table(self::RAW_DATA_TABLE)->where('vehicle_model_title', 'SOR NSG 18')->update(['vehicle_length' => 18.75]);
-    }
-
-    private function createActivityRecords(): void
-    {
-        DB::transaction(function () {
-            // cleanup previous attempt
-            Task::where('created_at', '>=', '2026-09-30 14:00:00')->forceDelete();
-
-            $currentGroupId = null;
-            $currentNormalisedRecords = collect();
-
-            DB::table(self::NORMALISED_DATA_TABLE)
-                ->whereNotNull('shareable_group')
-                ->orderBy('shareable_group')
-                // ->orderBy('id')
-                // ->limit(100)
-                ->lazy()
-                ->each(function ($normalisedRecord) use (&$currentGroupId, &$currentNormalisedRecords) {
-
-                    if (
-                        $currentGroupId !== null &&
-                        $normalisedRecord->shareable_group !== $currentGroupId
-                    ) {
-                        $this->processOperationGroup($currentNormalisedRecords);
-
-                        $currentNormalisedRecords = collect();
-                    }
-
-                    $currentGroupId = $normalisedRecord->shareable_group;
-                    $currentNormalisedRecords->push($normalisedRecord);
-                });
-
-            // Process final group
-            if ($currentNormalisedRecords->isNotEmpty()) {
-                $this->processOperationGroup($currentNormalisedRecords);
-            }
-        });
-    }
-
-    private function processOperationGroup(Collection $normalisedRecords): void
-    {
-        $first = $normalisedRecords->first();
-
-        $task = Task::create([
-            'source_id' => $first->operation_id,
-            'title' => 'xxxx', //$first->operation,
-            'expected_duration' => $first->real_duration,
-            'department_id' => self::DEPARTMENT_ID,
-            'status' => self::DEFAULT_STATUS,
-            'maintainable_id' => $first->maintainable_id,
-            'maintainable_type' => $first->maintainable_type,
-        ]);
-
-        // foreach ($normalisedRecords as $record) {
-        //     ActivityRecord::create([
-        //         'title' => $task->title,
-        //         'type' => 'O',
-        //         'expected_duration' => $task->expected_duration,
-        //         'real_duration' => $task->expected_duration,
-        //         'is_official' => 1,
-        //         'is_fulfilled' => 1,
-        //         'date' => $record->date,
-        //         'personal_id' => $record->pid,
-        //         'source_id' => $task->id, // worktime ??
-        //         'parent_id' => $record->worktime_id, // worktime ??
-        //         'task_id' => $task->id,
-        //     ]);
-        // }
     }
 
     private function fillImportTable(): void
@@ -310,7 +251,7 @@ class ActivityMigration9486 implements DataMigration
                 LEFT join dpb_worktimefund_model_category pc ON pc.id = c.parent_id
                 LEFT JOIN dpb_worktimefund_model_operation o ON 
                     o.parent_id = c.id
-                    AND o.deleted_at = NULL
+                    AND o.deleted_at IS NULL
                 LEFT JOIN dpb_departments_mm_morphable_department md ON 
                     md.morphable_id = c.id 
                     AND md.morphable_type LIKE '%Category%'
@@ -321,11 +262,9 @@ class ActivityMigration9486 implements DataMigration
         DB::statement($sql);
     }
 
-    private function buildOperationsTable(): void
+    private function createPreprocessedDataTable(string $tableName): void
     {
-        Schema::dropIfExists(self::PREPROCESSED_DATA_TABLE);
-
-        Schema::create(self::PREPROCESSED_DATA_TABLE, function (Blueprint $table) {
+        Schema::create($tableName, function (Blueprint $table) {
             $table->charset('utf8mb4');
             $table->collation('utf8mb4_unicode_ci');
             $table->string('Osobné číslo', 255)->nullable();
@@ -346,18 +285,57 @@ class ActivityMigration9486 implements DataMigration
             $table->string('maintainable_type', 45)->default('');
             $table->string('wtf_task_grouping_id', 32)->nullable();
         });
+    }
+
+    private function fillPreprocessedDataTable(): void
+    {
+        Schema::dropIfExists(self::PREPROCESSED_DATA_TABLE);
+        Schema::dropIfExists(self::MAPPED_DATA_TABLE);
+        Schema::dropIfExists(self::UNMAPPED_DATA_TABLE);
+
+        $this->createPreprocessedDataTable(self::PREPROCESSED_DATA_TABLE);
+        $this->createPreprocessedDataTable(self::MAPPED_DATA_TABLE);
+        $this->createPreprocessedDataTable(self::UNMAPPED_DATA_TABLE);
 
         $table = self::PREPROCESSED_DATA_TABLE;
         $rawDataTable = self::RAW_DATA_TABLE;
+        $mappedDataTable = self::MAPPED_DATA_TABLE;
+        $unmappedDataTable = self::UNMAPPED_DATA_TABLE;
 
+        $this->preprocessMappedData($mappedDataTable, $rawDataTable);
+        // $this->preprocessUnmappedData($unmappedDataTable, $rawDataTable);
+
+        // fill table
+        $sql = <<<SQL
+            INSERT into {$table} 
+            SELECT * FROM {$mappedDataTable}
+        SQL;
+        DB::statement($sql);
+
+        $sql = <<<SQL
+            INSERT into {$table} 
+            SELECT * FROM {$unmappedDataTable}
+        SQL;
+        DB::statement($sql);
+
+
+        Schema::table(self::PREPROCESSED_DATA_TABLE, function (Blueprint $table) {
+            $table->index(['wtf_task_grouping_id'], 'idx_kahatova_group');
+        });
+    }
+
+    private function preprocessMappedData(
+        string $table,
+        string $rawDataTable,
+    ) {
         $baseSql = <<<SQL
             INSERT INTO `{$table}`
             SELECT distinct
                 kpd.`Osobné číslo`,
                 SUBSTRING_INDEX(kpd.`Osobné číslo`, ' - ', 1) AS pid,
                 DATE_FORMAT(
-                STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
-                '%Y-%m-%d'
+                    STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+                    '%Y-%m-%d'
                 ) AS `date`,
                 vss.`code` AS vehicle_code,
                 vm.title AS model,
@@ -375,8 +353,8 @@ class ActivityMigration9486 implements DataMigration
                 MD5(CONCAT_WS('|',
                     COALESCE(
                         DATE_FORMAT(
-                        STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
-                        '%Y-%m-%d'
+                            STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+                            '%Y-%m-%d'
                         ), ''),
                     COALESCE(vss.`code`, ''),
                     COALESCE(o.operation_id, '')
@@ -413,9 +391,85 @@ class ActivityMigration9486 implements DataMigration
 
         $grafitylQuery = $baseSql . " " . $grafityCond;
         DB::statement($grafitylQuery);
-
-        Schema::table(self::PREPROCESSED_DATA_TABLE, function (Blueprint $table) {
-            $table->index(['wtf_task_grouping_id'], 'idx_kahatova_group');
-        });
     }
+
+    // private function preprocessUnmappedData(
+    //     string $table,
+    //     string $rawDataTable,
+//     ) {
+//         $operation = Operation::where('title', '9486 - import - nenamapované')->first();
+
+//         $sql = <<<SQL
+//             INSERT INTO `{$table}`
+//             SELECT distinct
+//                 kpd.`Osobné číslo`,
+//                 SUBSTRING_INDEX(kpd.`Osobné číslo`, ' - ', 1) AS pid,
+//                 DATE_FORMAT(
+//                     STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+//                     '%Y-%m-%d'
+//                 ) AS `date`,
+//                 vss.`code` AS vehicle_code,
+//                 vm.title AS model,
+//                 vss.`type`,
+//                 kpd.`Typ čistenia` AS typ_cistenia,
+//                 o.operation as operation,
+//                 vm.`length`,
+//                 o.min_length,
+//                 o.max_length,
+//                 o.operation_duration,
+//                 kpd.`Počet pracovníkov` AS people_total,	
+//                 o.operation_id AS operation_id,
+//                 v.id AS maintainable_id,
+//                 'Dpb\\\\WorkTimeFund\\\\Models\\\\Maintainables\\\\Vehicle' AS maintainable_type,
+//                 MD5(CONCAT_WS('|',
+//                     COALESCE(
+//                         DATE_FORMAT(
+//                             STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+//                             '%Y-%m-%d'
+//                         ), ''),
+//                     COALESCE(vss.`code`, ''),
+//                     COALESCE(o.operation_id, '')
+//                 )) AS wtf_task_grouping_id	
+//             FROM
+//                 `{$rawDataTable}` kpd 
+//                 left join mvw_fleet_vehicle_snapshots vss ON 
+//                     kpd.`Čislo vozidla` = vss.`code`               
+//                     AND kpd.vehicle_model_id IS NOT NULL
+//                 left JOIN fleet_vehicles v ON v.id = vss.vehicle_id
+//                 left JOIN fleet_vehicle_models vm ON vm.id = v.model_id
+//                 JOIN (SELECT
+// 	o.`date` AS o_date,
+// 	o.pid,
+// 	round(wt.shift_duration / 3600, 2) AS wt_dur,
+// 	round(sum(o.operation_duration / o.people_total) / 3600, 2) AS o_dur,	
+// 	round(
+// 		(sum(o.operation_duration / o.people_total) - wt.shift_duration) / 3600,
+// 		2
+// 	) AS diff_h,	
+// 	round(	
+// 		(sum(o.operation_duration / o.people_total) - wt.shift_duration) / 60,
+// 		2
+// 	) AS diff_m
+// FROM
+// 	tmp_kahatova_preprocessed_data o
+// 	join dpb_worktimefund_model_worktime wt ON wt.personal_id = o.pid AND wt.date = o.date
+// WHERE
+// 	wt.department = 460
+// 	AND o.`date` >= '2026-07-01'
+// GROUP BY 
+// 	o_date,
+// 	o.pid
+// HAVING
+// 	diff_m < 0) as gg ON	         
+
+//                 o.v_type = vss.`type` 
+//                 AND o.typ_cistenia = kpd.`Typ čistenia`
+//                 AND FLOOR(vm.`length`) > o.min_length 
+//                 AND FLOOR(vm.`length`) <= o.max_length    
+//             WHERE
+//                 kpd.`Typ čistenia` not IN ('Grafity', 'Predumytie vozidla')
+//                 SQL;
+
+//         DB::statement($sql);
+//     }
 }
