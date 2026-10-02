@@ -50,7 +50,7 @@ class ActivityMigration9486 implements DataMigration
     {
         $records = [
             '9486 - import - grafity' => 900,
-            '9486 - import - nenamapované' => ((7 * 60 + 30) * 60), // 7,5h
+            '9486 - import - nenamapované' => 60,
         ];
 
         foreach ($records as $title => $duration) {
@@ -79,7 +79,7 @@ class ActivityMigration9486 implements DataMigration
                     'updated_at' => now(),
                     'is_official' => 1,
                     'is_shareable' => 0,
-                    'is_scalable' => 0
+                    'is_scalable' => 1
                 ]);
             }
 
@@ -145,19 +145,34 @@ class ActivityMigration9486 implements DataMigration
 
     private function fillImportTable(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        DB::statement('TRUNCATE TABLE ' . self::NORMALISED_DATA_TABLE);
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists(self::NORMALISED_DATA_TABLE);
 
-        $sql = "
-            INSERT INTO " . self::NORMALISED_DATA_TABLE . " (
+        Schema::create(self::NORMALISED_DATA_TABLE, function (Blueprint $table) {
+            $table->charset('utf8mb4');
+            $table->collation('utf8mb4_unicode_ci');
+            $table->unsignedBigInteger('operation_id')->nullable();
+            $table->string('date', 10)->nullable();
+            $table->unsignedBigInteger('employee_contract_id')->nullable();
+            $table->integer('real_duration')->nullable();
+            $table->unsignedBigInteger('maintainable_id')->nullable();
+            $table->string('maintainable_type', 255)->nullable();
+            $table->string('shareable_group', 36)->nullable();
+            $table->integer('quantity')->nullable();
+        });
+
+        $normalisedTable = self::NORMALISED_DATA_TABLE;
+        $preprocessedTable = self::PREPROCESSED_DATA_TABLE;
+
+        $sql = <<<SQL
+            INSERT INTO {$normalisedTable} (
                 operation_id,
                 `date`,
                 employee_contract_id,
                 real_duration,	
                 maintainable_id,
                 maintainable_type,
-                shareable_group
+                shareable_group,
+                quantity
             )	
             SELECT
                 kpd.operation_id,
@@ -166,13 +181,14 @@ class ActivityMigration9486 implements DataMigration
                 kpd.operation_duration,
                 kpd.maintainable_id,
                 kpd.maintainable_type,
-                kpd.wtf_task_grouping_id
+                kpd.wtf_task_grouping_id,
+                ABS(kpd.quantity)
             FROM
-                " . self::PREPROCESSED_DATA_TABLE . " kpd
+                {$preprocessedTable} kpd
                 LEFT JOIN datahub_employee_contracts c ON c.pid = kpd.pid
             WHERE
                 kpd.operation_id IS NOT NULL    
-        ";
+        SQL;
 
         DB::statement($sql);
     }
@@ -267,7 +283,7 @@ class ActivityMigration9486 implements DataMigration
         Schema::create($tableName, function (Blueprint $table) {
             $table->charset('utf8mb4');
             $table->collation('utf8mb4_unicode_ci');
-            $table->string('Osobné číslo', 255)->nullable();
+            $table->string('employee_name', 255)->nullable();
             $table->string('pid', 255)->nullable();
             $table->string('date', 10)->nullable();
             $table->string('vehicle_code', 255)->nullable();
@@ -280,10 +296,11 @@ class ActivityMigration9486 implements DataMigration
             $table->integer('max_length')->nullable();
             $table->unsignedInteger('operation_duration')->nullable();
             $table->integer('people_total')->nullable();
-            $table->unsignedBigInteger('operation_id')->nullable()->default(0);
-            $table->unsignedBigInteger('maintainable_id')->nullable()->default(0);
-            $table->string('maintainable_type', 45)->default('');
-            $table->string('wtf_task_grouping_id', 32)->nullable();
+            $table->unsignedBigInteger('operation_id')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->unsignedBigInteger('maintainable_id')->nullable();
+            $table->string('maintainable_type', 255)->nullable();
+            $table->string('wtf_task_grouping_id', 36)->nullable();
         });
     }
 
@@ -292,6 +309,7 @@ class ActivityMigration9486 implements DataMigration
         Schema::dropIfExists(self::PREPROCESSED_DATA_TABLE);
         Schema::dropIfExists(self::MAPPED_DATA_TABLE);
         Schema::dropIfExists(self::UNMAPPED_DATA_TABLE);
+        
 
         $this->createPreprocessedDataTable(self::PREPROCESSED_DATA_TABLE);
         $this->createPreprocessedDataTable(self::MAPPED_DATA_TABLE);
@@ -302,20 +320,24 @@ class ActivityMigration9486 implements DataMigration
         $mappedDataTable = self::MAPPED_DATA_TABLE;
         $unmappedDataTable = self::UNMAPPED_DATA_TABLE;
 
+        // mapped data
         $this->preprocessMappedData($mappedDataTable, $rawDataTable);
-        // $this->preprocessUnmappedData($unmappedDataTable, $rawDataTable);
-
+        
         // fill table
         $sql = <<<SQL
             INSERT into {$table} 
             SELECT * FROM {$mappedDataTable}
         SQL;
         DB::statement($sql);
+        
+        // unmapped data
+        $this->preprocessUnmappedData($unmappedDataTable, $mappedDataTable);
 
         $sql = <<<SQL
             INSERT into {$table} 
             SELECT * FROM {$unmappedDataTable}
         SQL;
+
         DB::statement($sql);
 
 
@@ -331,39 +353,43 @@ class ActivityMigration9486 implements DataMigration
         $baseSql = <<<SQL
             INSERT INTO `{$table}`
             SELECT distinct
-                kpd.`Osobné číslo`,
-                SUBSTRING_INDEX(kpd.`Osobné číslo`, ' - ', 1) AS pid,
+                rd.`Osobné číslo`,
+                SUBSTRING_INDEX(rd.`Osobné číslo`, ' - ', 1) AS pid,
                 DATE_FORMAT(
-                    STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+                    STR_TO_DATE(rd.`Dátum`, '%e.%c.%Y'),
                     '%Y-%m-%d'
                 ) AS `date`,
                 vss.`code` AS vehicle_code,
                 vm.title AS model,
                 vss.`type`,
-                kpd.`Typ čistenia` AS typ_cistenia,
+                rd.`Typ čistenia` AS typ_cistenia,
                 o.operation as operation,
                 vm.`length`,
                 o.min_length,
                 o.max_length,
                 o.operation_duration,
-                kpd.`Počet pracovníkov` AS people_total,	
+                rd.`Počet pracovníkov` AS people_total,	
                 o.operation_id AS operation_id,
+                1 as quantity,
                 v.id AS maintainable_id,
-                'Dpb\\\\WorkTimeFund\\\\Models\\\\Maintainables\\\\Vehicle' AS maintainable_type,
+                CASE 
+                    WHEN v.id IS NOT NULL THEN 'Dpb\\\\WorkTimeFund\\\\Models\\\\Maintainables\\\\Vehicle' 
+                    ELSE NULL
+                END AS maintainable_type,
                 MD5(CONCAT_WS('|',
                     COALESCE(
                         DATE_FORMAT(
-                            STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
+                            STR_TO_DATE(rd.`Dátum`, '%e.%c.%Y'),
                             '%Y-%m-%d'
                         ), ''),
                     COALESCE(vss.`code`, ''),
                     COALESCE(o.operation_id, '')
                 )) AS wtf_task_grouping_id	
             FROM
-                `{$rawDataTable}` kpd 
+                `{$rawDataTable}` rd 
                 left join mvw_fleet_vehicle_snapshots vss ON 
-                    kpd.`Čislo vozidla` = vss.`code`               
-                    AND kpd.vehicle_model_id IS NOT NULL
+                    rd.`Čislo vozidla` = vss.`code`               
+                    AND rd.vehicle_model_id IS NOT NULL
                 left JOIN fleet_vehicles v ON v.id = vss.vehicle_id
                 left JOIN fleet_vehicle_models vm ON vm.id = v.model_id
                 JOIN tmp_kahatova_operations_map o ON         
@@ -372,11 +398,11 @@ class ActivityMigration9486 implements DataMigration
         // Normal operations 
         $normalCond = <<<SQL
                 o.v_type = vss.`type` 
-                AND o.typ_cistenia = kpd.`Typ čistenia`
+                AND o.typ_cistenia = rd.`Typ čistenia`
                 AND FLOOR(vm.`length`) > o.min_length 
                 AND FLOOR(vm.`length`) <= o.max_length    
             WHERE
-                kpd.`Typ čistenia` not IN ('Grafity', 'Predumytie vozidla')
+                rd.`Typ čistenia` not IN ('Grafity', 'Predumytie vozidla')
         SQL;
 
         $normalQuery = $baseSql . " " . $normalCond;
@@ -384,92 +410,58 @@ class ActivityMigration9486 implements DataMigration
 
         // Grafity operations 
         $grafityCond = <<<SQL
-            o.typ_cistenia = kpd.`Typ čistenia`
-            AND kpd.`Typ čistenia` = 'Grafity'
+            o.typ_cistenia = rd.`Typ čistenia`
+            AND rd.`Typ čistenia` = 'Grafity'
         SQL;
-        // --            AND kpd.vehicle_model_id IS NOT NULL
+        // --            AND rd.vehicle_model_id IS NOT NULL
 
         $grafitylQuery = $baseSql . " " . $grafityCond;
         DB::statement($grafitylQuery);
     }
 
-    // private function preprocessUnmappedData(
-    //     string $table,
-    //     string $rawDataTable,
-//     ) {
-//         $operation = Operation::where('title', '9486 - import - nenamapované')->first();
+    private function preprocessUnmappedData(
+        string $unmappedDataTable,
+        string $mappedDataTable,
+    ) {
+        $operation = Operation::where('title', '9486 - import - nenamapované')->first();
+        
+        $departmentId = self::DEPARTMENT_ID;
 
-//         $sql = <<<SQL
-//             INSERT INTO `{$table}`
-//             SELECT distinct
-//                 kpd.`Osobné číslo`,
-//                 SUBSTRING_INDEX(kpd.`Osobné číslo`, ' - ', 1) AS pid,
-//                 DATE_FORMAT(
-//                     STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
-//                     '%Y-%m-%d'
-//                 ) AS `date`,
-//                 vss.`code` AS vehicle_code,
-//                 vm.title AS model,
-//                 vss.`type`,
-//                 kpd.`Typ čistenia` AS typ_cistenia,
-//                 o.operation as operation,
-//                 vm.`length`,
-//                 o.min_length,
-//                 o.max_length,
-//                 o.operation_duration,
-//                 kpd.`Počet pracovníkov` AS people_total,	
-//                 o.operation_id AS operation_id,
-//                 v.id AS maintainable_id,
-//                 'Dpb\\\\WorkTimeFund\\\\Models\\\\Maintainables\\\\Vehicle' AS maintainable_type,
-//                 MD5(CONCAT_WS('|',
-//                     COALESCE(
-//                         DATE_FORMAT(
-//                             STR_TO_DATE(kpd.`Dátum`, '%e.%c.%Y'),
-//                             '%Y-%m-%d'
-//                         ), ''),
-//                     COALESCE(vss.`code`, ''),
-//                     COALESCE(o.operation_id, '')
-//                 )) AS wtf_task_grouping_id	
-//             FROM
-//                 `{$rawDataTable}` kpd 
-//                 left join mvw_fleet_vehicle_snapshots vss ON 
-//                     kpd.`Čislo vozidla` = vss.`code`               
-//                     AND kpd.vehicle_model_id IS NOT NULL
-//                 left JOIN fleet_vehicles v ON v.id = vss.vehicle_id
-//                 left JOIN fleet_vehicle_models vm ON vm.id = v.model_id
-//                 JOIN (SELECT
-// 	o.`date` AS o_date,
-// 	o.pid,
-// 	round(wt.shift_duration / 3600, 2) AS wt_dur,
-// 	round(sum(o.operation_duration / o.people_total) / 3600, 2) AS o_dur,	
-// 	round(
-// 		(sum(o.operation_duration / o.people_total) - wt.shift_duration) / 3600,
-// 		2
-// 	) AS diff_h,	
-// 	round(	
-// 		(sum(o.operation_duration / o.people_total) - wt.shift_duration) / 60,
-// 		2
-// 	) AS diff_m
-// FROM
-// 	tmp_kahatova_preprocessed_data o
-// 	join dpb_worktimefund_model_worktime wt ON wt.personal_id = o.pid AND wt.date = o.date
-// WHERE
-// 	wt.department = 460
-// 	AND o.`date` >= '2026-07-01'
-// GROUP BY 
-// 	o_date,
-// 	o.pid
-// HAVING
-// 	diff_m < 0) as gg ON	         
+        $sql = <<<SQL
+            INSERT INTO `{$unmappedDataTable}` (
+                `pid`,
+                `date`,
+                `operation_id`,
+                `operation`,
+                `operation_duration`,
+                `quantity`,
+                `wtf_task_grouping_id`
+            )
+            SELECT
+                mdt.pid,
+                mdt.`date` AS o_date,
+                {$operation->id} as operation_id,
+                '{$operation->title}' as operation,
+                '{$operation->duration}' as operation_duration,
+                FLOOR(	
+                    (sum(mdt.operation_duration / mdt.people_total) - wt.shift_duration - 60) / 60
+                ) AS quantity,
+                UUID()
+            FROM
+                {$mappedDataTable} mdt
+                JOIN dpb_worktimefund_model_worktime wt ON 
+                    wt.personal_id = mdt.pid 
+                    AND wt.date = mdt.date
+            WHERE
+                wt.department = {$departmentId}
+                AND mdt.`date` >= '2026-07-01'
+            GROUP BY 
+                o_date,
+                mdt.pid
+            HAVING
+                quantity < 0     
+        SQL;
 
-//                 o.v_type = vss.`type` 
-//                 AND o.typ_cistenia = kpd.`Typ čistenia`
-//                 AND FLOOR(vm.`length`) > o.min_length 
-//                 AND FLOOR(vm.`length`) <= o.max_length    
-//             WHERE
-//                 kpd.`Typ čistenia` not IN ('Grafity', 'Predumytie vozidla')
-//                 SQL;
-
-//         DB::statement($sql);
-//     }
+        DB::statement($sql);
+    }
 }

@@ -45,7 +45,8 @@ class ActivityRecordImporter extends Command
                     'real_duration',
                     'shareable_group',
                     'maintainable_type',
-                    'maintainable_id'
+                    'maintainable_id',
+                    'quantity'
                 )
                 // ->limit(200)
                 ->get()
@@ -181,7 +182,7 @@ class ActivityRecordImporter extends Command
                         ];
                     }
 
-                    $calculatedDuration = $operation->duration / $group->count();
+                    $calculatedDuration = $operation->duration / $group->count() * $record->quantity;
                     $activityId = $nextIds['dpb_worktimefund_model_activityrecord']++;
 
                     $activityRecordsData[] = [
@@ -202,7 +203,7 @@ class ActivityRecordImporter extends Command
                         'task_id' => $taskId,
                         'created_at' => $now,
                         'updated_at' => $now,
-                        'quantity' => 1,
+                        'quantity' => $record->quantity,
                     ];
 
                     $batchRecords[] = [

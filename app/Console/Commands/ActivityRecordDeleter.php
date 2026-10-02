@@ -36,6 +36,10 @@ class ActivityRecordDeleter extends Command
                 $this->info("Batch {$batchId} : {$type} successfully deleted!");
             }
 
+            DB::table(self::BATCHES_TABLE)
+                ->where('id', $batchId)
+                ->delete();
+                            
             $this->info("Batch {$batchId} successfully deleted!");
         } catch (\Exception $e) {
             $this->error('Error during deletion execution: ' . $e->getMessage());
@@ -60,10 +64,6 @@ class ActivityRecordDeleter extends Command
             DB::table(self::BATCH_RECORDS_TABLE)
                 ->where('batch_id', $batchId)
                 ->where('record_type', $targetTable)
-                ->delete();
-
-            DB::table(self::BATCHES_TABLE)    
-                ->where('batch_id', $batchId)
                 ->delete();
 
             return $deleted;
