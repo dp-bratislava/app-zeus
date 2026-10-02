@@ -217,49 +217,49 @@ class ActivityMigration9486 implements DataMigration
                 c.title AS category,
                 o.title AS operation,
                 o.duration AS operation_duration,
-            case
-                when c.title LIKE '%A-%' then 'Autobus'
-                when c.title LIKE '%T-%' then 'Trolejbus'
-                when c.title LIKE 'Električky' then 'Električka'
-                
-                when pc.title LIKE '%A-%' AND c.title = 'Čistenie B' then 'Autobus'
-                when pc.title LIKE '%T-%' AND c.title = 'Čistenie B' then 'Trolejbus'
-                when pc.title LIKE 'Električky' AND c.title = 'Čistenie B' then 'Električka'
-                ELSE null
-            END AS v_type,
-            case
-                when pc.title = 'A-Bus do 12m' OR c.title = 'A-Bus do 12m' then 0
-                when pc.title = 'A-Bus nad 12m' OR c.title = 'A-Bus nad 12m' then 12
-                when pc.title = 'T-Bus 12m' OR c.title = 'T-Bus 12m' then 0
-                when pc.title = 'T-Bus 18m' OR c.title = 'T-Bus 18m' then 12
-                when pc.title = 'T-Bus 24m' OR c.title = 'T-Bus 24m' then 18
-                when pc.title = 'Električky' OR c.title = 'Električky' then 0 	
-                ELSE null
-            END AS min_length, 
-            case
-                when pc.title = 'A-Bus do 12m' OR c.title = 'A-Bus do 12m' then 12
-                when pc.title = 'A-Bus nad 12m' OR c.title = 'A-Bus nad 12m' then 100
-                when pc.title = 'T-Bus 12m' OR c.title = 'T-Bus 12m' then 12
-                when pc.title = 'T-Bus 18m' OR c.title = 'T-Bus 18m' then 18
-                when pc.title = 'T-Bus 24m' OR c.title = 'T-Bus 24m' then 100
-                when pc.title = 'Električky' OR c.title = 'Električky' then 100 	 	
-                ELSE null
-            END AS max_length,  
-            case
-                when o.title = 'Tepovanie sedadla vodiča' then 'Tepovanie - sedadlo vodiča'
-                when o.title like 'Mimoriadne čistenie stropov pri výduchoch' then 'Strop a klimatizácia'
-                when o.title = 'Tepovanie sedadiel' then 'Tepovanie'
-                when o.title = 'Umývanie podláh na požiadanie z prevádzky' then 'Podlaha a schody' 	
-                when o.title = 'Odstraňovanie biologického znečistenia (zvratky, exkrementy, potravinový odpad, apod.)' then 'Znečistenie' 	
-                when o.title = 'Čistenie prilepených ťažko odstrániteľných nečistôť (žuvačky, nálepky, apod.)' then 'Mimoriadne práce' 	
-            -- 	when o.title like 'Čistenie grafitu%' then 'Grafity'
-                when o.title = '9486 - import - grafity' then 'Grafity'
-                
-                when pc.title LIKE '%A-%' AND c.title = 'Čistenie B' then 'A komplexne'
-                when pc.title LIKE '%T-%' AND c.title = 'Čistenie B' then 'T komplexne'
-                when pc.title LIKE 'Električky' AND c.title = 'Čistenie B' then 'E komplexne'
-                ELSE null
-            END AS typ_cistenia,  
+                case
+                    when c.title LIKE '%A-%' then 'Autobus'
+                    when c.title LIKE '%T-%' then 'Trolejbus'
+                    when c.title LIKE 'Električky' then 'Električka'
+                    
+                    when pc.title LIKE '%A-%' AND c.title = 'Čistenie B' then 'Autobus'
+                    when pc.title LIKE '%T-%' AND c.title = 'Čistenie B' then 'Trolejbus'
+                    when pc.title LIKE 'Električky' AND c.title = 'Čistenie B' then 'Električka'
+                    ELSE null
+                END AS v_type,
+                case
+                    when pc.title = 'A-Bus do 12m' OR c.title = 'A-Bus do 12m' then 0
+                    when pc.title = 'A-Bus nad 12m' OR c.title = 'A-Bus nad 12m' then 12
+                    when pc.title = 'T-Bus 12m' OR c.title = 'T-Bus 12m' then 0
+                    when pc.title = 'T-Bus 18m' OR c.title = 'T-Bus 18m' then 12
+                    when pc.title = 'T-Bus 24m' OR c.title = 'T-Bus 24m' then 18
+                    when pc.title = 'Električky' OR c.title = 'Električky' then 0 	
+                    ELSE null
+                END AS min_length, 
+                case
+                    when pc.title = 'A-Bus do 12m' OR c.title = 'A-Bus do 12m' then 12
+                    when pc.title = 'A-Bus nad 12m' OR c.title = 'A-Bus nad 12m' then 100
+                    when pc.title = 'T-Bus 12m' OR c.title = 'T-Bus 12m' then 12
+                    when pc.title = 'T-Bus 18m' OR c.title = 'T-Bus 18m' then 18
+                    when pc.title = 'T-Bus 24m' OR c.title = 'T-Bus 24m' then 100
+                    when pc.title = 'Električky' OR c.title = 'Električky' then 100 	 	
+                    ELSE null
+                END AS max_length,  
+                case
+                    when o.title = 'Tepovanie sedadla vodiča' then 'Tepovanie - sedadlo vodiča'
+                    when o.title like 'Mimoriadne čistenie stropov pri výduchoch' then 'Strop a klimatizácia'
+                    when o.title = 'Tepovanie sedadiel' then 'Tepovanie'
+                    when o.title = 'Umývanie podláh na požiadanie z prevádzky' then 'Podlaha a schody' 	
+                    when o.title = 'Odstraňovanie biologického znečistenia (zvratky, exkrementy, potravinový odpad, apod.)' then 'Znečistenie' 	
+                    when o.title = 'Čistenie prilepených ťažko odstrániteľných nečistôť (žuvačky, nálepky, apod.)' then 'Mimoriadne práce' 	
+                -- 	when o.title like 'Čistenie grafitu%' then 'Grafity'
+                    when o.title = '9486 - import - grafity' then 'Grafity'
+                    
+                    when pc.title LIKE '%A-%' AND c.title = 'Čistenie B' then 'A komplexne'
+                    when pc.title LIKE '%T-%' AND c.title = 'Čistenie B' then 'T komplexne'
+                    when pc.title LIKE 'Električky' AND c.title = 'Čistenie B' then 'E komplexne'
+                    ELSE null
+                END AS typ_cistenia,  
                 c.id AS category_id,
                 o.id AS operation_id
             FROM

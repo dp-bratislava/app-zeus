@@ -21,21 +21,28 @@ class DataCheckCommand extends Command
 
         $this->info("Checking worktime from {$from}, department {$department}...");
 
-        $rows = DB::table(self::PREPROCESSED_DATA_TABLE . ' as kpd')
-            ->join('dpb_worktimefund_model_worktime as wt', function ($join) {
-                $join->on('wt.personal_id', '=', 'kpd.pid')->on('wt.date', '=', 'kpd.date');
-            })
-            ->where('wt.department', $department)
-            ->where('kpd.date', '>=', $from)
-            ->select([
-                'kpd.date as o_date',
-                'kpd.pid',
-                DB::raw('ROUND(MAX(wt.shift_duration) / 3600, 2) AS wt_dur'),
-                DB::raw(' ROUND( SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) AS o_dur '),
-                DB::raw(' ROUND( SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) - ROUND(MAX(wt.shift_duration) / 3600, 2) AS diff '),
-            ])->groupBy('kpd.date', 'kpd.pid')
-            ->orderBy('diff')
-            ->get();
+        $rows = collect();
+        // @TODO - needs fixing
+        // $rows = DB::table(self::PREPROCESSED_DATA_TABLE . ' as kpd')
+        //     ->join('dpb_worktimefund_model_worktime as wt', function ($join) {
+        //         $join->on('wt.personal_id', '=', 'kpd.pid')->on('wt.date', '=', 'kpd.date');
+        //     })
+        //     ->where('wt.department', $department)
+        //     ->where('kpd.date', '>=', $from)
+        //     ->select([
+        //         'kpd.date as o_date',
+        //         'kpd.pid',
+        //         DB::raw('ROUND(MAX(wt.shift_duration) / 3600, 2) AS wt_dur'),
+        //         DB::raw(' ROUND( SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) AS o_dur '),
+        //         DB::raw(<<<SQL 
+        //             ROUND( 
+        //                 (SUM(kpd.operation_duration / NULLIF(kpd.people_total, 0)) / 3600, 2 ) - MAX(wt.shift_duration)) / 3600, 
+        //                 2
+        //             ) AS diff
+        //         SQL),
+        //     ])->groupBy('kpd.date', 'kpd.pid')
+        //     ->orderBy('diff')
+        //     ->get();
 
         if ($rows->isEmpty()) {
             $this->info('No results found.');
