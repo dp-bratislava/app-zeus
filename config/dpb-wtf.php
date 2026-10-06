@@ -30,6 +30,9 @@ return [
                     // // trolejbusy
                     // 270,
                     // 269
+                    // gumari
+                    314,
+
                 ]
             ],
         ],

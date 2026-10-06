@@ -19,3 +19,5 @@ Schedule::call(function () {
         new RunSnapshotJob('work-activity', new SnapshotRunContext()),
     ])->dispatch();
 })->everyMinute();
+
+Schedule::command('wtf:sync-break-mappings')->hourly();
