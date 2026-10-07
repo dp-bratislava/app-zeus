@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Profiles\TaskBatchResource\LookupScope;
+namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\LookupScope;
 
 use Dpb\Package\TaskMS\Enums\TaskGroupCode;
 use Dpb\Package\Tasks\Models\TaskGroup;
-use Dpb\Modules\Tasks\Context\TaskBatchResourceContext;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

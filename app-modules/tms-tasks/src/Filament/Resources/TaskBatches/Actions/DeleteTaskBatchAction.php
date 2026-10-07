@@ -3,7 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
-use Dpb\Modules\Tasks\Workflows\DeleteTaskBatchWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\DeleteTaskBatchWorkflow;
 use Filament\Actions\Action;
 use Filament\Support\Enums\Width;
 

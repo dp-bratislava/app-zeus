@@ -1,14 +1,14 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Profiles\TaskBatchResource\LookupScope;
+namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\LookupScope;
 
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleType;
 use Dpb\Package\Tasks\Models\TaskGroup;
 use Dpb\Package\Tasks\Models\TaskItemGroup;
-use Dpb\Modules\Tasks\Context\TaskBatchResourceContext;
-use Dpb\Modules\Tasks\Contracts\TaskBatchLookupScopeProfile;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchLookupScopeProfile;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

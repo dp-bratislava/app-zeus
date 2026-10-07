@@ -1,8 +1,8 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Contracts;
+namespace Dpb\Modules\Tasks\TaskBatches\Contracts;
 
-use Dpb\Modules\Tasks\Context\TaskAssignmentContext;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskAssignmentContext;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

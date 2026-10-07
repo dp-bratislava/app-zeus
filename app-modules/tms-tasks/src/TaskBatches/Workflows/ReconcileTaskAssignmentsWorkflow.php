@@ -1,21 +1,21 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskItemsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskAssignmentsWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\DeleteTaskAssignmentsWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\ReconcileTaskItemsWorkflow;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
-use Dpb\Modules\Tasks\Commands\CreateTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\Commands\ReconcileTaskItemsCommand;
-use Dpb\Modules\Tasks\Commands\UpdateTaskBatchCommand;
-use Dpb\Modules\Tasks\DTO\CreateTaskAssignmentsWorkflowResult;
-use Dpb\Modules\Tasks\DTO\DeleteTaskAssignmentsWorkflowResult;
-use Dpb\Modules\Tasks\DTO\ReconcileTaskAssignmentsWorkflowResult;
-use Dpb\Modules\Tasks\DTO\ReconcileTaskItemsWorkflowResult;
-use Dpb\Modules\Tasks\DTO\TaskSubjectReference;
-use Dpb\\TaskBatch;
-use Dpb\Modules\Tasks\Workflows\CreateTaskAssignmentsWorkflow;
-use Dpb\Modules\Tasks\Workflows\DeleteTaskAssignmentsWorkflow;
-use Dpb\Modules\Tasks\Workflows\ReconcileTaskItemsWorkflow;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 

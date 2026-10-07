@@ -1,12 +1,12 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
 use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\WorkTimeFund\Models\ActivityRecord as WtfActivityRecord;
 use Dpb\WorkTimeFund\Models\Task as WtfTask;
-use Dpb\\WorkOrder;
+use Dpb\WtfTmsBridge\Models\WorkOrder;
 use Illuminate\Support\Facades\DB;
 
 class DeleteTaskItemsWorkflow

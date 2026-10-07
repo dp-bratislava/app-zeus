@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Enums;
+namespace Dpb\Modules\Tasks\TaskBatches\Enums;
 
 use Dpb\Package\Assets\Contracts\AssetStateInterface;
 use Dpb\Package\Assets\Contracts\TransitionValidatorInterface;

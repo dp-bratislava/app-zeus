@@ -1,8 +1,8 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers;
 
-use Dpb\Modules\Tasks\Contracts\TaskSubjectAdapter;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskSubjectAdapter;
 use RuntimeException;
 
 class TaskSubjectAdapterResolver

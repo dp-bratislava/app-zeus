@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Context;
 
-use Dpb\Modules\Tasks\Enums\DepartmentGroup;
+use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
 
 class DepartmentAccessContext
 {

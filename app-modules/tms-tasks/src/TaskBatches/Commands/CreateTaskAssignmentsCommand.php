@@ -4,7 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Commands;
 
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
-use Dpb\Modules\Tasks\DTO\TaskSubjectReference;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 
 final readonly class CreateTaskAssignmentsCommand
 {

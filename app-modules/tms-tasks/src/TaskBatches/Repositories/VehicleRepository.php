@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Repositories;
+namespace Dpb\Modules\Tasks\TaskBatches\Repositories;
 
 use Dpb\WorkTimeFund\Models\Operation;
 use Illuminate\Support\Collection;

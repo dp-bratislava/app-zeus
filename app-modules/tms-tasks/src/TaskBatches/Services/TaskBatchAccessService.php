@@ -2,11 +2,11 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
+use Dpb\Modules\Tasks\TaskBatches\Factories\TaskAssignmentContextFactory;
+use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskAssignmentAccessResolver;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchAccessResolver;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\Factories\TaskAssignmentContextFactory;
-use Dpb\Modules\Tasks\Factories\TaskBatchContextFactory;
-use Dpb\Modules\Tasks\Resolvers\Profile\TaskAssignmentAccessResolver;
-use Dpb\Modules\Tasks\Resolvers\Profile\TaskBatchAccessResolver;
 
 class TaskBatchAccessService
 {

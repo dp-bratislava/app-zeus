@@ -2,14 +2,15 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Modules\Tasks\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
-use Dpb\Modules\Tasks\Models\TaskBatch;
-use Dpb\Modules\Tasks\Models\TaskBatchTaskSubject;
-use Dpb\Modules\Tasks\Services\TaskBatchRecordScopeService;
-use Dpb\Modules\Tasks\Services\TaskSubjectPresenter;
+use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchRecordScopeService;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\UI\Filament\Components\FleetVehiclePicker;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\TextSize;
@@ -17,7 +18,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Dpb\Package\TaskMS\UI\Filament\Components\FleetVehiclePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 

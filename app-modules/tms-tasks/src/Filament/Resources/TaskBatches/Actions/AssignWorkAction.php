@@ -2,10 +2,10 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\Modules\Tasks\Filament\Pages\TaskBatchWorkOrdersPage;
 use Dpb\Modules\Tasks\Helpers\Base64UrlHelper;
-use Dpb\Modules\Tasks\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Package\Tasks\Models\TaskItem;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\DB;
 

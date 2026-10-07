@@ -1,8 +1,8 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Repositories;
+namespace Dpb\Modules\Tasks\TaskBatches\Repositories;
 
-use Dpb\\WorkOrder;
+use Dpb\WtfTmsBridge\Models\WorkOrder;
 use Illuminate\Support\Collection;
 
 final class TaskItemRepository

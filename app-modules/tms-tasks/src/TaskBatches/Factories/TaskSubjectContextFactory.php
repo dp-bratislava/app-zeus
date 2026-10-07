@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Factories;
+namespace Dpb\Modules\Tasks\TaskBatches\Factories;
 
 use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Modules\Tasks\Context\TaskSubjectContext;
-use Dpb\Modules\Tasks\Resolvers\TaskSubjectAdapterResolver;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskSubjectContext;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskSubjectAdapterResolver;
 use RuntimeException;
 
 class TaskSubjectContextFactory

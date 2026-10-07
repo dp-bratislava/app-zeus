@@ -1,19 +1,19 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
+use Dpb\Modules\Tasks\DTO\EntityIdMap;
+use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\Commands\CreateTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\DTO\CreateTaskAssignmentsWorkflowResult;
-use Dpb\Modules\Tasks\DTO\EntityIdMap;
-use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Dpb\Package\TaskMS\States;
 use Dpb\Package\Tasks\Models\TaskGroup;
-use Dpb\Modules\Tasks\Commands\CreateTaskItemsCommand;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class CreateTaskAssignmentsWorkflow
 {

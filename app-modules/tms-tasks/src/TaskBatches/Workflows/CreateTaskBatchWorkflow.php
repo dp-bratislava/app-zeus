@@ -1,19 +1,20 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskItemGroup;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Batchable\Resolvers\BatchContextResolver;
+use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\Commands\CreateTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\Commands\CreateTaskBatchCommand;
-use Dpb\\TaskBatch;
-use Dpb\\TaskBatchTaskItemGroup;
-use Dpb\\TaskBatchTaskSubject;
+use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
+use Dpb\Package\Tasks\Models\TaskGroup;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Dpb\Package\Tasks\Models\Task;
-use Dpb\Modules\Tasks\Enums\TaskBatchContext;
 
 
 class CreateTaskBatchWorkflow
@@ -61,7 +62,8 @@ class CreateTaskBatchWorkflow
     private function createBatch(CreateTaskBatchCommand $command): Batch
     {
         // handle batch
-        $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;
+        // $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;
+        $batchContextId = BatchContextResolver::get(TaskGroup::find($command->taskGroupId)->code)?->id;
 
         if ($batchContextId) {
             $batch = Batch::create([

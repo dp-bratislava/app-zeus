@@ -1,11 +1,11 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers\Profile;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile;
 
-use Dpb\Modules\Tasks\Contracts\TaskBatchAccessProfile;
-use Dpb\Modules\Tasks\Enums\DepartmentGroup;
-// use Dpb\Modules\Tasks\Profiles\TaskAssignmentResource\Access\AssignWorkOnlyProfile;
-use Dpb\Modules\Tasks\Profiles\TaskBatchResource\Access\GenericProfile;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchAccessProfile;
+use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
+use Dpb\Modules\Tasks\TaskBatches\Profiles\TaskAssignmentResource\Access\AssignWorkOnlyProfile;
+use Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\Access\GenericProfile;
 
 class TaskBatchAccessResolver
 {

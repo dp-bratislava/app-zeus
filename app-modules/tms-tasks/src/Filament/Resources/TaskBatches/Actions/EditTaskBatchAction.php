@@ -2,12 +2,12 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Modules\Tasks\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskStepSchema;
-use Dpb\Modules\Tasks\Models\TaskBatch;
-use Dpb\Modules\Tasks\Workflows\UpdateTaskBatchWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\UpdateTaskBatchWorkflow;
 use Filament\Actions\Action;
 use Filament\Schemas\Components\Wizard\Step;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Contracts;
+namespace Dpb\Modules\Tasks\TaskBatches\Contracts;
 
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\Context\TaskAssignmentContext;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskAssignmentContext;
 
 interface TaskAssignmentAccessProfile
 {

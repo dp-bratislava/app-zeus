@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers;
 
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Modules\Tasks\Enums\DepartmentGroup;
+use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
 
 class DepartmentGroupResolver
 {

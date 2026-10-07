@@ -3,7 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\Services\TaskBatchLookupScopeService;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Utilities\Get;

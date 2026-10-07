@@ -2,8 +2,8 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
-use Dpb\Modules\Tasks\Factories\TaskBatchContextFactory;
-use Dpb\Modules\Tasks\Resolvers\Profile\TaskBatchLookupScopeResolver;
+use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchLookupScopeResolver;
 use Illuminate\Database\Eloquent\Collection;
 
 class TaskBatchLookupScopeService

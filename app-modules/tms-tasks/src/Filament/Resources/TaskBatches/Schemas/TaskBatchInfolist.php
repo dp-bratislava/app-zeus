@@ -2,14 +2,14 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
-use Dpb\Modules\Tasks\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\AssignWorkAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
-use Dpb\Modules\Tasks\Models\TaskBatch;
-use Dpb\Modules\Tasks\Models\TaskBatchTaskSubject;
-use Dpb\Modules\Tasks\Services\TaskSubjectPresenter;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;

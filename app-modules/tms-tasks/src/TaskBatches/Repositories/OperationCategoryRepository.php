@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Repositories;
+namespace Dpb\Modules\Tasks\TaskBatches\Repositories;
 
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Illuminate\Support\Facades\DB;

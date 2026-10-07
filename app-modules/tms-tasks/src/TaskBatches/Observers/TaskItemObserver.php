@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Observers;
+namespace Dpb\Modules\Tasks\TaskBatches\Observers;
 
 use Carbon\Carbon;
 use Dpb\DatahubSync\Models\EmployeeContract;
@@ -8,7 +8,7 @@ use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\WorkTimeFund\Models\ActivityRecord;
 use Dpb\WorkTimeFund\Models\Operation;
 use Dpb\WorkTimeFund\Models\WorkTime;
-use Dpb\Modules\Tasks\Services\TaskService;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
 

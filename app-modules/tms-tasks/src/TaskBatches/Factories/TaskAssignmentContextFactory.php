@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Factories;
+namespace Dpb\Modules\Tasks\TaskBatches\Factories;
 
 use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\Modules\Tasks\Context\TaskAssignmentContext;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskAssignmentContext;
 
 class TaskAssignmentContextFactory
 {

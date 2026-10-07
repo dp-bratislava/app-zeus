@@ -1,8 +1,8 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Factories;
+namespace Dpb\Modules\Tasks\TaskBatches\Factories;
 
-use Dpb\Modules\Tasks\Context\TaskBatchResourceContext;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 
 class TaskBatchContextFactory
 {

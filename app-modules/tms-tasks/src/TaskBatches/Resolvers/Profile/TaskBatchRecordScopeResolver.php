@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers\Profile;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile;
 
-use Dpb\Modules\Tasks\Contracts\TaskBatchRecordScopeProfile;
-use Dpb\Modules\Tasks\Enums\DepartmentGroup;
-use Dpb\Modules\Tasks\Profiles\TaskBatchResource\RecordScope\GenericProfile;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchRecordScopeProfile;
+use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
+use Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\RecordScope\GenericProfile;
 
 class TaskBatchRecordScopeResolver
 {

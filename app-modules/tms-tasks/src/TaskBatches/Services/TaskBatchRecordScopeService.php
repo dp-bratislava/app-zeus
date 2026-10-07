@@ -2,8 +2,8 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
-use Dpb\Modules\Tasks\Factories\TaskBatchContextFactory;
-use Dpb\Modules\Tasks\Resolvers\Profile\TaskBatchRecordScopeResolver;
+use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchRecordScopeResolver;
 use Illuminate\Database\Eloquent\Builder;
 
 class TaskBatchRecordScopeService

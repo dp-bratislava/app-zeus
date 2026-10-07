@@ -1,14 +1,14 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Carbon\CarbonImmutable;
-use Dpb\\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\ReconcileTaskAssignmentsWorkflow;
 use Illuminate\Support\Facades\DB;
-use Dpb\Modules\Tasks\Commands\UpdateTaskBatchCommand;
-use Dpb\Modules\Tasks\DTO\TaskSubjectReference;
-use Dpb\\TaskBatchTaskSubject;
-use Dpb\Modules\Tasks\Workflows\ReconcileTaskAssignmentsWorkflow;
 
 class UpdateTaskBatchWorkflow
 {

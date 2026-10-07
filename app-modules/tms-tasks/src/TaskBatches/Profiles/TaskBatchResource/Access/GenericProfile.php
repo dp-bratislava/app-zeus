@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Profiles\TaskBatchResource\Access;
+namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\Access;
 
-use Dpb\Modules\Tasks\Context\TaskBatchResourceContext;
-use Dpb\Modules\Tasks\Contracts\TaskBatchAccessProfile;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchAccessProfile;
 
 /**
  * Tab profile providing scopes for TaskBatch resiurce access

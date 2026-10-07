@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Package\TaskMS\Handlers\Task\CreateTaskHandler;
 use Dpb\Package\TaskMS\Handlers\TaskAssignment\CreateTaskAssignmentHandler;
@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Dpb\WorkTimeFund\Models\ActivityRecord;
 use Dpb\WorkTimeFund\Models\Operation;
 use Dpb\WorkTimeFund\Models\Task;
-use Dpb\Modules\Tasks\Commands\AssignWorkToTaskBatchCommand;
-use Dpb\Modules\Tasks\DTO\TaskBatchWorkList;
+use Dpb\Modules\Tasks\TaskBatches\Commands\AssignWorkToTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchWorkList;
 use Dpb\WtfUi\FilamentComponents\AssignmentContainer\AssignmentRedisService;
 
 class AssignWorkToTaskBatchWorkflow

@@ -4,8 +4,8 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\Models\TaskBatch;
-use Dpb\Modules\Tasks\Workflows\CreateTaskBatchWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 
@@ -21,6 +21,7 @@ class CreateTaskBatchAction
                 TaskBatchCreateFormMapper $mapper,
                 CreateTaskBatchWorkflow $workflow,
             ) {
+                dd($data);
                 $command = $mapper->fromForm($data);
                 $result = $workflow->handle($command);
                 // $taskItemIdsData = Base64UrlHelper::encode(json_encode($result->taskItemIds));

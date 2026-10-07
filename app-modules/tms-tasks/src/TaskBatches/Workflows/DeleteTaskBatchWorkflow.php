@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Illuminate\Support\Facades\DB;
 
 class DeleteTaskBatchWorkflow

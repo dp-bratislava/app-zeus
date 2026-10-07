@@ -1,12 +1,12 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
+use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskGroup;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\DTO\DeleteTaskAssignmentsWorkflowResult;
 use Illuminate\Support\Facades\DB;
 
 class DeleteTaskAssignmentsWorkflow

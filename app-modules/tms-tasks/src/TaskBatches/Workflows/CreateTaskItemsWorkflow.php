@@ -1,13 +1,13 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
-use Dpb\Modules\Tasks\Commands\CreateTaskItemsCommand;
+use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskItemsWorkflowResult;
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
 use Dpb\Package\TaskMS\States;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\DTO\CreateTaskItemsWorkflowResult;
-use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 

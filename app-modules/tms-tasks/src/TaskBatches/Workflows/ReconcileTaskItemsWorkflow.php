@@ -1,11 +1,11 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Workflows;
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
-use Dpb\Modules\Tasks\Commands\CreateTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskItemsWorkflowResult;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\Commands\ReconcileTaskItemsCommand;
-use Dpb\Modules\Tasks\DTO\ReconcileTaskItemsWorkflowResult;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Factories;
+namespace Dpb\Modules\Tasks\TaskBatches\Factories;
 
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Package\TaskMS\Repositories\DepartmentAssignmentRepository;
-use Dpb\Modules\Tasks\Context\DepartmentAccessContext;
-use Dpb\Modules\Tasks\Resolvers\DepartmentGroupResolver;
+use Dpb\Modules\Tasks\TaskBatches\Context\DepartmentAccessContext;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\DepartmentGroupResolver;
 
 /**
  * Custom access permission rules for TaskAssignment TaskGroups

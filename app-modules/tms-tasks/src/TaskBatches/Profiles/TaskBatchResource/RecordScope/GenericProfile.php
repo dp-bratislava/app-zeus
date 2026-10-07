@@ -1,9 +1,9 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Profiles\TaskBatchResource\RecordScope;
+namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\RecordScope;
 
-use Dpb\Modules\Tasks\Context\TaskBatchResourceContext;
-use Dpb\Modules\Tasks\Contracts\TaskBatchRecordScopeProfile;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchRecordScopeProfile;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

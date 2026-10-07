@@ -1,11 +1,11 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers\Profile;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile;
 
-use Dpb\Modules\Tasks\Contracts\TaskBatchLookupScopeProfile;
-use Dpb\Modules\Tasks\Enums\DepartmentGroup;
-use Dpb\Modules\Tasks\Profiles\TaskBatchResource\LookupScope\GenericProfile;
-use Dpb\Modules\Tasks\Profiles\TaskBatchResource\LookupScope\MaintenanceGroupProfile;
+use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchLookupScopeProfile;
+use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
+use Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\LookupScope\GenericProfile;
+use Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\LookupScope\MaintenanceGroupProfile;
 
 class TaskBatchLookupScopeResolver
 {

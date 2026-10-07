@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Modules\Tasks\Resolvers;
+namespace Dpb\Modules\Tasks\TaskBatches\Resolvers;
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;

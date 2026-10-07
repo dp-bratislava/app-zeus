@@ -17,6 +17,7 @@ class TaskBatchForm
     public const COL_NAME_ASSIGNED_TO = 'assigned_to_id';
     public const COL_NAME_TG_PICKER = 'task-groups';
     public const COL_NAME_TIG_PICKER = 'task-item-groups';
+    public const COMPONENT_NAME_VEHICLE_TASKS = 'vehicle-tasks';
 
     public static function configure(Schema $schema): Schema
     {
