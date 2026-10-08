@@ -7,7 +7,9 @@ use Dpb\Modules\Tasks\Filament\Pages\TaskBatchWorkOrdersPage;
 use Dpb\Modules\Tasks\Filament\Pages\WorkOrderPage;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Support\Assets\Css;
 use Filament\Support\Enums\Width;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\View\PanelsRenderHook;
 
 class TaskBatchPlugin implements Plugin
@@ -32,5 +34,7 @@ class TaskBatchPlugin implements Plugin
             ->resources(config('dpb-mod-tasks.filament_resources'));
     }
 
-    public function boot(Panel $panel): void {}
+    public function boot(Panel $panel): void
+    {
+    }
 }

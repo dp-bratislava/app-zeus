@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 
-final readonly class UpdateTaskBatchCommand
+final readonly class UpdateTaskUniformBatchCommand
 {
     /**     
      * @param int $taskBatchId

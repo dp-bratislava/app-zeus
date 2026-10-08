@@ -9,7 +9,7 @@ use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 
-class CreateTaskBatchAction
+class CreateTaskUniformBatchAction
 {
     public static function make(?string $name = 'create_action'): Action
     {
@@ -21,9 +21,7 @@ class CreateTaskBatchAction
                 TaskUniformBatchCreateFormMapper $mapper,
                 CreateTaskBatchWorkflow $workflow,
             ) {
-                // dd($data);
                 $command = $mapper->fromForm($data);
-                dd($command);
                 $result = $workflow->handle($command);
                 // $taskItemIdsData = Base64UrlHelper::encode(json_encode($result->taskItemIds));
                 // redirect()->route(DailyMaintenanceWorkOrdersPage::getRouteName(), [

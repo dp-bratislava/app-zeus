@@ -7,7 +7,7 @@ use Dpb\Modules\Tasks\TaskBatches\Enums\DepartmentGroup;
 class DepartmentAccessContext
 {
     public function __construct(
-        // public readonly array $departmentId,
+        public readonly int $departmentId,
         public readonly array $taskGroupIds,
         public readonly array $vehicleTypeIds,
         public readonly array $maintenanceGroupIds,

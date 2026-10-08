@@ -5,20 +5,20 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
-use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class TaskBatchUpdateFormMapper
+class TaskUniformBatchUpdateFormMapper
 {
     public function fromForm(
         array $data,
         TaskBatch $record
-    ): UpdateTaskBatchCommand {
-        return new UpdateTaskBatchCommand(
+    ): UpdateTaskUniformBatchCommand {
+        return new UpdateTaskUniformBatchCommand(
             taskBatchId: $record->id,
             date: CarbonImmutable::parse($data['date']),
             taskGroupId: $data[TaskBatchForm::COL_NAME_TG_PICKER],

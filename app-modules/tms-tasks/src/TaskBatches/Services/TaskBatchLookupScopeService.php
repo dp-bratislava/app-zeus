@@ -5,6 +5,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Services;
 use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchLookupScopeResolver;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class TaskBatchLookupScopeService
 {
@@ -56,4 +57,13 @@ class TaskBatchLookupScopeService
             ->resolve($context->departmentContext->departmentGroup)
             ->taskItemGroups($context);
     }    
+
+    public function batchableTaskItemGroups(): SupportCollection
+    {
+        $context = $this->factory->make();
+
+        return $this->resolver
+            ->resolve($context->departmentContext->departmentGroup)
+            ->batchableTaskItemGroups($context);
+    }     
 }

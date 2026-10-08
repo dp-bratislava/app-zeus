@@ -16,6 +16,7 @@ class DepartmentContextFactory
     private static ?DepartmentAccessContext $memoized = null;
 
     public function __construct(
+        private DepartmentService $departmentService,
         private DepartmentAssignmentRepository $daRepo,
         private DepartmentGroupResolver $departmentGroupResolver
     ) {}
@@ -26,7 +27,7 @@ class DepartmentContextFactory
             return static::$memoized;
         }
         return static::$memoized = new DepartmentAccessContext(
-            // departmentId: $this->daRepo->
+            departmentId: $this->departmentService->getActiveDepartment()->id,
             taskGroupIds: $this->daRepo->getTaskGroupIdsByActiveDepartment(),
             vehicleTypeIds: $this->daRepo->getVehicleTypeIdsByActiveDepartment(),
             maintenanceGroupIds: $this->daRepo->getMaintenanceGroupIdsByActiveDepartment(),

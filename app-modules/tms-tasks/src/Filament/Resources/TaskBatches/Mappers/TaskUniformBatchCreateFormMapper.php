@@ -5,17 +5,17 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class TaskBatchCreateFormMapper
+class TaskUniformBatchCreateFormMapper
 {
-    public function fromForm(array $data): CreateTaskBatchCommand
+    public function fromForm(array $data): CreateTaskUniformBatchCommand
     {
-        return new CreateTaskBatchCommand(
+        return new CreateTaskUniformBatchCommand(
             date: CarbonImmutable::parse($data['date']),
             taskGroupId: $data[TaskBatchForm::COL_NAME_TG_PICKER],
             subjects: array_map(

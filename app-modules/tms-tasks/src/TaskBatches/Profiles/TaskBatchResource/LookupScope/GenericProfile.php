@@ -10,6 +10,8 @@ use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchLookupScopeProfile;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Profile providing scopes for form field data pickers
@@ -49,6 +51,36 @@ class GenericProfile implements TaskBatchLookupScopeProfile
         return TaskItemGroup::query()
             ->whereIn('id', $context->departmentContext->taskItemGroupIds)
             ->get();
+    }
+
+    public function batchableTaskItemGroups(
+        TaskBatchResourceContext $context,
+    ): SupportCollection {
+        return DB::table('tms_task_batch_department_tigs')            
+            ->where('department_id', $context->departmentContext->departmentId)
+            ->get();
+
+        $data = [
+            [
+                'id' => 1,
+                'label' => 'Grafity A',
+                'short_label' => 'GA',
+                'is_scalable' => 1,
+            ],
+            [
+                'id' => 2,
+                'label' => 'Grafity B',
+                'short_label' => 'GB',
+                'is_scalable' => 1,
+            ],
+            [
+                'id' => 3,
+                'label' => 'Cistenie B',
+                'short_label' => 'Cistenie B',
+                'is_scalable' => 0,
+            ],
+        ];
+        return $data;
     }
 
     public function vehicleTypes(

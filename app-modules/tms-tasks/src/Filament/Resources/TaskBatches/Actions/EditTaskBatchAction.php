@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchUpdateFormMapper;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskUniformBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskStepSchema;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
@@ -59,7 +59,7 @@ class EditTaskBatchAction
             ->action(function (
                 array $data,
                 TaskBatch $record,
-                TaskBatchUpdateFormMapper $mapper,
+                TaskUniformBatchUpdateFormMapper $mapper,
                 UpdateTaskBatchWorkflow $wf,
             ): void {
                 $command = $mapper->fromForm($data, $record);

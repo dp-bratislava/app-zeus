@@ -14,7 +14,7 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleSelect;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Components\Grid;
 
-class TaskStepSchema
+class TaskUniformBatchSchema
 {
     public static function make(): array
     {
@@ -22,49 +22,31 @@ class TaskStepSchema
             Grid::make(9)
                 ->columnSpanFull()
                 ->schema([
-                    // date
                     DatePicker::make('date')
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
                         ->default(Carbon::now())
                         ->required()
                         ->columnSpan(2),
-                    // task item groups
-                    // TaskGroupPicker::make()
-                    //     ->columnSpan(7),
-                    // TaskItemGroupPicker::make()
-                    //     ->columnSpan(9),
+                    TaskGroupPicker::make()
+                        ->columnSpan(7),
+                    TaskItemGroupPicker::make()
+                        ->columnSpan(9),
                 ]),
 
-            // maintenance group
-            // Grid::make(6)
-            //     ->columnSpanFull()
-            //     ->schema([
-            //         // AssignedToField::make(),
-            //         VehicleTypePicker::make()
-            //         ->columnSpan(4),
-            //     ]),
-
-            Grid::make(1)
+            Grid::make(6)
                 ->columnSpanFull()
                 ->schema([
-                    // VehiclePicker::make()
-                    VehicleSelect::make()
-                        ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
+                    AssignedToField::make(),
+                    VehicleTypePicker::make()
+                        ->columnSpan(4),
                 ]),
 
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
-                    TaskBatchConfig::make()
+                    VehiclePicker::make()
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
                 ]),
-
-            // Grid::make(1)
-            //     ->columnSpanFull()
-            //     ->schema([
-            //         ContractPicker::make('tmp_picker')
-            //             // ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
-            //     ]),                
         ];
     }
 }

@@ -21,6 +21,8 @@ use Dpb\Modules\Tasks\Observers\TaskItemObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Dpb\Modules\Tasks\Policies\TaskAssignmentPolicy;
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +33,7 @@ class TasksModuleServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            path: __DIR__.'/../../config/mod-tasks.php',
+            path: __DIR__ . '/../../config/mod-tasks.php',
             key: 'dpb-mod-tasks'
         );
     }
@@ -39,7 +41,7 @@ class TasksModuleServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(
-            paths: __DIR__.'/../../database/migrations'
+            paths: __DIR__ . '/../../database/migrations'
         );
 
         $this->loadViewsFrom(
@@ -64,6 +66,12 @@ class TasksModuleServiceProvider extends ServiceProvider
             [TaskBatchPlugin::class],
             config(key: 'admin-panel.plugins', default: [])
         ));
+
+        FilamentAsset::register([
+            Css::make(
+                'dpb-mod-tasks',
+                __DIR__ . '/../resources/dist/filament.css',
+            ),
+        ], package: 'dpb/mod-tasks');
     }
 }
-

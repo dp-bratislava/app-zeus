@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Component;
@@ -31,23 +32,26 @@ class VehicleSelect
             // })    
             ->live()
             ->dehydrated(false)
-            ->options(function () {
-                return DB::table('mvw_fleet_vehicle_snapshots')
-                    ->get([
-                        'vehicle_id',
-                        'code',
-                        'licence_plate',
-                    ])
-                    ->mapWithKeys(fn($vehicle) => [
-                        $vehicle->vehicle_id => ($vehicle->code ?? $vehicle->licence_plate) ?? 'g'
-                    ])->toArray();
+            ->options(function (
+                TaskBatchLookupScopeService $lookupService,
+            ) {
+                // return DB::table('mvw_fleet_vehicle_snapshots')
+                //     ->get([
+                //         'vehicle_id',
+                //         'code',
+                //         'licence_plate',
+                //     ])
+                //     ->mapWithKeys(fn($vehicle) => [
+                //         $vehicle->vehicle_id => ($vehicle->code ?? $vehicle->licence_plate) ?? 'g'
+                //     ])->toArray();
+                return $lookupService->taskSubjects();
             })
             ->afterStateUpdated(function ($state, Get $get, Set $set) {
                 $selectedVehicleIds = collect($state ?? [])
                     ->map(fn($id) => (int) $id);
 
                 $currentTasks = collect(
-                    $get(TaskBatchForm::COMPONENT_NAME_VEHICLE_TASKS) ?? []
+                    $get(TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG) ?? []
                 );
 
                 $vehicles = DB::table('mvw_fleet_vehicle_snapshots')
@@ -56,6 +60,10 @@ class VehicleSelect
                         'vehicle_id',
                         'code',
                         'licence_plate',
+                        'model',
+                        'length',
+                        'seats',
+
                     ]);
 
                 $tasks = $vehicles->map(function ($vehicle) use ($currentTasks) {
@@ -75,6 +83,9 @@ class VehicleSelect
                             'vehicle_label' => $vehicle->code
                                 ?? $vehicle->licence_plate
                                 ?? 'g',
+                            'model' => $vehicle->model,
+                            'length' => $vehicle->length,
+                            'seats' => $vehicle->seats,
                         ];
                     }
 
@@ -85,6 +96,9 @@ class VehicleSelect
                             ?? $vehicle->licence_plate
                             ?? 'g',
 
+                        'model' => $vehicle->model,
+                        'length' => $vehicle->length,
+                        'seats' => $vehicle->seats,
                         'cleaning_b' => false,
                         // 'ceiling' => false,
                         // 'tsv_mt' => false,
@@ -104,7 +118,7 @@ class VehicleSelect
                 })->values()->all();
 
                 $set(
-                    TaskBatchForm::COMPONENT_NAME_VEHICLE_TASKS,
+                    TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG,
                     $tasks
                 );
             });

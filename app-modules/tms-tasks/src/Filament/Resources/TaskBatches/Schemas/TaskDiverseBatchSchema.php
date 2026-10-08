@@ -14,7 +14,7 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleSelect;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Components\Grid;
 
-class TaskStepSchema
+class TaskDiverseBatchSchema
 {
     public static function make(): array
     {

@@ -3,7 +3,7 @@
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskItemGroup;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
@@ -24,7 +24,7 @@ class CreateTaskBatchWorkflow
     ) {}
 
     public function handle(
-        CreateTaskBatchCommand $command,
+        CreateTaskUniformBatchCommand $command,
     ) {
         $result = null;
 
@@ -59,7 +59,7 @@ class CreateTaskBatchWorkflow
         return $result;
     }
 
-    private function createBatch(CreateTaskBatchCommand $command): Batch
+    private function createBatch(CreateTaskUniformBatchCommand $command): Batch
     {
         // handle batch
         // $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;

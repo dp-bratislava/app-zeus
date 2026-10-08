@@ -6,6 +6,7 @@ use App\DataMigrations\BreakActivityMigration;
 use App\DataMigrations\OperationCategoryDepartmentSync;
 use App\DataMigrations\ScalableOperationMigration;
 use App\DataMigrations\VehicleCleaningBMigration;
+use App\DataMigrations\VehicleCleaningMigration;
 use App\DataMigrations\WtfFinanceMigration;
 use Illuminate\Console\Command;
 
@@ -17,6 +18,7 @@ class DataMigrateCommand extends Command
     {
         match ($this->argument('profile')) {
             'vehicle-cleaning-b' => app(VehicleCleaningBMigration::class)->run(),
+            'vehicle-cleaning' => app(VehicleCleaningMigration::class)->run(),
             'scalable-operation' => app(ScalableOperationMigration::class)->run(),
             'break-activity' => app(BreakActivityMigration::class)->run(),
             'operation-category-department-sync' => app(OperationCategoryDepartmentSync::class)->run(),

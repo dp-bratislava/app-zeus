@@ -3,7 +3,7 @@
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Carbon\CarbonImmutable;
-use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
@@ -17,7 +17,7 @@ class UpdateTaskBatchWorkflow
         private ReconcileTaskAssignmentsWorkflow $reconcileTaWorkflow,
     ) {}
 
-    public function execute(UpdateTaskBatchCommand $command): void
+    public function execute(UpdateTaskUniformBatchCommand $command): void
     {
         DB::transaction(function () use ($command) {
             $taskBatch = TaskBatch::query()
@@ -53,7 +53,7 @@ class UpdateTaskBatchWorkflow
 
     private function updateTaskBatch(
         TaskBatch $taskBatch,
-        UpdateTaskBatchCommand $command,
+        UpdateTaskUniformBatchCommand $command,
     ): void {
         $taskBatch->update([
             'date' => $command->date,

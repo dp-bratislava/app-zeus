@@ -1,0 +1,14 @@
+/* resources/css/filament.css */
+
+.vehicle-tasks-repeater tbody tr {
+    transition: background-color 150ms ease;
+}
+
+.vehicle-tasks-repeater tbody tr:hover {
+    background-color: rgb(243 244 246);
+}
+
+.big-checkbox input[type="checkbox"] {
+    width: 24px !important;
+    height: 24px !important;
+}

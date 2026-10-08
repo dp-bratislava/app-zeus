@@ -4,7 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskItemsCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskAssignmentsWorkflowResult;
@@ -30,7 +30,7 @@ class ReconcileTaskAssignmentsWorkflow
 
     public function execute(
         TaskBatch $taskBatch,
-        UpdateTaskBatchCommand $command,
+        UpdateTaskUniformBatchCommand $command,
     ): ReconcileTaskAssignmentsWorkflowResult {
         $batchId = $taskBatch->batch->id;
 
@@ -110,7 +110,7 @@ class ReconcileTaskAssignmentsWorkflow
 
     private function createAssignments(
         Collection $subjectsToCreateFor,
-        UpdateTaskBatchCommand $command
+        UpdateTaskUniformBatchCommand $command
     ): ?CreateTaskAssignmentsWorkflowResult {
         if ($subjectsToCreateFor->isEmpty()) {
             return null;
@@ -139,7 +139,7 @@ class ReconcileTaskAssignmentsWorkflow
 
     private function updateAssignments(
         array $taskIds,
-        UpdateTaskBatchCommand $command,
+        UpdateTaskUniformBatchCommand $command,
     ): void {
         Task::query()
             ->whereIn('id', $taskIds)
@@ -153,7 +153,7 @@ class ReconcileTaskAssignmentsWorkflow
     private function reconcileTaskItems(
         int $batchId,
         array $taskIds,
-        UpdateTaskBatchCommand $command,
+        UpdateTaskUniformBatchCommand $command,
     ): ReconcileTaskItemsWorkflowResult {
 
         return $this->tiReconcileWorkflow
