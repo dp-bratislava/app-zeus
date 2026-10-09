@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "859cb1e72691d77d501abd566e270a6d",
+    "content-hash": "0b4e9e2827b30d34add8349de777f23e",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1389,22 +1389,24 @@
         },
         {
             "name": "dpb/dpb-work-time-fund-filament",
-            "version": "v12.5.10",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-work-time-fund-filament.git",
-                "reference": "c146014c07a74525336f53f32a4af00114cf8837"
+                "reference": "f8e59efbab213c8d966c256230767cfaf1459f2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/c146014c07a74525336f53f32a4af00114cf8837",
-                "reference": "c146014c07a74525336f53f32a4af00114cf8837",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-work-time-fund-filament/zipball/f8e59efbab213c8d966c256230767cfaf1459f2a",
+                "reference": "f8e59efbab213c8d966c256230767cfaf1459f2a",
                 "shasum": ""
             },
             "require": {
                 "dpb/dpb-work-time-fund": "^12.5.0",
+                "dpb/wtf-ui": "^12.5.8",
                 "filament/filament": "^5.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1428,10 +1430,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/v12.5.10",
+                "source": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/tree/main",
                 "issues": "https://github.com/dp-bratislava/dpb-work-time-fund-filament/issues"
             },
-            "time": "2026-09-08T14:00:35+00:00"
+            "time": "2026-10-09T06:06:32+00:00"
         },
         {
             "name": "dpb/dpb-wtf-tms-bridge",
@@ -1439,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "d4ad4f845cf928497f18ecd1025a49852a80955c"
+                "reference": "d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/d4ad4f845cf928497f18ecd1025a49852a80955c",
-                "reference": "d4ad4f845cf928497f18ecd1025a49852a80955c",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2",
+                "reference": "d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1483,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agregaty-merged-with-main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-09-24T12:03:36+00:00"
+            "time": "2026-10-09T08:17:14+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2461,12 +2463,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-ui.git",
-                "reference": "642b84e938891a7cc092ae9680eceff96e52f4d6"
+                "reference": "927f891b1a897de8d13c47eec4d98db44cd6ac61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/642b84e938891a7cc092ae9680eceff96e52f4d6",
-                "reference": "642b84e938891a7cc092ae9680eceff96e52f4d6",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-ui/zipball/927f891b1a897de8d13c47eec4d98db44cd6ac61",
+                "reference": "927f891b1a897de8d13c47eec4d98db44cd6ac61",
                 "shasum": ""
             },
             "require": {
@@ -2499,10 +2501,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/main",
+                "source": "https://github.com/dp-bratislava/dpb-wtf-ui/tree/12.5.8",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-ui/issues"
             },
-            "time": "2026-09-22T08:51:31+00:00"
+            "time": "2026-10-09T06:04:32+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -16555,6 +16557,12 @@
             "alias_normalized": "12.5.21.0"
         },
         {
+            "package": "dpb/dpb-work-time-fund-filament",
+            "version": "dev-main",
+            "alias": "12.5.11",
+            "alias_normalized": "12.5.11.0"
+        },
+        {
             "package": "dpb/dpb-wtf-tms-bridge",
             "version": "dev-fero/agregaty-merged-with-main",
             "alias": "12.6.8",
@@ -16575,13 +16583,14 @@
         {
             "package": "dpb/wtf-ui",
             "version": "dev-main",
-            "alias": "12.5.7",
-            "alias_normalized": "12.5.7.0"
+            "alias": "12.5.8",
+            "alias_normalized": "12.5.8.0"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "dpb/dpb-work-time-fund": 20,
+        "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
         "dpb/pkg-fleet": 20,
         "dpb/pkg-task-ms-ui": 20,
