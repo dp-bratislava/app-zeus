@@ -1441,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2"
+                "reference": "9e78fea2b997ded91811c6f7574b1b5f8af487fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2",
-                "reference": "d9109ca2c69df7adcf6fc4cdfdc797996aaa98e2",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/9e78fea2b997ded91811c6f7574b1b5f8af487fa",
+                "reference": "9e78fea2b997ded91811c6f7574b1b5f8af487fa",
                 "shasum": ""
             },
             "require": {
@@ -1483,7 +1483,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agregaty-merged-with-main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-10-09T08:17:14+00:00"
+            "time": "2026-10-09T13:01:51+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
