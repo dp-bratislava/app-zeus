@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
         Photo $photo,
         ?string $fileName = null
     ) {
-        $path = $photo->absolutePath();
+        $path = $photo->absolutePreviewPath();
 
         abort_unless(is_file($path), 404);
 
