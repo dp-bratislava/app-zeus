@@ -2,17 +2,11 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
-use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskUniformBatchCommand;
+use App\Enums\BatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskItemGroup;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Batchable\Resolvers\BatchContextResolver;
-use Dpb\Package\Tasks\Models\Task;
-use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
-use Dpb\Package\Tasks\Models\TaskGroup;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +18,7 @@ class CreateTaskBatchWorkflow
     ) {}
 
     public function handle(
-        CreateTaskUniformBatchCommand $command,
+        CreateTaskBatchCommand $command,
     ) {
         $result = null;
 
@@ -34,13 +28,7 @@ class CreateTaskBatchWorkflow
                 $batch = $this->createBatch($command);
 
                 $wfResult = $this->taCWorkflow
-                    ->execute(new CreateTaskAssignmentsCommand(
-                        date: $command->date,
-                        taskGroupId: $command->taskGroupId,
-                        subjects: $command->subjects,
-                        taskItemGroupIds: $command->taskItemGroupIds,
-                        context: $command->context,
-                    ));
+                    ->execute($command);
 
                 // attach batch records
                 if ($batch !== null) {
@@ -59,16 +47,17 @@ class CreateTaskBatchWorkflow
         return $result;
     }
 
-    private function createBatch(CreateTaskUniformBatchCommand $command): Batch
+    private function createBatch(CreateTaskBatchCommand $command): Batch
     {
         // handle batch
         // $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;
-        $batchContextId = BatchContextResolver::get(TaskGroup::find($command->taskGroupId)->code)?->id;
+        $batchContextId = BatchContextResolver::get(BatchContext::TaskBatch->value)?->id;
 
         if ($batchContextId) {
             $batch = Batch::create([
                 'context_id' => $batchContextId,
             ]);
+
             // handle task batch
             $taskBatch = TaskBatch::create([
                 'date' => $command->date,
@@ -79,31 +68,35 @@ class CreateTaskBatchWorkflow
                 'updated_at' => $command->context->handledAt,
             ]);
 
-            $taskBatchSubjects = [];
-            foreach ($command->subjects as $subject) {
-                $taskBatchSubjects[] = [
-                    'task_batch_id' => $taskBatch->id,
-                    'subject_id' => $subject->id,
-                    'subject_type' => $subject->type,
-                    'created_at' => $command->context->handledAt,
-                    'updated_at' => $command->context->handledAt,
-                ];
+            $taskBatchConfig = [];
+            foreach ($command->configs as $config) {
+                foreach ($config->taskItemGroups as $tig) {
+                    $taskBatchConfig[] = [
+                        'task_batch_id' => $taskBatch->id,
+                        'subject_id' => $config->subject->id,
+                        'subject_type' => $config->subject->type->value,
+                        'task_item_group_id' => $tig->taskItemGroupId,
+                        'quantity' => $tig->quantity,
+                        'created_at' => $command->context->handledAt,
+                        'updated_at' => $command->context->handledAt,
+                    ];
+                }
             }
 
-            TaskBatchTaskSubject::insert($taskBatchSubjects);
+            DB::table('tms_task_batch_config')->insert($taskBatchConfig);
 
-            // 
-            $taskBatchTigs = [];
-            foreach ($command->taskItemGroupIds as $taskItemGroupId) {
-                $taskBatchTigs[] = [
-                    'task_batch_id' => $taskBatch->id,
-                    'task_item_group_id' => $taskItemGroupId,
-                    'created_at' => $command->context->handledAt,
-                    'updated_at' => $command->context->handledAt,
-                ];
-            }
+            // // 
+            // $taskBatchTigs = [];
+            // foreach ($command->taskItemGroupIds as $taskItemGroupId) {
+            //     $taskBatchTigs[] = [
+            //         'task_batch_id' => $taskBatch->id,
+            //         'task_item_group_id' => $taskItemGroupId,
+            //         'created_at' => $command->context->handledAt,
+            //         'updated_at' => $command->context->handledAt,
+            //     ];
+            // }
 
-            TaskBatchTaskItemGroup::insert($taskBatchTigs);
+            // TaskBatchTaskItemGroup::insert($taskBatchTigs);
         }
 
         return $batch;

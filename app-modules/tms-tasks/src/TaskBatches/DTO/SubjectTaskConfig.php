@@ -8,15 +8,13 @@ final readonly class SubjectTaskConfig
 {
     /**
      * Summary of __construct
-     * @param TaskSubjectType $subjectType
-     * @param int|string $subjectId
+     * @param TaskSubjectReference $subject
      * @param list<SubjectTaskItemGroup> $taskItemGroups
      * @param mixed $note
      */
     public function __construct(
-        public TaskSubjectType $subjectType,
-        public int|string $subjectId,
+        public TaskSubjectReference $subject,
         public array $taskItemGroups,
-        public ?string $note,
+        public ?string $note = null,
     ) {}
 }

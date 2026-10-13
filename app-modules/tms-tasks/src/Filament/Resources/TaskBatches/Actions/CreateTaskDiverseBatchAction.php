@@ -3,13 +3,10 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskDiverseBatchCreateFormMapper;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskUniformBatchCreateFormMapper;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskDiverseBatchSchema;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
-use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskDiverseBatchWorkflow;
 use Filament\Actions\Action;
-use Filament\Schemas\Schema;
 
 class CreateTaskDiverseBatchAction
 {
@@ -17,14 +14,13 @@ class CreateTaskDiverseBatchAction
     {
         return Action::make($name)
             ->model(TaskBatch::class)
-            ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema))
+            ->schema(TaskDiverseBatchSchema::make())
             ->action(function (
                 array $data,
                 TaskDiverseBatchCreateFormMapper $mapper,
-                CreateTaskDiverseBatchWorkflow $workflow,
+                CreateTaskBatchWorkflow $workflow,
             ) {
                 $command = $mapper->fromForm($data);
-                // dd($command);
                 $result = $workflow->handle($command);
 
                 // $taskItemIdsData = Base64UrlHelper::encode(json_encode($result->taskItemIds));

@@ -18,5 +18,6 @@ final readonly class CreateTaskAssignmentsCommand
         public array $subjects,
         public array $taskItemGroupIds,
         public TaskBatchHandlerContext $context,
+        public ?string $note = null,
     ) {}
 }

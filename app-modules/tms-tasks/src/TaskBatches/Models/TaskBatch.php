@@ -84,4 +84,9 @@ class TaskBatch extends Model
     {
         return false;
     }
+
+    public function configs(): HasMany
+    {
+        return $this->hasMany(TaskBatchConfig::class);
+    }    
 }

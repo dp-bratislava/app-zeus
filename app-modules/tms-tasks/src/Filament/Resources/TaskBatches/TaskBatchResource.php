@@ -49,10 +49,10 @@ class TaskBatchResource extends Resource
             ->canViewAny();
     }
 
-    public static function form(Schema $schema): Schema
-    {
-        return TaskBatchForm::configure($schema);
-    }
+    // public static function form(Schema $schema): Schema
+    // {
+    //     return TaskBatchForm::configure($schema);
+    // }
 
     public static function infolist(Schema $schema): Schema
     {

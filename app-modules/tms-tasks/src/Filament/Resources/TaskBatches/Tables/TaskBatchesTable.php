@@ -48,7 +48,7 @@ class TaskBatchesTable
                 $query = $scopeSvc
                     ->taskBatchScope($query)
                     ->with([
-                        'subjects.subject.codes',
+                        'configs.subject.codes',
                         'subjects.subject.licencePlates',
                     ]);
                 return $query;
@@ -60,11 +60,11 @@ class TaskBatchesTable
                     ->date('Y-m-d'),
                 TextColumn::make('taskGroup.title')
                     ->label(__($langColsPfx . 'task_group')),
-                TextColumn::make('itemGroups.taskItemGroup.title')
+                TextColumn::make('configs.taskItemGroups.taskItemGroup.title')
                     ->label(__($langColsPfx . 'task_item_group'))
                     ->size(TextSize::Large)
                     ->badge(),
-                TextColumn::make('subjects')
+                TextColumn::make('configs.subject')
                     ->label(__($langColsPfx . 'subjects'))
                     ->state(function (TaskBatch $record): array {
                         return $record->subjects

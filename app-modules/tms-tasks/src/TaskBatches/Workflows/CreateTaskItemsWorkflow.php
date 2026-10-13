@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskItemsWorkflowResult;
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
 use Dpb\Package\TaskMS\States;
@@ -31,7 +32,10 @@ class CreateTaskItemsWorkflow
             );
 
             // task item assignments
-            $this->createTaskItemAssignments($command, $taskItemIdMap->ids());
+            $this->createTaskItemAssignments(
+                $command->context,
+                $taskItemIdMap->ids()
+            );
 
             return new CreateTaskItemsWorkflowResult(
                 $taskItemIdMap->ids(),
@@ -45,9 +49,11 @@ class CreateTaskItemsWorkflow
     ): Collection {
         $taskItems = [];
         $taskItemUuids = [];
+        
+        foreach ($command->taskIdMap->all() as $taskUuid => $taskId) {
+            $config = $command->configs->get($taskUuid);
 
-        foreach ($command->taskIds as $taskId) {
-            foreach ($command->taskItemGroupIds as $taskItemGroupId) {
+            foreach ($config->taskItemGroups as $taskItemGroup) {
                 $taskItemUuid = Str::uuid7()->toString();
 
                 $taskItems[] = [
@@ -55,7 +61,7 @@ class CreateTaskItemsWorkflow
                     'date' => $command->date,
                     'task_id' => $taskId,
                     'state' => States\Task\TaskItem\Created::$name,
-                    'group_id' => $taskItemGroupId,
+                    'group_id' => $taskItemGroup->taskItemGroupId,
                     'created_at' => $command->context->handledAt,
                     'updated_at' => $command->context->handledAt,
                 ];
@@ -70,7 +76,7 @@ class CreateTaskItemsWorkflow
     }
 
     private function createTaskItemAssignments(
-        CreateTaskItemsCommand $command,
+        TaskBatchHandlerContext $context,
         array $taskItemIds
     ) {
         $taskItemAssignments = [];
@@ -78,9 +84,9 @@ class CreateTaskItemsWorkflow
         foreach ($taskItemIds as $taskItemId) {
             $taskItemAssignments[] = [
                 'task_item_id' => $taskItemId,
-                'author_id' => $command->context->authorId,
-                'created_at' => $command->context->handledAt,
-                'updated_at' => $command->context->handledAt,
+                'author_id' => $context->authorId,
+                'created_at' => $context->handledAt,
+                'updated_at' => $context->handledAt,
             ];
         }
 

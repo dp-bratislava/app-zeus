@@ -4,14 +4,12 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\DTO\EntityIdMap;
 use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
-use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
-use Dpb\Package\Tasks\Models\TaskItem;
 use Dpb\Package\TaskMS\States;
-use Dpb\Package\Tasks\Models\TaskGroup;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -23,25 +21,25 @@ class CreateTaskAssignmentsWorkflow
     ) {}
 
     public function execute(
-        CreateTaskAssignmentsCommand $command,
+        CreateTaskBatchCommand $command,
     ): CreateTaskAssignmentsWorkflowResult {
         // tasks
-        $taskSubjects = $this->createTasks($command);
+        $taskConfigs = $this->createTasks($command);
 
         $taskIdMap = $this->idMapper->map(
             Task::class,
-            $taskSubjects->keys()
+            $taskConfigs->keys()
         );
 
         // task assignments
-        $this->createTaskAssignments($command, $taskIdMap, $taskSubjects);
+        $this->createTaskAssignments($command, $taskIdMap, $taskConfigs);
 
         // task items
         $ticwResult = $this->tiCWorkflow->execute(
             new CreateTaskItemsCommand(
             date: $command->date,
-            taskIds: $taskIdMap->ids(),
-            taskItemGroupIds: $command->taskItemGroupIds,
+            taskIdMap: $taskIdMap,
+            configs: $taskConfigs,
             context: $command->context,                
             )
         );
@@ -51,9 +49,9 @@ class CreateTaskAssignmentsWorkflow
             ->pluck('id')
             ->all();
 
-        $batchRecords[app(TaskItem::class)->getMorphClass()] = $ticwResult->taskItemIds;
+        // $batchRecords[app(TaskItem::class)->getMorphClass()] = $ticwResult->taskItemIds;
         $batchRecords[app(TaskAssignment::class)->getMorphClass()] = $taskAssignmentIds;
-        $batchRecords[app(TaskGroup::class)->getMorphClass()] = [$command->taskGroupId];
+        // $batchRecords[app(TaskGroup::class)->getMorphClass()] = [$command->taskGroupId];
 
         return new CreateTaskAssignmentsWorkflowResult(
             batchRecords: $batchRecords
@@ -61,11 +59,11 @@ class CreateTaskAssignmentsWorkflow
     }
 
     private function createTasks(
-        CreateTaskAssignmentsCommand $command,
+        CreateTaskBatchCommand $command,
     ): Collection {
         $tasks = [];
-        $taskSubjects = [];
-        foreach ($command->subjects as $subject) {
+        $taskConfigs = [];
+        foreach ($command->configs as $config) {
             $taskUuid = Str::uuid7()->toString();
 
             $tasks[] = [
@@ -73,33 +71,34 @@ class CreateTaskAssignmentsWorkflow
                 'date' => $command->date,
                 'group_id' => $command->taskGroupId,
                 'state' => States\Task\Task\Created::$name,
+                'description' => $config->note,
                 'place_of_origin_id' => $command->context->placeOfOriginId,
                 'created_at' => $command->context->handledAt,
                 'updated_at' => $command->context->handledAt,
             ];
 
-            $taskSubjects[$taskUuid] = $subject;
+            $taskConfigs[$taskUuid] = $config;
         }
 
         Task::insert($tasks);
 
-        return collect($taskSubjects);
+        return collect($taskConfigs);
     }
 
     private function createTaskAssignments(
-        CreateTaskAssignmentsCommand $command,
+        CreateTaskBatchCommand $command,
         EntityIdMap $taskIdMap,
-        Collection $taskSubjects
+        Collection $taskConfigs
     ) {
         $taskAssignments = [];
 
         foreach ($taskIdMap->all() as $taskUuid => $taskId) {
-            $subject = $taskSubjects->get($taskUuid);
+            $config = $taskConfigs->get($taskUuid);
 
             $taskAssignments[] = [
                 'task_id' => $taskId,
-                'subject_id' => $subject->id,
-                'subject_type' => $subject->type->value,
+                'subject_id' => $config->subject->id,
+                'subject_type' => $config->subject->type->value,
                 'author_id' => $command->context->authorId,
                 'created_at' => $command->context->handledAt,
                 'updated_at' => $command->context->handledAt,

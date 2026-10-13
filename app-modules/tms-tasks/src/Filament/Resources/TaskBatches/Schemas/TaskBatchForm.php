@@ -10,6 +10,8 @@ use Illuminate\Support\Collection;
 
 class TaskBatchForm
 {
+    public const IS_UNIFORM = true;
+    public const IS_DIVERSE = false;
     public const COL_NAME_VEHICLE_PICKER = 'vehicles';
     public const COL_NAME_CONTRACT_PICKER = 'contracts';
     public const COL_NAME_OPERATION_PICKER = 'operations';
@@ -19,11 +21,19 @@ class TaskBatchForm
     public const COL_NAME_TIG_PICKER = 'task-item-groups';
     public const COMPONENT_NAME_TASK_BATCH_CONFIG = 'task-batch-config';
 
-    public static function configure(Schema $schema): Schema
-    {
+    public static function configure(
+        Schema $schema,
+        bool $isUniform
+    ): Schema {
+        if ($isUniform) {
+            return $schema
+                ->components([
+                    ...TaskUniformBatchSchema::make(),
+                ]);
+        }
+
         return $schema
             ->components([
-                // ...TaskUniformBatchSchema::make(),
                 ...TaskDiverseBatchSchema::make(),
             ]);
     }

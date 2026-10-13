@@ -6,16 +6,18 @@ use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\SubjectTaskConfig;
 
-final readonly class CreateTaskDiverseBatchCommand
+final readonly class CreateTaskBatchCommand
 {
     /**
      * Summary of __construct
      * @param CarbonImmutable $date
+     * @param int $taskGroupId
      * @param list<SubjectTaskConfig> $configs
      * @param TaskBatchHandlerContext $context
      */
     public function __construct(
         public CarbonImmutable $date,
+        public int $taskGroupId,
         public array $configs,
         public TaskBatchHandlerContext $context,
     ) {}
