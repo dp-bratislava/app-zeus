@@ -48,9 +48,10 @@ class DetailReport implements ReportDriver
         $departmentValues = $this->departmentService->getAvailableDepartments()->pluck('code');
 
         $subjectTypesWithDepartments = WorkTaskSubject::query()
-            ->whereIn('department_code', $departmentValues)
-            ->select('subject_type', 'department_code')
-            ->distinct()
+            ->join('mvw_work_activity_report_v2', 'mvw_work_task_subject_snapshots.wtf_task_id', '=', 'mvw_work_activity_report_v2.wtf_task_id') // Adjust foreign/primary keys to match your schema
+            ->whereIn('mvw_work_activity_report_v2.department_code', $departmentValues)
+            ->groupBy('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
+            ->select('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
             ->get()
             ->groupBy('subject_type')
             ->map(fn ($group) => $group->pluck('department_code')->toArray());
@@ -127,11 +128,16 @@ class DetailReport implements ReportDriver
                 ->tooltip(__('reports/detail-report.table.columns.activity_real_duration.tooltip')),
             TextColumn::make('activity_is_fulfilled_label')
                 ->label(__('reports/detail-report.table.columns.activity_is_fulfilled')),
+            TextColumn::make('group_sap_code')
+                ->label('Sap kód'),
+            TextColumn::make('activity_sap_code')
+                ->label('Kod aktivity'),
+
             TextColumn::make('task_id')
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(
                     fn ($record) => $record->task_id
-                        ? route('filament.admin.resources.task.task-assignments.edit', ['record' => $record->task_id])
+                        ? route('filament.admin.resources.task-assignments.edit', ['record' => $record->task_id])
                         : null
                 )
                 ->color(fn ($state) => $state ? 'primary' : 'gray')

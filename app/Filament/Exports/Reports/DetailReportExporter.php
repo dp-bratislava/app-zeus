@@ -29,7 +29,12 @@ class DetailReportExporter extends BaseReportExporter
             $departmentCodes = $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
         }
         $subjectTypes = DB::table('mvw_work_task_subject_snapshots AS wtss')
-            ->whereIn('wtss.department_code', $departmentCodes)
+                        ->whereExists(function ($query) use ($departmentCodes) {
+                $query->select(DB::raw(1))
+                    ->from('mvw_work_activity_report_v2 AS ar')
+                    ->whereColumn('ar.wtf_task_id', 'wtss.wtf_task_id')
+                    ->whereIn('ar.department_code', $departmentCodes);
+            })
             ->distinct()
             ->pluck('wtss.subject_type')
             ->toArray();
@@ -64,6 +69,8 @@ class DetailReportExporter extends BaseReportExporter
             ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
             ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
             ['key' => 'task_item_group_title', 'label' => 'Typ podzákazky'],
+            ['key' => 'group_sap_code', 'label' => 'SAP Kód'],
+            ['key' => 'activity_sap_code', 'label' => 'Kód aktivity'],
             ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
             ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
             ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],

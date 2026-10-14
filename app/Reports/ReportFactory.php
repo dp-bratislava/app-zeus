@@ -5,6 +5,7 @@ namespace App\Reports;
 use App\Reports\Drivers\DetailReport;
 use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\SumarReport;
+use App\Reports\Drivers\VehicleReport;
 use InvalidArgumentException;
 
 class ReportFactory
@@ -12,6 +13,7 @@ class ReportFactory
     private static array $drivers = [
         'work-activity' => DetailReport::class,
         'sumar' => SumarReport::class,
+        'vehicle' => VehicleReport::class,
         // Add more drivers here as you create them
     ];
 
@@ -39,3 +41,4 @@ class ReportFactory
         return new $driverClass;
     }
 }
+
