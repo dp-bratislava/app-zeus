@@ -18,6 +18,31 @@ use Illuminate\Support\Facades\DB;
  */
 class GenericProfile implements TaskBatchLookupScopeProfile
 {
+    public function employeeContracts(TaskBatchResourceContext $context): array
+    {
+        return DB::table('mvw_hr_contract_snapshots as cs')
+            ->join(
+                'dpb_employeemanager_mm_group_datahubcontract as emgc',
+                'emgc.datahub_contract_pid',
+                '=',
+                'cs.pid'
+            )
+            ->join(
+                'dpb_employeemanager_model_group as emg',
+                'emg.id',
+                '=',
+                'emgc.group_id'
+            )
+            ->where('emg.department', '=', $context->departmentContext->departmentId)
+            ->get()
+            ->mapWithKeys(function ($contract) {
+                return [
+                    $contract->contract_id =>  $contract->pid . ' - ' . $contract->last_name
+                ];
+            })
+            ->toArray();
+    }
+
     public function taskSubjects(TaskBatchResourceContext $context): array
     {
         return Vehicle::with(['codes', 'licencePlates', 'model'])
@@ -56,7 +81,7 @@ class GenericProfile implements TaskBatchLookupScopeProfile
     public function batchableTaskItemGroups(
         TaskBatchResourceContext $context,
     ): SupportCollection {
-        return DB::table('tms_task_batch_department_tigs')            
+        return DB::table('tms_task_batch_department_tigs')
             ->where('department_id', $context->departmentContext->departmentId)
             ->get();
 

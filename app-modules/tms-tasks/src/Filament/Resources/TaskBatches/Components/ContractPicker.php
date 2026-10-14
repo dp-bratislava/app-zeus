@@ -17,32 +17,45 @@ use Filament\Schemas\Components\Utilities\Get;
 
 class ContractPicker
 {
-    public function __construct(
-        TaskBatchLookupScopeService $taskBatchLookupScope
-    ) {
-        throw new \Exception('Not implemented');
-    }
-
-    public static function make(?string $name = TaskBatchForm::COL_NAME_CONTRACT_PICKER): Component
-    {
-        $checkbox = fn(string $name, $options) => CheckboxList::make($name)
-            ->options($options)
-            ->columnSpan(2);
-
-        $data = [
-            'g1' => [1 => 'name 1', 2 =>'name 2'],
-            'g2' => [1 => 'name 1', 2 =>'name 2'],
-            'g3' => [1 => 'name 1', 2 => 'name 2'],
-        ];
-
-        $lists = [];
-
-        foreach ($data as $key => $values) {
-            $lists[] = $checkbox($key, $values);
-        }
-        return Grid::make(1)
+    public static function make(
+        ?string $name = TaskBatchForm::COL_NAME_CONTRACT_PICKER
+    ): Component {
+        return ToggleButtons::make($name)
             ->columnSpanFull()
-            ->columns(12)
-            ->schema($lists);
+            // ->columns(12)
+            // ->fullWidth()
+            ->inline()
+            ->options(fn(TaskBatchLookupScopeService $lookupSvc) => $lookupSvc->employeeContracts())
+            ->multiple()
+            ->live()
+            ->afterStateUpdated(function ($state, $get, $set): void {
+                $selectedContractIds = array_map('intval', $state ?? []);
+
+                $matrixState = $get(
+                    TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE,
+                ) ?? [];
+
+                foreach ($matrixState as &$groups) {
+                    foreach ($groups as &$cell) {
+                        $cell['people'] = array_values(array_filter(
+                            $cell['people'] ?? [],
+                            fn(array $person): bool => in_array(
+                                (int) $person['person_id'],
+                                $selectedContractIds,
+                                true,
+                            ),
+                        ));
+                    }
+
+                    unset($cell);
+                }
+
+                unset($groups);
+
+                $set(
+                    TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE,
+                    $matrixState,
+                );
+            });
     }
 }

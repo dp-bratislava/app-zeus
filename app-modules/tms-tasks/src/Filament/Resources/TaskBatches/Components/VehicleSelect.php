@@ -15,9 +15,55 @@ use Illuminate\Support\Facades\DB;
 
 class VehicleSelect
 {
+    public static function make(
+        ?string $name = TaskBatchForm::FIELD_NAME_VEHICLE_PICKER
+    ): Component {
+        return Select::make($name)
+            ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.vehicles'))
+            ->searchable()
+            ->multiple()
+            ->required()
+            ->validationMessages([
+                'required' => __('dpb-mod-tasks::daily-maintenance.form.validations.vehicles_required'),
+            ])
+            //         ->reactive()
+            // ->afterStateUpdated(function ($set, $get) {
+            //     $set('selected_count', count($get('vehicles') ?? []));
+            // })    
+            ->live()
+            ->dehydrated(false)
+            ->afterStateUpdated(function ($state, $get, $set): void {
+                $selectedVehicleIds = array_map(
+                    'intval',
+                    $state ?? [],
+                );
 
-    public static function make(?string $name = TaskBatchForm::COL_NAME_VEHICLE_PICKER): Component
-    {
+                $matrixState = $get(
+                    TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE,
+                ) ?? [];
+
+                // Keep assignments only for currently selected vehicles.
+                $filteredState = array_intersect_key(
+                    $matrixState,
+                    array_flip($selectedVehicleIds),
+                );
+
+                $set(
+                    TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE,
+                    $filteredState,
+                );
+            })
+            ->options(function (
+                TaskBatchLookupScopeService $lookupService,
+            ) {
+                return $lookupService->taskSubjects();
+            });
+    }
+
+
+    public static function make1(
+        ?string $name = TaskBatchForm::FIELD_NAME_VEHICLE_PICKER
+    ): Component {
         return Select::make($name)
             ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.vehicles'))
             ->searchable()
@@ -60,9 +106,9 @@ class VehicleSelect
                         'vehicle_id',
                         'code',
                         'licence_plate',
-                        'model',
-                        'length',
-                        'seats',
+                        // 'model',
+                        // 'length',
+                        // 'seats',
 
                     ]);
 
@@ -83,9 +129,9 @@ class VehicleSelect
                             'vehicle_label' => $vehicle->code
                                 ?? $vehicle->licence_plate
                                 ?? 'g',
-                            'model' => $vehicle->model,
-                            'length' => $vehicle->length,
-                            'seats' => $vehicle->seats,
+                            // 'model' => $vehicle->model,
+                            // 'length' => $vehicle->length,
+                            // 'seats' => $vehicle->seats,
                         ];
                     }
 
@@ -96,10 +142,10 @@ class VehicleSelect
                             ?? $vehicle->licence_plate
                             ?? 'g',
 
-                        'model' => $vehicle->model,
-                        'length' => $vehicle->length,
-                        'seats' => $vehicle->seats,
-                        'cleaning_b' => false,
+                        // 'model' => $vehicle->model,
+                        // 'length' => $vehicle->length,
+                        // 'seats' => $vehicle->seats,
+                        // 'cleaning_b' => false,
                         // 'ceiling' => false,
                         // 'tsv_mt' => false,
                         // 'tep_sv_st' => false,

@@ -45,7 +45,7 @@ class EditTaskBatchAction
                         ->all(),
 
                     // vehicles
-                    TaskBatchForm::COL_NAME_VEHICLE_PICKER =>
+                    TaskBatchForm::FIELD_NAME_VEHICLE_PICKER =>
                     $record->subjects
                         ->where('subject_type', TaskSubjectType::Vehicle->value)
                         ->pluck('subject_id')

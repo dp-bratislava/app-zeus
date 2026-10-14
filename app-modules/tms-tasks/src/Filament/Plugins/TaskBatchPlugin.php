@@ -5,6 +5,7 @@ namespace Dpb\Modules\Tasks\Filament\Plugins;
 use Dpb\Modules\Tasks\Filament\Pages\DailyMaintenanceWorkOrdersPage;
 use Dpb\Modules\Tasks\Filament\Pages\TaskBatchWorkOrdersPage;
 use Dpb\Modules\Tasks\Filament\Pages\WorkOrderPage;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Assets\Css;
@@ -25,6 +26,7 @@ class TaskBatchPlugin implements Plugin
             ->darkMode(false)
             ->pages(pages: [
                 TaskBatchWorkOrdersPage::class,
+                // CreateTaskDiverseBatch::class,
             ])
             // ->renderHook(
             //     PanelsRenderHook::USER_MENU_BEFORE,

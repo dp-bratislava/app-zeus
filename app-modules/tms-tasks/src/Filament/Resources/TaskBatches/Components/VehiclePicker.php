@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class VehiclePicker
 {
 
-    public static function make1(?string $name = TaskBatchForm::COL_NAME_VEHICLE_PICKER): Component
+    public static function make1(?string $name = TaskBatchForm::FIELD_NAME_VEHICLE_PICKER): Component
     {
         return CheckboxList::make($name)
             ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.vehicles'))
@@ -72,7 +72,7 @@ class VehiclePicker
             });
     }
 
-    public static function make(?string $name = TaskBatchForm::COL_NAME_VEHICLE_PICKER): Component
+    public static function make(?string $name = TaskBatchForm::FIELD_NAME_VEHICLE_PICKER): Component
     {
         return CheckboxList::make($name)
             ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.vehicles'))

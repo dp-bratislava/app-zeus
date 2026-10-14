@@ -37,16 +37,16 @@ class TaskBatchConfig
             ->addable(false)
             ->deletable(false)
             ->reorderable(false)
-            ->cloneable(false)
+            ->cloneable()
             ->live()
             ->compact()
             ->itemNumbers()
             ->table([
                 TableColumn::make('ID')->width('40px'),
                 TableColumn::make('Vozidlo')->width('60px'),
-                TableColumn::make('Model'),
-                TableColumn::make('Dlzka')->width('40px'),
-                TableColumn::make('Sedadla')->width('40px'),
+                // TableColumn::make('Model'),
+                // TableColumn::make('Dlzka')->width('40px'),
+                // TableColumn::make('Sedadla')->width('40px'),
                 ...$columns,
                 TableColumn::make('Pozn')->width('250px'),
             ])
@@ -55,14 +55,14 @@ class TaskBatchConfig
                     ->readOnly(),
                 TextInput::make('vehicle_label')
                     ->readOnly(),
-                TextInput::make('model')
-                    ->readOnly(),
-                TextInput::make('length')
-                    ->readOnly()
-                    ->dehydrated(false),
-                TextInput::make('seats')
-                    ->readOnly()
-                    ->dehydrated(false),
+                // TextInput::make('model')
+                //     ->readOnly(),
+                // TextInput::make('length')
+                //     ->readOnly()
+                //     ->dehydrated(false),
+                // TextInput::make('seats')
+                //     ->readOnly()
+                //     ->dehydrated(false),
                 ...$fields,
                 TextInput::make('note')
             ]);

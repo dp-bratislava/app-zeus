@@ -21,6 +21,7 @@ use Dpb\Modules\Tasks\Observers\TaskItemObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Dpb\Modules\Tasks\Policies\TaskAssignmentPolicy;
+use Dpb\Modules\Tasks\TaskBatches\Livewire\AssignmentMatrix;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -58,6 +59,11 @@ class TasksModuleServiceProvider extends ServiceProvider
 
 
         $this->registerFilamentPlugin();
+
+    Livewire::component(
+        'tms-tasks.assignment-matrix',
+        AssignmentMatrix::class,
+    );        
     }
 
     private function registerFilamentPlugin(): void

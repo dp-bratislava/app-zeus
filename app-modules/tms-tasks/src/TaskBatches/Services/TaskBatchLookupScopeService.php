@@ -14,6 +14,15 @@ class TaskBatchLookupScopeService
         private TaskBatchContextFactory $factory,
     ) {}
 
+    public function employeeContracts(): array
+    {
+        $context = $this->factory->make();
+
+        return $this->resolver
+            ->resolve($context->departmentContext->departmentGroup)
+            ->employeeContracts($context);
+    }
+
     public function taskSubjects(): array
     {
         $context = $this->factory->make();

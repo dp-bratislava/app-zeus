@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use App\Enums\BatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskBatchWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Batchable\Resolvers\BatchContextResolver;
@@ -19,36 +20,37 @@ class CreateTaskBatchWorkflow
 
     public function handle(
         CreateTaskBatchCommand $command,
-    ) {
-        $result = null;
-
+    ): CreateTaskBatchWorkflowResult {
         try {
-            $result = DB::transaction(function () use ($command) {
+            return DB::transaction(function () use ($command) {
                 // handle batch
-                $batch = $this->createBatch($command);
+                $ctbwResult = $this->createBatch($command);
 
-                $wfResult = $this->taCWorkflow
-                    ->execute($command);
+                // $wfResult = $this->taCWorkflow
+                //     ->execute($command);
 
-                // attach batch records
-                if ($batch !== null) {
-                    foreach ($wfResult->batchRecords as $morphClass => $ids) {
-                        $batch->attachRecordIds(
-                            $morphClass,
-                            $ids
-                        );
-                    }
-                }
+                // // attach batch records
+                // if ($ctbwResult->batch !== null) {
+                //     foreach ($wfResult->batchRecords as $morphClass => $ids) {
+                //         $ctbwResult->batch->attachRecordIds(
+                //             $morphClass,
+                //             $ids
+                //         );
+                //     }
+                // }
+
+                return $ctbwResult;
             });
         } catch (Exception $e) {
             dd($e);
         }
 
-        return $result;
+        return new CreateTaskBatchWorkflowResult();
     }
 
-    private function createBatch(CreateTaskBatchCommand $command): Batch
-    {
+    private function createBatch(
+        CreateTaskBatchCommand $command
+    ): CreateTaskBatchWorkflowResult {
         // handle batch
         // $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;
         $batchContextId = BatchContextResolver::get(BatchContext::TaskBatch->value)?->id;
@@ -64,6 +66,7 @@ class CreateTaskBatchWorkflow
                 'batch_id' => $batch->id,
                 'task_group_id' => $command->taskGroupId,
                 'author_id' => $command->context->authorId,
+                'configuration' => $command->configuration,
                 'created_at' => $command->context->handledAt,
                 'updated_at' => $command->context->handledAt,
             ]);
@@ -99,6 +102,9 @@ class CreateTaskBatchWorkflow
             // TaskBatchTaskItemGroup::insert($taskBatchTigs);
         }
 
-        return $batch;
+        return new CreateTaskBatchWorkflowResult(
+            $batch,
+            $taskBatch
+        );
     }
 }

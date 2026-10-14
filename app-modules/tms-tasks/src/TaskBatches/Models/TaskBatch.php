@@ -24,10 +24,12 @@ class TaskBatch extends Model
         'batch_id',
         'task_group_id',
         'author_id',
+        'configuration',
     ];
 
     protected $casts = [
-        'date' => 'date'
+        'date' => 'date',
+        'configuration' => 'array',
     ];
 
     public function getTable()

@@ -27,7 +27,7 @@ class TaskUniformBatchUpdateFormMapper
                     type: TaskSubjectType::Vehicle,
                     id: $id,
                 ),
-                $data[TaskBatchForm::COL_NAME_VEHICLE_PICKER] ?? [],
+                $data[TaskBatchForm::FIELD_NAME_VEHICLE_PICKER] ?? [],
             ),
             taskItemGroupIds: array_map(
                 'intval',

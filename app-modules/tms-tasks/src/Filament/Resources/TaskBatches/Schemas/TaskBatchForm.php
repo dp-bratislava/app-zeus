@@ -12,7 +12,8 @@ class TaskBatchForm
 {
     public const IS_UNIFORM = true;
     public const IS_DIVERSE = false;
-    public const COL_NAME_VEHICLE_PICKER = 'vehicles';
+    public const FIELD_NAME_ASSIGNMENT_MATRIX_STATE = 'assignment_matrix_state';
+    public const FIELD_NAME_VEHICLE_PICKER = 'vehicles';
     public const COL_NAME_CONTRACT_PICKER = 'contracts';
     public const COL_NAME_OPERATION_PICKER = 'operations';
     public const COL_NAME_VEHICLE_TYPE_PICKER = 'vehicle_type_id';

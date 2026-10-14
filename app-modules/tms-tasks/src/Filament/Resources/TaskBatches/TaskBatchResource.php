@@ -12,6 +12,7 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchInfolist;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchAccessService;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -49,10 +50,10 @@ class TaskBatchResource extends Resource
             ->canViewAny();
     }
 
-    // public static function form(Schema $schema): Schema
-    // {
-    //     return TaskBatchForm::configure($schema);
-    // }
+    public static function form(Schema $schema): Schema
+    {
+        return TaskBatchForm::configure($schema, false);
+    }
 
     public static function infolist(Schema $schema): Schema
     {
@@ -76,6 +77,8 @@ class TaskBatchResource extends Resource
         return [
             'index' => ListTaskBatches::route('/'),
             'create' => CreateTaskBatch::route('/create'),
+            // 'create' => CreateTaskDiverseBatch::route('/create'),
+            // 'create-diverse' => CreateTaskDiverseBatch::route('/create-diverse'),
             // 'edit' => EditTaskBatch::route('/{record}/edit'),
             'view' => ViewTaskBatch::route('/{record}'),
         ];

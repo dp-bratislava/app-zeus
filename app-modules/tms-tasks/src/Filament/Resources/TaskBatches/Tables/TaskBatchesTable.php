@@ -14,6 +14,7 @@ use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\TaskMS\UI\Filament\Components\FleetVehiclePicker;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\TextColumn;
@@ -21,6 +22,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Model;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class TaskBatchesTable
@@ -60,17 +62,27 @@ class TaskBatchesTable
                     ->date('Y-m-d'),
                 TextColumn::make('taskGroup.title')
                     ->label(__($langColsPfx . 'task_group')),
-                TextColumn::make('configs.taskItemGroups.taskItemGroup.title')
+                TextColumn::make('configs.taskItemGroup.title')
                     ->label(__($langColsPfx . 'task_item_group'))
-                    ->size(TextSize::Large)
-                    ->badge(),
-                TextColumn::make('configs.subject')
+                    ->state(function (TaskBatch $record): array {
+                        return $record->configs
+                            ->map(
+                                fn(Model $config) => $config->taskItemGroup->title
+                            )
+                            ->unique()
+                            ->all();
+                    })
+                    ->badge()
+                    ->wrap()
+                    ->size(TextSize::Large),
+                TextColumn::make('configs')
                     ->label(__($langColsPfx . 'subjects'))
                     ->state(function (TaskBatch $record): array {
-                        return $record->subjects
+                        return $record->configs
                             ->map(
-                                fn(TaskBatchTaskSubject $subject) => (new TaskSubjectPresenter($subject->subject))->label()
+                                fn(Model $config) => (new TaskSubjectPresenter($config->subject))->label()
                             )
+                            ->unique()
                             ->all();
                     })
                     ->badge()
@@ -99,10 +111,12 @@ class TaskBatchesTable
                 //     ->label(__('dpb-mod-tasks::task-batch.table.actions.edit_action'))
             ])
             ->headerActions([
-                CreateTaskDiverseBatchAction::make('diverse_create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' D'),
+                // CreateTaskDiverseBatchAction::make('diverse_create_action')
+                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
+                CreateAction::make('diverse_create_action')
+                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
                 CreateTaskUniformBatchAction::make('uniform_create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' U')
+                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

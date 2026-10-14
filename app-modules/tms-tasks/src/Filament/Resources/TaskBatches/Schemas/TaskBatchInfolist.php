@@ -5,9 +5,11 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\AssignWorkAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskDiverseBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchConfig;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Filament\Infolists\Components\RepeatableEntry;
@@ -17,6 +19,7 @@ use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\TextSize;
+use Illuminate\Database\Eloquent\Model;
 
 class TaskBatchInfolist
 {
@@ -28,7 +31,7 @@ class TaskBatchInfolist
             ->components([
                 static::headerSection(),
                 static::subjectsSection(),
-                static::workSection()
+                // static::workSection(),
             ]);
     }
 
@@ -42,7 +45,9 @@ class TaskBatchInfolist
                 AssignWorkAction::make()
                     ->label(__(static::LANG_PFX . 'actions.assign_work_action'))
                     ->color('warning'),
-                EditTaskBatchAction::make()
+                // EditTaskBatchAction::make()
+                //     ->label(__(static::LANG_PFX . 'actions.edit_action')),
+                EditTaskDiverseBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.edit_action')),
                 DeleteTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.delete_action'))
@@ -59,11 +64,11 @@ class TaskBatchInfolist
                 TextEntry::make('batch.context')
                     ->label(__(static::LANG_PFX . 'entries.task_group'))
                     ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
-                TextEntry::make('itemGroups.taskItemGroup.title')
-                    ->label(__(static::LANG_PFX . 'entries.task_item_group'))
-                    ->columnSpan(3)
-                    ->size(TextSize::Large)
-                    ->badge(),
+                // TextEntry::make('itemGroups.taskItemGroup.title')
+                //     ->label(__(static::LANG_PFX . 'entries.task_item_group'))
+                //     ->columnSpan(3)
+                //     ->size(TextSize::Large)
+                //     ->badge(),
                 TextEntry::make('author.lastname')
                     ->label(__(static::LANG_PFX . 'entries.author')),
                 TextEntry::make('created_at')
@@ -74,25 +79,31 @@ class TaskBatchInfolist
     private static function subjectsSection(): Component
     {
         return Section::make('Subjects')
+            ->columnSpanFull()
             ->heading(__(static::LANG_PFX . 'sections.subjects'))
             ->schema([
-                RepeatableEntry::make('subjects')
+                RepeatableEntry::make('configs')              
                     ->hiddenLabel()
                     ->table([
-                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_label')),
+                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_label'))->width('100px'),
                         TableColumn::make(__(static::LANG_PFX . 'entries.subject_description')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_length')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_seats')),
+                        TableColumn::make(__(static::LANG_PFX . 'entries.task_item_group')),
+                        TableColumn::make(__(static::LANG_PFX . 'entries.personel')),
                     ])
                     ->schema([
                         TextEntry::make('subject_label')
-                            ->state(fn(TaskBatchTaskSubject $record) => (new TaskSubjectPresenter($record->subject))->label()),
+                            ->state(fn(Model $record) => (new TaskSubjectPresenter($record->subject))->label()),
                         TextEntry::make('subject_description')
-                            ->state(fn(TaskBatchTaskSubject $record) => (new TaskSubjectPresenter($record->subject))->description()),
-                        TextEntry::make('subject_length')
-                            ->state(fn(TaskBatchTaskSubject $record) => (new TaskSubjectPresenter($record->subject))->size()),
-                        TextEntry::make('subject_seats')
-                            ->state(fn(TaskBatchTaskSubject $record) => (new TaskSubjectPresenter($record->subject))->seats()),
+                            ->state(fn(Model $record) => (new TaskSubjectPresenter($record->subject))->description()),
+                        TextEntry::make('task_item_group')
+                            ->state(fn(Model $record) => $record->taskItemGroup->title),
+                        TextEntry::make('personel')
+                            ->state(fn() => [
+                                '10001 - meno1',
+                                '10002 - meno2',
+                                '10003 - meno3',
+                            ])
+                            ->badge(),
                         // TextEntry::make('task_url')
                         //     ->state('url')
                         //     ->url(

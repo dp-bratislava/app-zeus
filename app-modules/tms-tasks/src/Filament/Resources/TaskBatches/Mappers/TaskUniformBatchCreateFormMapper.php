@@ -18,7 +18,7 @@ class TaskUniformBatchCreateFormMapper
     {
         $configs = [];
 
-        foreach ($data[TaskBatchForm::COL_NAME_VEHICLE_PICKER] as $subject) {
+        foreach ($data[TaskBatchForm::FIELD_NAME_VEHICLE_PICKER] as $subject) {
             $configs[] = new SubjectTaskConfig(
                 subject: new TaskSubjectReference(
                     type: EnumsTaskSubjectType::Vehicle,

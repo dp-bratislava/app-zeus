@@ -10,8 +10,10 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskItemGroupPic
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskBatchConfig;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleTypePicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\ContractPicker;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskBatchConfiguration;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleSelect;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Grid;
 
 class TaskDiverseBatchSchema
@@ -19,6 +21,10 @@ class TaskDiverseBatchSchema
     public static function make(): array
     {
         return [
+            Hidden::make('assignment_matrix_state')
+                ->default([])
+                ->dehydrated(),
+
             Grid::make(9)
                 ->columnSpanFull()
                 ->schema([
@@ -28,43 +34,34 @@ class TaskDiverseBatchSchema
                         ->default(Carbon::now())
                         ->required()
                         ->columnSpan(2),
-                    // // task item groups
-                    // TaskGroupPicker::make()
-                    //     ->columnSpan(7),
-                    // TaskItemGroupPicker::make()
-                    //     ->columnSpan(9),
                 ]),
-
-            // maintenance group
-            // Grid::make(6)
-            //     ->columnSpanFull()
-            //     ->schema([
-            //         // AssignedToField::make(),
-            //         VehicleTypePicker::make()
-            //         ->columnSpan(4),
-            //     ]),
 
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
-                    // VehiclePicker::make()
+                    ContractPicker::make()
+                        ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     VehicleSelect::make()
-                        ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
-                ]),
-
-            Grid::make(1)
-                ->columnSpanFull()
-                ->schema([
-                    TaskBatchConfig::make()
-                        ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
+                        ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles')),
                 ]),
 
             // Grid::make(1)
             //     ->columnSpanFull()
             //     ->schema([
-            //         ContractPicker::make('tmp_picker')
-            //             // ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
-            //     ]),                
+            //         TaskBatchConfig::make()
+            //             ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
+            //     ]),
+
+            Grid::make(1)
+                ->columnSpanFull()
+                ->schema([
+                    TaskBatchConfiguration::make()
+                ]),
+
+            // Livewire::make('tms-tasks.assignment-matrix', [
+            //     'subjects' => $subjects,
+            //     'groups' => $groups,
+            // ]),
         ];
     }
 }

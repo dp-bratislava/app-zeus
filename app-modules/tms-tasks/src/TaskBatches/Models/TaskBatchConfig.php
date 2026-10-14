@@ -37,11 +37,11 @@ class TaskBatchConfig extends Model
         return $this->morphTo();
     }
 
-    public function taskItemGroups(): BelongsTo
+    public function taskItemGroup(): BelongsTo
     {
         return $this->belongsTo(
             TaskItemGroup::class,
-            'task-item_group_id'
+            'task_item_group_id'
         );
     }
 }

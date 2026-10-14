@@ -21,46 +21,103 @@ class TaskDiverseBatchCreateFormMapper
     {
         $configs = [];
 
-        $cfgRows = $data[TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG];
-        $taskGroupId = $this->getTaskGroupId($cfgRows);
+        // $cfgRows = $data[TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG];
+        // $taskGroupId = $this->getTaskGroupId($cfgRows);
+        $taskGroupId = 9;
 
-        foreach ($cfgRows as $cfgRow) {
-            $groups = [];
-            foreach ($cfgRow['groups'] as $id => $value) {
-                if ($value === true) {
-                    $groups[] = new SubjectTaskItemGroup(
-                        taskItemGroupId: $id,
-                    );
-                }
+        // $configuration = $this->getConfiguration($cfgRows);
 
-                if (is_numeric($value)) {
-                    $groups[] = new SubjectTaskItemGroup(
-                        taskItemGroupId: $id,
-                        quantity: $value,
-                    );
-                }
-            }
+        $matrix = $data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
 
-            $configs[] = new SubjectTaskConfig(
-                subject: new TaskSubjectReference(
-                    type: EnumsTaskSubjectType::Vehicle,
-                    id: $cfgRow['vehicle_id'],
-                ),
-                taskItemGroups: $groups,
-                note: $cfgRow['note'],
-            );
-        }
+        $configuration = $this->getConfiguration($matrix);
+
+        // foreach ($cfgRows as $cfgRow) {
+        //     $groups = [];
+        //     foreach ($cfgRow['groups'] as $id => $value) {
+        //         if ($value === true) {
+        //             $groups[] = new SubjectTaskItemGroup(
+        //                 taskItemGroupId: $id,
+        //             );
+        //         }
+
+        //         if (is_numeric($value)) {
+        //             $groups[] = new SubjectTaskItemGroup(
+        //                 taskItemGroupId: $id,
+        //                 quantity: $value,
+        //             );
+        //         }
+        //     }
+
+        //     $configs[] = new SubjectTaskConfig(
+        //         subject: new TaskSubjectReference(
+        //             type: EnumsTaskSubjectType::Vehicle,
+        //             id: $cfgRow['vehicle_id'],
+        //         ),
+        //         taskItemGroups: $groups,
+        //         note: $cfgRow['note'],
+        //     );
+        // }
 
         return new CreateTaskBatchCommand(
             date: CarbonImmutable::parse($data['date']),
             taskGroupId: $taskGroupId,
             configs: $configs,
+            configuration: $configuration,
             context: new TaskBatchHandlerContext(
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
                 authorId: auth()->id(),
                 handledAt: now()->toImmutable(),
             )
         );
+    }
+
+    private function getConfiguration(array $matrix): array
+    {
+        return [
+            'version' => 2,
+            'subjects' => collect($matrix)
+                ->map(fn(array $groups, int|string $vehicleId) => [
+                    'subject_type' => EnumsTaskSubjectType::Vehicle,
+                    'subject_id' => (int) $vehicleId,
+                    'groups' => collect($groups)
+                        ->map(fn(array $cell, int|string $groupId) => [
+                            'task_item_group_id' => (int) $groupId,
+                            'people' => collect($cell['people'] ?? [])
+                                ->map(fn(array $person) => [
+                                    'person_id' => (int) $person['person_id'],
+                                    'quantity' => (int) $person['quantity'],
+                                ])
+                                ->values()
+                                ->all(),
+                        ])
+                        ->values()
+                        ->all(),
+                ])
+                ->values()
+                ->all(),
+        ];
+    }
+
+    private function getConfiguration1(array $data): array
+    {
+        return [
+            'version' => 1,
+            'subjects' => collect(
+                $data
+            )->map(fn(array $row) => [
+                'subject_type' => EnumsTaskSubjectType::Vehicle,
+                'subject_id' => (int) $row['vehicle_id'],
+                'subject_label' => (int) $row['vehicle_label'],
+                'groups' => collect($row['groups'] ?? [])
+                    ->map(fn($quantity, $groupId) => [
+                        'task_item_group_id' => (int) $groupId,
+                        'quantity' => $quantity,
+                    ])
+                    ->values()
+                    ->all(),
+                'note' => $row['note'] ?? null,
+            ])->values()->all(),
+        ];
     }
 
     private function getTaskGroupId(array $data): ?int
