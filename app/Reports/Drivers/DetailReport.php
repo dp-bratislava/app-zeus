@@ -148,7 +148,7 @@ class DetailReport implements ReportDriver
 
     public function getFilters(): array
     {
-        $validator = new DateRangeValidator(120);
+        $validator = new DateRangeValidator(1200);
 
         return [
             Filter::make('date_range')

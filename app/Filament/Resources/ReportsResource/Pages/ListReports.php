@@ -124,7 +124,7 @@ class ListReports extends ListRecords
     }
     private function validateDateRange($from, $to): array
     {
-        $validator = new DateRangeValidator();
+        $validator = new DateRangeValidator(1200);
 
         return $validator->validate($from, $to);
     }
