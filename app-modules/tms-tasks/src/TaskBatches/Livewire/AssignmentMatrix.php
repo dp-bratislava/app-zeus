@@ -24,6 +24,7 @@ class AssignmentMatrix extends Component
      * ]
      */
     public array $matrix = [];
+    public array $notes = [];
 
     public array $personInputs = [];
     public array $peopleOptions = [];
@@ -36,28 +37,62 @@ class AssignmentMatrix extends Component
         array $subjects = [],
         array $groups = [],
         array $state = [],
+        array $peopleOptions = [],
     ): void {
         $this->subjects = $subjects;
         $this->groups = $groups;
+        $this->peopleOptions = $peopleOptions;
         $this->matrix = $state;
 
-        // Ensure every subject/group combination has a cell.
+        // Normalize people collections to use person_id as the key.
+        foreach ($this->matrix as $subjectId => $subjectGroups) {
+            foreach ($subjectGroups as $groupId => $cell) {
+                $normalizedPeople = [];
+
+                foreach ($cell['people'] ?? [] as $person) {
+                    if (! is_array($person) || ! isset($person['person_id'])) {
+                        continue;
+                    }
+
+                    $personId = (int) $person['person_id'];
+
+                    $normalizedPeople[$personId] = [
+                        'person_id' => $personId,
+                        'quantity' => (int) ($person['quantity'] ?? 1),
+                    ];
+                }
+
+                $this->matrix[$subjectId][$groupId]['people'] = $normalizedPeople;
+            }
+        }
+
         foreach ($this->subjects as $subject) {
             $subjectId = (int) $subject['id'];
+
+            $this->notes[$subjectId] ??= '';
 
             foreach ($this->groups as $group) {
                 $groupId = (int) $group['id'];
 
-                $this->matrix[$subjectId][$groupId] = [
-                    'people' => array_values(
-                        $state[$subjectId][$groupId]['people'] ?? []
-                    ),
+                $this->matrix[$subjectId][$groupId] ??= [
+                    'people' => [],
                 ];
 
-                $this->personInputs[$subjectId][$groupId] = '';
-                $this->quantityInputs[$subjectId][$groupId] = 1;
+                $this->matrix[$subjectId][$groupId]['people'] ??= [];
+                $this->personInputs[$subjectId][$groupId] ??= '';
+                $this->quantityInputs[$subjectId][$groupId] ??= 1;
             }
         }
+    }
+
+    public function updatedMatrix(): void
+    {
+        $this->notifyParent();
+    }
+
+    public function updatedNotes(): void
+    {
+        $this->notifyParent();
     }
 
     public function selectPerson(
@@ -85,24 +120,17 @@ class AssignmentMatrix extends Component
 
         $people = $this->matrix[$subjectId][$groupId]['people'] ?? [];
 
-        $existingPersonIds = array_map(
-            fn(array $person) => (int) $person['person_id'],
-            $people,
-        );
-
         foreach (array_keys($this->peopleOptions) as $personId) {
             $personId = (int) $personId;
 
-            if (in_array($personId, $existingPersonIds, true)) {
+            if ($personId < 1 || isset($people[$personId])) {
                 continue;
             }
 
-            $people[] = [
+            $people[$personId] = [
                 'person_id' => $personId,
                 'quantity' => 1,
             ];
-
-            $existingPersonIds[] = $personId;
         }
 
         $this->matrix[$subjectId][$groupId]['people'] = $people;
@@ -112,41 +140,33 @@ class AssignmentMatrix extends Component
 
     public function addPerson(int $subjectId, int $groupId): void
     {
-        // Only allow cells belonging to the supplied matrix.
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
 
-        $personId = (int) (
-            $this->personInputs[$subjectId][$groupId] ?? 0
-        );
+        $personId = (int) ($this->personInputs[$subjectId][$groupId] ?? 0);
+        $quantity = (int) ($this->quantityInputs[$subjectId][$groupId] ?? 1);
 
-        $quantity = (int) (
-            $this->quantityInputs[$subjectId][$groupId] ?? 1
+        abort_unless(
+            array_key_exists($personId, $this->peopleOptions),
+            422,
         );
 
         if ($personId < 1 || $quantity < 1) {
             return;
         }
 
-        // TODO: Verify that this person is eligible for this task,
-        // and that the current user is authorized to edit the batch.
+        $this->matrix[$subjectId][$groupId]['people'] ??= [];
 
-        $people = $this->matrix[$subjectId][$groupId]['people'] ?? [];
-
-        // Prevent accidental duplicates in the same cell.
-        foreach ($people as $person) {
-            if ((int) $person['person_id'] === $personId) {
-                return;
-            }
+        if (isset($this->matrix[$subjectId][$groupId]['people'][$personId])) {
+            return;
         }
 
-        $this->matrix[$subjectId][$groupId]['people'][] = [
+        $this->matrix[$subjectId][$groupId]['people'][$personId] = [
             'person_id' => $personId,
             'quantity' => $quantity,
         ];
 
         $this->personInputs[$subjectId][$groupId] = '';
-        $this->personSearch[$subjectId][$groupId] = '';
         $this->quantityInputs[$subjectId][$groupId] = 1;
 
         $this->notifyParent();
@@ -155,16 +175,12 @@ class AssignmentMatrix extends Component
     public function removePerson(
         int $subjectId,
         int $groupId,
-        int $index,
+        int $personId,
     ): void {
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
 
-        unset($this->matrix[$subjectId][$groupId]['people'][$index]);
-
-        $this->matrix[$subjectId][$groupId]['people'] = array_values(
-            $this->matrix[$subjectId][$groupId]['people'] ?? []
-        );
+        unset($this->matrix[$subjectId][$groupId]['people'][$personId]);
 
         $this->notifyParent();
     }
@@ -190,13 +206,15 @@ class AssignmentMatrix extends Component
         $this->dispatch(
             'assignment-matrix-updated',
             state: $this->matrix,
+            notes: $this->notes,
         );
     }
 
     public function render()
     {
         return view(
-            'dpb-mod-tasks::livewire.task-batch.assignment-matrix'
+            // 'dpb-mod-tasks::livewire.task-batch.assignment-matrix'
+            'dpb-mod-tasks::livewire.task-batch.assignment-matrix-t'
         );
     }
 }

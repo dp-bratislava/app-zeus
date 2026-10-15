@@ -12,6 +12,7 @@ use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchConfig;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
+use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
@@ -20,6 +21,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\TextSize;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class TaskBatchInfolist
 {
@@ -76,13 +78,136 @@ class TaskBatchInfolist
             ]);
     }
 
+    private static function configurationRows(Model $record): array
+    {
+        $configuration = $record->configuration ?? [];
+
+        if (is_string($configuration)) {
+            $configuration = json_decode($configuration, true) ?? [];
+        }
+
+        $subjects = $configuration['subjects'] ?? [];
+
+        $subjectIds = collect($subjects)
+            ->pluck('subject_id')
+            ->filter()
+            ->unique()
+            ->values();
+
+        $groupIds = collect($subjects)
+            ->flatMap(fn(array $subject) => collect($subject['groups'] ?? [])
+                ->pluck('task_item_group_id'))
+            ->filter()
+            ->unique()
+            ->values();
+
+        $personIds = collect($subjects)
+            ->flatMap(fn(array $subject) => collect($subject['groups'] ?? [])
+                ->flatMap(fn(array $group) => collect($group['people'] ?? [])
+                    ->pluck('person_id')))
+            ->filter()
+            ->unique()
+            ->values();
+
+        /*
+     * Replace these with your actual bulk lookup APIs.
+     * Each should issue a query for all supplied IDs, not one per ID.
+     */
+        $subjectLabels = static::loadSubjectLabels($subjects, $subjectIds);
+        $groupLabels = static::loadTaskItemGroupLabels($groupIds);
+        $personLabels = static::loadPersonLabels($personIds);
+
+        $rows = [];
+
+        foreach ($subjects as $subject) {
+            $subjectId = (int) $subject['subject_id'];
+            $subjectKey = ($subject['subject_type'] ?? '') . ':' . $subjectId;
+
+            foreach ($subject['groups'] ?? [] as $group) {
+                $groupId = (int) $group['task_item_group_id'];
+
+                $personnel = [];
+
+                foreach ($group['people'] ?? [] as $person) {
+                    $personId = (int) $person['person_id'];
+                    $quantity = (int) ($person['quantity'] ?? 1);
+
+                    $personnel[] = ($personLabels[$personId] ?? (string) $personId)
+                        . ($quantity > 1 ? " × {$quantity}" : '');
+                }
+
+                $rows[] = [
+                    'subject_label' => $subjectLabels[$subjectKey]['label'] ?? (string) $subjectId,
+                    'subject_description' => $subjectLabels[$subjectKey]['description'] ?? '',
+                    'task_item_group' => $groupLabels[$groupId] ?? (string) $groupId,
+                    'personnel' => $personnel,
+                    'note' => $subject['note'] ?? '',
+                ];
+            }
+        }
+
+        return $rows;
+    }
+
+    private static function loadTaskItemGroupLabels(
+        Collection $groupIds,
+    ): array {
+        return TaskItemGroup::query()
+            ->whereIn('id', $groupIds)
+            ->pluck('title', 'id')
+            ->all();
+    }
+
+    private static function loadPersonLabels(Collection $personIds): array
+    {
+        return [];
+    }
+
+    private static function loadSubjectLabels(array $subjects, Collection $subjectIds): array
+    {
+        return [];
+    }
+
     private static function subjectsSection(): Component
     {
         return Section::make('Subjects')
             ->columnSpanFull()
             ->heading(__(static::LANG_PFX . 'sections.subjects'))
             ->schema([
-                RepeatableEntry::make('configs')              
+                RepeatableEntry::make('configuration_rows')
+                    ->hiddenLabel()
+                    ->state(fn(Model $record): array => static::configurationRows($record))
+                    ->table([
+                        TableColumn::make(
+                            __(static::LANG_PFX . 'entries.subject_label')
+                        ),
+                        TableColumn::make(
+                            __(static::LANG_PFX . 'entries.subject_description')
+                        ),
+                        TableColumn::make(
+                            __(static::LANG_PFX . 'entries.task_item_group')
+                        ),
+                        TableColumn::make(
+                            __(static::LANG_PFX . 'entries.personel')
+                        ),
+                    ])
+                    ->schema([
+                        TextEntry::make('subject_label'),
+                        TextEntry::make('subject_description'),
+                        TextEntry::make('task_item_group'),
+                        TextEntry::make('personnel')
+                            ->listWithLineBreaks(),
+                    ]),
+            ]);
+    }
+
+    private static function subjectsSection1(): Component
+    {
+        return Section::make('Subjects')
+            ->columnSpanFull()
+            ->heading(__(static::LANG_PFX . 'sections.subjects'))
+            ->schema([
+                RepeatableEntry::make('configuration')
                     ->hiddenLabel()
                     ->table([
                         TableColumn::make(__(static::LANG_PFX . 'entries.subject_label'))->width('100px'),

@@ -21,7 +21,10 @@ class TaskDiverseBatchSchema
     public static function make(): array
     {
         return [
-            Hidden::make('assignment_matrix_state')
+            Hidden::make(TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE)
+                ->default([])
+                ->dehydrated(),
+            Hidden::make(TaskBatchForm::FIELD_NAME_NOTES_STATE)
                 ->default([])
                 ->dehydrated(),
 

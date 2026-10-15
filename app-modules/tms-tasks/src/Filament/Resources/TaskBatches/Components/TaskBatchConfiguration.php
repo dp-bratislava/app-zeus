@@ -44,6 +44,7 @@ class TaskBatchConfiguration
                     ->map(fn($group) => [
                         'id' => (int) $group->id,
                         'label' => $group->label,
+                        'is_scalable' => $group->is_scalable,
                     ])
                     ->values()
                     ->all();
@@ -52,6 +53,7 @@ class TaskBatchConfiguration
                     $get(TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE) ?? [],
                     $selectedVehicleIds,
                 );
+
                 return [
                     Livewire::make(AssignmentMatrix::class, [
                         'subjects' => $subjects,

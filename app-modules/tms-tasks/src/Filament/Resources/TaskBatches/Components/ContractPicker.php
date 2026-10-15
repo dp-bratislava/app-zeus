@@ -22,6 +22,9 @@ class ContractPicker
     ): Component {
         return ToggleButtons::make($name)
             ->columnSpanFull()
+            ->extraAttributes([
+                'class' => 'grid grid-cols-8 gap-2 w-full [&>div>label]:w-full [&>div>label>span]:w-full',
+            ])
             // ->columns(12)
             // ->fullWidth()
             ->inline()

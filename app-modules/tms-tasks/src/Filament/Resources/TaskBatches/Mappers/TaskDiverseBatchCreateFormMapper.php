@@ -28,8 +28,9 @@ class TaskDiverseBatchCreateFormMapper
         // $configuration = $this->getConfiguration($cfgRows);
 
         $matrix = $data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
+        $notes = $data[TaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
 
-        $configuration = $this->getConfiguration($matrix);
+        $configuration = $this->getConfiguration($matrix, $notes);
 
         // foreach ($cfgRows as $cfgRow) {
         //     $groups = [];
@@ -71,21 +72,25 @@ class TaskDiverseBatchCreateFormMapper
         );
     }
 
-    private function getConfiguration(array $matrix): array
+    private function getConfiguration(array $matrix, array $notes = []): array
     {
         return [
             'version' => 2,
             'subjects' => collect($matrix)
-                ->map(fn(array $groups, int|string $vehicleId) => [
+                ->map(fn(array $groups, int|string $subjectId) => [
                     'subject_type' => EnumsTaskSubjectType::Vehicle,
-                    'subject_id' => (int) $vehicleId,
+                    'subject_id' => (int) $subjectId,
+                    'note' => $notes[(int) $subjectId] ?? '',
                     'groups' => collect($groups)
+                        ->filter(fn(array $cell) => ! empty($cell['people']))
                         ->map(fn(array $cell, int|string $groupId) => [
                             'task_item_group_id' => (int) $groupId,
                             'people' => collect($cell['people'] ?? [])
+                                ->filter(fn($person) => is_array($person)
+                                    && isset($person['person_id']))
                                 ->map(fn(array $person) => [
-                                    'person_id' => (int) $person['person_id'],
-                                    'quantity' => (int) $person['quantity'],
+                                    'contract_id' => (int) $person['person_id'],
+                                    'quantity' => (int) ($person['quantity'] ?? 1),
                                 ])
                                 ->values()
                                 ->all(),

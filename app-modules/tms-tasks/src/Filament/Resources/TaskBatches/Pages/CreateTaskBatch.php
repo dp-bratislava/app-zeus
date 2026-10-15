@@ -28,12 +28,15 @@ class CreateTaskBatch extends CreateRecord
     }
 
     #[On('assignment-matrix-updated')]
-    public function updateAssignmentMatrix(array $state): void
-    {
+    public function updateAssignmentMatrix(
+        array $state,
+        array $notes = []
+    ): void {
         $this->data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] = $state;
+        $this->data[TaskBatchForm::FIELD_NAME_NOTES_STATE] = $notes;
 
-        logger()->debug('Assignment matrix updated', [
-            'state' => $state,
-        ]);
+        // logger()->debug('Assignment matrix updated', [
+        //     'state' => $state,
+        // ]);
     }
 }

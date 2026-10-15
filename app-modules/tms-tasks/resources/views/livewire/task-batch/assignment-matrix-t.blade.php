@@ -1,0 +1,121 @@
+<div class="relative isolate max-h-[70vh] overflow-auto rounded-lg border border-gray-200 dark:border-gray-700">
+    <table class="w-full border-collapse text-sm">
+        <thead class="sticky top-0 z-10 bg-gray-50 dark:bg-gray-800">
+            <tr>
+                {{-- Sticky group label column --}}
+                <th scope="col"
+                    class="sticky left-0 z-20 min-w-64 w-80 border-b border-r border-gray-200 bg-gray-50 px-3 py-3 text-left font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                    Skupina podzákazky
+                </th>
+
+                {{-- One column per vehicle --}}
+                @foreach ($subjects as $subject)
+                    <th scope="col" wire:key="vehicle-header-{{ $subject['id'] }}"
+                        class="min-w-52 border-b border-r border-gray-200 px-3 py-3 text-left align-top font-medium text-gray-700 dark:border-gray-700 dark:text-gray-200">
+                        <div class="max-w-52 whitespace-normal break-words">
+                            {{ $subject['label'] }}
+                        </div>
+
+                        <div class="mt-2">
+                            <textarea rows="2" wire:model.live.debounce.300ms="notes.{{ (int) $subject['id'] }}" placeholder="Poznámka..."
+                                aria-label="Note for {{ $subject['label'] }}"
+                                class="w-full resize-y rounded-md border-gray-300 px-2 py-1 text-xs shadow-sm dark:border-gray-600 dark:bg-gray-900"></textarea>
+                        </div>
+                    </th>
+                @endforeach
+            </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            @forelse ($groups as $group)
+                @php
+                    $groupId = (int) $group['id'];
+                @endphp
+
+                <tr wire:key="group-row-{{ $groupId }}" class="group hover:bg-gray-50 dark:hover:bg-gray-800/70">
+                    {{-- Sticky group name --}}
+                    <th scope="row"
+                        class="sticky left-0 z-10 w-80 min-w-64 border-r border-b border-gray-200 bg-white px-3 py-3 text-left align-top font-medium text-gray-800 group-hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:group-hover:bg-gray-800">
+                        <div class="whitespace-normal break-words">
+                            {{ $group['label'] }}
+                        </div>
+                    </th>
+
+                    {{-- One cell for each vehicle --}}
+                    @foreach ($subjects as $subject)
+                        @php
+                            $subjectId = (int) $subject['id'];
+
+                            $assignedPeople = $matrix[$subjectId][$groupId]['people'] ?? [];
+                        @endphp
+
+                        <td wire:key="matrix-cell-{{ $subjectId }}-{{ $groupId }}"
+                            class="min-w-52 border-r border-b border-gray-200 p-2 align-top dark:border-gray-700">
+                            <div class="flex min-h-16 flex-col gap-2">
+                                {{-- Assigned people --}}
+                                @foreach ($assignedPeople as $personId => $person)
+                                    @php
+                                        $personId = (int) $personId;
+                                        $personLabel = $peopleOptions[$personId] ?? (string) $personId;
+                                        $labelParts = explode(' - ', $personLabel, 2);
+                                        $personName = count($labelParts) > 1 ? $labelParts[1] : $labelParts[0];
+                                        $personPid = count($labelParts) > 1 ? $labelParts[0] : null;
+                                    @endphp
+
+                                    <div wire:key="assignment-{{ $subjectId }}-{{ $groupId }}-{{ $personId }}"
+                                        class="flex items-center gap-2 rounded-md border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
+                                        <div class="min-w-0 flex-1">
+                                            <div
+                                                class="break-words text-sm font-medium text-gray-800 dark:text-gray-100">
+                                                {{ $personName }}
+                                            </div>
+
+                                            @if ($personPid !== null)
+                                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                                    {{ $personPid }}
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        @if ($group['is_scalable'] ?? false)
+                                            <input type="number" min="1"
+                                                wire:model.live="matrix.{{ $subjectId }}.{{ $groupId }}.people.{{ $personId }}.quantity"
+                                                aria-label="Quantity for {{ $personLabel }} on {{ $subject['label'] }} — {{ $group['label'] }}"
+                                                class="w-16 rounded-md border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800" />
+                                        @endif
+
+                                        <button type="button"
+                                            wire:click="removePerson({{ $subjectId }}, {{ $groupId }}, {{ $personId }})"
+                                            title="Remove {{ $personLabel }}"
+                                            aria-label="Remove {{ $personLabel }} from {{ $subject['label'] }} — {{ $group['label'] }}"
+                                            class="shrink-0 rounded-md p-1 text-gray-400 hover:bg-danger-50 hover:text-danger-600 dark:hover:bg-gray-800">
+                                            <x-heroicon-o-x-mark class="h-4 w-4" />
+                                        </button>
+                                    </div>
+                                @endforeach
+
+                                {{-- Add selected people --}}
+                                <div class="flex justify-center pt-1">
+                                    <button type="button"
+                                        wire:click="addSelectedPeople({{ $subjectId }}, {{ $groupId }})"
+                                        @disabled(empty($peopleOptions)) title="Add selected people"
+                                        aria-label="Add selected people to {{ $subject['label'] }} — {{ $group['label'] }}"
+                                        class="inline-flex items-center justify-center rounded-md p-1.5 text-primary-600 hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-gray-800">
+                                        <x-heroicon-o-user-plus class="h-5 w-5" />
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    @endforeach
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="{{ count($subjects) + 1 }}"
+                        class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                        Nie sú dostupné žadne skupiny podzákazok.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
