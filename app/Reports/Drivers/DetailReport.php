@@ -125,6 +125,11 @@ class DetailReport implements ReportDriver
                 ->tooltip(__('reports/detail-report.table.columns.activity_real_duration.tooltip')),
             TextColumn::make('activity_is_fulfilled_label')
                 ->label(__('reports/detail-report.table.columns.activity_is_fulfilled')),
+            TextColumn::make('group_sap_code')
+                ->label('Sap kód'),
+            TextColumn::make('activity_sap_code')
+                ->label('Kod aktivity'),
+
             TextColumn::make('task_id')
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(

@@ -79,6 +79,7 @@ class TaskItemSnapshot extends Snapshot
             'task_item_title' => 'ti.title',
             'task_item_description' => 'ti.description',
             'task_item_group_title' => 'tig.title',
+            'task_item_group_sap_code' => 'tig.sap_code',
 
             'task_item_assigned_to_type' => 'NULL',
             'task_item_assigned_to_label' => 'NULL',

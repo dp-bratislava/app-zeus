@@ -46,6 +46,7 @@ class ReportsResource extends Resource
             ->filtersLayout(FiltersLayout::AboveContent)
             ->recordActions([])
             ->emptyStateHeading('Žiadne údaje')
+            ->defaultKeySort(false)
             ->toolbarActions([])
             ->defaultSort('id', 'asc');
     }

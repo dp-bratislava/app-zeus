@@ -6,6 +6,7 @@ use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\DetailReport;
 use App\Reports\Drivers\BatchReportDriver;
 use App\Reports\Drivers\SumarReport;
+use App\Reports\Drivers\KontrolingReport;
 use InvalidArgumentException;
 
 class ReportFactory
@@ -13,6 +14,7 @@ class ReportFactory
     private static array $drivers = [
         'work-activity' => DetailReport::class,
         'sumar' => SumarReport::class,
+        'kontroling' => KontrolingReport::class,
         // Add more drivers here as you create them
     ];
 
@@ -38,3 +40,4 @@ class ReportFactory
         return new $driverClass();
     }
 }
+
