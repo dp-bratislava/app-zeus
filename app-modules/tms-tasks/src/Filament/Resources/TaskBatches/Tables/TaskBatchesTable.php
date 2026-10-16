@@ -78,6 +78,7 @@ class TaskBatchesTable
                 TextColumn::make('configs')
                     ->label(__($langColsPfx . 'subjects'))
                     ->state(function (TaskBatch $record): array {
+                        // $record->configuration['tasks']
                         return $record->configs
                             ->map(
                                 fn(Model $config) => (new TaskSubjectPresenter($config->subject))->label()

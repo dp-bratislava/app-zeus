@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\DTO\EntityIdMap;
 use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
@@ -21,7 +22,7 @@ class CreateTaskAssignmentsWorkflow
     ) {}
 
     public function execute(
-        CreateTaskBatchCommand $command,
+        CreateTaskAssignmentsCommand $command,
     ): CreateTaskAssignmentsWorkflowResult {
         // tasks
         $taskConfigs = $this->createTasks($command);
@@ -37,10 +38,10 @@ class CreateTaskAssignmentsWorkflow
         // task items
         $ticwResult = $this->tiCWorkflow->execute(
             new CreateTaskItemsCommand(
-            date: $command->date,
-            taskIdMap: $taskIdMap,
-            configs: $taskConfigs,
-            context: $command->context,                
+                date: $command->date,
+                taskIdMap: $taskIdMap,
+                configs: $taskConfigs,
+                context: $command->context,
             )
         );
 
@@ -59,6 +60,33 @@ class CreateTaskAssignmentsWorkflow
     }
 
     private function createTasks(
+        CreateTaskAssignmentsCommand $command,
+    ): Collection {
+        $tasks = [];
+        $taskConfigs = [];
+        foreach ($command->taskConfigs as $taskConfig) {
+            $taskUuid = Str::uuid7()->toString();
+
+            $tasks[] = [
+                'uuid' => $taskUuid,
+                'date' => $command->date,
+                'group_id' => $taskConfig->taskGroupId,
+                'state' => States\Task\Task\Created::$name,
+                'description' => $taskConfig->note,
+                'place_of_origin_id' => $command->context->placeOfOriginId,
+                'created_at' => $command->context->handledAt,
+                'updated_at' => $command->context->handledAt,
+            ];
+
+            $taskConfigs[$taskUuid] = $taskConfig;
+        }
+
+        Task::insert($tasks);
+
+        return collect($taskConfigs);
+    }
+
+    private function createTasks1(
         CreateTaskBatchCommand $command,
     ): Collection {
         $tasks = [];
@@ -85,8 +113,10 @@ class CreateTaskAssignmentsWorkflow
         return collect($taskConfigs);
     }
 
+
+
     private function createTaskAssignments(
-        CreateTaskBatchCommand $command,
+        CreateTaskAssignmentsCommand $command,
         EntityIdMap $taskIdMap,
         Collection $taskConfigs
     ) {

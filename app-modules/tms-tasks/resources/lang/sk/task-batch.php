@@ -83,6 +83,7 @@ return [
                 'date' => 'Dátum',
                 'pid' => 'Osob. č.',
                 'name' => 'Meno',
+                'personel' => 'Ľudia',
                 'subject_label' => 'Č. vozidla',
                 'subject_description' => 'Model vozidla',
                 'subject_length' => 'Dĺžka v m',

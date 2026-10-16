@@ -46,60 +46,60 @@
                         @php
                             $subjectId = (int) $subject['id'];
 
-                            $assignedPeople = $matrix[$subjectId][$groupId]['people'] ?? [];
+                            $assignedWork = $matrix[$subjectId][$groupId]['work'] ?? [];
                         @endphp
 
                         <td wire:key="matrix-cell-{{ $subjectId }}-{{ $groupId }}"
                             class="min-w-52 border-r border-b border-gray-200 p-2 align-top dark:border-gray-700">
                             <div class="flex min-h-16 flex-col gap-2">
-                                {{-- Assigned people --}}
-                                @foreach ($assignedPeople as $personId => $person)
+                                {{-- Assigned work --}}
+                                @foreach ($assignedWork as $contractId => $contract)
                                     @php
-                                        $personId = (int) $personId;
-                                        $personLabel = $peopleOptions[$personId] ?? (string) $personId;
-                                        $labelParts = explode(' - ', $personLabel, 2);
-                                        $personName = count($labelParts) > 1 ? $labelParts[1] : $labelParts[0];
-                                        $personPid = count($labelParts) > 1 ? $labelParts[0] : null;
+                                        $contractId = (int) $contractId;
+                                        $contractLabel = $contractOptions[$contractId] ?? (string) $contractId;
+                                        $labelParts = explode(' - ', $contractLabel, 2);
+                                        $contractName = count($labelParts) > 1 ? $labelParts[1] : $labelParts[0];
+                                        $contractPid = count($labelParts) > 1 ? $labelParts[0] : null;
                                     @endphp
 
-                                    <div wire:key="assignment-{{ $subjectId }}-{{ $groupId }}-{{ $personId }}"
+                                    <div wire:key="assignment-{{ $subjectId }}-{{ $groupId }}-{{ $contractId }}"
                                         class="flex items-center gap-2 rounded-md border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
                                         <div class="min-w-0 flex-1">
                                             <div
                                                 class="break-words text-sm font-medium text-gray-800 dark:text-gray-100">
-                                                {{ $personName }}
+                                                {{ $contractName }}
                                             </div>
 
-                                            @if ($personPid !== null)
+                                            @if ($contractPid !== null)
                                                 <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                    {{ $personPid }}
+                                                    {{ $contractPid }}
                                                 </div>
                                             @endif
                                         </div>
 
                                         @if ($group['is_scalable'] ?? false)
                                             <input type="number" min="1"
-                                                wire:model.live="matrix.{{ $subjectId }}.{{ $groupId }}.people.{{ $personId }}.quantity"
-                                                aria-label="Quantity for {{ $personLabel }} on {{ $subject['label'] }} — {{ $group['label'] }}"
+                                                wire:model.live="matrix.{{ $subjectId }}.{{ $groupId }}.work.{{ $contractId }}.quantity"
+                                                aria-label="Quantity for {{ $contractLabel }} on {{ $subject['label'] }} — {{ $group['label'] }}"
                                                 class="w-16 rounded-md border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800" />
                                         @endif
 
                                         <button type="button"
-                                            wire:click="removePerson({{ $subjectId }}, {{ $groupId }}, {{ $personId }})"
-                                            title="Remove {{ $personLabel }}"
-                                            aria-label="Remove {{ $personLabel }} from {{ $subject['label'] }} — {{ $group['label'] }}"
+                                            wire:click="removeContract({{ $subjectId }}, {{ $groupId }}, {{ $contractId }})"
+                                            title="Zmazať {{ $contractLabel }}"
+                                            aria-label="Zmazať {{ $contractLabel }} z {{ $subject['label'] }} — {{ $group['label'] }}"
                                             class="shrink-0 rounded-md p-1 text-gray-400 hover:bg-danger-50 hover:text-danger-600 dark:hover:bg-gray-800">
                                             <x-heroicon-o-x-mark class="h-4 w-4" />
                                         </button>
                                     </div>
                                 @endforeach
 
-                                {{-- Add selected people --}}
+                                {{-- Add selected contracts --}}
                                 <div class="flex justify-center pt-1">
                                     <button type="button"
-                                        wire:click="addSelectedPeople({{ $subjectId }}, {{ $groupId }})"
-                                        @disabled(empty($peopleOptions)) title="Add selected people"
-                                        aria-label="Add selected people to {{ $subject['label'] }} — {{ $group['label'] }}"
+                                        wire:click="addSelectedContracts({{ $subjectId }}, {{ $groupId }})"
+                                        @disabled(empty($contractOptions)) title="Add selected contracts"
+                                        aria-label="Add selected contracts to {{ $subject['label'] }} — {{ $group['label'] }}"
                                         class="inline-flex items-center justify-center rounded-md p-1.5 text-primary-600 hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-gray-800">
                                         <x-heroicon-o-user-plus class="h-5 w-5" />
                                     </button>

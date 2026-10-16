@@ -3,6 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
+use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
@@ -68,6 +69,7 @@ class TaskDiverseBatchCreateFormMapper
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
                 authorId: auth()->id(),
                 handledAt: now()->toImmutable(),
+                departmentId: app(DepartmentService::class)->getActiveDepartment()->id
             )
         );
     }
@@ -76,21 +78,24 @@ class TaskDiverseBatchCreateFormMapper
     {
         return [
             'version' => 2,
-            'subjects' => collect($matrix)
+            'tasks' => collect($matrix)
                 ->map(fn(array $groups, int|string $subjectId) => [
-                    'subject_type' => EnumsTaskSubjectType::Vehicle,
+                    // TODO
+                    'task_group_id' => 9,
+
+                    'subject_type' => EnumsTaskSubjectType::Vehicle->value,
                     'subject_id' => (int) $subjectId,
                     'note' => $notes[(int) $subjectId] ?? '',
-                    'groups' => collect($groups)
-                        ->filter(fn(array $cell) => ! empty($cell['people']))
+                    'task_item_groups' => collect($groups)
+                        ->filter(fn(array $cell) => ! empty($cell['work']))
                         ->map(fn(array $cell, int|string $groupId) => [
                             'task_item_group_id' => (int) $groupId,
-                            'people' => collect($cell['people'] ?? [])
-                                ->filter(fn($person) => is_array($person)
-                                    && isset($person['person_id']))
-                                ->map(fn(array $person) => [
-                                    'contract_id' => (int) $person['person_id'],
-                                    'quantity' => (int) ($person['quantity'] ?? 1),
+                            'work' => collect($cell['work'] ?? [])
+                                ->filter(fn($work) => is_array($work)
+                                    && isset($work['contract_id']))
+                                ->map(fn(array $work) => [
+                                    'contract_id' => (int) $work['contract_id'],
+                                    'quantity' => (int) ($work['quantity'] ?? 1),
                                 ])
                                 ->values()
                                 ->all(),

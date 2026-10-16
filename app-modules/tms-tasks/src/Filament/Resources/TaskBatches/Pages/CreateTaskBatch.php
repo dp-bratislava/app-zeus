@@ -23,8 +23,8 @@ class CreateTaskBatch extends CreateRecord
         $result = $workflow->handle($command);
 
 
-        dd($result);
-        return static::getModel()::create($data);
+        // dd($result);
+        return $result->taskBatch;
     }
 
     #[On('assignment-matrix-updated')]

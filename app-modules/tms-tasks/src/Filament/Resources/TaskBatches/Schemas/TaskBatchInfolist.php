@@ -22,6 +22,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\TextSize;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class TaskBatchInfolist
 {
@@ -86,25 +87,25 @@ class TaskBatchInfolist
             $configuration = json_decode($configuration, true) ?? [];
         }
 
-        $subjects = $configuration['subjects'] ?? [];
+        $tasks = $configuration['tasks'] ?? [];
 
-        $subjectIds = collect($subjects)
+        $subjectIds = collect($tasks)
             ->pluck('subject_id')
             ->filter()
             ->unique()
             ->values();
 
-        $groupIds = collect($subjects)
-            ->flatMap(fn(array $subject) => collect($subject['groups'] ?? [])
+        $groupIds = collect($tasks)
+            ->flatMap(fn(array $task) => collect($task['task_item_groups'] ?? [])
                 ->pluck('task_item_group_id'))
             ->filter()
             ->unique()
             ->values();
 
-        $personIds = collect($subjects)
-            ->flatMap(fn(array $subject) => collect($subject['groups'] ?? [])
-                ->flatMap(fn(array $group) => collect($group['people'] ?? [])
-                    ->pluck('person_id')))
+        $contractIds = collect($tasks)
+            ->flatMap(fn(array $task) => collect($task['task_item_groups'] ?? [])
+                ->flatMap(fn(array $group) => collect($group['work'] ?? [])
+                    ->pluck('contract_id')))
             ->filter()
             ->unique()
             ->values();
@@ -113,26 +114,28 @@ class TaskBatchInfolist
      * Replace these with your actual bulk lookup APIs.
      * Each should issue a query for all supplied IDs, not one per ID.
      */
-        $subjectLabels = static::loadSubjectLabels($subjects, $subjectIds);
+        $subjectLabels = static::loadSubjectLabels($tasks, $subjectIds);
         $groupLabels = static::loadTaskItemGroupLabels($groupIds);
-        $personLabels = static::loadPersonLabels($personIds);
+        $contractLabels = static::loadContractLabels($contractIds);
 
         $rows = [];
 
-        foreach ($subjects as $subject) {
-            $subjectId = (int) $subject['subject_id'];
-            $subjectKey = ($subject['subject_type'] ?? '') . ':' . $subjectId;
+        foreach ($tasks as $task) {
+            $subjectId = (int) $task['subject_id'];
+            $subjectKey = ($task['subject_type'] ?? '') . ':' . $subjectId;
 
-            foreach ($subject['groups'] ?? [] as $group) {
+            foreach ($task['task_item_groups'] ?? [] as $group) {
                 $groupId = (int) $group['task_item_group_id'];
 
                 $personnel = [];
 
-                foreach ($group['people'] ?? [] as $person) {
-                    $personId = (int) $person['person_id'];
-                    $quantity = (int) ($person['quantity'] ?? 1);
+                foreach ($group['work'] ?? [] as $contract) {
+                    $contractId = (int) $contract['contract_id'];
+                    $quantity = (int) ($contract['quantity'] ?? 1);
 
-                    $personnel[] = ($personLabels[$personId] ?? (string) $personId)
+                    // dd($contractLabels)    ;
+
+                    $personnel[] = ($contractLabels[$contractId] ?? (string) $contractId)
                         . ($quantity > 1 ? " × {$quantity}" : '');
                 }
 
@@ -141,7 +144,7 @@ class TaskBatchInfolist
                     'subject_description' => $subjectLabels[$subjectKey]['description'] ?? '',
                     'task_item_group' => $groupLabels[$groupId] ?? (string) $groupId,
                     'personnel' => $personnel,
-                    'note' => $subject['note'] ?? '',
+                    'note' => $task['note'] ?? '',
                 ];
             }
         }
@@ -158,14 +161,37 @@ class TaskBatchInfolist
             ->all();
     }
 
-    private static function loadPersonLabels(Collection $personIds): array
+    private static function loadContractLabels(Collection $contractIds): array
     {
-        return [];
+        return DB::table('mvw_hr_contract_snapshots')
+            ->whereIn('contract_id', $contractIds)
+            ->get([
+                'contract_id',
+                'pid',
+                'last_name'
+            ])
+            ->mapWithKeys(fn($contract) => [
+                 $contract->contract_id => $contract->pid . ' - ' . $contract->last_name
+            ])
+            ->all();
     }
 
     private static function loadSubjectLabels(array $subjects, Collection $subjectIds): array
     {
-        return [];
+        return DB::table('mvw_fleet_vehicle_snapshots')
+            ->whereIn('vehicle_id', $subjectIds)
+            ->get([
+                'vehicle_id',
+                'code',
+                'licence_plate'
+            ])
+            ->mapWithKeys(fn($vehicle) => [
+                'vehicle:' . $vehicle->vehicle_id => [
+                    'label' => $vehicle->code ?? $vehicle->licence_plate,
+                    'description' => '',
+                ],
+            ])
+            ->all();
     }
 
     private static function subjectsSection(): Component
@@ -181,9 +207,9 @@ class TaskBatchInfolist
                         TableColumn::make(
                             __(static::LANG_PFX . 'entries.subject_label')
                         ),
-                        TableColumn::make(
-                            __(static::LANG_PFX . 'entries.subject_description')
-                        ),
+                        // TableColumn::make(
+                        //     __(static::LANG_PFX . 'entries.subject_description')
+                        // ),
                         TableColumn::make(
                             __(static::LANG_PFX . 'entries.task_item_group')
                         ),
@@ -193,10 +219,12 @@ class TaskBatchInfolist
                     ])
                     ->schema([
                         TextEntry::make('subject_label'),
-                        TextEntry::make('subject_description'),
+                        // TextEntry::make('subject_description'),
                         TextEntry::make('task_item_group'),
                         TextEntry::make('personnel')
-                            ->listWithLineBreaks(),
+                            // ->listWithLineBreaks(),
+                            ->badge()
+                            ->size(TextSize::Large),
                     ]),
             ]);
     }

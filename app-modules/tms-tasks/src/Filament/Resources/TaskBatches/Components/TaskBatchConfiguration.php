@@ -27,7 +27,7 @@ class TaskBatchConfiguration
                     // ->employeeContracts(app(TaskBatchResourceContext::class));
                     ->employeeContracts();
 
-                $peopleOptions = array_intersect_key(
+                $contractOptions = array_intersect_key(
                     $allContracts,
                     array_flip($selectedContractIds),
                 );
@@ -42,7 +42,7 @@ class TaskBatchConfiguration
                 $groups = app(TaskBatchLookupScopeService::class)
                     ->batchableTaskItemGroups()
                     ->map(fn($group) => [
-                        'id' => (int) $group->id,
+                        'id' => (int) $group->task_item_group_id,
                         'label' => $group->label,
                         'is_scalable' => $group->is_scalable,
                     ])
@@ -54,12 +54,13 @@ class TaskBatchConfiguration
                     $selectedVehicleIds,
                 );
 
+                // dd($groups);
                 return [
                     Livewire::make(AssignmentMatrix::class, [
                         'subjects' => $subjects,
                         'groups' => $groups,
                         'state' => $state,
-                        'peopleOptions' => $peopleOptions,
+                        'contractOptions' => $contractOptions,
                     ])
                         ->key('assignment-matrix-' . md5(
                             json_encode([

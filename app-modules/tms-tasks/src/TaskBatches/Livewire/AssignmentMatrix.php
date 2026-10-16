@@ -16,8 +16,8 @@ class AssignmentMatrix extends Component
      * [
      *     subjectId => [
      *         groupId => [
-     *             'people' => [
-     *                 ['person_id' => 42, 'quantity' => 1],
+     *             'work' => [
+     *                 ['contract_id' => 42, 'quantity' => 1],
      *             ],
      *         ],
      *     ],
@@ -26,10 +26,10 @@ class AssignmentMatrix extends Component
     public array $matrix = [];
     public array $notes = [];
 
-    public array $personInputs = [];
-    public array $peopleOptions = [];
+    public array $contractInputs = [];
+    public array $contractOptions = [];
 
-    public array $personSearch = [];
+    public array $contractSearch = [];
 
     public array $quantityInputs = [];
 
@@ -37,32 +37,32 @@ class AssignmentMatrix extends Component
         array $subjects = [],
         array $groups = [],
         array $state = [],
-        array $peopleOptions = [],
+        array $contractOptions = [],
     ): void {
         $this->subjects = $subjects;
         $this->groups = $groups;
-        $this->peopleOptions = $peopleOptions;
+        $this->contractOptions = $contractOptions;
         $this->matrix = $state;
 
-        // Normalize people collections to use person_id as the key.
+        // Normalize work collections to use contract_id as the key.
         foreach ($this->matrix as $subjectId => $subjectGroups) {
             foreach ($subjectGroups as $groupId => $cell) {
-                $normalizedPeople = [];
+                $normalizedWork = [];
 
-                foreach ($cell['people'] ?? [] as $person) {
-                    if (! is_array($person) || ! isset($person['person_id'])) {
+                foreach ($cell['work'] ?? [] as $work) {
+                    if (! is_array($work) || ! isset($work['contract_id'])) {
                         continue;
                     }
 
-                    $personId = (int) $person['person_id'];
+                    $contractId = (int) $work['contract_id'];
 
-                    $normalizedPeople[$personId] = [
-                        'person_id' => $personId,
-                        'quantity' => (int) ($person['quantity'] ?? 1),
+                    $normalizedWork[$contractId] = [
+                        'contract_id' => $contractId,
+                        'quantity' => (int) ($work['quantity'] ?? 1),
                     ];
                 }
 
-                $this->matrix[$subjectId][$groupId]['people'] = $normalizedPeople;
+                $this->matrix[$subjectId][$groupId]['work'] = $normalizedWork;
             }
         }
 
@@ -75,11 +75,11 @@ class AssignmentMatrix extends Component
                 $groupId = (int) $group['id'];
 
                 $this->matrix[$subjectId][$groupId] ??= [
-                    'people' => [],
+                    'work' => [],
                 ];
 
-                $this->matrix[$subjectId][$groupId]['people'] ??= [];
-                $this->personInputs[$subjectId][$groupId] ??= '';
+                $this->matrix[$subjectId][$groupId]['work'] ??= [];
+                $this->contractInputs[$subjectId][$groupId] ??= '';
                 $this->quantityInputs[$subjectId][$groupId] ??= 1;
             }
         }
@@ -95,92 +95,92 @@ class AssignmentMatrix extends Component
         $this->notifyParent();
     }
 
-    public function selectPerson(
+    public function selectContract(
         int $subjectId,
         int $groupId,
-        int $personId,
+        int $contractId,
     ): void {
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
         abort_unless(
-            array_key_exists($personId, $this->peopleOptions),
+            array_key_exists($contractId, $this->contractOptions),
             404,
         );
 
-        $this->personInputs[$subjectId][$groupId] = $personId;
+        $this->contractInputs[$subjectId][$groupId] = $contractId;
 
-        $this->personSearch[$subjectId][$groupId] =
-            $this->peopleOptions[$personId];
+        $this->contractSearch[$subjectId][$groupId] =
+            $this->contractOptions[$contractId];
     }
 
-    public function addSelectedPeople(int $subjectId, int $groupId): void
+    public function addSelectedContracts(int $subjectId, int $groupId): void
     {
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
 
-        $people = $this->matrix[$subjectId][$groupId]['people'] ?? [];
+        $work = $this->matrix[$subjectId][$groupId]['work'] ?? [];
 
-        foreach (array_keys($this->peopleOptions) as $personId) {
-            $personId = (int) $personId;
+        foreach (array_keys($this->contractOptions) as $contractId) {
+            $contractId = (int) $contractId;
 
-            if ($personId < 1 || isset($people[$personId])) {
+            if ($contractId < 1 || isset($work[$contractId])) {
                 continue;
             }
 
-            $people[$personId] = [
-                'person_id' => $personId,
+            $work[$contractId] = [
+                'contract_id' => $contractId,
                 'quantity' => 1,
             ];
         }
 
-        $this->matrix[$subjectId][$groupId]['people'] = $people;
+        $this->matrix[$subjectId][$groupId]['work'] = $work;
 
         $this->notifyParent();
     }
 
-    public function addPerson(int $subjectId, int $groupId): void
+    public function addContract(int $subjectId, int $groupId): void
     {
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
 
-        $personId = (int) ($this->personInputs[$subjectId][$groupId] ?? 0);
+        $contractId = (int) ($this->contractInputs[$subjectId][$groupId] ?? 0);
         $quantity = (int) ($this->quantityInputs[$subjectId][$groupId] ?? 1);
 
         abort_unless(
-            array_key_exists($personId, $this->peopleOptions),
+            array_key_exists($contractId, $this->contractOptions),
             422,
         );
 
-        if ($personId < 1 || $quantity < 1) {
+        if ($contractId < 1 || $quantity < 1) {
             return;
         }
 
-        $this->matrix[$subjectId][$groupId]['people'] ??= [];
+        $this->matrix[$subjectId][$groupId]['work'] ??= [];
 
-        if (isset($this->matrix[$subjectId][$groupId]['people'][$personId])) {
+        if (isset($this->matrix[$subjectId][$groupId]['work'][$contractId])) {
             return;
         }
 
-        $this->matrix[$subjectId][$groupId]['people'][$personId] = [
-            'person_id' => $personId,
+        $this->matrix[$subjectId][$groupId]['work'][$contractId] = [
+            'contract_id' => $contractId,
             'quantity' => $quantity,
         ];
 
-        $this->personInputs[$subjectId][$groupId] = '';
+        $this->contractInputs[$subjectId][$groupId] = '';
         $this->quantityInputs[$subjectId][$groupId] = 1;
 
         $this->notifyParent();
     }
 
-    public function removePerson(
+    public function removeContract(
         int $subjectId,
         int $groupId,
-        int $personId,
+        int $contractId,
     ): void {
         abort_unless($this->hasSubject($subjectId), 404);
         abort_unless($this->hasGroup($groupId), 404);
 
-        unset($this->matrix[$subjectId][$groupId]['people'][$personId]);
+        unset($this->matrix[$subjectId][$groupId]['work'][$contractId]);
 
         $this->notifyParent();
     }

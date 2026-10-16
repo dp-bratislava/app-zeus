@@ -11,30 +11,24 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Dpb\WorkTimeFund\Models\ActivityRecord;
 use Dpb\WorkTimeFund\Models\Operation;
-use Dpb\WorkTimeFund\Models\Task;
+use Dpb\WorkTimeFund\Models\Task as WtfTask;
 use Dpb\Modules\Tasks\TaskBatches\Commands\AssignWorkToTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchWorkList;
+use Dpb\Modules\Tasks\TaskBatches\DTO\WtfTaskItemConfig;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\WtfTmsBridge\Models\WorkOrder;
 use Dpb\WtfUi\FilamentComponents\AssignmentContainer\AssignmentRedisService;
+use Illuminate\Support\Collection;
 
 class AssignWorkToTaskBatchWorkflow
 {
-    public function __construct(
-        private AssignmentRedisService $svc
-    ) {}
+    private const DEFAULT_IS_FULFILLED = true;
 
     public function handle(
         AssignWorkToTaskBatchCommand $command,
     ) {
-        $result = null;
-        $assignmentRequests = $this->svc->get();
-        // dd($assignmentRequests);
-
-        $data = $this->preprocessData();
-
-        dd($data);
-
         try {
-            $result = DB::transaction(function () use ($command, $data) {
+            $result = DB::transaction(function () use ($command) {
                 $workorderIds = [];
                 $taskIds = [];
                 $activityIds = [];
@@ -42,10 +36,11 @@ class AssignWorkToTaskBatchWorkflow
                 // assign task batch items 
                 $workorderIds = $this->assignTaskBatchItems();
                 // create wtf workorders
-                $workorderIds = $this->createWorkorders();
+                $workorderIds = $this->createWorkorders($command);
                 // create wtf tasks
-                $taskIds = $this->createTasks();
+                $wtfTaskIds = $this->createWtfTasks();
                 // create wtf workorder tasks mm binding
+
                 // create wtf activity records
                 $activityIds = $this->createActivities();
                 // create wtf mandatory break activities
@@ -66,38 +61,6 @@ class AssignWorkToTaskBatchWorkflow
         return $result;
     }
 
-    /**
-     * @TODO
-     * @return array
-     */
-    private function preprocessData(): TaskBatchWorkList
-    {
-        $assignmentRequests = $this->svc->get();
-
-        $contracts = [];
-        $operationIds = [];
-        $wortimes = [];
-
-        foreach ($assignmentRequests as $request) {
-            $operationIds[] = $request->activityDefinition->modelId;
-        }
-
-        $operations = Operation::query()
-            ->whereIn('id', collect($operationIds)->unique())
-            ->get([
-                'id',
-                'title',
-                'duration',
-                'is_shareable'
-            ])
-            ->keyBy('id');
-
-        return new TaskBatchWorkList(
-            $contracts,
-            $operations,
-            $wortimes,
-        );
-    }
 
     /**
      * @TODO
@@ -110,26 +73,100 @@ class AssignWorkToTaskBatchWorkflow
 
     /**
      * @TODO
-     * @return array
+     * @return Collection
      */
-    private function createWorkorders(): array
-    {
-        return [];
+    private function createWorkorders(
+        AssignWorkToTaskBatchCommand $command
+    ): Collection {
+
+        $taskItemIds = $command->taskItemConfigs
+            ->flatMap(fn(WtfTaskItemConfig $config) => $config->taskItemIds)
+            ->unique()
+            ->mapWithKeys(fn(int $id) => [
+                $id => ['tms_task_item_id' => $id],
+            ])
+            ->all();
+
+        WorkOrder::insert($taskItemIds);
+
+        return WorkOrder::whereIn('tms_task_item_id', $taskItemIds)
+            ->pluck('id', 'tms_task_item_id');
     }
 
     /**
      * @TODO
      * @return array
      */
-    private function createTasks(): array
-    {
-        $data = [];
-        $ids = [];
+    private function createWtfTasks(
+        AssignWorkToTaskBatchCommand $command,
+        Collection $workorderIds
+    ): array {
+        // create wtf tasks
+        $wtfTasks = [];
+        $now = now();
 
-        foreach ($data as $record) {
-            $ids[] = Task::create($record);
+        $taskItemGroupIds = $command->taskItemConfigs
+            ->pluck('taskItemGroupId')
+            ->unique()
+            ->values()
+            ->all();
+
+        $contractPids = [];    
+
+        foreach ($command->taskItemConfigs as $taskItemConfig) {
+            $taskItemConfig->taskItemGroupId;
+            // $taskItemConfig->work;
+
+
+
+            // $operations = Operation::whereIn('id', $operationIds)
+            // ->
+            foreach ($operations[$taskItemConfig->taskItemGroupId] as $operation) {
+                $wtfTask = WtfTask::create([
+                    'source_id' => $operation->id,
+                    'title' => $operation->title,
+                    'expected_duration' => $operation->expected_duration,
+                    'is_shareable' => $operation->is_shareable,
+                    'status' => 'created',
+                    'department_id' => $command->context->departmentId,
+                    // TODO
+                    // 'maintainable_type' => $taskItemConfig->subject->type->value,
+                    'maintainable_type' => Vehicle::class,
+                    'maintainable_id' => $taskItemConfig->subject->id,
+                ]);
+
+                foreach ($taskItemConfig->work as $person) {
+                    $activities[] = [
+                        'title' => $operation->title,
+                        'type' => 'O',
+                        'expected_duration' => $operation->expected_duration,
+                        'real_duration' => $operation->expected_duration,
+                        'is_official' => $operation->is_official,
+                        'is_fulfilled' => self::DEFAULT_IS_FULFILLED,
+                        'date' => $command->date,
+
+                        'personal_id' => $contractPids[$person->contract_id],
+                        'department_id' => $command->context->departmentId,
+
+                        'parent_id' => null, // worktime
+                        'task_id' => $wtfTask->id,
+                        'quantity' => $person->quantity,
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ];
+                }
+            }
         }
-        return $ids;
+
+        WtfTask::insert($wtfTasks);
+
+        // map workorders
+        $workorderTasks = [];
+
+        DB::table('dpb_wtftmsbridge_mm_workorder_task')
+            ->insert($workorderTasks);
+
+        return [];
     }
 
     /**

@@ -37,27 +37,27 @@
                                 $subjectId = (int) $subject['id'];
                                 $groupId = (int) $group['id'];
 
-                                $assignedPeople = $matrix[$subjectId][$groupId]['people'] ?? [];
+                                $assignedWork = $matrix[$subjectId][$groupId]['work'] ?? [];
                             @endphp
 
                             <td wire:key="matrix-cell-{{ $subjectId }}-{{ $groupId }}"
                                 class="border-r border-b border-gray-200 px-2 py-2 align-top dark:border-gray-700">
                                 <div class="space-y-2">
 
-                                    @foreach ($assignedPeople as $personId => $person)
+                                    @foreach ($assignedWork as $contractId => $person)
                                         @php
-                                            $personId = (int) $personId;
+                                            $contractId = (int) $contractId;
 
                                             $personLabel =
-                                                $peopleOptions[$personId] ??
-                                                ($peopleOptions[(string) $personId] ?? "Unknown person (#{$personId})");
+                                                $contractOptions[$contractId] ??
+                                                ($contractOptions[(string) $contractId] ?? "Unknown person (#{$contractId})");
 
                                             $labelParts = explode(' - ', $personLabel, 2);
                                             $personPid = $labelParts[0] ?? '';
                                             $personLastName = $labelParts[1] ?? $personLabel;
                                         @endphp
 
-                                        <div wire:key="assignment-{{ $subjectId }}-{{ $groupId }}-{{ $personId }}"
+                                        <div wire:key="assignment-{{ $subjectId }}-{{ $groupId }}-{{ $contractId }}"
                                             class="flex items-center gap-2 rounded-lg border border-gray-200 px-2 py-2 dark:border-gray-700">
                                             <div class="min-w-0 flex-1">
                                                 <div
@@ -72,15 +72,15 @@
 
                                             @if ($group['is_scalable'] ?? false)
                                                 <input
-                                                    wire:key="quantity-{{ $subjectId }}-{{ $groupId }}-{{ $personId }}"
+                                                    wire:key="quantity-{{ $subjectId }}-{{ $groupId }}-{{ $contractId }}"
                                                     type="number" min="1" step="1"
-                                                    wire:model.live="matrix.{{ $subjectId }}.{{ $groupId }}.people.{{ $personId }}.quantity"
+                                                    wire:model.live="matrix.{{ $subjectId }}.{{ $groupId }}.work.{{ $contractId }}.quantity"
                                                     aria-label="Quantity for {{ $personLastName }}"
                                                     class="w-14 rounded-md border-gray-300 px-1.5 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" />
                                             @endif
 
                                             <button type="button"
-                                                wire:click="removePerson({{ $subjectId }}, {{ $groupId }}, {{ $personId }})"
+                                                wire:click="removePerson({{ $subjectId }}, {{ $groupId }}, {{ $contractId }})"
                                                 title="Remove person" aria-label="Remove {{ $personLastName }}"
                                                 class="shrink-0 rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950">
                                                 <x-heroicon-o-x-mark class="h-4 w-4" />
@@ -90,9 +90,9 @@
 
                                     <div class="flex justify-center">
                                         <button type="button"
-                                            wire:click="addSelectedPeople({{ $subjectId }}, {{ $groupId }})"
-                                            @disabled(empty($peopleOptions)) title="Add selected people"
-                                            aria-label="Add selected people to {{ $subject['label'] }}, {{ $group['label'] }}"
+                                            wire:click="addSelectedWork({{ $subjectId }}, {{ $groupId }})"
+                                            @disabled(empty($contractOptions)) title="Add selected work"
+                                            aria-label="Add selected work to {{ $subject['label'] }}, {{ $group['label'] }}"
                                             class="inline-flex items-center justify-center rounded-md p-1.5 text-primary-600 hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-gray-800">
                                             <x-heroicon-o-user-plus class="h-5 w-5" />
                                         </button>
@@ -119,9 +119,9 @@
         </table>
     </div>
 
-    @if (empty($peopleOptions))
+    @if (empty($contractOptions))
         <p class="text-sm text-gray-500 dark:text-gray-400">
-            Select one or more contracts above to enable adding people to the matrix.
+            Select one or more contracts above to enable adding work to the matrix.
         </p>
     @endif
 </div>

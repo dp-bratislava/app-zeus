@@ -84,28 +84,6 @@ class GenericProfile implements TaskBatchLookupScopeProfile
         return DB::table('tms_task_batch_department_tigs')
             ->where('department_id', $context->departmentContext->departmentId)
             ->get();
-
-        $data = [
-            [
-                'id' => 1,
-                'label' => 'Grafity A',
-                'short_label' => 'GA',
-                'is_scalable' => 1,
-            ],
-            [
-                'id' => 2,
-                'label' => 'Grafity B',
-                'short_label' => 'GB',
-                'is_scalable' => 1,
-            ],
-            [
-                'id' => 3,
-                'label' => 'Cistenie B',
-                'short_label' => 'Cistenie B',
-                'is_scalable' => 0,
-            ],
-        ];
-        return $data;
     }
 
     public function vehicleTypes(

@@ -62,22 +62,22 @@ class TaskDiverseBatchUpdateFormMapper
                 ->all(),
 
             // configs
-            TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG => $subjects
-                ->map(function (array $subject) {
-                    return [
-                        'vehicle_id' => $subject['subject_id'],
-                        'vehicle_label' => $subject['subject_label'],
-                        'note' => $subject['note'] ?? null,
+            // TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG => $subjects
+            //     ->map(function (array $subject) {
+            //         return [
+            //             'vehicle_id' => $subject['subject_id'],
+            //             'vehicle_label' => $subject['subject_label'],
+            //             'note' => $subject['note'] ?? null,
 
-                        'groups' => collect($subject['groups'] ?? [])
-                            ->mapWithKeys(fn(array $group) => [
-                                $group['task_item_group_id'] => $group['quantity'],
-                            ])
-                            ->all(),
-                    ];
-                })
-                ->values()
-                ->all(),
+            //             'groups' => collect($subject['groups'] ?? [])
+            //                 ->mapWithKeys(fn(array $group) => [
+            //                     $group['task_item_group_id'] => $group['quantity'],
+            //                 ])
+            //                 ->all(),
+            //         ];
+            //     })
+            //     ->values()
+            //     ->all(),
         ];
     }
 }

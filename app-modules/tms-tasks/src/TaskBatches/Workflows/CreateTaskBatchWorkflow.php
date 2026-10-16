@@ -3,9 +3,11 @@
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use App\Enums\BatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskBatchWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
 use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Batchable\Resolvers\BatchContextResolver;
 use Exception;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 class CreateTaskBatchWorkflow
 {
     public function __construct(
+        private TaskBatchConfigMapper $configMapper,
         private CreateTaskAssignmentsWorkflow $taCWorkflow
     ) {}
 
@@ -26,8 +29,12 @@ class CreateTaskBatchWorkflow
                 // handle batch
                 $ctbwResult = $this->createBatch($command);
 
-                // $wfResult = $this->taCWorkflow
-                //     ->execute($command);
+                $wfResult = $this->taCWorkflow
+                    ->execute(new CreateTaskAssignmentsCommand(
+                        date: $command->date,
+                        taskConfigs: $this->configMapper->map($command->configuration),
+                        context: $command->context
+                    ));
 
                 // // attach batch records
                 // if ($ctbwResult->batch !== null) {
