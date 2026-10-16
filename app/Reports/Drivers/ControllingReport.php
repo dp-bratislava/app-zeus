@@ -106,6 +106,7 @@ class ControllingReport implements ReportDriver
                         ->label('Mesiac')
                         ->multiple()
                         ->options(fn () => $this->monthOptions())
+                        ->default([Carbon::now()->minus(months: 1)->format('Y-m')])
                         ->searchable(),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
@@ -133,18 +134,12 @@ class ControllingReport implements ReportDriver
 
     private function monthOptions(): array
     {
-        $rows = WorkActivityReport::query()
-            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
-            ->whereNotNull('activity_date')
-            ->selectRaw("DATE_FORMAT(activity_date, '%Y-%m') AS ym")
-            ->distinct()
-            ->orderByDesc('ym')
-            ->pluck('ym');
-
         $options = [];
 
-        foreach ($rows as $ym) {
-            $date = Carbon::createFromFormat('Y-m', $ym);
+        for ($i = 0; $i < 12; $i++) {
+            $date = Carbon::now()->startOfMonth()->subMonths($i);
+            $ym = $date->format('Y-m');
+
             $options[$ym] = $date->isoFormat('MMMM YYYY');
         }
 
