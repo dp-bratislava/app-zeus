@@ -75,7 +75,6 @@ class DetailReportExporter extends BaseReportExporter
             ['key' => 'activity_title', 'label' => 'Norma', 'width' => 35],
             ['key' => 'activity_expected_duration', 'label' => 'Norma trvanie', 'type' => 'duration'],
             ['key' => 'activity_real_duration', 'label' => 'Reálne trvanie', 'type' => 'duration'],
-            ['key' => 'activity_is_fulfilled_label', 'label' => 'Splnené'],
             ...$this->dynamicColumns()
         ];
     }
