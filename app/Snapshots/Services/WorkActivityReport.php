@@ -84,7 +84,7 @@ class WorkActivityReport extends Snapshot
             'activity_sap_code' => 'CASE 
                 WHEN hrc.department_code IN (5400, 5621, 5622) THEN spc.elek
                 WHEN hrc.department_code IN (5522, 5521) THEN spc.tbus
-                WHEN hrc.department_code IN (7212, 7213, 7223, 7233) THEN spc.abus
+                WHEN hrc.department_code IN (7213, 7223, 7233) THEN spc.abus
                 ELSE "" 
             END',
 
@@ -131,6 +131,7 @@ class WorkActivityReport extends Snapshot
             LEFT JOIN mvw_hr_contract_snapshots hrc ON hrc.pid = ar.personal_id
             LEFT JOIN dpb_worktimefund_model_operation o ON o.id = wt.source_id
             LEFT JOIN dpb_sap_code_controlling spc ON spc.kod = tis.task_item_group_sap_code
+            WHERE ar.type = 'O'
         ";
     }
 

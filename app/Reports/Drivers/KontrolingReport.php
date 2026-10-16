@@ -79,6 +79,10 @@ class KontrolingReport implements ReportDriver
 
                     return sprintf('%d:%02d', $hours, $minutes);
                 }),
+            TextColumn::make('total_real_duration_sap_format')
+                ->label('Odpracované hodiny (decimal)')
+                ->getStateUsing(fn ($record) => (int) $record->total_real_duration / 3600)
+                ->numeric(decimalPlaces: 2),
             TextColumn::make('activity_month')
                 ->label('Mesiac'),
         ];

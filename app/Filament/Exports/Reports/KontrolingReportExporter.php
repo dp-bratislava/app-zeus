@@ -24,6 +24,7 @@ class KontrolingReportExporter extends BaseReportExporter
             ['key' => 'group_sap_code', 'label' => 'SAP skupina'],
             ['key' => 'activity_sap_code', 'label' => 'SAP kód aktivity'],
             ['key' => 'total_real_duration', 'label' => 'Odpracované hodiny', 'type' => 'duration'],
+            ['key' => 'total_real_duration_sap_format', 'label' => 'Odpracované hodiny (decimal)'],
             ['key' => 'activity_month', 'label' => 'Mesiac'],
         ];
     }
@@ -42,6 +43,7 @@ class KontrolingReportExporter extends BaseReportExporter
                 'ar.group_sap_code as group_sap_code',
                 'ar.activity_sap_code as activity_sap_code',
                 DB::raw('SUM(ar.activity_real_duration) AS total_real_duration'),
+                DB::raw("REPLACE(FORMAT(SUM(ar.activity_real_duration) / 3600, 2), '.', ',') AS total_real_duration_sap_format"),
                 DB::raw("DATE_FORMAT(ar.activity_date, '%Y-%m') AS activity_month"),
             ])
             ->when(! empty($months), function ($q) use ($months) {

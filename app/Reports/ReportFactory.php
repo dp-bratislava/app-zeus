@@ -4,6 +4,7 @@ namespace App\Reports;
 
 use App\Reports\Drivers\ReportDriver;
 use App\Reports\Drivers\DetailReport;
+use App\Reports\Drivers\KontrolingDetailReport;
 use App\Reports\Drivers\BatchReportDriver;
 use App\Reports\Drivers\SumarReport;
 use App\Reports\Drivers\KontrolingReport;
@@ -14,6 +15,7 @@ class ReportFactory
     private static array $drivers = [
         'work-activity' => DetailReport::class,
         'sumar' => SumarReport::class,
+        'kontroling-detail' => KontrolingDetailReport::class,
         'kontroling' => KontrolingReport::class,
         // Add more drivers here as you create them
     ];
