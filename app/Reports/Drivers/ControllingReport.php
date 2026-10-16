@@ -114,7 +114,7 @@ class ControllingReport implements ReportDriver
                     if (! empty($months)) {
                         $placeholders = implode(',', array_fill(0, count($months), '?'));
                         $query->whereRaw(
-                            "DATE_FORMAT(mvw_work_activity_report_v2.activity_date, '%Y-%m') IN ($placeholders)",
+                            "DATE_FORMAT(mvw_work_activity_report_v3.activity_date, '%Y-%m') IN ($placeholders)",
                             $months
                     );
                     }
@@ -127,7 +127,7 @@ class ControllingReport implements ReportDriver
                 ->options(fn (DepartmentService $departmentSvc) => Department::whereIn('id', $departmentSvc->getAvailableDepartments()->pluck('id'))->pluck('code', 'code'))
                 ->multiple()
                 ->searchable()
-                ->attribute('mvw_work_activity_report_v2.department_code'),
+                ->attribute('mvw_work_activity_report_v3.department_code'),
         ];
     }
 
