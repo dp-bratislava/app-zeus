@@ -36,21 +36,20 @@ class KontrolingReport implements ReportDriver
     public function getQuery(): Builder
     {
         return WorkActivityReport::query()
-            ->join('mvw_work_task_subject_snapshots AS wtss', 'wtss.wtf_task_id', '=', 'mvw_work_activity_report_v2.wtf_task_id')
-            ->where('wtss.subject_type', 'Vozidlo')
-            ->selectRaw('ROW_NUMBER() OVER (ORDER BY mvw_work_activity_report_v2.department_code) as id')
-            ->selectRaw('mvw_work_activity_report_v2.department_code AS department_code')
-            ->selectRaw('wtss.subject_label AS vozidlo')
-            ->selectRaw('mvw_work_activity_report_v2.group_sap_code AS group_sap_code')
-            ->selectRaw('mvw_work_activity_report_v2.activity_sap_code AS activity_sap_code')
-            ->selectRaw('SUM(mvw_work_activity_report_v2.activity_real_duration) AS total_real_duration')
-            ->selectRaw("DATE_FORMAT(mvw_work_activity_report_v2.activity_date, '%Y-%m') AS activity_month")
+            ->where('subject_type', 'Vozidlo')
+            ->selectRaw('ROW_NUMBER() OVER (ORDER BY mvw_work_activity_report_v3.department_code) as id')
+            ->selectRaw('mvw_work_activity_report_v3.department_code AS department_code')
+            ->selectRaw('mvw_work_activity_report_v3.subject_label AS vozidlo')
+            ->selectRaw('mvw_work_activity_report_v3.group_sap_code AS group_sap_code')
+            ->selectRaw('mvw_work_activity_report_v3.activity_sap_code AS activity_sap_code')
+            ->selectRaw('SUM(mvw_work_activity_report_v3.activity_real_duration) AS total_real_duration')
+            ->selectRaw("DATE_FORMAT(mvw_work_activity_report_v3.activity_date, '%Y-%m') AS activity_month")
             ->groupByRaw("
-                mvw_work_activity_report_v2.department_code,
-                wtss.subject_label,
-                mvw_work_activity_report_v2.group_sap_code,
-                mvw_work_activity_report_v2.activity_sap_code,
-                DATE_FORMAT(mvw_work_activity_report_v2.activity_date, '%Y-%m')
+                mvw_work_activity_report_v3.department_code,
+                mvw_work_activity_report_v3.subject_label,
+                mvw_work_activity_report_v3.group_sap_code,
+                mvw_work_activity_report_v3.activity_sap_code,
+                DATE_FORMAT(mvw_work_activity_report_v3.activity_date, '%Y-%m')
             ");
     }
 
@@ -164,7 +163,7 @@ class KontrolingReport implements ReportDriver
 
     public function applyQueryModifications(Builder $query): Builder
     {
-        return $query->whereIn('mvw_work_activity_report_v2.department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
+        return $query->whereIn('mvw_work_activity_report_v3.department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
     }
 
     public function lastSyncedAt(): ?string

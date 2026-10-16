@@ -31,7 +31,7 @@ class ReportsResource extends Resource
 
         return $table
             ->query($driver->getQuery())
-            ->deferLoading()
+            // ->deferLoading()
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);
             })

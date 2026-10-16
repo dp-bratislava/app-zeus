@@ -34,12 +34,11 @@ class KontrolingReportExporter extends BaseReportExporter
         $departmentCodes = data_get($filters, 'department.values');
         $months = data_get($filters, 'month.months', []);
 
-        return DB::table('mvw_work_activity_report_v2 AS ar')
-            ->join('mvw_work_task_subject_snapshots AS wtss', 'wtss.wtf_task_id', '=', 'ar.wtf_task_id')
-            ->where('wtss.subject_type', 'Vozidlo')
+        return DB::table('mvw_work_activity_report_v3 AS ar')
+            ->where('ar.subject_type', 'Vozidlo')
             ->select([
                 'ar.department_code as department_code',
-                'wtss.subject_label as vozidlo',
+                'ar.subject_label as vozidlo',
                 'ar.group_sap_code as group_sap_code',
                 'ar.activity_sap_code as activity_sap_code',
                 DB::raw('SUM(ar.activity_real_duration) AS total_real_duration'),
@@ -60,7 +59,7 @@ class KontrolingReportExporter extends BaseReportExporter
             ->whereIn('ar.department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
             ->groupByRaw("
                 ar.department_code,
-                wtss.subject_label,
+                ar.subject_label,
                 ar.group_sap_code,
                 ar.activity_sap_code,
                 DATE_FORMAT(ar.activity_date, '%Y-%m')

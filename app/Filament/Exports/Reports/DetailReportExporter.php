@@ -19,7 +19,6 @@ class DetailReportExporter extends BaseReportExporter
     }
 
     protected const DYNAMIC_COLUMN_PREFIX = 'dc_';
-    protected const SUBJECT_TABLE_ALIAS = 'wtss';
 
     protected function dynamicColumns(): array
     {
@@ -27,16 +26,14 @@ class DetailReportExporter extends BaseReportExporter
         if(empty($departmentCodes)) {
             $departmentCodes = $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
         }
-        $subjectTypes = DB::table('mvw_work_task_subject_snapshots AS wtss')
-        ->whereExists(function ($query) use ($departmentCodes) {
-            $query->select(DB::raw(1))
-                ->from('mvw_work_activity_report_v2 AS ar')
-                ->whereColumn('ar.wtf_task_id', 'wtss.wtf_task_id')
-                ->whereIn('ar.department_code', $departmentCodes);
-        })
-        ->distinct()
-        ->pluck('wtss.subject_type')
-        ->toArray();
+
+        // v3 carries subject_type/subject_label inline, so no extra join is needed.
+        $subjectTypes = DB::table('mvw_work_activity_report_v3 AS ar')
+            ->whereIn('ar.department_code', $departmentCodes)
+            ->whereNotNull('ar.subject_type')
+            ->distinct()
+            ->pluck('ar.subject_type')
+            ->toArray();
 
         $columns = [];
 
@@ -47,8 +44,8 @@ class DetailReportExporter extends BaseReportExporter
                 'static' => false,
                 'definition' => DB::raw("
                     MAX(CASE 
-                        WHEN " . self::SUBJECT_TABLE_ALIAS . ".subject_type = '$type' 
-                        THEN " . self::SUBJECT_TABLE_ALIAS . ".subject_label 
+                        WHEN ar.subject_type = '$type' 
+                        THEN ar.subject_label 
                     END) AS " . self::DYNAMIC_COLUMN_PREFIX . $key
                 )
             ];
@@ -98,8 +95,7 @@ class DetailReportExporter extends BaseReportExporter
             'definition'
         );
 
-        $result =  DB::table('mvw_work_activity_report_v2 AS ar')
-            ->leftJoin('mvw_work_task_subject_snapshots AS ' . self::SUBJECT_TABLE_ALIAS, self::SUBJECT_TABLE_ALIAS . '.wtf_task_id', '=', 'ar.wtf_task_id')
+        $result =  DB::table('mvw_work_activity_report_v3 AS ar')
             ->select([
                 'ar.id',
                 ...$staticColumns,
