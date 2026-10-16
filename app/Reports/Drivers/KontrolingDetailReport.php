@@ -194,11 +194,13 @@ class KontrolingDetailReport implements ReportDriver
                     return $query
                         ->when(
                             $data['date_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '>=', Carbon::parse($date)->startOfDay())
                         )
                         ->when(
                             $data['date_to'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '<', Carbon::parse($date)->addDay()->startOfDay())
                         );
                 })
                 ->columns(2),
@@ -227,6 +229,16 @@ class KontrolingDetailReport implements ReportDriver
     {
         return $query
             ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
+    }
+
+    public function getSortColumn(): string
+    {
+        return 'activity_date';
+    }
+
+    public function getSortOrder(): string
+    {
+        return 'desc';
     }
 
     public function lastSyncedAt(): ?string

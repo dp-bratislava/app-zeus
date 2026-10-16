@@ -35,8 +35,8 @@ class ReportsResource extends Resource
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);
             })
-            ->paginated([10, 25, 50, 100])
-            ->defaultPaginationPageOption(100)
+            ->paginated([10, 20, 50, 100])
+            ->defaultPaginationPageOption(20)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
             ->filtersFormColumns(2)

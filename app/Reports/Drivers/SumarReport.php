@@ -116,15 +116,25 @@ class SumarReport implements ReportDriver
                             return $query->whereRaw('1 = 0');
                         }
                     }
-                    return $query
-                        ->when(
-                            $data['date_from'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('dpb_worktimefund_model_activityrecord.date', '>=', $date),
-                        )
-                        ->when(
-                            $data['date_to'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('dpb_worktimefund_model_activityrecord.date', '<=', $date),
-                        );
+                return $query
+                    ->when(
+                        $data['date_from'],
+                        fn (Builder $query, $date): Builder =>
+                            $query->where(
+                                'dpb_worktimefund_model_activityrecord.date',
+                                '>=',
+                                Carbon::parse($date)->startOfDay()
+                            )
+                    )
+                    ->when(
+                        $data['date_to'],
+                        fn (Builder $query, $date): Builder =>
+                            $query->where(
+                                'dpb_worktimefund_model_activityrecord.date',
+                                '<',
+                                Carbon::parse($date)->addDay()->startOfDay()
+                            )
+                    );
                 })->columns(2),
 
             SelectFilter::make('department')

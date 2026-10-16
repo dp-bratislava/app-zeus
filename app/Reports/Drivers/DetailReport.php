@@ -193,11 +193,13 @@ class DetailReport implements ReportDriver
                     return $query
                         ->when(
                             $data['date_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '>=', Carbon::parse($date)->startOfDay())
                         )
                         ->when(
                             $data['date_to'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '<', Carbon::parse($date)->addDay()->startOfDay())
                         );
                 })
                 ->columns(2),
