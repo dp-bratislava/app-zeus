@@ -2,7 +2,7 @@
 
 namespace App\Reports\Drivers;
 
-use App\Filament\Exports\Reports\KontrolingReportExporter;
+use App\Filament\Exports\Reports\ControllingReportExporter;
 use App\Models\Reports\WorkActivityReport;
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Departments\Services\DepartmentService;
@@ -14,8 +14,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class KontrolingReport implements ReportDriver
+class ControllingReport implements ReportDriver
 {
+    use \App\Reports\Concerns\HasReportPermission;
+
+    public function permission(): ?string
+    {
+        return 'app.report.controlling';
+    }
     private ?DepartmentService $departmentService = null;
 
     public function __construct()
@@ -25,12 +31,12 @@ class KontrolingReport implements ReportDriver
 
     public function key(): string
     {
-        return 'kontroling';
+        return 'controlling';
     }
 
     public function name(): string
     {
-        return 'Kontroling';
+        return 'Controlling';
     }
 
     public function getQuery(): Builder
@@ -157,7 +163,7 @@ class KontrolingReport implements ReportDriver
 
     public function getExporter(): string
     {
-        return KontrolingReportExporter::class;
+        return ControllingReportExporter::class;
     }
 
     public function generateExportFilename(): string

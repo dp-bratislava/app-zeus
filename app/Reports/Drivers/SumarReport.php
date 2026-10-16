@@ -21,6 +21,7 @@ use Filament\Forms\Components\Placeholder;
 
 class SumarReport implements ReportDriver
 {
+    use \App\Reports\Concerns\HasReportPermission;
     private ?DepartmentService $departmentService = null;
 
     public function __construct()

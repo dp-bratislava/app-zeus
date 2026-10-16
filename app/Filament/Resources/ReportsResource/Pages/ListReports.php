@@ -20,8 +20,21 @@ class ListReports extends ListRecords
     public function mount(): void
     {
         parent::mount();
-        // Initialize from query parameter or default
-        $this->currentReportType = request()->query('report', 'work-activity');
+
+        // Only reports the current user is allowed to see.
+        $available = ReportFactory::getAvailable();
+
+        if (empty($available)) {
+            abort(403);
+        }
+
+        $requested = request()->query('report', array_key_first($available));
+
+        if (!isset($available[$requested])) {
+            abort(403);
+        }
+
+        $this->currentReportType = $requested;
     }
 
     public function getTitle(): string | Htmlable
@@ -87,6 +100,10 @@ class ListReports extends ListRecords
 }
     public function runExport(): void
     {
+        if (!ReportFactory::canAccess($this->currentReportType)) {
+            abort(403);
+        }
+
         $driver = ReportFactory::make($this->currentReportType);
         
         $filters = $this->getTableFiltersForm()->getState();

@@ -2,7 +2,7 @@
 
 namespace App\Reports\Drivers;
 
-use App\Filament\Exports\Reports\KontrolingDetailReportExporter;
+use App\Filament\Exports\Reports\ControllingDetailReportExporter;
 use App\Services\DateRangeValidator;
 use App\Models\Reports\WorkActivityReport;
 use Carbon\CarbonInterval;
@@ -19,8 +19,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Placeholder;
 
-class KontrolingDetailReport implements ReportDriver
+class ControllingDetailReport implements ReportDriver
 {
+    use \App\Reports\Concerns\HasReportPermission;
+
+    public function permission(): ?string
+    {
+        return 'app.report.controlling';
+    }
     private ?DepartmentService $departmentService = null;
 
     public function __construct()
@@ -35,7 +41,7 @@ class KontrolingDetailReport implements ReportDriver
 
     public function name(): string
     {
-        return 'Kontroling Detail';
+        return 'Controlling Detail';
     }
 
     public function getQuery(): Builder
@@ -219,7 +225,7 @@ class KontrolingDetailReport implements ReportDriver
 
     public function getExporter(): string
     {
-        return KontrolingDetailReportExporter::class;
+        return ControllingDetailReportExporter::class;
     }
 
     public function generateExportFilename(): string

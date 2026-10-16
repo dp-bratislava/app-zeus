@@ -6,7 +6,7 @@ use App\Reports\Exports\BaseReportExporter;
 use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Support\Facades\DB;
 
-class KontrolingReportExporter extends BaseReportExporter
+class ControllingReportExporter extends BaseReportExporter
 {
     private ?DepartmentService $departmentService = null;
 

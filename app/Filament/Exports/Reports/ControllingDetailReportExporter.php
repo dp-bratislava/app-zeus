@@ -6,7 +6,7 @@ use App\Reports\Exports\BaseReportExporter;
 use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Support\Facades\DB;
 
-class KontrolingDetailReportExporter extends BaseReportExporter
+class ControllingDetailReportExporter extends BaseReportExporter
 {
     private ?DepartmentService $departmentService = null;
     private array $filters = [];
