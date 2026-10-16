@@ -40,6 +40,7 @@ class KontrolingReport implements ReportDriver
             ->selectRaw('ROW_NUMBER() OVER (ORDER BY mvw_work_activity_report_v3.department_code) as id')
             ->selectRaw('mvw_work_activity_report_v3.department_code AS department_code')
             ->selectRaw('mvw_work_activity_report_v3.subject_label AS vozidlo')
+            ->selectRaw('mvw_work_activity_report_v3.subject_department AS subject_department')
             ->selectRaw('mvw_work_activity_report_v3.group_sap_code AS group_sap_code')
             ->selectRaw('mvw_work_activity_report_v3.activity_sap_code AS activity_sap_code')
             ->selectRaw('SUM(mvw_work_activity_report_v3.activity_real_duration) AS total_real_duration')
@@ -47,6 +48,7 @@ class KontrolingReport implements ReportDriver
             ->groupByRaw("
                 mvw_work_activity_report_v3.department_code,
                 mvw_work_activity_report_v3.subject_label,
+                mvw_work_activity_report_v3.subject_department,
                 mvw_work_activity_report_v3.group_sap_code,
                 mvw_work_activity_report_v3.activity_sap_code,
                 DATE_FORMAT(mvw_work_activity_report_v3.activity_date, '%Y-%m')
@@ -60,6 +62,8 @@ class KontrolingReport implements ReportDriver
                 ->label(__('reports/detail-report.table.columns.department_code')),
             TextColumn::make('vozidlo')
                 ->label('Vozidlo'),
+            TextColumn::make('subject_department')
+                ->label('Nákladové stredisko vozu'),
             TextColumn::make('group_sap_code')
                 ->label('SAP skupina'),
             TextColumn::make('activity_sap_code')

@@ -21,6 +21,7 @@ class KontrolingReportExporter extends BaseReportExporter
         return [
             ['key' => 'department_code', 'label' => 'Stredisko'],
             ['key' => 'vozidlo', 'label' => 'Vozidlo'],
+            ['key' => 'subject_department', 'label' => 'Nákladové stredisko vozu'],
             ['key' => 'group_sap_code', 'label' => 'SAP skupina'],
             ['key' => 'activity_sap_code', 'label' => 'SAP kód aktivity'],
             ['key' => 'total_real_duration', 'label' => 'Odpracované hodiny', 'type' => 'duration'],
@@ -39,6 +40,7 @@ class KontrolingReportExporter extends BaseReportExporter
             ->select([
                 'ar.department_code as department_code',
                 'ar.subject_label as vozidlo',
+                'ar.subject_department as subject_department',
                 'ar.group_sap_code as group_sap_code',
                 'ar.activity_sap_code as activity_sap_code',
                 DB::raw('SUM(ar.activity_real_duration) AS total_real_duration'),
@@ -60,6 +62,7 @@ class KontrolingReportExporter extends BaseReportExporter
             ->groupByRaw("
                 ar.department_code,
                 ar.subject_label,
+                ar.subject_department,
                 ar.group_sap_code,
                 ar.activity_sap_code,
                 DATE_FORMAT(ar.activity_date, '%Y-%m')

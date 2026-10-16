@@ -134,6 +134,8 @@ class KontrolingDetailReport implements ReportDriver
                 ->label('Sap kód'),
             TextColumn::make('activity_sap_code')
                 ->label('Kod aktivity'),
+            TextColumn::make('subject_department')
+                ->label('Nákladové stredisko vozu'),
             TextColumn::make('task_id')
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(

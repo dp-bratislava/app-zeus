@@ -123,7 +123,7 @@ class WorkActivityReport3 extends Snapshot
             'subject_type' => 'wtss.subject_type',
             'subject_label' => 'wtss.subject_label',
             // TODO: fill department yourself later.
-            'subject_department' => 'NULL',
+            'subject_department' => 'wtss.subject_sap_department',
         ];
     }
 
