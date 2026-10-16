@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0af34bf7d3236a514a9bcdbd5a72c6d",
+    "content-hash": "4c52bf7823ea27a38e9ad0b205750a61",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1964,16 +1964,16 @@
         },
         {
             "name": "dpb/pkg-fleet",
-            "version": "v12.0.4",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda"
+                "reference": "d2b42dfe378f71b9813974124d48202b8a97edce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/a6b8e5c52f28dbf0c381a28172980376f5906cda",
-                "reference": "a6b8e5c52f28dbf0c381a28172980376f5906cda",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/d2b42dfe378f71b9813974124d48202b8a97edce",
+                "reference": "d2b42dfe378f71b9813974124d48202b8a97edce",
                 "shasum": ""
             },
             "require": {
@@ -1983,6 +1983,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -2006,10 +2007,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/v12.0.4",
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-06-24T10:52:33+00:00"
+            "time": "2026-10-16T11:36:54+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
@@ -16480,9 +16481,18 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dpb/pkg-fleet",
+            "version": "dev-main",
+            "alias": "12.0.6",
+            "alias_normalized": "12.0.6.0"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "dpb/pkg-fleet": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
