@@ -5,6 +5,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Services;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskItemGroupConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
+use Dpb\Modules\Tasks\TaskBatches\DTO\WtfTaskItemWork;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType as EnumTaskSubjectType;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -19,11 +20,10 @@ final class TaskBatchConfigMapper
                     ->map(fn(array $group) => new TaskBatchTaskItemGroupConfig(
                         taskItemGroupId: (int) $group['task_item_group_id'],
                         work: collect($group['work'] ?? [])
-                            ->map(fn(array $work) => [
-                                'contract_id' => (int) $work['contract_id'],
-                                'quantity' => (int) ($work['quantity'] ?? 1),
-                            ])
-                            ->all(),
+                            ->map(fn(array $work) => new WtfTaskItemWork(
+                                contractId: (int) $work['contract_id'],
+                                quantity: (int) ($work['quantity'] ?? 1),
+                            )),
                     ))
                     ->all();
 
@@ -45,7 +45,7 @@ final class TaskBatchConfigMapper
                         (int) $task['subject_id'],
                     ),
                     note: $task['note'] ?? '',
-                    taskItemGroups: $groups,
+                    tigConfigs: $groups,
                 );
             });
     }

@@ -17,7 +17,7 @@ class DeleteTaskBatchAction
             ->modalDescription(__('dpb-mod-tasks::task-batch.modals.delete_action.description'))
             ->icon('heroicon-o-trash')
             ->action(function ($record, DeleteTaskBatchWorkflow $workflow) {
-                $workflow->handle($record);
+                $workflow->execute($record);
 
                 return redirect(TaskBatchResource::getUrl('index'));
             })

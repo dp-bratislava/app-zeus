@@ -2,30 +2,12 @@
 
 namespace Dpb\Modules\Tasks\Providers;
 
+use Dpb\Modules\Tasks\Eligibility\SubjectEvaluatorRegistry;
+use Dpb\Modules\Tasks\Eligibility\VehicleRuleEvaluator;
 use Dpb\Modules\Tasks\Filament\Plugins\TaskBatchPlugin;
-use Dpb\Modules\Tasks\Models\AssetMovement;
-use Dpb\Package\Assets\Models\AssetSlot;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\Package\Tasks\Models\TaskItem;
-use Dpb\WorkTimeFund\Models\Task;
-use Dpb\Modules\Tasks\Filament\Components\ActivityPicker\ActivityPickerComponent;
-use Dpb\Modules\Tasks\Filament\Components\PhotoBufferManager;
-use Dpb\Modules\Tasks\Filament\Components\PhotoGallery;
-use Dpb\Modules\Tasks\Filament\Components\TaskItemPhotos;
-use Dpb\Modules\Tasks\Filament\Components\WorkOrderInfoComponent;
-use Dpb\Modules\Tasks\Filament\Components\WorkOrdersComponent;
-use Dpb\Modules\Tasks\Filament\Plugins\WtfTmsBridgePlugin;
-use Dpb\Modules\Tasks\Models\WorkOrder;
-use Dpb\Modules\Tasks\Observers\TaskItemObserver;
-use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentColor;
-use Dpb\Modules\Tasks\Policies\TaskAssignmentPolicy;
 use Dpb\Modules\Tasks\TaskBatches\Livewire\AssignmentMatrix;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -33,6 +15,15 @@ class TasksModuleServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->singleton(SubjectEvaluatorRegistry::class, function () {
+            $registry = new SubjectEvaluatorRegistry();
+
+            $registry->register('vehicle', VehicleRuleEvaluator::class);
+
+            return $registry;
+        });
+
+
         $this->mergeConfigFrom(
             path: __DIR__ . '/../../config/mod-tasks.php',
             key: 'dpb-mod-tasks'
@@ -60,10 +51,10 @@ class TasksModuleServiceProvider extends ServiceProvider
 
         $this->registerFilamentPlugin();
 
-    Livewire::component(
-        'tms-tasks.assignment-matrix',
-        AssignmentMatrix::class,
-    );        
+        Livewire::component(
+            'tms-tasks.assignment-matrix',
+            AssignmentMatrix::class,
+        );
     }
 
     private function registerFilamentPlugin(): void

@@ -30,7 +30,7 @@ class DeleteTaskAssignmentsWorkflow
                 ->toArray();
 
             // delete task items
-            $this->tiDWorkflow->handle($taskItemIds);
+            $this->tiDWorkflow->execute($taskItemIds);
 
             // delete tasks
             Task::whereIn('id', $taskIds)

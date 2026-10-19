@@ -3,6 +3,7 @@
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use App\Enums\BatchContext;
+use Dpb\Modules\Tasks\TaskBatches\Commands\AssignWorkToTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskBatchWorkflowResult;
@@ -18,35 +19,45 @@ class CreateTaskBatchWorkflow
 {
     public function __construct(
         private TaskBatchConfigMapper $configMapper,
-        private CreateTaskAssignmentsWorkflow $taCWorkflow
+        private CreateTaskAssignmentsWorkflow $taCWorkflow,
+        private AssignWorkToTaskBatchWorkflow $awWorkflow
     ) {}
 
-    public function handle(
+    public function execute(
         CreateTaskBatchCommand $command,
     ): CreateTaskBatchWorkflowResult {
         try {
             return DB::transaction(function () use ($command) {
                 // handle batch
-                $ctbwResult = $this->createBatch($command);
+                $tbCWfResult = $this->createBatch($command);
 
-                $wfResult = $this->taCWorkflow
+                $taCWfResult = $this->taCWorkflow
                     ->execute(new CreateTaskAssignmentsCommand(
                         date: $command->date,
                         taskConfigs: $this->configMapper->map($command->configuration),
                         context: $command->context
                     ));
 
-                // // attach batch records
-                // if ($ctbwResult->batch !== null) {
-                //     foreach ($wfResult->batchRecords as $morphClass => $ids) {
-                //         $ctbwResult->batch->attachRecordIds(
-                //             $morphClass,
-                //             $ids
-                //         );
-                //     }
-                // }
+                $awWfResult = $this->awWorkflow
+                    ->execute(new AssignWorkToTaskBatchCommand(
+                        batchId: $tbCWfResult->batch->id,
+                        taskBatchId: $tbCWfResult->taskBatch->id,
+                        date: $command->date,
+                        taskItemConfigs: $taCWfResult->taskItemConfigs,
+                        context: $command->context
+                    ));
 
-                return $ctbwResult;
+                // attach batch records
+                if ($tbCWfResult->batch !== null) {
+                    foreach ($taCWfResult->batchRecords as $morphClass => $ids) {
+                        $tbCWfResult->batch->attachRecordIds(
+                            $morphClass,
+                            $ids
+                        );
+                    }
+                }
+
+                return $tbCWfResult;
             });
         } catch (Exception $e) {
             dd($e);

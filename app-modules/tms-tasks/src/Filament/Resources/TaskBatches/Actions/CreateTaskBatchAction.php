@@ -24,7 +24,7 @@ class CreateTaskBatchAction
                 // dd($data);
                 $command = $mapper->fromForm($data);
                 dd($command);
-                $result = $workflow->handle($command);
+                $result = $workflow->execute($command);
                 // $taskItemIdsData = Base64UrlHelper::encode(json_encode($result->taskItemIds));
                 // redirect()->route(DailyMaintenanceWorkOrdersPage::getRouteName(), [
                 //     'taskItems' => $taskItemIdsData,

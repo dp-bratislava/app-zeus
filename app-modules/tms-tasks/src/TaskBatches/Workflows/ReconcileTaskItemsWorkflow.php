@@ -67,7 +67,7 @@ class ReconcileTaskItemsWorkflow
         );
 
         // delete
-        $this->deleteTaskItemsWorkflow->handle(
+        $this->deleteTaskItemsWorkflow->execute(
             $taskItemsToDelete->pluck('id')->all()
         );
 

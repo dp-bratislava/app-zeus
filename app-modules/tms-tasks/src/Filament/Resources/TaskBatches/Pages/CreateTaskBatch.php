@@ -20,7 +20,7 @@ class CreateTaskBatch extends CreateRecord
         $workflow = app(CreateTaskBatchWorkflow::class);
 
         $command = $mapper->fromForm($data);
-        $result = $workflow->handle($command);
+        $result = $workflow->execute($command);
 
 
         // dd($result);

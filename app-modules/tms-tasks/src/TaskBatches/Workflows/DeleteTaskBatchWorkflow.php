@@ -12,7 +12,7 @@ class DeleteTaskBatchWorkflow
         private DeleteTaskAssignmentsWorkflow $taDWorkflow
     ) {}
 
-    public function handle(TaskBatch $taskBatch)
+    public function execute(TaskBatch $taskBatch)
     {
         // delete tasks and work
         $this->deleteTaskAssignments($taskBatch->batch->id);
@@ -38,7 +38,8 @@ class DeleteTaskBatchWorkflow
                 'ta.id'
             );
 
-        $this->taDWorkflow->execute($existingAssignmentIds->toArray());
+        $this->taDWorkflow
+            ->execute($existingAssignmentIds->toArray());
     }
 
     private function deleteBatch(TaskBatch $taskBatch)

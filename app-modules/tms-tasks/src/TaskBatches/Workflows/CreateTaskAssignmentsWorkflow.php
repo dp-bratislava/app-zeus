@@ -11,6 +11,7 @@ use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\TaskMS\States;
+use Dpb\Package\Tasks\Models\TaskItem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -36,11 +37,11 @@ class CreateTaskAssignmentsWorkflow
         $this->createTaskAssignments($command, $taskIdMap, $taskConfigs);
 
         // task items
-        $ticwResult = $this->tiCWorkflow->execute(
+        $tiCWfResult = $this->tiCWorkflow->execute(
             new CreateTaskItemsCommand(
                 date: $command->date,
                 taskIdMap: $taskIdMap,
-                configs: $taskConfigs,
+                taskConfigs: $taskConfigs,
                 context: $command->context,
             )
         );
@@ -50,12 +51,13 @@ class CreateTaskAssignmentsWorkflow
             ->pluck('id')
             ->all();
 
-        // $batchRecords[app(TaskItem::class)->getMorphClass()] = $ticwResult->taskItemIds;
+        $batchRecords[app(TaskItem::class)->getMorphClass()] = $tiCWfResult->taskItemIds;
         $batchRecords[app(TaskAssignment::class)->getMorphClass()] = $taskAssignmentIds;
-        // $batchRecords[app(TaskGroup::class)->getMorphClass()] = [$command->taskGroupId];
+        // array_merge($batchRecords, $tiCWfResult->)
 
         return new CreateTaskAssignmentsWorkflowResult(
-            batchRecords: $batchRecords
+            batchRecords: $batchRecords,
+            taskItemConfigs: $tiCWfResult->taskItemConfigs 
         );
     }
 

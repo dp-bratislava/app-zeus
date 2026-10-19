@@ -19,7 +19,7 @@ class DeleteTaskItemsWorkflow
      *
      * @param  array $taskItemIds
      */
-    public function handle(array $taskItemIds)
+    public function execute(array $taskItemIds)
     {
         if (DB::transactionLevel() > 0) {
             // Already in a parent transaction
