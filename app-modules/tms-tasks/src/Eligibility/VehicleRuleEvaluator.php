@@ -48,14 +48,16 @@ final class VehicleRuleEvaluator implements SubjectRuleEvaluator
             }
         }
 
-        // if (isset($conditions['vehicle_type'])) {
-        //     $allowedTypes = $conditions['vehicle_type']['in'] ?? [];
+        if (isset($conditions['vehicle_type'])) {
+            $allowedTypes = $conditions['vehicle_type']['in'] ?? [];
 
-        //     if (! in_array($model->type->code, $allowedTypes, true)) {
-        //         return false;
-        //     }
-        // }
-logger('rule passed');
+            if (! in_array($model->type->code, $allowedTypes, true)) {
+                logger('code', [$model->type->code]);
+                logger('alotype', [$allowedTypes]);
+                return false;
+            }
+        }
+
         return true;
     }
 }

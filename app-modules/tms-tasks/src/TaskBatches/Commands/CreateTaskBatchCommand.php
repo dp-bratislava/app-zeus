@@ -12,14 +12,12 @@ final readonly class CreateTaskBatchCommand
      * Summary of __construct
      * @param CarbonImmutable $date
      * @param int $taskGroupId
-     * @param list<SubjectTaskConfig> $configs
      * @param array $configuration
      * @param TaskBatchHandlerContext $context
      */
     public function __construct(
         public CarbonImmutable $date,
         public int $taskGroupId,
-        public array $configs,
         public array $configuration,
         public TaskBatchHandlerContext $context,
     ) {}

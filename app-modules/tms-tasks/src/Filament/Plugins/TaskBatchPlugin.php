@@ -2,16 +2,9 @@
 
 namespace Dpb\Modules\Tasks\Filament\Plugins;
 
-use Dpb\Modules\Tasks\Filament\Pages\DailyMaintenanceWorkOrdersPage;
-use Dpb\Modules\Tasks\Filament\Pages\TaskBatchWorkOrdersPage;
-use Dpb\Modules\Tasks\Filament\Pages\WorkOrderPage;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Filament\Support\Assets\Css;
 use Filament\Support\Enums\Width;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\View\PanelsRenderHook;
 
 class TaskBatchPlugin implements Plugin
 {
@@ -24,19 +17,9 @@ class TaskBatchPlugin implements Plugin
     {
         $panel
             ->darkMode(false)
-            ->pages(pages: [
-                TaskBatchWorkOrdersPage::class,
-                // CreateTaskDiverseBatch::class,
-            ])
-            // ->renderHook(
-            //     PanelsRenderHook::USER_MENU_BEFORE,
-            //     fn() => view('dpb-wtf-tms-bridge::filament.components.top-menu-help-button')->render()
-            // )
             ->maxContentWidth(Width::Full)
             ->resources(config('dpb-mod-tasks.filament_resources'));
     }
 
-    public function boot(Panel $panel): void
-    {
-    }
+    public function boot(Panel $panel): void {}
 }

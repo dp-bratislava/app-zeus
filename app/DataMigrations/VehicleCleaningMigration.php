@@ -104,47 +104,58 @@ class VehicleCleaningMigration implements DataMigration
                 // 'okna' => '',
                 // 'tepovanie_sedadiel_vodica.suche' => '',
                 // 'tepovanie_sedadiel_vodica.mokre' => '',
-                // 'cistenie_b' => '',
                 // 'mimoriadne' => '',
             ];
 
+            // bind operation categories to subject conditions
             $conditionMap = [
                 'A-Bus do 12m' => json_encode([
-                    'vehicle_type' => 'A',
+                    'vehicle_type' => [
+                        'in' => ['A'],
+                    ],
                     'length' => [
                         'lt' => 12
                     ]
                 ]),
-                // 'A-Bus nad 12m' => json_encode([
-                //     'vehicle_type' => 'A',
-                //     'length' => [
-                //         'gte' => 12
-                //     ]
-                // ]),
-                // 'T-Bus 12m' => json_encode([
-                //     'vehicle_type' => 'T',
-                //     'length' => [
-                //         'lt' => 12
-                //     ]
-                // ]),
-                // 'T-Bus 18m' => json_encode([
-                //     'vehicle_type' => 'T',
-                //     'length' => [
-                //         'gte' => 12,
-                //         'lt' => 18
-                //     ]
-                // ]),
-                // 'T-Bus 24m' => json_encode([
-                //     'vehicle_type' => 'T',
-                //     'length' => [
-                //         'gte' => 18
-                //     ]
-                // ]),
+                'A-Bus nad 12m' => json_encode([
+                    'vehicle_type' => [
+                        'in' => ['A'],
+                    ],
+                    'length' => [
+                        'gte' => 12
+                    ]
+                ]),
+                'T-Bus 12m' => json_encode([
+                    'vehicle_type' => [
+                        'in' => ['T'],
+                    ],
+                    'length' => [
+                        'lt' => 12
+                    ]
+                ]),
+                'T-Bus 18m' => json_encode([
+                    'vehicle_type' => [
+                        'in' => ['T'],
+                    ],
+                    'length' => [
+                        'gte' => 12,
+                        'lt' => 18
+                    ]
+                ]),
+                'T-Bus 24m' => json_encode([
+                    'vehicle_type' => [
+                        'in' => ['T'],
+                    ],
+                    'length' => [
+                        'gte' => 18
+                    ]
+                ]),
                 'Električky' => json_encode([
-                    'vehicle_type' => 'E',
+                    'vehicle_type' => [
+                        'in' => ['E'],
+                    ]
                 ]),
             ];
-
 
             foreach ($conditionMap as $categoryTitle => $conditions) {
                 $categoryId = Category::where('title', '=', $categoryTitle)

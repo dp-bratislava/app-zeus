@@ -38,11 +38,13 @@ class AssignmentMatrix extends Component
         array $groups = [],
         array $state = [],
         array $contractOptions = [],
+        // array $notes = [],
     ): void {
         $this->subjects = $subjects;
         $this->groups = $groups;
         $this->contractOptions = $contractOptions;
         $this->matrix = $state;
+        // $this->notes = $notes;
 
         // Normalize work collections to use contract_id as the key.
         foreach ($this->matrix as $subjectId => $subjectGroups) {

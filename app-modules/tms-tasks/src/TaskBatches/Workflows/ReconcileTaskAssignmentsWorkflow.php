@@ -3,12 +3,15 @@
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskItemsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskItemsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskAssignmentsWorkflow;
@@ -29,13 +32,10 @@ class ReconcileTaskAssignmentsWorkflow
     ) {}
 
     public function execute(
-        TaskBatch $taskBatch,
-        UpdateTaskUniformBatchCommand $command,
+        ReconcileTaskAssignmentsCommand $command,
     ): ReconcileTaskAssignmentsWorkflowResult {
-        $batchId = $taskBatch->batch->id;
-
         $existingAssignments = $this->getExistingTaskAssignments(
-            $batchId
+            $command->batchId
         );
 
         $existingAssignmentsBySubject = $existingAssignments->keyBy(
@@ -43,15 +43,16 @@ class ReconcileTaskAssignmentsWorkflow
             "{$assignment->subject_type}:{$assignment->subject_id}"
         );
 
-        $desiredSubjects = collect($command->subjects)->keyBy(
-            fn(TaskSubjectReference $subject) =>
-            "{$subject->type->value}:{$subject->id}"
+        $desiredSubjects = collect($command->taskConfigs)->keyBy(
+            fn(TaskBatchTaskConfig $taskConfig) =>
+            "{$taskConfig->subject->type->value}:{$taskConfig->subject->id}"
         );
 
         $subjectsToCreateAssignmentsFor = $desiredSubjects->diffKeys($existingAssignmentsBySubject);
         $assignmentsToDelete = $existingAssignmentsBySubject->diffKeys($desiredSubjects);
         $assignmentsToKeep = $existingAssignmentsBySubject->intersectByKeys($desiredSubjects);
 
+        dd($desiredSubjects, $existingAssignmentsBySubject);
         // create
         $createRecords = $this->createAssignments($subjectsToCreateAssignmentsFor, $command);
 
@@ -110,18 +111,16 @@ class ReconcileTaskAssignmentsWorkflow
 
     private function createAssignments(
         Collection $subjectsToCreateFor,
-        UpdateTaskUniformBatchCommand $command
+        ReconcileTaskAssignmentsCommand $command
     ): ?CreateTaskAssignmentsWorkflowResult {
         if ($subjectsToCreateFor->isEmpty()) {
             return null;
-        }
+        }        
 
         return $this->taCWorkflow
             ->execute(new CreateTaskAssignmentsCommand(
                 date: $command->date,
-                taskGroupId: $command->taskGroupId,
-                subjects: $subjectsToCreateFor->values()->all(),
-                taskItemGroupIds: $command->taskItemGroupIds,
+                taskConfigs: $command->taskConfigs,
                 context: $command->context
             ));
     }

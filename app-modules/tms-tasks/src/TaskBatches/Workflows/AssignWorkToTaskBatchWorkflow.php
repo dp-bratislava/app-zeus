@@ -144,10 +144,8 @@ class AssignWorkToTaskBatchWorkflow
                     'is_shareable' => $operation->is_shareable,
                     'status' => self::DEFAULT_WTF_TASK_STATUS,
                     'department_id' => $command->context->departmentId,
-                    // TODO
-                    // 'maintainable_type' => $taskItemConfig->subject->type->value,
                     'maintainable_type' => $maintainable::class,
-                    'maintainable_id' => $taskItemConfig->subject->id,
+                    'maintainable_id' => $maintainable->id,
                 ]);
 
                 // map

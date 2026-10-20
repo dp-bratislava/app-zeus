@@ -2,17 +2,14 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\AssignWorkAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskDiverseBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchConfig;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Dpb\Package\Tasks\Models\TaskItemGroup;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
@@ -45,13 +42,13 @@ class TaskBatchInfolist
             ->headerActions([
                 RedirectToIndexAction::make()
                     ->label(__(static::LANG_PFX . 'actions.back_action')),
-                AssignWorkAction::make()
-                    ->label(__(static::LANG_PFX . 'actions.assign_work_action'))
-                    ->color('warning'),
+                EditAction::make()
+                    ->label(__(static::LANG_PFX . 'actions.edit_action')),
+
                 // EditTaskBatchAction::make()
                 //     ->label(__(static::LANG_PFX . 'actions.edit_action')),
-                EditTaskDiverseBatchAction::make()
-                    ->label(__(static::LANG_PFX . 'actions.edit_action')),
+                // EditTaskDiverseBatchAction::make()
+                //     ->label(__(static::LANG_PFX . 'actions.edit_action')),
                 DeleteTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.delete_action'))
                     ->color('danger'),
@@ -110,10 +107,10 @@ class TaskBatchInfolist
             ->unique()
             ->values();
 
-        /*
-     * Replace these with your actual bulk lookup APIs.
-     * Each should issue a query for all supplied IDs, not one per ID.
-     */
+        /**
+         * Replace these with your actual bulk lookup APIs.
+         * Each should issue a query for all supplied IDs, not one per ID.
+         */
         $subjectLabels = static::loadSubjectLabels($tasks, $subjectIds);
         $groupLabels = static::loadTaskItemGroupLabels($groupIds);
         $contractLabels = static::loadContractLabels($contractIds);
@@ -171,7 +168,7 @@ class TaskBatchInfolist
                 'last_name'
             ])
             ->mapWithKeys(fn($contract) => [
-                 $contract->contract_id => $contract->pid . ' - ' . $contract->last_name
+                $contract->contract_id => $contract->pid . ' - ' . $contract->last_name
             ])
             ->all();
     }
@@ -226,81 +223,6 @@ class TaskBatchInfolist
                             ->badge()
                             ->size(TextSize::Large),
                     ]),
-            ]);
-    }
-
-    private static function subjectsSection1(): Component
-    {
-        return Section::make('Subjects')
-            ->columnSpanFull()
-            ->heading(__(static::LANG_PFX . 'sections.subjects'))
-            ->schema([
-                RepeatableEntry::make('configuration')
-                    ->hiddenLabel()
-                    ->table([
-                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_label'))->width('100px'),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.subject_description')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.task_item_group')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.personel')),
-                    ])
-                    ->schema([
-                        TextEntry::make('subject_label')
-                            ->state(fn(Model $record) => (new TaskSubjectPresenter($record->subject))->label()),
-                        TextEntry::make('subject_description')
-                            ->state(fn(Model $record) => (new TaskSubjectPresenter($record->subject))->description()),
-                        TextEntry::make('task_item_group')
-                            ->state(fn(Model $record) => $record->taskItemGroup->title),
-                        TextEntry::make('personel')
-                            ->state(fn() => [
-                                '10001 - meno1',
-                                '10002 - meno2',
-                                '10003 - meno3',
-                            ])
-                            ->badge(),
-                        // TextEntry::make('task_url')
-                        //     ->state('url')
-                        //     ->url(
-                        //         fn($record): string =>
-                        //         TaskAssignmentResource::getUrl(
-                        //             'edit',
-                        //             ['record' => 141009],
-                        //         )
-                        //     )
-                        //     ->openUrlInNewTab(),
-                    ])
-                    ->extraAttributes(fn($state): array => [
-                        'class' => match ($state['status'] ?? null) {
-                            default => 'bg-green-50',
-                        },
-                    ])
-            ]);
-    }
-
-    private static function workSection(): Component
-    {
-        return Section::make('Work')
-            ->heading(__(static::LANG_PFX . 'sections.work'))
-            // ->columns(4)
-            ->schema([
-                RepeatableEntry::make('work')
-                    ->hiddenLabel()
-                    ->table([
-                        TableColumn::make(__(static::LANG_PFX . 'entries.pid')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.name')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.wtf_operation_title')),
-                        TableColumn::make(__(static::LANG_PFX . 'entries.wtf_operation_duration')),
-                    ])
-                    ->schema([
-                        TextEntry::make('pid'),
-                        TextEntry::make('name'),
-                        TextEntry::make('wtf_operation_title'),
-                        TextEntry::make('wtf_operation_duration'),
-                    ])
-                    ->default([
-                        ['pid' => '1', 'name' => 'meno 1'],
-                        ['pid' => '2', 'name' => 'meno 2'],
-                        ['pid' => '3', 'name' => 'meno 3'],
-                    ])
             ]);
     }
 }

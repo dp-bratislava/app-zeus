@@ -57,7 +57,7 @@ class ReconcileTaskItemsWorkflow
         );
 
         // create
-        $ctiwResult = $this->createTaskItemsWorkflow->execute(
+        $tiCWfResult = $this->createTaskItemsWorkflow->execute(
             new CreateTaskItemsCommand(
                 date: $command->date,
                 taskIds: $command->taskIds,
@@ -74,7 +74,7 @@ class ReconcileTaskItemsWorkflow
         // update
         $this->updateTaskItems($taskItemsToKeep, $command);
 
-        $recordsToCreate[app(TaskItem::class)->getMorphClass()] = $ctiwResult->taskItemIds;
+        $recordsToCreate[app(TaskItem::class)->getMorphClass()] = $tiCWfResult->taskItemIds;
         $recordsToDelete[app(TaskItem::class)->getMorphClass()] = $taskItemsToDelete->pluck('id')->all();
 
         return new ReconcileTaskItemsWorkflowResult(

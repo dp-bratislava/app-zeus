@@ -79,7 +79,7 @@ class TaskBatchResource extends Resource
             'create' => CreateTaskBatch::route('/create'),
             // 'create' => CreateTaskDiverseBatch::route('/create'),
             // 'create-diverse' => CreateTaskDiverseBatch::route('/create-diverse'),
-            // 'edit' => EditTaskBatch::route('/{record}/edit'),
+            'edit' => EditTaskBatch::route('/{record}/edit'),
             'view' => ViewTaskBatch::route('/{record}'),
         ];
     }

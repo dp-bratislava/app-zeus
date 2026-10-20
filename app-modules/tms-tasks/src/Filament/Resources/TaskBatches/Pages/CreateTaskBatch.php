@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskDiverseBatchCreateFormMapper;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
@@ -16,7 +16,7 @@ class CreateTaskBatch extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $mapper = app(TaskDiverseBatchCreateFormMapper::class);
+        $mapper = app(DiverseTaskBatchCreateFormMapper::class);
         $workflow = app(CreateTaskBatchWorkflow::class);
 
         $command = $mapper->fromForm($data);

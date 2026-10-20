@@ -69,8 +69,6 @@ class CreateTaskBatchWorkflow
     private function createBatch(
         CreateTaskBatchCommand $command
     ): CreateTaskBatchWorkflowResult {
-        // handle batch
-        // $batchContextId = BatchContextResolver::get(TaskBatchContext::VehicleCleaningB->value)?->id;
         $batchContextId = BatchContextResolver::get(BatchContext::TaskBatch->value)?->id;
 
         if ($batchContextId) {
@@ -88,36 +86,6 @@ class CreateTaskBatchWorkflow
                 'created_at' => $command->context->handledAt,
                 'updated_at' => $command->context->handledAt,
             ]);
-
-            $taskBatchConfig = [];
-            foreach ($command->configs as $config) {
-                foreach ($config->taskItemGroups as $tig) {
-                    $taskBatchConfig[] = [
-                        'task_batch_id' => $taskBatch->id,
-                        'subject_id' => $config->subject->id,
-                        'subject_type' => $config->subject->type->value,
-                        'task_item_group_id' => $tig->taskItemGroupId,
-                        'quantity' => $tig->quantity,
-                        'created_at' => $command->context->handledAt,
-                        'updated_at' => $command->context->handledAt,
-                    ];
-                }
-            }
-
-            DB::table('tms_task_batch_config')->insert($taskBatchConfig);
-
-            // // 
-            // $taskBatchTigs = [];
-            // foreach ($command->taskItemGroupIds as $taskItemGroupId) {
-            //     $taskBatchTigs[] = [
-            //         'task_batch_id' => $taskBatch->id,
-            //         'task_item_group_id' => $taskItemGroupId,
-            //         'created_at' => $command->context->handledAt,
-            //         'updated_at' => $command->context->handledAt,
-            //     ];
-            // }
-
-            // TaskBatchTaskItemGroup::insert($taskBatchTigs);
         }
 
         return new CreateTaskBatchWorkflowResult(

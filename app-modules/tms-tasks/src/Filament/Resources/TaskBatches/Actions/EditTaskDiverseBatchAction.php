@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskDiverseBatchUpdateFormMapper;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskUniformBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskDiverseBatchSchema;
@@ -30,7 +30,7 @@ class EditTaskDiverseBatchAction
             // ])
             ->fillForm(function (
                 TaskBatch $record,
-                TaskDiverseBatchUpdateFormMapper $mapper,
+                DiverseTaskBatchUpdateFormMapper $mapper,
             ): array {
                 $prefilled = $mapper->fromDatabase($record);
                 // dd($prefilled);
@@ -39,7 +39,7 @@ class EditTaskDiverseBatchAction
             ->action(function (
                 array $data,
                 TaskBatch $record,
-                TaskDiverseBatchUpdateFormMapper $mapper,
+                DiverseTaskBatchUpdateFormMapper $mapper,
                 UpdateTaskBatchWorkflow $wf,
             ): void {
                 $command = $mapper->fromForm($data, $record);

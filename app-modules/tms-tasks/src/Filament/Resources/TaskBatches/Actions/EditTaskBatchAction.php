@@ -2,8 +2,10 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskUniformBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskDiverseBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskStepSchema;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
@@ -16,56 +18,34 @@ class EditTaskBatchAction
     public static function make(?string $name = 'edit_action'): Action
     {
         return Action::make($name)
-            ->modalWidth(width: 'full')
-            ->modalHeading(__('dpb-mod-tasks::task-batch.update_heading'))
             ->model(TaskBatch::class)
-            // ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema))
-            ->steps([
-                Step::make(__('dpb-mod-tasks::task-batch.form.steps.tasks'))
-                    ->schema(TaskStepSchema::make()),
-                // Step::make(__('dpb-mod-tasks::task-batch.form.steps.work'))
-                //     ->schema(WorkStepSchema::make())
+            ->schema(TaskDiverseBatchSchema::make())
+            // ->steps([
+            //     Step::make(__('dpb-mod-tasks::task-batch.form.steps.tasks'))
+            //         ->schema(TaskStepSchema::make()),
+            //     // Step::make(__('dpb-mod-tasks::task-batch.form.steps.work'))
+            //     //     ->schema(WorkStepSchema::make())
 
 
-            ])
-            ->fillForm(function (TaskBatch $record): array {
-                $prefilled = [
-                    // date
-                    'date' => $record->date,
-
-                    // task group
-                    TaskBatchForm::COL_NAME_TG_PICKER =>
-                    $record->taskGroup->id,
-
-                    // task item groups
-                    TaskBatchForm::COL_NAME_TIG_PICKER =>
-                    $record->itemGroups
-                        ->pluck('task_item_group_id')
-                        ->map(static fn($id) => (string) $id)
-                        ->all(),
-
-                    // vehicles
-                    TaskBatchForm::FIELD_NAME_VEHICLE_PICKER =>
-                    $record->subjects
-                        ->where('subject_type', TaskSubjectType::Vehicle->value)
-                        ->pluck('subject_id')
-                        ->map(static fn($id) => (string) $id)
-                        ->all(),
-                ];
-
+            // ])
+            ->fillForm(function (
+                TaskBatch $record,
+                DiverseTaskBatchUpdateFormMapper $mapper,
+            ): array {
+                $prefilled = $mapper->fromDatabase($record);
                 // dd($prefilled);
-                return $prefilled;
+                return $mapper->fromDatabase($record);
             })
             ->action(function (
                 array $data,
                 TaskBatch $record,
-                TaskUniformBatchUpdateFormMapper $mapper,
+                DiverseTaskBatchUpdateFormMapper $mapper,
                 UpdateTaskBatchWorkflow $wf,
             ): void {
                 $command = $mapper->fromForm($data, $record);
 
                 $wf->execute($command);
             })
-            ->after(fn ($record) => $record->refresh());
+            ->after(fn($record) => $record->refresh());
     }
 }

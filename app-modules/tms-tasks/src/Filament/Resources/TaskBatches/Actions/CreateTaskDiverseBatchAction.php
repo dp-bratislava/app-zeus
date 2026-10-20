@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskDiverseBatchCreateFormMapper;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskDiverseBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;

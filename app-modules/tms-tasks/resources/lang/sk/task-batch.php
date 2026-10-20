@@ -11,6 +11,9 @@ return [
         ],
     ],
     'form' => [
+        'actions' => [
+            'back_to_view_action' => 'Späť',
+        ],
         'steps' => [
             'tasks' => 'Zákazky',
             'work' => 'Práca',
