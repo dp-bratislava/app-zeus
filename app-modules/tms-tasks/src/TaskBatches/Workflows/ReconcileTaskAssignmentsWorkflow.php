@@ -4,19 +4,12 @@ namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskAssignmentsCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskItemsCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
-use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskUniformBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskAssignmentsWorkflowResult;
-use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskItemsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
-use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskAssignmentsWorkflow;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\DeleteTaskAssignmentsWorkflow;
-use Dpb\Modules\Tasks\TaskBatches\Workflows\ReconcileTaskItemsWorkflow;
 use Dpb\Package\TaskMS\Models\TaskAssignment;
 use Dpb\Package\Tasks\Models\Task;
 use Illuminate\Support\Collection;
@@ -27,7 +20,6 @@ class ReconcileTaskAssignmentsWorkflow
     public function __construct(
         private CreateTaskAssignmentsWorkflow $taCWorkflow,
         private DeleteTaskAssignmentsWorkflow $taDWorkflow,
-        private ReconcileTaskItemsWorkflow $tiReconcileWorkflow,
 
     ) {}
 
@@ -52,9 +44,9 @@ class ReconcileTaskAssignmentsWorkflow
         $assignmentsToDelete = $existingAssignmentsBySubject->diffKeys($desiredSubjects);
         $assignmentsToKeep = $existingAssignmentsBySubject->intersectByKeys($desiredSubjects);
 
-        dd($desiredSubjects, $existingAssignmentsBySubject);
+        // dd($desiredSubjects, $existingAssignmentsBySubject);
         // create
-        $createRecords = $this->createAssignments($subjectsToCreateAssignmentsFor, $command);
+        $taCWfResult = $this->createAssignments($subjectsToCreateAssignmentsFor, $command);
 
         // delete
         $deleteRecords = $this->deleteAssignments($assignmentsToDelete);
@@ -67,21 +59,14 @@ class ReconcileTaskAssignmentsWorkflow
             $command,
         );
 
-        // reconcile task items
-        $rtiwResult = $this->reconcileTaskItems(
-            $batchId,
-            $taskIds,
-            $command
-        );
-
         return new ReconcileTaskAssignmentsWorkflowResult(
             recordsToCreate: array_merge(
-                $createRecords?->batchRecords ?? [],
-                $rtiwResult->recordsToCreate
+                $taCWfResult?->batchRecords ?? [],
+                // $tiReconcileWfResult->recordsToCreate
             ),
             recordsToDelete: array_merge(
                 $deleteRecords?->batchRecords ?? [],
-                $rtiwResult->recordsToDelete
+                // $tiReconcileWfResult->recordsToDelete
             )
         );
     }
@@ -115,12 +100,17 @@ class ReconcileTaskAssignmentsWorkflow
     ): ?CreateTaskAssignmentsWorkflowResult {
         if ($subjectsToCreateFor->isEmpty()) {
             return null;
-        }        
+        }
+
+        $taskConfigs = $this->filterTaskConfigsBySubjects(
+            $command->taskConfigs,
+            $subjectsToCreateFor
+        );
 
         return $this->taCWorkflow
             ->execute(new CreateTaskAssignmentsCommand(
                 date: $command->date,
-                taskConfigs: $command->taskConfigs,
+                taskConfigs: $taskConfigs,
                 context: $command->context
             ));
     }
@@ -138,32 +128,36 @@ class ReconcileTaskAssignmentsWorkflow
 
     private function updateAssignments(
         array $taskIds,
-        UpdateTaskUniformBatchCommand $command,
+        ReconcileTaskAssignmentsCommand $command,
     ): void {
+        TaskAssignment::query()
+            ->whereIn('task_id', $taskIds)
+            ->update([
+                'author_id' => $command->context->authorId,
+                'updated_at' => $command->context->handledAt,
+            ]);
+
         Task::query()
             ->whereIn('id', $taskIds)
             ->update([
-                'group_id' => $command->taskGroupId,
+                // 'group_id' => $command->taskGroupId,
                 'date' => $command->date,
                 'updated_at' => $command->context->handledAt,
             ]);
     }
 
-    private function reconcileTaskItems(
-        int $batchId,
-        array $taskIds,
-        UpdateTaskUniformBatchCommand $command,
-    ): ReconcileTaskItemsWorkflowResult {
+    private function filterTaskConfigsBySubjects(
+        Collection $taskConfigs,
+        Collection $subjects
+    ): Collection {
 
-        return $this->tiReconcileWorkflow
-            ->execute(
-                new ReconcileTaskItemsCommand(
-                    batchId: $batchId,
-                    date: $command->date,
-                    taskIds: $taskIds,
-                    taskItemGroupIds: $command->taskItemGroupIds,
-                    context: $command->context,
+        return $taskConfigs
+            ->filter(
+                fn(TaskBatchTaskConfig $config) =>
+                $subjects->has(
+                    "{$config->subject->type->value}:{$config->subject->id}"
                 )
-            );
+            )
+            ->values();
     }
 }

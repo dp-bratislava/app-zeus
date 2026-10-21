@@ -6,11 +6,13 @@ use App\Enums\BatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Commands\AssignWorkToTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskBatchWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
 use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Batchable\Resolvers\BatchContextResolver;
+use Dpb\Package\Tasks\Models\TaskItem;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -20,6 +22,7 @@ class CreateTaskBatchWorkflow
     public function __construct(
         private TaskBatchConfigMapper $configMapper,
         private CreateTaskAssignmentsWorkflow $taCWorkflow,
+        private CreateTaskItemsWorkflow $tiCWorkflow,
         private AssignWorkToTaskBatchWorkflow $awWorkflow
     ) {}
 
@@ -31,6 +34,7 @@ class CreateTaskBatchWorkflow
                 // handle batch
                 $tbCWfResult = $this->createBatch($command);
 
+                // task assignemnts
                 $taCWfResult = $this->taCWorkflow
                     ->execute(new CreateTaskAssignmentsCommand(
                         date: $command->date,
@@ -38,12 +42,24 @@ class CreateTaskBatchWorkflow
                         context: $command->context
                     ));
 
+                // task items                
+                $tiCWfResult = $this->tiCWorkflow
+                    ->execute(
+                        new CreateTaskItemsCommand(
+                            date: $command->date,
+                            taskIdMap: $taCWfResult->taskIdMap,
+                            taskConfigs: $taCWfResult->taskConfigs,
+                            context: $command->context,
+                        )
+                    );
+
+                // work
                 $awWfResult = $this->awWorkflow
                     ->execute(new AssignWorkToTaskBatchCommand(
                         batchId: $tbCWfResult->batch->id,
                         taskBatchId: $tbCWfResult->taskBatch->id,
                         date: $command->date,
-                        taskItemConfigs: $taCWfResult->taskItemConfigs,
+                        taskItemConfigs: $tiCWfResult->taskItemConfigs,
                         context: $command->context
                     ));
 
@@ -55,6 +71,11 @@ class CreateTaskBatchWorkflow
                             $ids
                         );
                     }
+
+                    $tbCWfResult->batch->attachRecordIds(
+                        (new TaskItem())->getMorphClass(),
+                        $tiCWfResult->taskItemIds
+                    );
                 }
 
                 return $tbCWfResult;
@@ -62,8 +83,6 @@ class CreateTaskBatchWorkflow
         } catch (Exception $e) {
             dd($e);
         }
-
-        return new CreateTaskBatchWorkflowResult();
     }
 
     private function createBatch(

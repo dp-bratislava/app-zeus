@@ -6,9 +6,13 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchActi
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskDiverseBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskUniformBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskAssignmentSubjectResolver;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchRecordScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Dpb\Package\Fleet\Models\Vehicle;
@@ -40,7 +44,6 @@ class TaskBatchesTable
             ->defaultSort('created_at', 'desc')
             ->recordClasses(fn(TaskBatch $record): ?string => match (true) {
                 $record->hasTaskWithNoWork() => 'bg-red-200',
-                $record->subjects->isEmpty() => 'bg-red-200',
                 default => null,
             })
             ->modifyQueryUsing(function (
@@ -62,32 +65,43 @@ class TaskBatchesTable
                     ->date('Y-m-d'),
                 TextColumn::make('taskGroup.title')
                     ->label(__($langColsPfx . 'task_group')),
-                TextColumn::make('configs.taskItemGroup.title')
-                    ->label(__($langColsPfx . 'task_item_group'))
-                    ->state(function (TaskBatch $record): array {
-                        return $record->configs
-                            ->map(
-                                fn(Model $config) => $config->taskItemGroup->title
-                            )
-                            ->unique()
-                            ->all();
-                    })
-                    ->badge()
-                    ->wrap()
-                    ->size(TextSize::Large),
-                TextColumn::make('configs')
+                // TextColumn::make('configs.taskItemGroup.title')
+                //     ->label(__($langColsPfx . 'task_item_group'))
+                //     ->state(function (TaskBatch $record): array {
+                //         return $record->configs
+                //             ->map(
+                //                 fn(Model $config) => $config->taskItemGroup->title
+                //             )
+                //             ->unique()
+                //             ->all();
+                //     })
+                //     ->badge()
+                //     ->wrap()
+                //     ->size(TextSize::Large),
+                TextColumn::make('configuration')
                     ->label(__($langColsPfx . 'subjects'))
-                    ->state(function (TaskBatch $record): array {
-                        // $record->configuration['tasks']
-                        return $record->configs
-                            ->map(
-                                fn(Model $config) => (new TaskSubjectPresenter($config->subject))->label()
+                    ->state(function (TaskBatch $record, TaskBatchConfigMapper $mapper): array {
+                        $configs = $mapper
+                            ->map($record->configuration);
+
+                        $references = $configs
+                            ->map(fn(TaskBatchTaskConfig $config) => $config->subject)
+                            ->unique(
+                                fn(TaskSubjectReference $subject) =>
+                                "{$subject->type->value}:{$subject->id}"
                             )
+                            ->values();
+
+                        $subjects = TaskAssignmentSubjectResolver::resolveMany($references);
+
+                        return TaskSubjectPresenter::labels($subjects)
                             ->unique()
+                            ->values()
                             ->all();
                     })
                     ->badge()
                     ->wrap()
+                    ->grow()
                     ->size(TextSize::Large),
                 TextColumn::make('author.lastname')
                     ->label(__($langColsPfx . 'author')),

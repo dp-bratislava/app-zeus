@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskUniformBatchCreateFormMapper;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\UniformTaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
@@ -18,7 +18,7 @@ class CreateTaskBatchAction
             ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema))
             ->action(function (
                 array $data,
-                TaskUniformBatchCreateFormMapper $mapper,
+                UniformTaskBatchCreateFormMapper $mapper,
                 CreateTaskBatchWorkflow $workflow,
             ) {
                 // dd($data);

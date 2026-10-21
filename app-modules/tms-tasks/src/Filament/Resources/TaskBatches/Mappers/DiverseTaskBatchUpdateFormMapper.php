@@ -3,6 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
+use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
@@ -35,6 +36,7 @@ class DiverseTaskBatchUpdateFormMapper
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
                 authorId: auth()->id(),
                 handledAt: now()->toImmutable(),
+                departmentId: app(DepartmentService::class)->getActiveDepartment()->id
             )
         );
     }

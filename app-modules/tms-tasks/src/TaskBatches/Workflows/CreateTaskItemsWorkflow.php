@@ -2,13 +2,13 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
+use Dpb\Modules\Tasks\Enums\TaskItemStatus as EnumTaskItemStatus;
 use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskItemsWorkflowResult;
 use Dpb\Modules\Tasks\TaskBatches\DTO\WtfTaskItemConfig;
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
-use Dpb\Package\TaskMS\States;
 use Dpb\Package\Tasks\Models\TaskItem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -52,8 +52,16 @@ class CreateTaskItemsWorkflow
         $taskItems = [];
         $pendingConfigs = [];
 
+        // dd($command);
+
         foreach ($command->taskIdMap->all() as $taskUuid => $taskId) {
             $taskConfig = $command->taskConfigs->get($taskUuid);
+
+            if ($taskConfig === null) {
+                throw new \LogicException(
+                    "Missing task config for task UUID {$taskUuid}."
+                );
+            }
 
             foreach ($taskConfig->tigConfigs as $tigConfig) {
                 $taskItemUuid = Str::uuid7()->toString();
@@ -62,7 +70,7 @@ class CreateTaskItemsWorkflow
                     'uuid' => $taskItemUuid,
                     'date' => $command->date,
                     'task_id' => $taskId,
-                    'state' => States\Task\TaskItem\Created::$name,
+                    'state' => EnumTaskItemStatus::Closed->value,
                     'group_id' => $tigConfig->taskItemGroupId,
                     'created_at' => $command->context->handledAt,
                     'updated_at' => $command->context->handledAt,

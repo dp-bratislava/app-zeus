@@ -12,7 +12,7 @@ use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class TaskUniformBatchUpdateFormMapper
+class UniformTaskBatchUpdateFormMapper
 {
     public function fromForm(
         array $data,

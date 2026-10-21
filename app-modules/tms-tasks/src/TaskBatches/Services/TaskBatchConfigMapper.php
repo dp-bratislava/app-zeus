@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
+use Dpb\Modules\Tasks\DTO\EntityIdMap;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskItemGroupConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
@@ -47,6 +48,37 @@ final class TaskBatchConfigMapper
                     note: $task['note'] ?? '',
                     tigConfigs: $groups,
                 );
+            });
+    }
+
+    /**
+     * @TODO
+     * @param Collection $taskConfigs
+     * @param EntityIdMap $taskIdMap
+     * @return Collection<TKey, TValue>
+     */
+    public function keyByTaskUuid(
+        Collection $taskConfigs,
+        EntityIdMap $taskIdMap
+    ): Collection
+    {
+        return collect();
+        $taskConfigsBySubject = $taskConfigs->keyBy(
+            fn(TaskBatchTaskConfig $config) =>
+            "{$config->subject->type->value}:{$config->subject->id}"
+        );
+
+        return $tasks
+            ->mapWithKeys(function ($task) use ($taskConfigsBySubject) {
+                $subjectKey = "{$task->subject_type}:{$task->subject_id}";
+
+                if (! $taskConfigsBySubject->has($subjectKey)) {
+                    return [];
+                }
+
+                return [
+                    $task->uuid => $taskConfigsBySubject->get($subjectKey),
+                ];
             });
     }
 }

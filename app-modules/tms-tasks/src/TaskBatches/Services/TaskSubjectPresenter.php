@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 final class TaskSubjectPresenter
 {
@@ -25,12 +26,11 @@ final class TaskSubjectPresenter
         };
     }
 
-    public function label(): ?string
+    public static function label(Model $subject): string
     {
         return match (true) {
-            $this->subject instanceof Vehicle => $this->subject->label,
-            // $this->subject instanceof Building => $this->subject->address,
-            default => null,
+            $subject instanceof Vehicle => $subject->label,
+            default => class_basename($subject) . ' #' . $subject->getKey(),
         };
     }
 
@@ -41,7 +41,7 @@ final class TaskSubjectPresenter
             // $this->subject instanceof Building => $this->subject->address,
             default => null,
         };
-    }    
+    }
 
     public function size(): ?string
     {
@@ -50,8 +50,8 @@ final class TaskSubjectPresenter
             // $this->subject instanceof Building => $this->subject->address,
             default => null,
         };
-    }    
-    
+    }
+
     public function seats(): ?string
     {
         return match (true) {
@@ -59,5 +59,16 @@ final class TaskSubjectPresenter
             // $this->subject instanceof Building => $this->subject->address,
             default => null,
         };
-    }        
+    }
+
+    /**
+     * @param Collection<string, Model> $subjects
+     * @return Collection<string, string>
+     */
+    public static function labels(Collection $subjects): Collection
+    {
+        return $subjects->map(
+            fn(Model $subject) => static::label($subject)
+        );
+    }
 }

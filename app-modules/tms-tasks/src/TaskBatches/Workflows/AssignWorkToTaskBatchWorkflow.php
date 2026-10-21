@@ -160,6 +160,13 @@ class AssignWorkToTaskBatchWorkflow
                 foreach ($taskItemConfig->work as $work) {
                     $pid = $contractPids[$work->contractId];
 
+                    // TODO
+                    // handle worktimes that dont exist
+                    if (isset($worktimeIds[$pid]) === false) {
+                        // logger('pridaj pracu, nema zmenu PID: ' . $pid);
+                        continue;
+                    }
+
                     $duration = max(
                         $work->quantity * $operation->duration / (
                             $operation->is_shareable
@@ -192,10 +199,19 @@ class AssignWorkToTaskBatchWorkflow
             }
         }
 
-        DB::table('dpb_wtftmsbridge_mm_workorder_task')
-            ->insert($workorderWtfTasks);
+        // DB::table('dpb_wtftmsbridge_mm_workorder_task')
+        //     ->insert($workorderWtfTasks);
 
-        ActivityRecord::insert($activities);
+        // ActivityRecord::insert($activities);
+
+        foreach (array_chunk($workorderWtfTasks, 500) as $chunk) {
+            DB::table('dpb_wtftmsbridge_mm_workorder_task')
+                ->insert($chunk);
+        }
+
+        foreach (array_chunk($activities, 500) as $chunk) {
+            ActivityRecord::insert($chunk);
+        }
 
         return [];
     }

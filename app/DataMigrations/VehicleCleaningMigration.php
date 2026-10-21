@@ -75,7 +75,8 @@ class VehicleCleaningMigration implements DataMigration
                     [
                         'department_id' => $cleaningDepartmentId,
                         'task_item_group_id' => $tigId,
-                        'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
+                        // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
+                        'label' => $tig['title'],
                         'is_scalable' => $tig['is_scalable'],
                     ],
                     ['department_id', 'task_item_group_id']
