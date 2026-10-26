@@ -3,13 +3,13 @@
 namespace App\Filament\Exports\Reports;
 
 use App\Reports\Exports\BaseReportExporter;
-use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Support\Facades\DB;
+use Dpb\Departments\Services\DepartmentService;
+
 
 class DetailReportExporter extends BaseReportExporter
 {
     private ?DepartmentService $departmentService = null;
-
     private array $filters = [];
 
     public function __construct()
@@ -23,7 +23,7 @@ class DetailReportExporter extends BaseReportExporter
     protected function dynamicColumns(): array
     {
         $departmentCodes = data_get($this->filters, 'department.values');
-        if (empty($departmentCodes)) {
+        if(empty($departmentCodes)) {
             $departmentCodes = $this->departmentService->getAvailableDepartments()->pluck('code')->toArray();
         }
 
@@ -39,10 +39,10 @@ class DetailReportExporter extends BaseReportExporter
 
         foreach ($subjectTypes as $key => $type) {
             $columns[] = [
-                'key' => self::DYNAMIC_COLUMN_PREFIX.$key,
+                'key' => self::DYNAMIC_COLUMN_PREFIX . $key,
                 'label' => $type,
                 'static' => false,
-                'definition' => DB::raw('
+                'definition' => DB::raw("
                     MAX(CASE 
                         WHEN ar.subject_type = '$type' 
                         THEN ar.subject_label 
@@ -57,7 +57,7 @@ class DetailReportExporter extends BaseReportExporter
     protected function columns(): array
     {
         return [
-            ['key' => 'ar.department_code', 'label' => 'Stredisko'],
+            ['key' => 'department_code', 'label' => 'Stredisko'],
             ['key' => 'task_created_at', 'label' => 'Čas vytvorenia zákazky'],
             ['key' => 'activity_is_fulfilled_label', 'label' => 'Splnené'],
             ['key' => 'task_date', 'label' => 'Dátum zákazky', 'type' => 'date'],
@@ -65,8 +65,6 @@ class DetailReportExporter extends BaseReportExporter
             ['key' => 'task_assigned_to_label', 'label' => 'Prevádzka zákazky'],
             ['key' => 'task_author_lastname', 'label' => 'Zákzaku vytvoril'],
             ['key' => 'task_item_group_title', 'label' => 'Typ podzákazky'],
-            ['key' => 'group_sap_code', 'label' => 'SAP Kód'],
-            ['key' => 'activity_sap_code', 'label' => 'Kód aktivity'],
             ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
             ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
             ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],
@@ -86,11 +84,11 @@ class DetailReportExporter extends BaseReportExporter
         $this->filters = $filters;
         $departmentCodes = data_get($filters, 'department.values');
         $staticColumns = array_column(
-            array_filter($this->columns(), fn ($c) => ($c['static'] ?? true)),
+            array_filter($this->columns(), fn($c) => ($c['static'] ?? true)),
             'key'
         );
         $dynamicColumns = array_column(
-            array_filter($this->columns(), fn ($c) => (isset($c['static']) && $c['static'] == false)),
+            array_filter($this->columns(), fn($c) => (isset($c['static']) && $c['static'] == false)),
             'definition'
         );
 
@@ -104,15 +102,15 @@ class DetailReportExporter extends BaseReportExporter
                 'ar.id',
                 ...$staticColumns,
             ])
-            ->when(data_get($filters, 'date_range.date_from'), fn ($q, $v) => $q->whereDate('activity_date', '>=', $v))
-            ->when(data_get($filters, 'date_range.date_to'), fn ($q, $v) => $q->whereDate('activity_date', '<=', $v))
-            ->when(! empty($departmentCodes), function ($q) use ($departmentCodes) {
-                $q->whereIn('ar.department_code', $departmentCodes);
+            ->when(data_get($filters, 'date_range.date_from'), fn($q, $v) => $q->whereDate('activity_date', '>=', $v))
+            ->when(data_get($filters, 'date_range.date_to'), fn($q, $v) => $q->whereDate('activity_date', '<=', $v))
+            ->when(!empty($departmentCodes), function ($q) use ($departmentCodes) {
+                $q->whereIn('department_code', $departmentCodes);
             })
             // Always apply available departments filter (same as applyQueryModifications)
-            ->whereIn('ar.department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
+            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
 
-        return $result;
+            return $result;
     }
 
     public function getExporterName(): string
