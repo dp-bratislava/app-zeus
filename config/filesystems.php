@@ -70,7 +70,7 @@ return [
 
         'photos' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/photos'),
+            'root' => env('SYNOLOGY_MOUNT', storage_path('app/private/photos')),
             'serve' => true,
             'throw' => false,
             'report' => false,
