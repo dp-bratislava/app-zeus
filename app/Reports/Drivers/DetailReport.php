@@ -17,6 +17,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Carbon;
+use App\Services\DateRangeValidator;
 
 class DetailReport implements ReportDriver
 {

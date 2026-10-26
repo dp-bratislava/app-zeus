@@ -4,7 +4,6 @@ namespace App\Reports;
 
 use App\Reports\Drivers\DetailReport;
 use App\Reports\Drivers\ReportDriver;
-use App\Reports\Drivers\DetailReport;
 use App\Reports\Drivers\ControllingDetailReport;
 use App\Reports\Drivers\BatchReportDriver;
 use App\Reports\Drivers\SumarReport;

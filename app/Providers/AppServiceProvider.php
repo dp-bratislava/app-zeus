@@ -29,8 +29,6 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory;
-use Filament\Support\Assets\Css;
-use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
 

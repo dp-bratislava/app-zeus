@@ -34,8 +34,9 @@ return [
     */
     'filament_resources' => [
         // tasks
-        Dpb\WtfTmsBridge\Filament\Resources\TaskAssignmentResource::class,
-        Dpb\WtfTmsBridge\Filament\Resources\Task\DailyMaintenanceResource::class,
+        TaskAssignmentResource::class,
+        DailyMaintenanceResource::class,
+        InspectionAssignmentResource::class,
     ],
 
     /*
@@ -44,6 +45,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'task_subject_adapters' => [
-        'vehicle' => \Dpb\WtfTmsBridge\Adapters\FleetVehicleTaskSubjectAdapter::class,
-    ],    
+        'vehicle' => FleetVehicleTaskSubjectAdapter::class,
+    ],
 ];
