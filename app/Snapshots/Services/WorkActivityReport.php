@@ -78,15 +78,12 @@ class WorkActivityReport extends Snapshot
                 END',
             'activity_type' => 'NULL',
             'activity_is_tolerated' => 'NULL',
-
-            // sap codes
-            'group_sap_code' => 'tis.task_item_group_sap_code',
-            'activity_sap_code' => 'CASE 
-                WHEN hrc.department_code IN (5400, 5621, 5622) THEN spc.elek
-                WHEN hrc.department_code IN (5522, 5521) THEN spc.tbus
-                WHEN hrc.department_code IN (7213, 7223, 7233) THEN spc.abus
-                ELSE "" 
-            END',
+            'activity_sap_code' => 'CASE tis.task_group_code
+                    WHEN "accident" THEN o.accident_sap_code
+                    WHEN "malfunction" THEN o.malfunction_sap_code
+                    WHEN "maintenance" THEN o.maintenance_sap_code
+                    ELSE NULL
+                END',
 
             // task snapshot
             'task_date' => 'tis.task_date',
@@ -130,8 +127,6 @@ class WorkActivityReport extends Snapshot
             LEFT JOIN mvw_task_item_snapshots tis ON tis.task_item_id = wo.tms_task_item_id
             LEFT JOIN mvw_hr_contract_snapshots hrc ON hrc.pid = ar.personal_id
             LEFT JOIN dpb_worktimefund_model_operation o ON o.id = wt.source_id
-            LEFT JOIN dpb_sap_code_controlling spc ON spc.kod = tis.task_item_group_sap_code
-            WHERE ar.type = 'O'
         ";
     }
 
