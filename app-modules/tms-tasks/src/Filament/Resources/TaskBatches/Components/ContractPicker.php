@@ -2,10 +2,12 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
+use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\Utilities\Get;
 
 class ContractPicker
 {
@@ -20,7 +22,11 @@ class ContractPicker
             // ->columns(12)
             // ->fullWidth()
             ->inline()
-            ->options(fn(TaskBatchLookupScopeService $lookupSvc) => $lookupSvc->employeeContracts())
+            ->options(fn(TaskBatchLookupScopeService $lookupSvc, Get $get) => $lookupSvc->employeeContracts(
+                CarbonImmutable::parse(
+                    $get(TaskBatchForm::COL_NAME_DATE)
+                )
+            ))
             ->multiple()
             ->live()
             ->afterStateUpdated(function ($state, $get, $set): void {

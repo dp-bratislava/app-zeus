@@ -15,7 +15,7 @@ class CreateTaskBatchAction
     {
         return Action::make($name)
             ->model(TaskBatch::class)
-            ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema))
+            ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema, TaskBatchForm::IS_UNIFORM))
             ->action(function (
                 array $data,
                 UniformTaskBatchCreateFormMapper $mapper,

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\DataMigrations\BreakActivityMigration;
+use App\DataMigrations\DailyMaintenanceMigration;
 use App\DataMigrations\OperationCategoryDepartmentSync;
 use App\DataMigrations\ScalableOperationMigration;
 use App\DataMigrations\VehicleCleaningBMigration;
@@ -19,6 +20,7 @@ class DataMigrateCommand extends Command
         match ($this->argument('profile')) {
             'vehicle-cleaning-b' => app(VehicleCleaningBMigration::class)->run(),
             'vehicle-cleaning' => app(VehicleCleaningMigration::class)->run(),
+            'daily-maintenance' => app(DailyMaintenanceMigration::class)->run(),
             'scalable-operation' => app(ScalableOperationMigration::class)->run(),
             'break-activity' => app(BreakActivityMigration::class)->run(),
             'operation-category-department-sync' => app(OperationCategoryDepartmentSync::class)->run(),

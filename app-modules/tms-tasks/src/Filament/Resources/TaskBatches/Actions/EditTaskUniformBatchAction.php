@@ -4,7 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\UniformTaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskStepSchema;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskWorkTab;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\UpdateTaskBatchWorkflow;
@@ -22,7 +22,7 @@ class EditTaskUniformBatchAction
             // ->schema(fn(Schema $schema): Schema => TaskBatchForm::configure($schema))
             ->steps([
                 Step::make(__('dpb-mod-tasks::task-batch.form.steps.tasks'))
-                    ->schema(TaskStepSchema::make()),
+                    ->schema(TaskWorkTab::make()),
                 // Step::make(__('dpb-mod-tasks::task-batch.form.steps.work'))
                 //     ->schema(WorkStepSchema::make())
 

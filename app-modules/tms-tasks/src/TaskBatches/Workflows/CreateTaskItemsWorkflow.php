@@ -7,6 +7,7 @@ use Dpb\Modules\Tasks\Helpers\EntityIdMapper;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskItemsCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskItemsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskItemConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\WtfTaskItemConfig;
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
 use Dpb\Package\Tasks\Models\TaskItem;
@@ -63,7 +64,7 @@ class CreateTaskItemsWorkflow
                 );
             }
 
-            foreach ($taskConfig->tigConfigs as $tigConfig) {
+            foreach ($taskConfig->taskItemConfigs as $tiConfig) {
                 $taskItemUuid = Str::uuid7()->toString();
 
                 $taskItems[] = [
@@ -71,7 +72,7 @@ class CreateTaskItemsWorkflow
                     'date' => $command->date,
                     'task_id' => $taskId,
                     'state' => EnumTaskItemStatus::Closed->value,
-                    'group_id' => $tigConfig->taskItemGroupId,
+                    'group_id' => $tiConfig->taskItemGroupId,
                     'created_at' => $command->context->handledAt,
                     'updated_at' => $command->context->handledAt,
                 ];
@@ -79,8 +80,9 @@ class CreateTaskItemsWorkflow
                 // Keep the data needed to build the final DTO.
                 $pendingConfigs[$taskItemUuid] = [
                     'subject' => $taskConfig->subject,
-                    'taskItemGroupId' => $tigConfig->taskItemGroupId,
-                    'work' => $tigConfig->work,
+                    'taskItemGroupId' => $tiConfig->taskItemGroupId,
+                    'operations' => $tiConfig->operationIds,
+                    'work' => $tiConfig->work,
                 ];
             }
         }
@@ -112,6 +114,7 @@ class CreateTaskItemsWorkflow
                 taskItemGroupId: $config['taskItemGroupId'],
                 taskItemId: (int) $taskItemId,
                 work: $config['work'],
+                operationIds: $config['operations'],
             );
         }
 

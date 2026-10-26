@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\LookupScope;
 
+use Carbon\CarbonImmutable;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleType;
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\DB;
  */
 class GenericProfile implements TaskBatchLookupScopeProfile
 {
-    public function employeeContracts(TaskBatchResourceContext $context): array
-    {
+    public function employeeContracts(
+        TaskBatchResourceContext $context,
+        CarbonImmutable $date
+    ): array {
         return DB::table('mvw_hr_contract_snapshots as cs')
             ->join(
                 'dpb_employeemanager_mm_group_datahubcontract as emgc',
@@ -33,7 +36,14 @@ class GenericProfile implements TaskBatchLookupScopeProfile
                 '=',
                 'emgc.group_id'
             )
+            ->join(
+                'dpb_worktimefund_model_worktime as wt',
+                'wt.personal_id',
+                '=',
+                'cs.pid'
+            )
             ->where('emg.department', '=', $context->departmentContext->departmentId)
+            ->where('wt.date', '=', $date->format('Y-m-d'))
             ->get()
             ->mapWithKeys(function ($contract) {
                 return [

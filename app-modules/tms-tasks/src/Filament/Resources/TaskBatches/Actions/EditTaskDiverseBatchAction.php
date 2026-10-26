@@ -5,7 +5,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\UniformTaskBatchUpdateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskDiverseBatchSchema;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskSubjectType;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\UpdateTaskBatchWorkflow;
@@ -19,7 +19,7 @@ class EditTaskDiverseBatchAction
             ->modalWidth(width: 'full')
             ->modalHeading(__('dpb-mod-tasks::task-batch.update_heading'))
             ->model(TaskBatch::class)
-            ->schema(TaskDiverseBatchSchema::make())
+            ->schema(DiverseTaskBatchSchema::make())
             // ->steps([
             //     Step::make(__('dpb-mod-tasks::task-batch.form.steps.tasks'))
             //         ->schema(TaskStepSchema::make()),

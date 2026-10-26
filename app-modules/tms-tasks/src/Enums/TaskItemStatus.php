@@ -2,9 +2,6 @@
 
 namespace Dpb\Modules\Tasks\Enums;
 
-/**
- * Based on place of origin code
- */
 enum TaskItemStatus: string
 {
     case Created = 'created';

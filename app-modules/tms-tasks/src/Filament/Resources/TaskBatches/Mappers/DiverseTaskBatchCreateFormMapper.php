@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
+use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
@@ -15,7 +16,7 @@ use Dpb\Package\Tasks\Models\TaskItemGroup;
 class DiverseTaskBatchCreateFormMapper
 {
     public function __construct(
-        private ConfigutrationMapper $configutrationMapper
+        private ConfigurationMapper $configutrationMapper
     ) {}
 
     public function fromForm(array $data): CreateTaskBatchCommand
@@ -26,7 +27,11 @@ class DiverseTaskBatchCreateFormMapper
         $notes = $data[TaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
 
         $configuration = $this->configutrationMapper
-            ->getConfiguration($matrix, $notes);
+            ->getConfiguration(
+                TaskBatchMode::Diverse,
+                $matrix,
+                $notes
+            );
 
         return new CreateTaskBatchCommand(
             date: CarbonImmutable::parse($data['date']),

@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
+use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchLookupScopeResolver;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,13 +15,13 @@ class TaskBatchLookupScopeService
         private TaskBatchContextFactory $factory,
     ) {}
 
-    public function employeeContracts(): array
+    public function employeeContracts(CarbonImmutable $date): array
     {
         $context = $this->factory->make();
 
         return $this->resolver
             ->resolve($context->departmentContext->departmentGroup)
-            ->employeeContracts($context);
+            ->employeeContracts($context, $date);
     }
 
     public function taskSubjects(): array

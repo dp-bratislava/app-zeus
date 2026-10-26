@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
+use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Livewire\AssignmentMatrix;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
@@ -25,7 +26,11 @@ class TaskBatchConfiguration
 
                 $allContracts = app(TaskBatchLookupScopeService::class)
                     // ->employeeContracts(app(TaskBatchResourceContext::class));
-                    ->employeeContracts();
+                    ->employeeContracts(
+                        CarbonImmutable::parse(
+                            $get(TaskBatchForm::COL_NAME_DATE)
+                        )
+                    );
 
                 $contractOptions = array_intersect_key(
                     $allContracts,

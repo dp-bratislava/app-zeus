@@ -4,7 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskDiverseBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskUniformBatchAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateUniformTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
@@ -130,7 +130,8 @@ class TaskBatchesTable
                 //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
                 CreateAction::make('diverse_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
-                CreateTaskUniformBatchAction::make('uniform_create_action')
+                // CreateUniformTaskBatchAction::make('uniform_create_action')
+                CreateTaskBatchAction::make('uniform_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
             ])
             ->toolbarActions([

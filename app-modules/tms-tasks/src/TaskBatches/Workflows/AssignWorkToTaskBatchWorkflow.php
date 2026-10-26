@@ -2,141 +2,138 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
 
-use Dpb\DatahubSync\Models\EmployeeContract;
-use Dpb\Modules\Tasks\Eligibility\AvailableOperations;
-use Dpb\Modules\Tasks\TaskBatches\Resolvers\WtfActivityMaintainableResolver;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Dpb\WorkTimeFund\Models\ActivityRecord;
-use Dpb\WorkTimeFund\Models\Task as WtfTask;
+use App\Models\Datahub\EmployeeContract;
 use Dpb\Modules\Tasks\TaskBatches\Commands\AssignWorkToTaskBatchCommand;
-use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskAssignmentSubjectResolver;
+use Dpb\Modules\Tasks\TaskBatches\Resolvers\WtfActivityMaintainableResolver;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskItemConfig;
+use Dpb\Modules\Tasks\TaskBatches\DTO\WtfTaskItemConfig;
+use Dpb\WorkTimeFund\Models\ActivityRecord;
+use Dpb\WorkTimeFund\Models\Operation;
+use Dpb\WorkTimeFund\Models\Task as WtfTask;
 use Dpb\WorkTimeFund\Models\WorkTime;
 use Dpb\WtfTmsBridge\Models\WorkOrder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
-class AssignWorkToTaskBatchWorkflow
+final class AssignWorkToTaskBatchWorkflow
 {
-    // set all activities as fulfileld by default 
     private const DEFAULT_IS_FULFILLED = true;
     private const DEFAULT_QUANTITY_MULTIPLIER = 1;
-
-    // set all activities as operations by default
     private const DEFAULT_ACTIVITY_TYPE = 'O';
     private const DEFAULT_WTF_TASK_STATUS = 'completed';
-    // minimal activity duration limit in seconds
-    // so that sharable activities don't get zeroed out
     private const MINIMAL_DURATION_LIMIT = 60;
+    private const INSERT_CHUNK_SIZE = 500;
 
     public function __construct(
-        private AvailableOperations $availableOperations,
-        private TaskAssignmentSubjectResolver $subjectResolver,
-        private WtfActivityMaintainableResolver $maintainableResolver,
+        private readonly WtfActivityMaintainableResolver $maintainableResolver,
     ) {}
 
     public function execute(
         AssignWorkToTaskBatchCommand $command,
-    ) {
-        try {
-            $result = DB::transaction(function () use ($command) {
-                $workorderIdsByTaskItemIds = [];
-                $taskIds = [];
-                $activityIds = [];
+    ): array {
+        return DB::transaction(function () use ($command): array {
+            $workorderIdsByTaskItemIds = $this->createWorkorders($command);
 
-                // assign task batch items 
-                // $workorderIds = $this->assignTaskBatchItems();
-                // create wtf workorders
-                $workorderIdsByTaskItemIds = $this->createWorkorders($command);
-
-                // create wtf tasks, workorder tasks mm binding 
-                // and wtf activity records
-                $wtfTaskIds = $this->createWtfTasks(
-                    $command,
-                    $workorderIdsByTaskItemIds
-                );
-
-                // attach batch records
-                // if ($batch !== null) {
-                //     $batch->attachRecordIds(
-                //         app(ActivityRecord::class)
-                //             ->getMorphClass(),
-                //         $activityIds
-                //     );
-                // }
-            });
-        } catch (Exception $e) {
-            dd($e);
-        }
-
-        return $result;
+            return $this->createWtfTasks(
+                $command,
+                $workorderIdsByTaskItemIds,
+            );
+        });
     }
 
     /**
-     * @TODO
-     * @return Collection
+     * @return Collection<int, int> Keyed by task item ID, with work order IDs as values.
      */
     private function createWorkorders(
-        AssignWorkToTaskBatchCommand $command
+        AssignWorkToTaskBatchCommand $command,
     ): Collection {
-
         $taskItemIds = $command->taskItemConfigs
             ->pluck('taskItemId')
             ->unique()
-            ->mapWithKeys(fn(int $id) => [
-                $id => ['tms_task_item_id' => $id],
+            ->values();
+
+        if ($taskItemIds->isEmpty()) {
+            return collect();
+        }
+
+        $rows = $taskItemIds
+            ->map(fn (int $id): array => [
+                'tms_task_item_id' => $id,
             ])
             ->all();
 
-        WorkOrder::insert($taskItemIds);
+        foreach (array_chunk($rows, self::INSERT_CHUNK_SIZE) as $chunk) {
+            WorkOrder::insert($chunk);
+        }
 
-        return WorkOrder::whereIn('tms_task_item_id', $taskItemIds)
+        return WorkOrder::query()
+            ->whereIn('tms_task_item_id', $taskItemIds)
             ->pluck('id', 'tms_task_item_id');
     }
 
     /**
-     * @TODO
-     * @return array
+     * @param AssignWorkToTaskBatchCommand $command
+     * @param Collection<int, int> $workorderIdsByTaskItemIds
+     * @return array<int, int> Created WTF task IDs.
      */
     private function createWtfTasks(
         AssignWorkToTaskBatchCommand $command,
-        Collection $workorderIdsByTaskItemIds
+        Collection $workorderIdsByTaskItemIds,
     ): array {
-        // map workorders
-        $workorderWtfTasks = [];
-        $activities = [];
         $now = now();
 
-        $contractIds = $command->taskItemConfigs
-            ->flatMap(fn($config) => $config->work->pluck('contractId'))
+        $work = $command->taskItemConfigs
+            ->flatMap(fn (WtfTaskItemConfig $config) => $config->work);
+
+        $contractIds = $work
+            ->pluck('contractId')
             ->unique()
             ->values();
 
         $contractPids = EmployeeContract::query()
             ->whereIn('id', $contractIds)
-            ->pluck('pid', 'id')
-            ->all();
+            ->pluck('pid', 'id');
 
         $worktimeIds = WorkTime::query()
-            ->whereIn('personal_id', array_values($contractPids))
-            ->where('date', '=', $command->date)
-            ->pluck('id', 'personal_id')
-            ->all();
+            ->whereIn('personal_id', $contractPids->values())
+            ->whereDate('date', $command->date)
+            ->pluck('id', 'personal_id');
+
+        $workorderWtfTasks = [];
+        $activities = [];
+        $wtfTaskIds = [];
 
         foreach ($command->taskItemConfigs as $taskItemConfig) {
-            $operations = $this->availableOperations->for(
-                $taskItemConfig->taskItemGroupId,
-                $this->subjectResolver->resolve($taskItemConfig->subject)
-            );
+            $operationIds = collect($taskItemConfig->operationIds)
+                ->map(fn ($id) => (int) $id)
+                ->unique()
+                ->values();
+
+            if ($operationIds->isEmpty()) {
+                continue;
+            }
+
+            $operations = Operation::query()
+                ->whereIn('id', $operationIds)
+                ->get();
 
             $maintainable = $this->maintainableResolver
                 ->resolve($taskItemConfig->subject);
-            // logger(
-            //     'operacie: ',
-            //     $operations->toArray()
-            // );
+
+            $workorderId = $workorderIdsByTaskItemIds->get(
+                $taskItemConfig->taskItemId,
+            );
+
+            if ($workorderId === null) {
+                throw new \RuntimeException(
+                    "Work order not found for task item {$taskItemConfig->taskItemId}.",
+                );
+            }
+
+            // Work is defined once per task-item group and applies to each operation.
+            $groupWork = $taskItemConfig->work;
 
             foreach ($operations as $operation) {
-                // wtf tasks
                 $wtfTask = WtfTask::create([
                     'source_id' => $operation->id,
                     'title' => $operation->title,
@@ -144,36 +141,43 @@ class AssignWorkToTaskBatchWorkflow
                     'is_shareable' => $operation->is_shareable,
                     'status' => self::DEFAULT_WTF_TASK_STATUS,
                     'department_id' => $command->context->departmentId,
-                    'maintainable_type' => $maintainable::class,
-                    'maintainable_id' => $maintainable->id,
+                    'maintainable_type' => $maintainable->getMorphClass(),
+                    'maintainable_id' => $maintainable->getKey(),
                 ]);
 
-                // map
+                $wtfTaskIds[] = $wtfTask->id;
+
                 $workorderWtfTasks[] = [
-                    'workorder_id' => $workorderIdsByTaskItemIds[$taskItemConfig->taskItemId],
+                    'workorder_id' => $workorderId,
                     'taskitem_id' => $wtfTask->id,
                 ];
 
-                // activity records
-                $peopleCount = $taskItemConfig->work->count();
+                $peopleCount = $groupWork
+                    ->pluck('contractId')
+                    ->unique()
+                    ->count();
 
-                foreach ($taskItemConfig->work as $work) {
-                    $pid = $contractPids[$work->contractId];
+                foreach ($groupWork as $workItem) {
+                    $pid = $contractPids->get($workItem->contractId);
 
-                    // TODO
-                    // handle worktimes that dont exist
-                    if (isset($worktimeIds[$pid]) === false) {
-                        // logger('pridaj pracu, nema zmenu PID: ' . $pid);
+                    // Skip assignments with missing contracts or work times.
+                    if ($pid === null) {
                         continue;
                     }
 
+                    $worktimeId = $worktimeIds->get($pid);
+
+                    if ($worktimeId === null) {
+                        continue;
+                    }
+
+                    $divisor = $operation->is_shareable
+                        ? max($peopleCount, 1)
+                        : self::DEFAULT_QUANTITY_MULTIPLIER;
+
                     $duration = max(
-                        $work->quantity * $operation->duration / (
-                            $operation->is_shareable
-                            ? $peopleCount
-                            : self::DEFAULT_QUANTITY_MULTIPLIER
-                        ),
-                        self::MINIMAL_DURATION_LIMIT
+                        $workItem->quantity * $operation->duration / $divisor,
+                        self::MINIMAL_DURATION_LIMIT,
                     );
 
                     $activities[] = [
@@ -184,14 +188,12 @@ class AssignWorkToTaskBatchWorkflow
                         'is_official' => $operation->is_official,
                         'is_fulfilled' => self::DEFAULT_IS_FULFILLED,
                         'date' => $command->date,
-
                         'personal_id' => $pid,
                         'department_id' => $command->context->departmentId,
-
-                        'parent_id' => $worktimeIds[$pid], // worktime
+                        'parent_id' => $worktimeId,
                         'source_id' => $operation->id,
                         'task_id' => $wtfTask->id,
-                        'quantity' => $work->quantity,
+                        'quantity' => $workItem->quantity,
                         'created_at' => $now,
                         'updated_at' => $now,
                     ];
@@ -199,20 +201,20 @@ class AssignWorkToTaskBatchWorkflow
             }
         }
 
-        // DB::table('dpb_wtftmsbridge_mm_workorder_task')
-        //     ->insert($workorderWtfTasks);
-
-        // ActivityRecord::insert($activities);
-
-        foreach (array_chunk($workorderWtfTasks, 500) as $chunk) {
-            DB::table('dpb_wtftmsbridge_mm_workorder_task')
-                ->insert($chunk);
+        foreach (
+            array_chunk($workorderWtfTasks, self::INSERT_CHUNK_SIZE)
+            as $chunk
+        ) {
+            DB::table('dpb_wtftmsbridge_mm_workorder_task')->insert($chunk);
         }
 
-        foreach (array_chunk($activities, 500) as $chunk) {
+        foreach (
+            array_chunk($activities, self::INSERT_CHUNK_SIZE)
+            as $chunk
+        ) {
             ActivityRecord::insert($chunk);
         }
 
-        return [];
+        return $wtfTaskIds;
     }
 }

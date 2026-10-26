@@ -3,6 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskBatch;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateUniformTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\ListTaskBatches;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
@@ -13,6 +14,7 @@ use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchAccessService;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskUnifromTaskBatch;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -79,6 +81,7 @@ class TaskBatchResource extends Resource
             'create' => CreateTaskBatch::route('/create'),
             // 'create' => CreateTaskDiverseBatch::route('/create'),
             // 'create-diverse' => CreateTaskDiverseBatch::route('/create-diverse'),
+            // 'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
             'edit' => EditTaskBatch::route('/{record}/edit'),
             'view' => ViewTaskBatch::route('/{record}'),
         ];

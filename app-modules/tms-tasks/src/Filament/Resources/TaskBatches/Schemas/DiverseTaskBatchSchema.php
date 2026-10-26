@@ -4,6 +4,8 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
 use Carbon\Carbon;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\AssignedToField;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\OperationPicker;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\OperationSection;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskGroupPicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehiclePicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskItemGroupPicker;
@@ -16,7 +18,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Grid;
 
-class TaskDiverseBatchSchema
+class DiverseTaskBatchSchema
 {
     public static function make(): array
     {
@@ -32,16 +34,19 @@ class TaskDiverseBatchSchema
                 ->columnSpanFull()
                 ->schema([
                     // date
-                    DatePicker::make('date')
+                    DatePicker::make(TaskBatchForm::COL_NAME_DATE)
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
                         ->default(Carbon::now())
                         ->required()
+                        ->live()
                         ->columnSpan(2),
                 ]),
 
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
+                    // OperationSection::make()
+                    //     ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     ContractPicker::make()
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     VehicleSelect::make()

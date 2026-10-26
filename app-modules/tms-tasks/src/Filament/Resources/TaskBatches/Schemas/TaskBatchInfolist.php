@@ -76,6 +76,7 @@ class TaskBatchInfolist
             ]);
     }
 
+
     private static function configurationRows(Model $record): array
     {
         $configuration = $record->configuration ?? [];
@@ -84,70 +85,107 @@ class TaskBatchInfolist
             $configuration = json_decode($configuration, true) ?? [];
         }
 
-        $tasks = $configuration['tasks'] ?? [];
+        $tasks = collect($configuration['tasks'] ?? []);
 
-        $subjectIds = collect($tasks)
+        $subjectIds = $tasks
             ->pluck('subject_id')
             ->filter()
             ->unique()
             ->values();
 
-        $groupIds = collect($tasks)
-            ->flatMap(fn(array $task) => collect($task['task_item_groups'] ?? [])
-                ->pluck('task_item_group_id'))
+        $groups = $tasks->flatMap(
+            fn(array $task) => self::taskItems($task)
+        );
+
+        $groupIds = $groups
+            ->pluck('task_item_group_id')
             ->filter()
             ->unique()
             ->values();
 
-        $contractIds = collect($tasks)
-            ->flatMap(fn(array $task) => collect($task['task_item_groups'] ?? [])
-                ->flatMap(fn(array $group) => collect($group['work'] ?? [])
-                    ->pluck('contract_id')))
+        $contractIds = $groups
+            ->flatMap(fn(array $group) => self::workItems($group))
+            ->pluck('contract_id')
             ->filter()
             ->unique()
             ->values();
 
-        /**
-         * Replace these with your actual bulk lookup APIs.
-         * Each should issue a query for all supplied IDs, not one per ID.
-         */
-        $subjectLabels = static::loadSubjectLabels($tasks, $subjectIds);
+        $subjectLabels = static::loadSubjectLabels(
+            $tasks->all(),
+            $subjectIds,
+        );
+
         $groupLabels = static::loadTaskItemGroupLabels($groupIds);
         $contractLabels = static::loadContractLabels($contractIds);
 
-        $rows = [];
+        return $tasks
+            ->flatMap(function (array $task) use (
+                $subjectLabels,
+                $groupLabels,
+                $contractLabels,
+            ) {
+                $subjectId = (int) $task['subject_id'];
+                $subjectKey = ($task['subject_type'] ?? '') . ':' . $subjectId;
+                $subject = $subjectLabels[$subjectKey] ?? [];
 
-        foreach ($tasks as $task) {
-            $subjectId = (int) $task['subject_id'];
-            $subjectKey = ($task['subject_type'] ?? '') . ':' . $subjectId;
+                return collect(self::taskItems($task))
+                    ->map(function (array $group) use (
+                        $task,
+                        $subjectId,
+                        $subject,
+                        $groupLabels,
+                        $contractLabels,
+                    ) {
+                        $groupId = (int) $group['task_item_group_id'];
 
-            foreach ($task['task_item_groups'] ?? [] as $group) {
-                $groupId = (int) $group['task_item_group_id'];
+                        $personnel = collect(self::workItems($group))
+                            ->map(function (array $work) use ($contractLabels) {
+                                $contractId = (int) $work['contract_id'];
+                                $quantity = (int) ($work['quantity'] ?? 1);
 
-                $personnel = [];
+                                return ($contractLabels[$contractId] ?? (string) $contractId)
+                                    . ($quantity > 1 ? " × {$quantity}" : '');
+                            })
+                            ->values()
+                            ->all();
 
-                foreach ($group['work'] ?? [] as $contract) {
-                    $contractId = (int) $contract['contract_id'];
-                    $quantity = (int) ($contract['quantity'] ?? 1);
+                        return [
+                            'subject_label' => $subject['label'] ?? (string) $subjectId,
+                            'subject_description' => $subject['description'] ?? '',
+                            'task_item_group' => $groupLabels[$groupId] ?? (string) $groupId,
+                            'personnel' => $personnel,
+                            'note' => $task['note'] ?? '',
+                        ];
+                    });
+            })
+            ->values()
+            ->all();
+    }
 
-                    // dd($contractLabels)    ;
+    /**
+     * Normalize the different task-item key names.
+     */
+    private static function taskItems(array $task): array
+    {
+        return $task['task_item_groups']
+            ?? $task['task_items']
+            ?? [];
+    }
 
-                    $personnel[] = ($contractLabels[$contractId] ?? (string) $contractId)
-                        . ($quantity > 1 ? " × {$quantity}" : '');
-                }
-
-                $rows[] = [
-                    'subject_label' => $subjectLabels[$subjectKey]['label'] ?? (string) $subjectId,
-                    'subject_description' => $subjectLabels[$subjectKey]['description'] ?? '',
-                    'task_item_group' => $groupLabels[$groupId] ?? (string) $groupId,
-                    'personnel' => $personnel,
-                    'note' => $task['note'] ?? '',
-                ];
-            }
+    /**
+     * Normalize work stored directly on a task item or inside operations.
+     */
+    private static function workItems(array $group): array
+    {
+        if (isset($group['work'])) {
+            return $group['work'];
         }
 
-        return $rows;
+        return collect($group['operations'] ?? [])
+            ->flatMap(fn(array $operation) => $operation['work'] ?? [])
+            ->all();
     }
+
 
     private static function loadTaskItemGroupLabels(
         Collection $groupIds,

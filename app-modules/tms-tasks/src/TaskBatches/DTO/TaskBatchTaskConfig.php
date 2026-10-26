@@ -7,13 +7,13 @@ final readonly class TaskBatchTaskConfig
     /**
      * @param int $taskGroupId
      * @param TaskSubjectReference $subject
-     * @param list<TaskBatchTaskItemGroupConfig> $tigConfigs
+     * @param list<TaskBatchTaskItemConfig> $taskItemConfigs
      * @param mixed $note
      */
     public function __construct(
         public int $taskGroupId,
         public TaskSubjectReference $subject,
-        public array $tigConfigs,
+        public array $taskItemConfigs,
         public ?string $note = null,
     ) {}
 }

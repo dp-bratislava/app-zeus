@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
+use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
@@ -16,20 +17,17 @@ use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 class UniformTaskBatchCreateFormMapper
 {
     private const VERSION = '1';
-    
+
     public function fromForm(array $data): CreateTaskBatchCommand
     {
-        $configs = [];
+        $matrix = $data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
+        $notes = $data[TaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
 
-        foreach ($data[TaskBatchForm::FIELD_NAME_VEHICLE_PICKER] as $subject) {
-            $configs[] = new SubjectTaskConfig(
-                subject: new TaskSubjectReference(
-                    type: EnumsTaskSubjectType::Vehicle,
-                    id: $subject,
-                ),
-                taskItemGroups: $data[TaskBatchForm::COL_NAME_TIG_PICKER] ?? []
-            );
-        }
+        $configuration = $this->getConfiguration(
+            TaskBatchMode::Uniform,
+            $matrix,
+            $notes
+        );
 
         return new CreateTaskBatchCommand(
             date: CarbonImmutable::parse($data['date']),
@@ -45,11 +43,13 @@ class UniformTaskBatchCreateFormMapper
     }
 
     public function getConfiguration(
+        TaskBatchMode $mode,
         array $matrix,
         array $notes = []
     ): array {
         return [
             'version' => self::VERSION,
+            'mode' => $mode->value,
             'tasks' => collect($matrix)
                 ->map(fn(array $groups, int|string $subjectId) => [
                     // TODO
@@ -78,5 +78,5 @@ class UniformTaskBatchCreateFormMapper
                 ->values()
                 ->all(),
         ];
-    }    
+    }
 }

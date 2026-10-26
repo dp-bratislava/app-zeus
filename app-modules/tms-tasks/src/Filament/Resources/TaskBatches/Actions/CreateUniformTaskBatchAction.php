@@ -4,11 +4,12 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\UniformTaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskUniformBatchSchema;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
 use Filament\Actions\Action;
 
-class CreateTaskUniformBatchAction
+class CreateUniformTaskBatchAction
 {
     public static function make(?string $name = 'create_action'): Action
     {
@@ -27,7 +28,6 @@ class CreateTaskUniformBatchAction
                 //     'taskItems' => $taskItemIdsData,
                 // ]);
             })            
-            ->modalWidth(width: 'full')
-            ->modalHeading(__('dpb-mod-tasks::task-batch.create_heading'));
+            ->url(TaskBatchResource::getUrl('create-uniform'));
     }
 }
