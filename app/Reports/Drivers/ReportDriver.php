@@ -18,8 +18,11 @@ interface ReportDriver
     public function name(): string;
 
     /**
-     * Get the icon for this driver (heroicon names)
+     * Permission required to view this report.
+     * Return null for publicly accessible reports (no restriction).
      */
+    public function permission(): ?string;
+
     public function getQuery(): Builder;
 
     /**

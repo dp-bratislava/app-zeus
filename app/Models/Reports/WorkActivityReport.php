@@ -2,28 +2,19 @@
 
 namespace App\Models\Reports;
 
-use App\Models\Snapshots\WorkTaskSubject;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class WorkActivityReport extends Model
 {
-    protected $table = 'mvw_work_activity_report_v2';
+    protected $table = 'mvw_work_activity_report_v3';
 
     public $timestamps = false;
 
     protected $guarded = [];
-
-    public function taskSubjects()
-    {
-        return $this->hasMany(
-            WorkTaskSubject::class,
-            'wtf_task_id', // Foreign key on TaskSubject table
-            'wtf_task_id'  // Local key on Activity table
-        );
-    }
 
     protected function fullName(): Attribute
     {
@@ -41,3 +32,4 @@ class WorkActivityReport extends Model
         return $lastSyncedAt ? Carbon::parse($lastSyncedAt)->format('d.m.Y H:i') : null;
     }
 }
+

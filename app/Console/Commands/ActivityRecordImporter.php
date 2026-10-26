@@ -45,8 +45,10 @@ class ActivityRecordImporter extends Command
                     'real_duration',
                     'shareable_group',
                     'maintainable_type',
-                    'maintainable_id'
+                    'maintainable_id',
+                    'quantity'
                 )
+                // ->limit(200)
                 ->get()
                 ->groupBy('shareable_group')
                 ->values();
@@ -57,14 +59,23 @@ class ActivityRecordImporter extends Command
 
             $contracts = DB::table('datahub_employee_contracts')
                 ->whereIn('id', $contractIds)
-                ->get()
+                ->get([
+                    'id',
+                    'pid',
+                    'datahub_employee_id',
+                    'datahub_department_id',
+                ])
                 ->keyBy('id');
 
             $employeeIds = $contracts->pluck('datahub_employee_id')->unique();
 
             $employees = DB::table('datahub_employees')
                 ->whereIn('id', $employeeIds)
-                ->get()
+                ->get([
+                    'id',
+                    'first_name',
+                    'last_name'
+                ])
                 ->keyBy('id');
 
             $operations = DB::table('dpb_worktimefund_model_operation')
@@ -75,7 +86,7 @@ class ActivityRecordImporter extends Command
             $existingWorktimes = DB::table('dpb_worktimefund_model_worktime')
                 ->select('id', 'personal_id', 'date', 'department')
                 ->get()
-                ->keyBy(fn ($item) => "{$item->date}_{$item->personal_id}_{$item->department}");
+                ->keyBy(fn($item) => "{$item->date}_{$item->personal_id}_{$item->department}");
 
             $contextId = $this->batchService->getOrCreateBatchContext(
                 'ActivityRecord_Import',
@@ -91,6 +102,8 @@ class ActivityRecordImporter extends Command
             $batchRecords = [];
 
             $seenWorktimes = [];
+
+            $now = now();
 
             foreach ($groupedRecords as $group) {
                 $firstRecord = $group->first();
@@ -138,8 +151,8 @@ class ActivityRecordImporter extends Command
                             'batch_id' => $batchId,
                             'record_id' => $worktimeId,
                             'record_type' => 'dpb_worktimefund_model_worktime',
-                            'created_at' => now(),
-                            'updated_at' => now(),
+                            'created_at' => $now,
+                            'updated_at' => $now,
                         ];
                     }
 
@@ -154,8 +167,8 @@ class ActivityRecordImporter extends Command
                             'is_shareable' => $operation->is_shareable,
                             'status' => 'started',
                             'department_id' => $departmentId,
-                            'created_at' => now(),
-                            'updated_at' => now(),
+                            'created_at' => $now,
+                            'updated_at' => $now,
                             'maintainable_type' => $record->maintainable_type,
                             'maintainable_id' => $record->maintainable_id,
                         ];
@@ -164,12 +177,12 @@ class ActivityRecordImporter extends Command
                             'batch_id' => $batchId,
                             'record_id' => $taskId,
                             'record_type' => 'dpb_worktimefund_model_task',
-                            'created_at' => now(),
-                            'updated_at' => now(),
+                            'created_at' => $now,
+                            'updated_at' => $now,
                         ];
                     }
 
-                    $calculatedDuration = $operation->duration / $group->count();
+                    $calculatedDuration = $operation->duration / $group->count() * $record->quantity;
                     $activityId = $nextIds['dpb_worktimefund_model_activityrecord']++;
 
                     $activityRecordsData[] = [
@@ -188,17 +201,17 @@ class ActivityRecordImporter extends Command
                         'source_id' => $operation->id,
                         'parent_id' => $worktimeId,
                         'task_id' => $taskId,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                        'quantity' => 1,
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                        'quantity' => $record->quantity,
                     ];
 
                     $batchRecords[] = [
                         'batch_id' => $batchId,
                         'record_id' => $activityId,
                         'record_type' => 'dpb_worktimefund_model_activityrecord',
-                        'created_at' => now(),
-                        'updated_at' => now(),
+                        'created_at' => $now,
+                        'updated_at' => $now,
                     ];
                 }
             }
@@ -214,7 +227,7 @@ class ActivityRecordImporter extends Command
                 foreach ($insertionOrder as $tableName => $data) {
                     if (!empty($data)) {
                         $this->info("Bulk inserting into {$tableName} (" . count($data) . " rows)...");
-                        foreach (array_chunk($data, 200) as $chunk) {
+                        foreach (array_chunk($data, 300) as $chunk) {
                             DB::table($tableName)->insert($chunk);
                         }
                     }

@@ -30,7 +30,10 @@ return [
                     // // trolejbusy
                     // 270,
                     // 269
-                ],
+                    // gumari
+                    314,
+
+                ]
             ],
         ],
     ],
@@ -46,6 +49,12 @@ return [
             'slug' => 'deferred-tasks-management',
             'view' => 'dpb-work-time-fund::filament.pages.deferred-tasks-management-page',
             'navigation_icon' => 'heroicon-o-clock',
+        ],
+        'operations_category_management_page' => [
+            'navigation_label' => 'Kategórie operácií',
+            'slug' => 'operations-category-management',
+            'view' => 'dpb-work-time-fund::filament.pages.operations-category-management-page',
+            'navigation_icon' => 'heroicon-o-folder',
         ],
         'vehicle_report_page' => [
             'navigation_label' => 'Report vozidiel',
@@ -75,7 +84,7 @@ return [
             '#a9c9f5',
             '#c5b3f7',
             '#e0b3f7',
-            '#f7b6d2',
+            '#f7b6d2'
         ],
     ],
     'color-schema' => [
@@ -95,7 +104,7 @@ return [
                 0 => 'bg-orange-200',
                 1 => 'bg-blue-200',
             ],
-            // 'official' => [0 => 'bg-yellow-300', 1 => 'bg-sky-400'],
+            //'official' => [0 => 'bg-yellow-300', 1 => 'bg-sky-400'],
             'gradient' => [
                 'official' => [
                     -1 => 'bg-gradient-to-r from-gray-200 from-80% to-sky-400 to-80%',
@@ -106,9 +115,9 @@ return [
                     -1 => 'bg-gradient-to-r from-gray-200 from-80% to-yellow-300 to-80%',
                     0 => 'bg-gradient-to-r from-red-300 from-80% to-yellow-300 to-80%',
                     1 => 'bg-gradient-to-r from-green-300 from-80% to-yellow-300 to-80%',
-                ],
-            ],
-        ],
+                ]
+            ]
+        ]
     ],
     'activity-record-status' => [
         'icons' => [
@@ -117,6 +126,6 @@ return [
                 0 => 'heroicon-o-x-mark',
                 1 => 'heroicon-o-check',
             ],
-        ],
-    ],
+        ]
+    ]
 ];

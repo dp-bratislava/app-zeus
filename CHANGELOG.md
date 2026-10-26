@@ -1,15 +1,28 @@
 # Changelog
 
+## 2026-09-15 - 1.0.15
+### Added
+- Batch category operations assignment
+### Refactored
+- Operations assignment processing to eliminate unneccessary queries
+- TaskAssignment resource
+  - updated namespace
+  - refactored form and table fields and dir structure
+  - replaced read only repeaters in form with custom read only table for performance gain
+
 ## 2026-08-17
 ### Added
 - Page for making photos of assets when "demontáž" happens and making photos after vehicle accidents for warranty claims.
 - Resource for displaying assets, it includes showing kilometrage overview in a modal, approval/rejection functionality using bulk actions, filtering by asset location and state and jumping to related task items.
 
-## 2026-06-12
+## 2026-06-12 - 1.0.12
 ### Added
 - Added individual day worktime shif sync 
 - Added default fixed operations automaticaly added to worktime based on some criteria (e.g. 15 min for shower)
 - Added scalable operations mechanics 
+- Added multiple redirect after save options for work assignment to TaskItem
 ### Changed
 - Changed filtering of displayed categories when adding work to taskItems to also use activeDepartment
 - Changed TaskAssignment and DailyMaintenance access mechanics to use policy and permission profiles
+### Removed
+- unused filament importer classes from application layer# Changelog

@@ -1682,6 +1682,11 @@
                 "illuminate/notifications": "^11.0||^12.0||^13.0",
                 "illuminate/support": "^11.0||^12.0||^13.0",
                 "illuminate/validation": "^11.0||^12.0||^13.0",
+                "illuminate/database": "^11.0||^12.0||^13.0",
+                "illuminate/http": "^11.0||^12.0||^13.0",
+                "illuminate/notifications": "^11.0||^12.0||^13.0",
+                "illuminate/support": "^11.0||^12.0||^13.0",
+                "illuminate/validation": "^11.0||^12.0||^13.0",
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
@@ -2017,6 +2022,7 @@
         {
             "name": "dpb/pkg-fleet",
             "version": "dev-main",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
@@ -2035,6 +2041,7 @@
                 "spatie/laravel-package-tools": "^1.92",
                 "spatie/laravel-permission": "^6.3"
             },
+            "default-branch": true,
             "default-branch": true,
             "type": "package",
             "extra": {
@@ -2059,6 +2066,7 @@
                 }
             ],
             "support": {
+                "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
@@ -2128,6 +2136,7 @@
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
+                "dpb/laravel-datahub-sync": "^12.0",
                 "dpb/laravel-datahub-sync": "^12.0",
                 "dpb/pkg-activities": "^12.0",
                 "dpb/pkg-fleet": "^12.0",
@@ -2472,6 +2481,7 @@
                 "shasum": ""
             },
             "require": {
+                "dpb/dpb-work-time-fund": "^12.5"
                 "dpb/dpb-work-time-fund": "^12.5"
             },
             "default-branch": true,
@@ -5065,13 +5075,17 @@
         {
             "name": "livewire/livewire",
             "version": "v4.4.0",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
                 "reference": "514b29d5a23594d4e4846494f580268b20c2f11e"
+                "reference": "514b29d5a23594d4e4846494f580268b20c2f11e"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/514b29d5a23594d4e4846494f580268b20c2f11e",
+                "reference": "514b29d5a23594d4e4846494f580268b20c2f11e",
                 "url": "https://api.github.com/repos/livewire/livewire/zipball/514b29d5a23594d4e4846494f580268b20c2f11e",
                 "reference": "514b29d5a23594d4e4846494f580268b20c2f11e",
                 "shasum": ""
@@ -5129,6 +5143,7 @@
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
                 "source": "https://github.com/livewire/livewire/tree/v4.4.0"
+                "source": "https://github.com/livewire/livewire/tree/v4.4.0"
             },
             "funding": [
                 {
@@ -5136,6 +5151,7 @@
                     "type": "github"
                 }
             ],
+            "time": "2026-08-10T15:24:22+00:00"
             "time": "2026-08-10T15:24:22+00:00"
         },
         {
