@@ -75,8 +75,8 @@ class WorkActivityReport3 extends Snapshot
                     WHEN 1 THEN "Áno"
                     ELSE "Nevyhodnotené"
                 END',
-            'activity_type' => 'ar.type',
-            'activity_is_tolerated' => 'ar.is_tolerated',
+            'activity_type' => 'NULL',
+            'activity_is_tolerated' => 'NULL',
 
             // sap codes
             'group_sap_code' => 'tis.task_item_group_sap_code',
