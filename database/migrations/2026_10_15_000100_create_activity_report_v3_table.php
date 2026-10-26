@@ -16,6 +16,7 @@ return new class extends Migration
         DB::statement('CREATE TABLE mvw_work_activity_report_v3 LIKE mvw_work_activity_report_v2');
         
         Schema::table('mvw_work_activity_report_v3', function (Blueprint $table) {
+            $table->string('group_sap_code')->nullable()->after('activity_sap_code');
             $table->string('subject_type')->nullable();
             $table->string('subject_label')->nullable();
             $table->string('subject_department')->nullable();
