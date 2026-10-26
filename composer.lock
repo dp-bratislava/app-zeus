@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b4e9e2827b30d34add8349de777f23e",
+    "content-hash": "8b6b35f05d98c4d13a051d4b09443cfb",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1781,16 +1781,16 @@
         },
         {
             "name": "dpb/pkg-assets",
-            "version": "v1.0.4",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-assets.git",
-                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918"
+                "reference": "4354592720a5a26247512828c2bc6baf5acfdfa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/e17f59ae0ee730c312e452e4b3231b3adc5e7918",
-                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/4354592720a5a26247512828c2bc6baf5acfdfa9",
+                "reference": "4354592720a5a26247512828c2bc6baf5acfdfa9",
                 "shasum": ""
             },
             "require": {
@@ -1798,6 +1798,7 @@
                 "illuminate/support": "^11.0|^12.0",
                 "spatie/laravel-package-tools": "^1.92"
             },
+            "default-branch": true,
             "type": "package",
             "extra": {
                 "laravel": {
@@ -1821,10 +1822,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-assets/tree/v1.0.4",
+                "source": "https://github.com/dp-bratislava/pkg-assets/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-assets/issues"
             },
-            "time": "2026-09-03T07:46:50+00:00"
+            "time": "2026-10-26T13:18:04+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
@@ -16569,6 +16570,12 @@
             "alias_normalized": "12.6.8.0"
         },
         {
+            "package": "dpb/pkg-assets",
+            "version": "dev-main",
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0"
+        },
+        {
             "package": "dpb/pkg-fleet",
             "version": "dev-main",
             "alias": "12.0.5",
@@ -16592,6 +16599,7 @@
         "dpb/dpb-work-time-fund": 20,
         "dpb/dpb-work-time-fund-filament": 20,
         "dpb/dpb-wtf-tms-bridge": 20,
+        "dpb/pkg-assets": 20,
         "dpb/pkg-fleet": 20,
         "dpb/pkg-task-ms-ui": 20,
         "dpb/wtf-ui": 20
