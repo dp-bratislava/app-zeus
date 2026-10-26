@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b6b35f05d98c4d13a051d4b09443cfb",
+    "content-hash": "405499f4791e3c21c984f09f5c00a5d1",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -16566,8 +16566,8 @@
         {
             "package": "dpb/dpb-wtf-tms-bridge",
             "version": "dev-fero/agregaty-merged-with-main",
-            "alias": "12.6.8",
-            "alias_normalized": "12.6.8.0"
+            "alias": "12.6.9",
+            "alias_normalized": "12.6.9.0"
         },
         {
             "package": "dpb/pkg-assets",
@@ -16584,14 +16584,14 @@
         {
             "package": "dpb/pkg-task-ms-ui",
             "version": "dev-main",
-            "alias": "12.5.6",
-            "alias_normalized": "12.5.6.0"
+            "alias": "12.5.7",
+            "alias_normalized": "12.5.7.0"
         },
         {
             "package": "dpb/wtf-ui",
             "version": "dev-main",
-            "alias": "12.5.8",
-            "alias_normalized": "12.5.8.0"
+            "alias": "12.5.9",
+            "alias_normalized": "12.5.9.0"
         }
     ],
     "minimum-stability": "dev",
