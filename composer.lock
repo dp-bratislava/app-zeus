@@ -2020,12 +2020,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dp-bratislava/pkg-fleet.git",
-                "reference": "5642408495dcffc7dde5a65bac8b38af730641c0"
+                "reference": "d2b42dfe378f71b9813974124d48202b8a97edce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/5642408495dcffc7dde5a65bac8b38af730641c0",
-                "reference": "5642408495dcffc7dde5a65bac8b38af730641c0",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-fleet/zipball/d2b42dfe378f71b9813974124d48202b8a97edce",
+                "reference": "d2b42dfe378f71b9813974124d48202b8a97edce",
                 "shasum": ""
             },
             "require": {
@@ -2062,7 +2062,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-fleet/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-fleet/issues"
             },
-            "time": "2026-09-21T12:40:26+00:00"
+            "time": "2026-10-16T11:36:54+00:00"
         },
         {
             "name": "dpb/pkg-inspections",
