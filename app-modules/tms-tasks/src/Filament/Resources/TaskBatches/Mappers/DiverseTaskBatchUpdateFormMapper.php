@@ -4,7 +4,6 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
@@ -15,7 +14,7 @@ use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 class DiverseTaskBatchUpdateFormMapper
 {
     public function __construct(
-        private ConfigurationMapper $configutrationMapper
+        private DiverseConfigurationMapper $configMapper
     ) {}
 
     public function fromForm(
@@ -26,9 +25,8 @@ class DiverseTaskBatchUpdateFormMapper
         $matrix = $data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
         $notes = $data[TaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
 
-        $configuration = $this->configutrationMapper
+        $configuration = $this->configMapper
             ->getConfiguration(
-                TaskBatchMode::Diverse,
                 $matrix,
                 $notes
             );

@@ -31,7 +31,7 @@ class TaskBatchForm
         if ($isUniform) {
             return $schema
                 ->components([
-                    ...TaskUniformBatchSchema::make(),
+                    ...UniformTaskBatchSchema::make(),
                 ]);
         }
 

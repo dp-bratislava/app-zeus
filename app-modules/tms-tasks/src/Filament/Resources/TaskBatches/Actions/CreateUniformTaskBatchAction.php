@@ -3,7 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\UniformTaskBatchCreateFormMapper;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskUniformBatchSchema;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\UniformTaskBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskBatchWorkflow;
@@ -15,7 +15,7 @@ class CreateUniformTaskBatchAction
     {
         return Action::make($name)
             ->model(TaskBatch::class)
-            ->schema(TaskUniformBatchSchema::make())
+            ->schema(UniformTaskBatchSchema::make())
             ->action(function (
                 array $data,
                 UniformTaskBatchCreateFormMapper $mapper,

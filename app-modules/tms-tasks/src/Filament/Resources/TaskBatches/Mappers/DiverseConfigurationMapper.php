@@ -11,9 +11,10 @@ use Dpb\WorkTimeFund\Models\Operation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-final class ConfigurationMapper
+final class DiverseConfigurationMapper
 {
     private const VERSION = '1';
+    private const MODE = TaskBatchMode::Diverse;
 
     public function __construct(
         private readonly AvailableOperations $availableOperations,
@@ -21,7 +22,6 @@ final class ConfigurationMapper
     ) {}
 
     public function getConfiguration(
-        TaskBatchMode $mode,
         array $matrix,
         array $notes = [],
     ): array {
@@ -37,7 +37,7 @@ final class ConfigurationMapper
 
         return [
             'version' => self::VERSION,
-            'mode' => $mode->value,
+            'mode' => self::MODE,
             'tasks' => collect($matrix)
                 ->map(function (array $groups, int|string $subjectId) use (
                     $notes,

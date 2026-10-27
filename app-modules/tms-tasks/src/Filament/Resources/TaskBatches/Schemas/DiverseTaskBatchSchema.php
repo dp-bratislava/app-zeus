@@ -3,14 +3,6 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
 use Carbon\Carbon;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\AssignedToField;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\OperationPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\OperationSection;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskGroupPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehiclePicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskItemGroupPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskBatchConfig;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleTypePicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\ContractPicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskBatchConfiguration;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleSelect;
@@ -45,31 +37,16 @@ class DiverseTaskBatchSchema
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
-                    // OperationSection::make()
-                    //     ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     ContractPicker::make()
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     VehicleSelect::make()
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles')),
                 ]),
-
-            // Grid::make(1)
-            //     ->columnSpanFull()
-            //     ->schema([
-            //         TaskBatchConfig::make()
-            //             ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
-            //     ]),
-
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
                     TaskBatchConfiguration::make()
                 ]),
-
-            // Livewire::make('tms-tasks.assignment-matrix', [
-            //     'subjects' => $subjects,
-            //     'groups' => $groups,
-            // ]),
         ];
     }
 }

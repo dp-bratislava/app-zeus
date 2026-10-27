@@ -3,14 +3,10 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
 use Carbon\Carbon;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\AssignedToField;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskGroupPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehiclePicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskItemGroupPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskBatchConfig;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleTypePicker;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\ContractPicker;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\VehicleSelect;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components\TaskItemGroupOperationsPicker;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
@@ -32,15 +28,13 @@ class TaskWorkTab
                             ->required()
                             ->live()
                             ->columnSpan(2),
-
                         TaskGroupPicker::make()
                             ->columnSpan(7),
-                        TaskItemGroupPicker::make()
+                        // TaskItemGroupPicker::make()
+                        TaskItemGroupOperationsPicker::make()
                             ->columnSpan(9),
-
                         ContractPicker::make()
                             ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
-
                     ]),
             ]);
     }
