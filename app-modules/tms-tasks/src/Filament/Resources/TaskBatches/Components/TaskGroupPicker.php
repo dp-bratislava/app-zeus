@@ -11,8 +11,9 @@ use Filament\Schemas\Components\Utilities\Set;
 
 class TaskGroupPicker
 {
-    public static function make(?string $name = TaskBatchForm::COL_NAME_TG_PICKER): Component
-    {
+    public static function make(
+        ?string $name = TaskBatchForm::COL_NAME_TG_PICKER
+    ): Component {
         return ToggleButtons::make($name)
             ->label(__('dpb-mod-tasks::task-batch.form.fields.task_groups'))
             ->inline()
@@ -32,11 +33,9 @@ class TaskGroupPicker
                 ) {
                     $taskGroups = $lookupService->taskGroups();
 
-                    if ($taskGroups->count() === 1) {
-                        return [$taskGroups->first()->id];
-                    }
-
-                    return null;
+                    return $taskGroups->count() === 1
+                        ? $taskGroups->first()->id
+                        : null;
                 }
             )
             ->afterStateUpdated(function (
@@ -44,16 +43,17 @@ class TaskGroupPicker
                 Get $get,
                 Set $set
             ) {
-                $default = [];
+                $taskGroupId = $get(TaskBatchForm::COL_NAME_TG_PICKER);
+
                 $taskItemGroups = $lookupService
                     ->taskItemGroups()
                     ->filter(
-                        fn($group) => $group->task_group_id === $get(TaskBatchForm::COL_NAME_TG_PICKER)
+                        fn($group) => (int) $group->task_group_id === (int) $taskGroupId
                     );
 
-                if ($taskItemGroups->count() === 1) {
-                    $default = [$taskItemGroups->first()->id];
-                }
+                $default = $taskItemGroups->count() === 1
+                    ? [$taskItemGroups->first()->id]
+                    : [];
 
                 $set(TaskBatchForm::COL_NAME_TIG_PICKER, $default);
             });

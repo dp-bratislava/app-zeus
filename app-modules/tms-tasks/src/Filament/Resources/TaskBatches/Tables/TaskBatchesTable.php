@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
+use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskDiverseBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateUniformTaskBatchAction;
@@ -65,19 +66,11 @@ class TaskBatchesTable
                     ->date('Y-m-d'),
                 TextColumn::make('taskGroup.title')
                     ->label(__($langColsPfx . 'task_group')),
-                // TextColumn::make('configs.taskItemGroup.title')
-                //     ->label(__($langColsPfx . 'task_item_group'))
-                //     ->state(function (TaskBatch $record): array {
-                //         return $record->configs
-                //             ->map(
-                //                 fn(Model $config) => $config->taskItemGroup->title
-                //             )
-                //             ->unique()
-                //             ->all();
-                //     })
-                //     ->badge()
-                //     ->wrap()
-                //     ->size(TextSize::Large),
+                TextColumn::make('configuration.mode')
+                    ->label(__($langColsPfx . 'mode'))
+                    ->badge()
+                    ->formatStateUsing(fn(?string $state): string => TaskBatchMode::tryFrom($state ?? '')?->label()
+                        ?? 'Unknown'),
                 TextColumn::make('configuration')
                     ->label(__($langColsPfx . 'subjects'))
                     ->state(function (TaskBatch $record, TaskBatchConfigMapper $mapper): array {

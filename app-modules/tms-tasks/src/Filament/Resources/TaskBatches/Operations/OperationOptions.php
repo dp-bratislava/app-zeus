@@ -22,11 +22,26 @@ final class OperationOptions
     public function forTaskItemGroup(
         int $taskItemGroupId,
     ): array {
-        $relatedType = (new TaskItemGroup)->getMorphClass();
+        // $relatedType = (new TaskItemGroup)->getMorphClass();
+        $relatedType = TaskItemGroup::class;
 
-        return DB::
-            ->join('dpb_worktimefund_mm_categoryrelations')
-            ->where('related_type', '=', $relatedType)
-            ->where('related_id', '=', $taskItemGroupId)
+        // return DB::table('dpb_worktimefund_model_operation as o')
+        $query = DB::table('dpb_worktimefund_model_operation as o')
+            ->join(
+                'dpb_worktimefund_mm_categoryrelations as cr',
+                'o.parent_id',
+                '=',
+                'cr.category_id'
+            )
+            ->where('cr.related_type', '=', $relatedType)
+            ->where('cr.related_id', '=', $taskItemGroupId);
+        // dd($query->toRawSql());
+
+        return $query
+            ->pluck('o.title', 'o.id')
+            ->mapWithKeys(fn($label, $id) => [
+                (int) $id => $label,
+            ])
+            ->all();
     }
 }

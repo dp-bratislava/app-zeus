@@ -15,6 +15,8 @@ use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskUnifromTaskBatch;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditDiverseTaskBatch;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditUniformTaskBatch;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -52,10 +54,10 @@ class TaskBatchResource extends Resource
             ->canViewAny();
     }
 
-    public static function form(Schema $schema): Schema
-    {
-        return TaskBatchForm::configure($schema, false);
-    }
+    // public static function form(Schema $schema): Schema
+    // {
+    //     return TaskBatchForm::configure($schema, false);
+    // }
 
     public static function infolist(Schema $schema): Schema
     {
@@ -82,7 +84,9 @@ class TaskBatchResource extends Resource
             // 'create' => CreateTaskDiverseBatch::route('/create'),
             // 'create-diverse' => CreateTaskDiverseBatch::route('/create-diverse'),
             // 'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
-            'edit' => EditTaskBatch::route('/{record}/edit'),
+            // 'edit' => EditTaskBatch::route('/{record}/edit'),
+            'edit-uniform' => EditUniformTaskBatch::route('/{record}/edit/uniform'),
+            'edit-diverse' => EditDiverseTaskBatch::route('/{record}/edit/diverse'),
             'view' => ViewTaskBatch::route('/{record}'),
         ];
     }

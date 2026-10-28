@@ -13,7 +13,7 @@ class TaskSubjectTab
 {
     public static function make(): Component
     {
-        return Tab::make('vozidla')
+        return Tab::make(__('dpb-mod-tasks::task-batch.form.tabs.subjects'))
             ->schema([
                 Grid::make(6)
                     ->columnSpanFull()
@@ -22,12 +22,12 @@ class TaskSubjectTab
                         VehicleTypePicker::make()
                             ->columnSpan(4),
                     ]),
-            Grid::make(1)
-                ->columnSpanFull()
-                ->schema([
-                    VehiclePicker::make()
-                        ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
-                ]),                    
+                Grid::make(1)
+                    ->columnSpanFull()
+                    ->schema([
+                        VehiclePicker::make()
+                            ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles'))
+                    ]),
             ]);
     }
 }

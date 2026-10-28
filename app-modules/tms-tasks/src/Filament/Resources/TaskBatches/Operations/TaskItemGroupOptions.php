@@ -19,7 +19,6 @@ final class TaskItemGroupOptions
             ->all();
     }
 
-
     public function labelFor(
         int $taskItemGroupId,
         int $taskGroupId,

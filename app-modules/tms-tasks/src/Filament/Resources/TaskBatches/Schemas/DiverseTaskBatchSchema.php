@@ -15,10 +15,10 @@ class DiverseTaskBatchSchema
     public static function make(): array
     {
         return [
-            Hidden::make(TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE)
+            Hidden::make(DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE)
                 ->default([])
                 ->dehydrated(),
-            Hidden::make(TaskBatchForm::FIELD_NAME_NOTES_STATE)
+            Hidden::make(DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE)
                 ->default([])
                 ->dehydrated(),
 
@@ -26,7 +26,7 @@ class DiverseTaskBatchSchema
                 ->columnSpanFull()
                 ->schema([
                     // date
-                    DatePicker::make(TaskBatchForm::COL_NAME_DATE)
+                    DatePicker::make(DiverseTaskBatchForm::COL_NAME_DATE)
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
                         ->default(Carbon::now())
                         ->required()
@@ -37,15 +37,15 @@ class DiverseTaskBatchSchema
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
-                    ContractPicker::make()
+                    ContractPicker::make(DiverseTaskBatchForm::COL_NAME_CONTRACT_PICKER)
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
-                    VehicleSelect::make()
+                    VehicleSelect::make(DiverseTaskBatchForm::FIELD_NAME_VEHICLE_PICKER)
                         ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicles')),
                 ]),
             Grid::make(1)
                 ->columnSpanFull()
                 ->schema([
-                    TaskBatchConfiguration::make()
+                    TaskBatchConfiguration::make(DiverseTaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG)
                 ]),
         ];
     }

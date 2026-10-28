@@ -22,8 +22,14 @@ class CreateTaskBatchAction
                 CreateTaskBatchWorkflow $workflow,
             ) {
                 // dd($data);
+// dd([
+//     'selected_groups' => $data[TaskBatchForm::COL_NAME_TIG_PICKER] ?? null,
+//     'operations_by_group' => $data[TaskBatchForm::COL_NAME_OPERATION_PICKER] ?? null,
+//     'test_operations' => $data['test_operations'] ?? null,
+// ]);
+
                 $command = $mapper->fromForm($data);
-                dd($command);
+                // dd($command);
                 $result = $workflow->execute($command);
                 // $taskItemIdsData = Base64UrlHelper::encode(json_encode($result->taskItemIds));
                 // redirect()->route(DailyMaintenanceWorkOrdersPage::getRouteName(), [

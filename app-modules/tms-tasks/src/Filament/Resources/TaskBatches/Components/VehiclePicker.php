@@ -77,7 +77,7 @@ class VehiclePicker
         return CheckboxList::make($name)
             ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.vehicles'))
             ->searchable()
-            ->required()
+            // ->required()
             ->columns(12)
             ->validationMessages([
                 'required' => __('dpb-mod-tasks::daily-maintenance.form.validations.vehicles_required'),

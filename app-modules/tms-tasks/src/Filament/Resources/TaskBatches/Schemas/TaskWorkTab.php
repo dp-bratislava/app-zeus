@@ -16,7 +16,7 @@ class TaskWorkTab
 {
     public static function make(): Component
     {
-        return Tab::make('praca')
+        return Tab::make(__('dpb-mod-tasks::task-batch.form.tabs.work'))
             ->schema([
                 Grid::make(9)
                     ->columnSpanFull()

@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 final class DiverseConfigurationMapper
 {
     private const VERSION = '1';
-    private const MODE = TaskBatchMode::Diverse;
+    private const MODE = TaskBatchMode::Diverse->value;
 
     public function __construct(
         private readonly AvailableOperations $availableOperations,
