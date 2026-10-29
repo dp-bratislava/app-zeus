@@ -17,7 +17,8 @@ class AssignedToField
     public static function make(?string $name = TaskBatchForm::COL_NAME_ASSIGNED_TO): Component
     {
         return ToggleButtons::make($name)
-            ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.assigned_to.label'))
+            // ->label(__('dpb-mod-tasks::daily-maintenance.form.fields.assigned_to.label'))
+            ->label(__('dpb-mod-tasks::task-batch.form.filters.subject.maintenance_group'))
             ->hidden(function (Get $get) {
                 $typeId = $get(TaskBatchForm::COL_NAME_VEHICLE_TYPE_PICKER);
                 if ($typeId) {

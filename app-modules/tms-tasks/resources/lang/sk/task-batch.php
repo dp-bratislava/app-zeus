@@ -23,26 +23,29 @@ return [
             'work' => 'Práca',
         ],
         'fields' => [
-            'date' => 'Dátum',
-            'vehicles' => 'Vozidlá',
-            'vehicles_search_prompt' => 'Hľadaj voz',
-            'template' => 'Typ ošetrenia',
-            'contracts' => 'Zamestnanci',
-            'task_groups' => 'Skupina zákazky',
-            'task_item_groups' => 'Skupina podzákazky',
+            'activity_templates' => 'Činnosti / normy',
             'assigned_to' => [
                 'label' => 'Podľa technickej prevádzky',
                 'hint' => 'Domovská technická prevádzka',
             ],
+            'contracts' => 'Zamestnanci',
+            'date' => 'Dátum',
+            'operations' => 'Normy',
+            'template' => 'Typ ošetrenia',
+            'task_groups' => 'Skupina zákazky',
+            'task_item_groups' => 'Skupina podzákazky',
+            'vehicles' => 'Vozidlá',
+            'vehicles_search_prompt' => 'Hľadaj voz',
             'vehicle_type_id' => [
                 'label' => 'Podľa typu',
                 'hint' => 'filter podľa typu vozidla',
             ],
-            'activity_templates' => 'Činnosti / normy',
         ],
         'filters' => [
-            'maintenance_group' => 'Prevádzka',
-            'vehicle_type' => 'Typ vozidla',
+            'subject' => [
+                'maintenance_group' => 'Prevádzka',
+                'vehicle_type' => 'Typ vozidla',
+            ]
         ],
         'sections' => [
             'vehicles' => 'Vozidlá',

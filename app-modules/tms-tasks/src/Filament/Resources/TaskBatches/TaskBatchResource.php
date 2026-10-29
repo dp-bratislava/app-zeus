@@ -13,7 +13,7 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchInfolist;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchAccessService;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskDiverseBatch;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateDiverseTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskUnifromTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditDiverseTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditUniformTaskBatch;
@@ -80,11 +80,8 @@ class TaskBatchResource extends Resource
     {
         return [
             'index' => ListTaskBatches::route('/'),
-            'create' => CreateTaskBatch::route('/create'),
-            // 'create' => CreateTaskDiverseBatch::route('/create'),
-            // 'create-diverse' => CreateTaskDiverseBatch::route('/create-diverse'),
-            // 'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
-            // 'edit' => EditTaskBatch::route('/{record}/edit'),
+            'create-diverse' => CreateDiverseTaskBatch::route('/create-diverse'),
+            'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
             'edit-uniform' => EditUniformTaskBatch::route('/{record}/edit/uniform'),
             'edit-diverse' => EditDiverseTaskBatch::route('/{record}/edit/diverse'),
             'view' => ViewTaskBatch::route('/{record}'),

@@ -10,7 +10,7 @@ class EditUniformTaskBatchAction
 {
     public static function make(?string $name = 'edit_uniform_action'): Action
     {
-        return Action::make('editUniform')
+        return Action::make($name)
             ->icon('heroicon-o-pencil-square')
             ->url(
                 fn(TaskBatch $record): string =>

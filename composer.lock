@@ -1500,7 +1500,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/dpb/dpb-wtf-tms-bridge",
-                "reference": "a819dc2ed48fcafbac8d64fc5c44da468bb2fac4"
+                "reference": "fcd3e3df31af577d2f97f44061eb2eaca1288134"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",

@@ -36,7 +36,7 @@ return [
                 DeferredTasksManagementPage::getAccessPermission(),
                 WorkOrderPage::getAccessPermission(),
                 DailyMaintenanceWorkOrdersPage::getAccessPermission(),
-                TaskBatchWorkOrdersPage::getAccessPermission(),
+                // TaskBatchWorkOrdersPage::getAccessPermission(),
                 // Components
                 DepartmentSwitcherComponent::getAccessPermission(),
                 SpotlightTriggerComponent::getAccessPermission(),

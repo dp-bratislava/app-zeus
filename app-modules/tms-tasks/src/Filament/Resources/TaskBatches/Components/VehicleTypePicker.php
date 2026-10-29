@@ -14,7 +14,7 @@ class VehicleTypePicker
     {
         // Note: You may want to change the field name if it's saving to a different column
         return ToggleButtons::make($name)
-            ->label(__('dpb-mod-tasks::task-batch.form.fields.vehicle_type_id.label'))
+            ->label(__('dpb-mod-tasks::task-batch.form.filters.subject.vehicle_type'))
             ->options(
                 fn(
                     TaskBatchLookupScopeService $lookupService

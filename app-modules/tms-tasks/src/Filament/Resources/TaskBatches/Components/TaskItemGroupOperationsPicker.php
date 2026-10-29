@@ -23,7 +23,7 @@ final class TaskItemGroupOperationsPicker
         return Group::make()
             ->schema([
                 ToggleButtons::make(TaskBatchForm::COL_NAME_OPERATION_PICKER . "." . $tigId)
-                    ->label(__('dpb-mod-tasks::task-batch.form.fields.operation'))
+                    ->label(__('dpb-mod-tasks::task-batch.form.fields.operations'))
                     ->multiple()
                     ->options(
                         fn(Get $get, OperationOptions $options): array =>

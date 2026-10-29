@@ -4,7 +4,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskDiverseBatchAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateDiverseTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateUniformTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
@@ -119,13 +119,14 @@ class TaskBatchesTable
                 //     ->label(__('dpb-mod-tasks::task-batch.table.actions.edit_action'))
             ])
             ->headerActions([
-                // CreateTaskDiverseBatchAction::make('diverse_create_action')
-                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
-                CreateAction::make('diverse_create_action')
+                CreateDiverseTaskBatchAction::make('diverse_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
-                // CreateUniformTaskBatchAction::make('uniform_create_action')
-                CreateTaskBatchAction::make('uniform_create_action')
+                // CreateAction::make('diverse_create_action')
+                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
+                CreateUniformTaskBatchAction::make('uniform_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
+                // CreateTaskBatchAction::make('uniform_create_action')
+                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
