@@ -3,23 +3,20 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateDiverseTaskBatchAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateUniformTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
-use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatchTaskSubject;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskAssignmentSubjectResolver;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchRecordScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\TaskMS\UI\Filament\Components\FleetVehiclePicker;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\TextColumn;
@@ -27,7 +24,6 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Model;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class TaskBatchesTable
@@ -54,8 +50,7 @@ class TaskBatchesTable
                 $query = $scopeSvc
                     ->taskBatchScope($query)
                     ->with([
-                        'configs.subject.codes',
-                        'subjects.subject.licencePlates',
+                        'taskGroup:id,title',
                     ]);
                 return $query;
             })
@@ -66,11 +61,6 @@ class TaskBatchesTable
                     ->date('Y-m-d'),
                 TextColumn::make('taskGroup.title')
                     ->label(__($langColsPfx . 'task_group')),
-                TextColumn::make('configuration.mode')
-                    ->label(__($langColsPfx . 'mode'))
-                    ->badge()
-                    ->formatStateUsing(fn(?string $state): string => TaskBatchMode::tryFrom($state ?? '')?->label()
-                        ?? 'Unknown'),
                 TextColumn::make('configuration')
                     ->label(__($langColsPfx . 'subjects'))
                     ->state(function (TaskBatch $record, TaskBatchConfigMapper $mapper): array {
@@ -104,14 +94,15 @@ class TaskBatchesTable
             ->filters([
                 DateRangeFilter::make('date')
                     ->label(__('dpb-mod-tasks::task-batch.table.filters.date')),
-                SelectFilter::make('task_group_id')
-                    ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
-                    ->relationship('taskGroup', 'title')
-                    ->preload()
-                    ->multiple()
-                    ->searchable(),
-                self::taskItemGroupFilter(),
-                self::subjectFilter(),
+                // SelectFilter::make('task_group_id')
+                //     ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
+                //     ->relationship('taskGroup', 'title')
+                //     ->preload()
+                //     ->multiple()
+                //     ->searchable(),
+                // self::taskItemGroupFilter(),
+                // self::subjectFilter(),
+                self::taskGroupFilter(),
 
             ])
             ->recordActions([
@@ -119,18 +110,16 @@ class TaskBatchesTable
                 //     ->label(__('dpb-mod-tasks::task-batch.table.actions.edit_action'))
             ])
             ->headerActions([
+                CreateTaskBatchAction::make('create_action')
+                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Dyn'),
                 CreateDiverseTaskBatchAction::make('diverse_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
-                // CreateAction::make('diverse_create_action')
-                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
                 CreateUniformTaskBatchAction::make('uniform_create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
-                // CreateTaskBatchAction::make('uniform_create_action')
-                //     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    // DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -167,6 +156,30 @@ class TaskBatchesTable
         return SelectFilter::make('itemGroups.taskItemGroup')
             ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
             ->relationship('itemGroups.taskItemGroup', 'title')
+            ->multiple()
+            ->preload()
+            ->searchable();
+    }
+
+    private static function taskGroupFilter(): SelectFilter
+    {
+        return SelectFilter::make('taskGroup')
+            // return SelectFilter::make('task_group_id')
+            ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
+            ->relationship(
+                'taskGroup',
+                'title',
+                // function (
+                //     $query,
+                //     TaskBatchLookupScopeService $lookupSvc
+                // ) {
+                //     $query->
+
+                // }
+            )
+            // ->options(function(TaskBatchLookupScopeService $lookupSvc) {
+            //     return $lookupSvc->taskGroups();
+            // })
             ->multiple()
             ->preload()
             ->searchable();

@@ -25,7 +25,6 @@ class UniformTaskBatchUpdateFormMapper
         $configuration = $this->configMapper
             ->getConfiguration(
                 subjects: $data[UniformTaskBatchForm::FIELD_NAME_VEHICLE_PICKER] ?? [],
-                taskGroupId: (int) $data[UniformTaskBatchForm::COL_NAME_TG_PICKER],
                 selectedTaskItemGroupIds: $data[UniformTaskBatchForm::COL_NAME_TIG_PICKER] ?? [],
                 operationsByGroup: $data[UniformTaskBatchForm::COL_NAME_OPERATION_PICKER] ?? [],
                 contractIds: $data[UniformTaskBatchForm::COL_NAME_CONTRACT_PICKER] ?? [],
@@ -64,7 +63,7 @@ class UniformTaskBatchUpdateFormMapper
             )),
 
             UniformTaskBatchForm::COL_NAME_TG_PICKER =>
-            $configuration['task_group_id'] ?? null,
+            $record->taskGroup->id ?? null,
 
             UniformTaskBatchForm::COL_NAME_TIG_PICKER =>
             array_map('intval', array_keys($taskItemGroups)),

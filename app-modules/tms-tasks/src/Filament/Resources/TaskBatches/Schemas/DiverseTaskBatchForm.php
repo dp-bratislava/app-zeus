@@ -6,8 +6,6 @@ use Filament\Schemas\Schema;
 
 class DiverseTaskBatchForm
 {
-    public const IS_UNIFORM = true;
-    public const IS_DIVERSE = false;
     public const FIELD_NAME_ASSIGNMENT_MATRIX_STATE = 'assignment-matrix-state';
     public const FIELD_NAME_NOTES_STATE = 'notes-state';
     public const FIELD_NAME_VEHICLE_PICKER = 'vehicles';

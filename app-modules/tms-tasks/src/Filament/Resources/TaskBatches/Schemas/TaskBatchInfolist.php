@@ -7,11 +7,9 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchActi
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditDiverseTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditUniformTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditUniformTaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchInfolistMapper;
-use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
@@ -31,7 +29,6 @@ class TaskBatchInfolist
             ->components([
                 static::headerSection(),
                 static::subjectsSection(),
-                // static::workSection(),
             ]);
     }
 
@@ -42,9 +39,6 @@ class TaskBatchInfolist
             ->headerActions([
                 RedirectToIndexAction::make()
                     ->label(__(static::LANG_PFX . 'actions.back_action')),
-                // EditAction::make()
-                //     ->label(__(static::LANG_PFX . 'actions.edit_action')),
-
                 EditUniformTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.edit_action'))
                     ->visible(
@@ -71,14 +65,9 @@ class TaskBatchInfolist
                 TextEntry::make('date')
                     ->label(__(static::LANG_PFX . 'entries.date'))
                     ->date('Y-m-d'),
-                TextEntry::make('batch.context')
-                    ->label(__(static::LANG_PFX . 'entries.task_group'))
-                    ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
-                // TextEntry::make('itemGroups.taskItemGroup.title')
-                //     ->label(__(static::LANG_PFX . 'entries.task_item_group'))
-                //     ->columnSpan(3)
-                //     ->size(TextSize::Large)
-                //     ->badge(),
+                // TextEntry::make('batch.context')
+                    // ->label(__(static::LANG_PFX . 'entries.task_group'))
+                    // ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
                 TextEntry::make('configuration.mode')
                     ->label(__(static::LANG_PFX . 'entries.mode'))
                     ->formatStateUsing(fn($record) => TaskBatchMode::tryFrom($record->configuration['mode'])->label()),

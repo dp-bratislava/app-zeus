@@ -45,8 +45,6 @@ class EditDiverseTaskBatch extends EditRecord
         $command = $mapper->fromForm($record, $data);
         $result = $workflow->execute($command);
 
-
-        // dd($result);
         return $result->taskBatch;
     }
 
@@ -57,9 +55,5 @@ class EditDiverseTaskBatch extends EditRecord
     ): void {
         $this->data[DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] = $state;
         $this->data[DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE] = $notes;
-
-        // logger()->debug('Assignment matrix updated', [
-        //     'state' => $state,
-        // ]);
     }
 }

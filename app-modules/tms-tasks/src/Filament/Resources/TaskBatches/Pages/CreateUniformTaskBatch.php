@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 class CreateUniformTaskBatch extends CreateRecord
 {
     protected static string $resource = TaskBatchResource::class;
-    // protected string $view = 'filament.resources.task-batches.pages.create-uniform-task-batch';
 
     public function form(Schema $schema): Schema
     {
@@ -28,8 +27,6 @@ class CreateUniformTaskBatch extends CreateRecord
         $command = $mapper->fromForm($data);
         $result = $workflow->execute($command);
 
-
-        // dd($result);
         return $result->taskBatch;
     }
 }

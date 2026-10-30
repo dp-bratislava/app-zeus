@@ -69,8 +69,19 @@ class GenericProfile implements TaskBatchLookupScopeProfile
     public function taskGroups(TaskBatchResourceContext $context): Collection
     {
         return TaskGroup::query()
-            ->whereIn('id', $context->departmentContext->taskGroupIds)
-            ->get();
+            // ->from('tsk_task_groups as tg')
+            ->join(
+                'tms_task_batch_department_group as tbdg',
+                'tbdg.task_group_id',
+                '=',
+                'tsk_task_groups.id'
+            )
+            ->where('tbdg.department_id', $context->departmentContext->departmentId)
+            ->whereIn('tsk_task_groups.id', $context->departmentContext->taskGroupIds)
+            ->get([
+                'tsk_task_groups.id',
+                'tsk_task_groups.title',
+            ]);
     }
 
     public function maintenanceGroups(TaskBatchResourceContext $context): array
@@ -88,11 +99,34 @@ class GenericProfile implements TaskBatchLookupScopeProfile
             ->get();
     }
 
+    // public function taskBatchGroups(
+    //     TaskBatchResourceContext $context,
+    // ): SupportCollection {
+    //     return DB::table('tms_task_batch_groups as tbg')
+    //         ->join(
+    //             'tms_task_batch_department_group as tbdg',
+    //             'tbg.id',
+    //             '=',
+    //             'tbdg.id',
+    //         )
+    //         ->where('tbdg.department_id', $context->departmentContext->departmentId)
+    //         ->get();
+    // }
+
     public function batchableTaskItemGroups(
         TaskBatchResourceContext $context,
     ): SupportCollection {
-        return DB::table('tms_task_batch_department_tigs')
-            ->where('department_id', $context->departmentContext->departmentId)
+        // return DB::table('tms_task_batch_department_tigs')
+        //     ->where('department_id', $context->departmentContext->departmentId)
+        // ->get();
+        return DB::table('tms_task_batch_department_group_items as tbdgi')
+            ->join(
+                'tms_task_batch_department_group as tbdg',
+                'tbdgi.tbdg_id',
+                '=',
+                'tbdg.id',
+            )
+            ->where('tbdg.department_id', $context->departmentContext->departmentId)
             ->get();
     }
 

@@ -80,6 +80,7 @@ class TaskBatchResource extends Resource
     {
         return [
             'index' => ListTaskBatches::route('/'),
+            'create' => CreateTaskBatch::route('/create'),
             'create-diverse' => CreateDiverseTaskBatch::route('/create-diverse'),
             'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
             'edit-uniform' => EditUniformTaskBatch::route('/{record}/edit/uniform'),
@@ -88,13 +89,13 @@ class TaskBatchResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->with([
-                'subjects.subject.model',
-                'subjects.subject.codes',
-                'subjects.subject.licencePlates',
-            ]);
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()
+    //         ->with([
+    //             // 'subjects.subject.model',
+    //             // 'subjects.subject.codes',
+    //             // 'subjects.subject.licencePlates',
+    //         ]);
+    // }
 }

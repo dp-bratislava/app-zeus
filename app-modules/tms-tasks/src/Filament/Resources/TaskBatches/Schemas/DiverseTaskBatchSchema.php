@@ -22,17 +22,17 @@ class DiverseTaskBatchSchema
                 ->default([])
                 ->dehydrated(),
 
-            Grid::make(9)
-                ->columnSpanFull()
-                ->schema([
-                    // date
-                    DatePicker::make(DiverseTaskBatchForm::COL_NAME_DATE)
-                        ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
-                        ->default(Carbon::now())
-                        ->required()
-                        ->live()
-                        ->columnSpan(2),
-                ]),
+            // Grid::make(9)
+            //     ->columnSpanFull()
+            //     ->schema([
+            //         // date
+            //         DatePicker::make(DiverseTaskBatchForm::COL_NAME_DATE)
+            //             ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
+            //             ->default(Carbon::now())
+            //             ->required()
+            //             ->live()
+            //             ->columnSpan(2),
+            //     ]),
 
             Grid::make(1)
                 ->columnSpanFull()

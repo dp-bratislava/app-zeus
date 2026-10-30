@@ -13,17 +13,7 @@ use Livewire\Attributes\On;
 
 class CreateDiverseTaskBatch extends CreateRecord
 {
-    // public function mount(): void
-    // {
-    //     dd([
-    //         'page_reached' => true,
-    //         'url' => request()->fullUrl(),
-    //         'user_id' => auth()->id(),
-    //     ]);
-    // }
-
     protected static string $resource = TaskBatchResource::class;
-    // protected string $view = 'filament.resources.task-batches.pages.create-diverse-task-batch';
 
     public function form(Schema $schema): Schema
     {
@@ -38,8 +28,6 @@ class CreateDiverseTaskBatch extends CreateRecord
         $command = $mapper->fromForm($data);
         $result = $workflow->execute($command);
 
-
-        // dd($result);
         return $result->taskBatch;
     }
 
@@ -50,9 +38,5 @@ class CreateDiverseTaskBatch extends CreateRecord
     ): void {
         $this->data[DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] = $state;
         $this->data[DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE] = $notes;
-
-        // logger()->debug('Assignment matrix updated', [
-        //     'state' => $state,
-        // ]);
     }
 }

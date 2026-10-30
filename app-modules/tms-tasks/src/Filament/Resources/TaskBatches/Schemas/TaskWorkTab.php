@@ -22,18 +22,18 @@ class TaskWorkTab
                     ->columnSpanFull()
                     ->schema([
                         // date
-                        DatePicker::make(TaskBatchForm::COL_NAME_DATE)
-                            ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
-                            ->default(Carbon::now())
-                            ->required()
-                            ->live()
-                            ->columnSpan(2),
-                        TaskGroupPicker::make()
-                            ->columnSpan(7),
+                        // DatePicker::make(UniformTaskBatchForm::COL_NAME_DATE)
+                        //     ->label(__('dpb-mod-tasks::task-batch.form.fields.date'))
+                        //     ->default(Carbon::now())
+                        //     ->required()
+                        //     ->live()
+                        //     ->columnSpan(2),
+                        // TaskGroupPicker::make()
+                        //     ->columnSpan(7),
                         // TaskItemGroupPicker::make()
                         TaskItemGroupOperationsPicker::make()
                             ->columnSpan(9),
-                        ContractPicker::make()
+                        ContractPicker::make(UniformTaskBatchForm::COL_NAME_CONTRACT_PICKER)
                             ->label(__('dpb-mod-tasks::task-batch.form.fields.contracts')),
                     ]),
             ]);

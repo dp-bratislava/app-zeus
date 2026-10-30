@@ -4,8 +4,8 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
@@ -22,8 +22,8 @@ class DiverseTaskBatchUpdateFormMapper
         array $data,
     ): UpdateTaskBatchCommand {
 
-        $matrix = $data[TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
-        $notes = $data[TaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
+        $matrix = $data[DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
+        $notes = $data[DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
 
         $configuration = $this->configMapper
             ->getConfiguration(
@@ -98,19 +98,19 @@ class DiverseTaskBatchUpdateFormMapper
         return [
             'date' => $record->date,
 
-            TaskBatchForm::COL_NAME_CONTRACT_PICKER => $contractIds,
+            DiverseTaskBatchForm::COL_NAME_CONTRACT_PICKER => $contractIds,
 
-            TaskBatchForm::COL_NAME_TG_PICKER => $record->task_group_id,
+            DiverseTaskBatchForm::COL_NAME_TG_PICKER => $record->task_group_id,
 
-            TaskBatchForm::FIELD_NAME_VEHICLE_PICKER => $tasks
+            DiverseTaskBatchForm::FIELD_NAME_VEHICLE_PICKER => $tasks
                 ->pluck('subject_id')
                 ->unique()
                 ->values()
                 ->all(),
 
-            TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE => $matrix,
+            DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE => $matrix,
 
-            TaskBatchForm::FIELD_NAME_NOTES_STATE => $notes,
+            DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE => $notes,
         ];
     }
 }

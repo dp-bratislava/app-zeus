@@ -57,7 +57,6 @@ final class DiverseConfigurationMapper
                     }
 
                     return [
-                        'task_group_id' => 9,
                         'subject_type' => $subjectType->value,
                         'subject_id' => $subjectId,
                         'note' => $notes[$subjectId] ?? '',

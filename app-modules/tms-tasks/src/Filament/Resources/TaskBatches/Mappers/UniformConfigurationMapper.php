@@ -11,7 +11,6 @@ final class UniformConfigurationMapper
 
     public function getConfiguration(
         array $subjects,
-        int $taskGroupId,
         array $selectedTaskItemGroupIds,
         array $operationsByGroup,
         array $contractIds,
@@ -31,7 +30,6 @@ final class UniformConfigurationMapper
         return [
             'version' => self::VERSION,
             'mode' => TaskBatchMode::Uniform->value,
-            'task_group_id' => $taskGroupId,
             'subjects' => [
                 TaskSubjectType::Vehicle->value => $subjects
             ],

@@ -7,8 +7,6 @@ use Dpb\Package\Batchable\Models\Batch;
 use Dpb\Package\Tasks\Models\TaskGroup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskBatch extends Model
 {
@@ -45,13 +43,6 @@ class TaskBatch extends Model
         );
     }
 
-    public function taskGroup(): BelongsTo
-    {
-        return $this->belongsTo(
-            TaskGroup::class,
-            'task_group_id'
-        );
-    }
 
     public function author(): BelongsTo
     {
@@ -61,34 +52,16 @@ class TaskBatch extends Model
         );
     }
 
-    public function subjects(): HasMany
+    public function taskGroup(): BelongsTo
     {
-        return $this->hasMany(TaskBatchTaskSubject::class);
-    }
-
-    public function itemGroups(): HasMany
-    {
-        return $this->hasMany(TaskBatchTaskItemGroup::class);
-    }
-
-    public function contracts(): HasMany
-    {
-        return $this->hasMany(TaskBatchContract::class);
-    }
-
-    public function operations(): HasMany
-    {
-        return $this->hasMany(TaskBatchOperation::class);
-    }
-
+        return $this->belongsTo(
+            TaskGroup::class,
+            'task_group_id'
+        );
+    }    
 
     public function hasTaskWithNoWork(): bool
     {
         return false;
     }
-
-    public function configs(): HasMany
-    {
-        return $this->hasMany(TaskBatchConfig::class);
-    }    
 }

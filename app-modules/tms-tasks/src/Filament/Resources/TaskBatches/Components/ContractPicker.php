@@ -12,7 +12,7 @@ use Filament\Schemas\Components\Utilities\Get;
 class ContractPicker
 {
     public static function make(
-        ?string $name = TaskBatchForm::COL_NAME_CONTRACT_PICKER
+        string $name
     ): Component {
         return ToggleButtons::make($name)
             ->columnSpanFull()

@@ -11,7 +11,7 @@ use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class UniformTaskBatchCreateFormMapper
+class UniformTaskBatchCreateFormMapper implements TaskBatchCreateFormMapper
 {
     public function __construct(
         private readonly UniformConfigurationMapper $configurationMapper,
@@ -21,7 +21,6 @@ class UniformTaskBatchCreateFormMapper
     {
         $configuration = $this->configurationMapper->getConfiguration(
             subjects: $data[TaskBatchForm::FIELD_NAME_VEHICLE_PICKER] ?? [],
-            taskGroupId: (int) $data[TaskBatchForm::COL_NAME_TG_PICKER],
             selectedTaskItemGroupIds: $data[TaskBatchForm::COL_NAME_TIG_PICKER] ?? [],
             operationsByGroup: $data[TaskBatchForm::COL_NAME_OPERATION_PICKER] ?? [],
             contractIds: $data[TaskBatchForm::COL_NAME_CONTRACT_PICKER] ?? [],
