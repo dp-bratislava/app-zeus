@@ -38,6 +38,18 @@ class WorkActivityReport extends Snapshot
                 $state->tempTable,
             )
         );
+        $this->deleteOrphans();
+    }
+    
+    protected function deleteOrphans(): void
+    {
+        DB::statement("
+            DELETE FROM {$this->targetTable()}
+                WHERE activity_id NOT IN (
+                    SELECT id
+                    FROM {$this->sourceTable()}
+                );
+        ");
     }
 
     public function buildInsertSql(string $tempTable): string
