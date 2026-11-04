@@ -56,10 +56,13 @@ class WorkTaskSubjectSnapshot extends Snapshot
                         tr.label, 
                         ao.label
                     ) AS label,
+                    dd.code AS vehicle_sap_department,
                     sb.updated_at
                 FROM subject_base sb
                     LEFT JOIN fleet_vehicles v 
                         ON v.id = sb.entity_id AND sb.type = 'Vozidlo'
+                    LEFT JOIN tms_department_vehicle dv ON dv.vehicle_id = v.id
+                    LEFT JOIN datahub_departments dd ON dv.department_id = dd.id
                     LEFT JOIN mvw_fleet_vehicle_snapshots fvs 
                         ON fvs.vehicle_id = v.id AND sb.type = 'Vozidlo'
                     LEFT JOIN table_resolved tr ON tr.device_id = sb.entity_id AND sb.type = 'Zastávková tabuľa'
@@ -141,6 +144,7 @@ class WorkTaskSubjectSnapshot extends Snapshot
             'wtf_task_id' => 'sr.task_id',
             'subject_type' => 'sr.type',
             'subject_label' => 'sr.label',
+            'subject_sap_department' => 'sr.vehicle_sap_department',
             'updated_at' => 'sr.updated_at',
         ];
     }

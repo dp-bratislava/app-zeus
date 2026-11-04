@@ -17,6 +17,7 @@ Schedule::call(function () {
         new RunSnapshotJob('work-task-subject', new SnapshotRunContext()),
         new RunSnapshotJob('tms-task-item', new SnapshotRunContext()),
         new RunSnapshotJob('work-activity', new SnapshotRunContext()),
+        new RunSnapshotJob('work-activity-v3', new SnapshotRunContext()),
     ])->dispatch();
 })->everyMinute();
 
