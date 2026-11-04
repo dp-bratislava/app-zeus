@@ -38,6 +38,7 @@ class CreateTaskBatchWorkflow
                 $taCWfResult = $this->taCWorkflow
                     ->execute(new CreateTaskAssignmentsCommand(
                         date: $command->date,
+                        taskGroupId: $command->taskGroupId,
                         taskConfigs: $this->configMapper->map($command->configuration),
                         context: $command->context
                     ));

@@ -1,4 +1,5 @@
-<div class="relative isolate max-h-[70vh] overflow-auto rounded-lg border border-gray-200 dark:border-gray-700">
+<div x-data="{ hoveredColumn: null }"
+    class="relative isolate max-h-[70vh] overflow-auto rounded-lg border border-gray-200 dark:border-gray-700">
     <table class="w-full table-fixed border-collapse text-sm">
         <thead class="sticky top-0 z-10 bg-gray-50 dark:bg-gray-800">
             <tr>
@@ -9,8 +10,12 @@
                 </th>
 
                 {{-- One column per vehicle --}}
-                @foreach ($subjects as $subject)
+                @foreach ($subjects as $index => $subject)
                     <th scope="col" wire:key="vehicle-header-{{ $subject['id'] }}"
+                        @mouseenter="hoveredColumn = {{ $index }}" @mouseleave="hoveredColumn = null"
+                        :class="hoveredColumn === {{ $index }} ?
+                            'bg-primary-100 dark:bg-primary-900/40' :
+                            ''"
                         class="w-56 border-b border-r border-gray-200 px-3 py-3 text-left align-top font-medium text-gray-700 dark:border-gray-700 dark:text-gray-200">
                         <div class="max-w-full whitespace-normal break-words">
                             {{ $subject['label'] }}
@@ -42,7 +47,7 @@
                     </th>
 
                     {{-- One cell for each vehicle --}}
-                    @foreach ($subjects as $subject)
+                    @foreach ($subjects as $index => $subject)
                         @php
                             $subjectId = (int) $subject['id'];
 
@@ -50,6 +55,10 @@
                         @endphp
 
                         <td wire:key="matrix-cell-{{ $subjectId }}-{{ $groupId }}"
+                            @mouseenter="hoveredColumn = {{ $index }}" @mouseleave="hoveredColumn = null"
+                            :class="hoveredColumn === {{ $index }} ?
+                                'bg-primary-50 dark:bg-primary-900/20' :
+                                ''"
                             class="w-56 border-r border-b border-gray-200 p-2 align-top dark:border-gray-700">
                             <div class="flex min-h-16 min-w-0 flex-col gap-2">
                                 {{-- Assigned work --}}

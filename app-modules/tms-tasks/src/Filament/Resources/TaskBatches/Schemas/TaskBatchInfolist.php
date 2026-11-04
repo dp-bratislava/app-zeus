@@ -5,11 +5,14 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditDiverseTaskBatchAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditUniformTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditTaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchInfolistMapper;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
@@ -39,20 +42,23 @@ class TaskBatchInfolist
             ->headerActions([
                 RedirectToIndexAction::make()
                     ->label(__(static::LANG_PFX . 'actions.back_action')),
-                EditUniformTaskBatchAction::make()
-                    ->label(__(static::LANG_PFX . 'actions.edit_action'))
-                    ->visible(
-                        fn(TaskBatch $record): bool =>
-                        data_get($record->configuration, 'mode')
-                            === TaskBatchMode::Uniform->value
-                    ),
-                EditDiverseTaskBatchAction::make()
-                    ->label(__(static::LANG_PFX . 'actions.edit_action'))
-                    ->visible(
-                        fn(TaskBatch $record): bool =>
-                        data_get($record->configuration, 'mode')
-                            === TaskBatchMode::Diverse->value
-                    ),
+                // EditTaskBatchAction::make()
+                EditAction::make()
+                    ->label(__(static::LANG_PFX . 'actions.edit_action')),
+                // EditUniformTaskBatchAction::make()
+                //     ->label(__(static::LANG_PFX . 'actions.edit_action'))
+                //     ->visible(
+                //         fn(TaskBatch $record): bool =>
+                //         data_get($record->configuration, 'mode')
+                //             === TaskBatchMode::Uniform->value
+                //     ),
+                // EditDiverseTaskBatchAction::make()
+                //     ->label(__(static::LANG_PFX . 'actions.edit_action'))
+                //     ->visible(
+                //         fn(TaskBatch $record): bool =>
+                //         data_get($record->configuration, 'mode')
+                //             === TaskBatchMode::Diverse->value
+                //     ),
                 DeleteTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.delete_action'))
                     ->color('danger'),

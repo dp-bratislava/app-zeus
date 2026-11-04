@@ -13,6 +13,7 @@ final readonly class ReconcileTaskAssignmentsCommand
      * Summary of __construct
      * @param int $batchId
      * @param int $taskBatchId
+     * @param int $taskGroupId
      * @param CarbonImmutable $date
      * @param Collection<TaskBatchTaskConfig> $taskConfigs
      * @param TaskBatchHandlerContext $context
@@ -20,6 +21,7 @@ final readonly class ReconcileTaskAssignmentsCommand
     public function __construct(
         public int $batchId,
         public int $taskBatchId,
+        public int $taskGroupId,
         public CarbonImmutable $date,
         public Collection $taskConfigs,
         public TaskBatchHandlerContext $context,

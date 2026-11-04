@@ -6,12 +6,13 @@ use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class DiverseTaskBatchUpdateFormMapper
+class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
 {
     public function __construct(
         private DiverseConfigurationMapper $configMapper
@@ -33,7 +34,8 @@ class DiverseTaskBatchUpdateFormMapper
 
         return new UpdateTaskBatchCommand(
             taskBatchId: $record->id,
-            date: CarbonImmutable::parse($data['date']),
+            // date: CarbonImmutable::parse($data['date']),
+            date: CarbonImmutable::parse($data[TaskBatchForm::COL_NAME_DATE]),
             configuration: $configuration,
             context: new TaskBatchHandlerContext(
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
@@ -100,7 +102,7 @@ class DiverseTaskBatchUpdateFormMapper
 
             DiverseTaskBatchForm::COL_NAME_CONTRACT_PICKER => $contractIds,
 
-            DiverseTaskBatchForm::COL_NAME_TG_PICKER => $record->task_group_id,
+            TaskBatchForm::COL_NAME_TG_PICKER => $record->task_group_id,
 
             DiverseTaskBatchForm::FIELD_NAME_VEHICLE_PICKER => $tasks
                 ->pluck('subject_id')

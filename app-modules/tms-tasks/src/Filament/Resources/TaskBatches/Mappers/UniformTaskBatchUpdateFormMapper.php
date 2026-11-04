@@ -5,13 +5,14 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\UniformTaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
 
-class UniformTaskBatchUpdateFormMapper
+class UniformTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
 {
     public function __construct(
         private UniformConfigurationMapper $configMapper
@@ -62,7 +63,7 @@ class UniformTaskBatchUpdateFormMapper
                 $configuration['contract_ids'] ?? []
             )),
 
-            UniformTaskBatchForm::COL_NAME_TG_PICKER =>
+            TaskBatchForm::COL_NAME_TG_PICKER =>
             $record->taskGroup->id ?? null,
 
             UniformTaskBatchForm::COL_NAME_TIG_PICKER =>

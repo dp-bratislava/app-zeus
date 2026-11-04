@@ -110,6 +110,7 @@ class ReconcileTaskAssignmentsWorkflow
         return $this->taCWorkflow
             ->execute(new CreateTaskAssignmentsCommand(
                 date: $command->date,
+                taskGroupId: $command->taskGroupId,
                 taskConfigs: $taskConfigs,
                 context: $command->context
             ));

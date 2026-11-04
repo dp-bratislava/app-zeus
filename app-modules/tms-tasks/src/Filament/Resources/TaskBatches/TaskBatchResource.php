@@ -81,6 +81,7 @@ class TaskBatchResource extends Resource
         return [
             'index' => ListTaskBatches::route('/'),
             'create' => CreateTaskBatch::route('/create'),
+            'edit' => EditTaskBatch::route('/{record}/edit'),
             'create-diverse' => CreateDiverseTaskBatch::route('/create-diverse'),
             'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
             'edit-uniform' => EditUniformTaskBatch::route('/{record}/edit/uniform'),

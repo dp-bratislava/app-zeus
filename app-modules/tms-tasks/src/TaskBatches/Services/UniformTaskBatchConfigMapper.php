@@ -16,7 +16,7 @@ final class UniformTaskBatchConfigMapper implements TaskBatchConfigurationMapper
     public function map(array $configuration): Collection
     {
         // return collect();
-        $taskGroupId = (int) $configuration['task_group_id'];
+        // $taskGroupId = (int) $configuration['task_group_id'];
 
         $taskItemConfigs = collect(
             $configuration['task_item_groups'] ?? []
@@ -56,7 +56,7 @@ final class UniformTaskBatchConfigMapper implements TaskBatchConfigurationMapper
             foreach ((array) $subjectIds as $subjectId) {
                 $tasks->push(
                     new TaskBatchTaskConfig(
-                        taskGroupId: $taskGroupId,
+                        // taskGroupId: $taskGroupId,
                         subject: new TaskSubjectReference(
                             $enumSubjectType,
                             (int) $subjectId,

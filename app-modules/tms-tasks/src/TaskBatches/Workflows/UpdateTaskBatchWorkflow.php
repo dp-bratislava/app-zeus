@@ -51,6 +51,7 @@ class UpdateTaskBatchWorkflow
                     new ReconcileTaskAssignmentsCommand(
                         batchId: $taskBatch->batch->id,
                         taskBatchId: $taskBatch->id,
+                        taskGroupId: $taskBatch->task_group_id,
                         date: $command->date,
                         taskConfigs: $taskConfigs,
                         context: $command->context

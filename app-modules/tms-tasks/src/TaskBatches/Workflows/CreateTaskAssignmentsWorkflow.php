@@ -57,7 +57,7 @@ class CreateTaskAssignmentsWorkflow
             $tasks[] = [
                 'uuid' => $taskUuid,
                 'date' => $command->date,
-                'group_id' => $taskConfig->taskGroupId,
+                'group_id' => $command->taskGroupId,
                 'state' => EnumTaskStatus::Closed->value,
                 'description' => $taskConfig->note,
                 'place_of_origin_id' => $command->context->placeOfOriginId,

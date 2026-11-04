@@ -33,7 +33,7 @@ final class DiverseTaskBatchConfigMapper implements TaskBatchConfigurationMapper
         }
 
         return new TaskBatchTaskConfig(
-            taskGroupId: (int) $task['task_group_id'],
+            // taskGroupId: (int) $task['task_group_id'],
             subject: new TaskSubjectReference(
                 $subjectType,
                 (int) $task['subject_id'],
