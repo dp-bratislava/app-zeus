@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-04 - 1.0.17
+### Added
+- controlling snapshot and report
+### Fixed
+- activity record snapshot
+
 ## 2026-09-15 - 1.0.15
 ### Added
 - Batch category operations assignment
