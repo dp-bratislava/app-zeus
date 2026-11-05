@@ -7,6 +7,7 @@ use App\Snapshots\Services\FleetVehicleSnapshot;
 use App\Snapshots\Services\HRContractSnapshot;
 use App\Snapshots\Services\TaskItemSnapshot;
 use App\Snapshots\Services\WorkActivityReport;
+use App\Snapshots\Services\WorkActivityReport3;
 use App\Snapshots\Services\WorkTaskSubjectSnapshot;
 use App\Snapshots\Services\WorkTaskSubjectSnapshot2;
 use Illuminate\Support\ServiceProvider;
@@ -24,8 +25,10 @@ class SnapshotServiceProvider extends ServiceProvider
             $registry->register('fleet-vehicle', FleetVehicleSnapshot::class);
             // reports
             $registry->register('work-activity', WorkActivityReport::class);
+            $registry->register('work-activity-v3', WorkActivityReport3::class);
 
             return $registry;
         });
     }
 }
+

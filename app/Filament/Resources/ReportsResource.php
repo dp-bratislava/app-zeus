@@ -31,12 +31,12 @@ class ReportsResource extends Resource
 
         return $table
             ->query($driver->getQuery())
-            ->deferLoading()
+            // ->deferLoading()
             ->modifyQueryUsing(function ($query) use ($driver) {
                 return $driver->applyQueryModifications($query);
             })
-            ->paginated([10, 25, 50, 100])
-            ->defaultPaginationPageOption(100)
+            ->paginated([10, 20, 50, 100])
+            ->defaultPaginationPageOption(20)
             ->columns($driver->getColumns())
             ->filters($driver->getFilters())
             ->filtersFormColumns(2)
@@ -46,8 +46,9 @@ class ReportsResource extends Resource
             ->filtersLayout(FiltersLayout::AboveContent)
             ->recordActions([])
             ->emptyStateHeading('Žiadne údaje')
+            ->defaultKeySort(false)
             ->toolbarActions([])
-            ->defaultSort('id', 'asc');
+            ->defaultSort($driver->getSortColumn(), $driver->getSortOrder());
     }
 
     public static function getPages(): array

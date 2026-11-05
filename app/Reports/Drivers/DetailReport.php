@@ -5,7 +5,7 @@ namespace App\Reports\Drivers;
 use App\Filament\Exports\Reports\DetailReportExporter;
 use App\Services\DateRangeValidator;
 use App\Models\Reports\WorkActivityReport;
-use App\Models\Snapshots\WorkTaskSubject;
+use Illuminate\Support\Facades\DB;
 use Carbon\CarbonInterval;
 use Dpb\Departments\Services\DepartmentService;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +21,8 @@ use Filament\Forms\Components\Placeholder;
 
 class DetailReport implements ReportDriver
 {
+    use \App\Reports\Concerns\HasReportPermission;
+
     private ?DepartmentService $departmentService = null;
 
     public function __construct()
@@ -46,30 +48,33 @@ class DetailReport implements ReportDriver
     public function getColumns(): array
     {
         $departmentValues = $this->departmentService->getAvailableDepartments()->pluck('code');
-            
-        $subjectTypesWithDepartments = WorkTaskSubject::query()
-            ->join('mvw_work_activity_report_v2', 'mvw_work_task_subject_snapshots.wtf_task_id', '=', 'mvw_work_activity_report_v2.wtf_task_id') // Adjust foreign/primary keys to match your schema
-            ->whereIn('mvw_work_activity_report_v2.department_code', $departmentValues)
-            ->groupBy('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
-            ->select('mvw_work_task_subject_snapshots.subject_type', 'mvw_work_activity_report_v2.department_code')
+
+        // v3 already carries the subject type/label inline, so we derive the subject
+        // types (and the departments they appear in) straight from the snapshot.
+        
+        $subjectTypesWithDepartments = DB::table('mvw_work_activity_report_v3')
+            ->whereIn('department_code', $departmentValues)
+            ->whereNotNull('subject_type')
+            ->select('department_code', 'subject_type')
+            ->distinct()
             ->get()
             ->groupBy('subject_type')
             ->map(fn($group) => $group->pluck('department_code')->toArray());
+
 
             $dynamicColumns = [];
 
         foreach ($subjectTypesWithDepartments as $type => $allowedDepartments) {
             $dynamicColumns[] = TextColumn::make("subject_{$type}")
                 ->label(fn() => match ($type) {
-                    'vehicle' => 'Vozidlo',
-                    'table' => 'Tabuľa',
+                    'Vozidlo' => 'Vozidlo',
+                    'Zastávková tabuľa' => 'Zastávková tabuľa',
                     default => $type
                 })
                 ->getStateUsing(function ($record) use ($type) {
-                    return $record->taskSubjects
-                        ->where('subject_type', $type)
-                        ->pluck('subject_label')
-                        ->join(', ');
+                    return $record->subject_type === $type
+                        ? $record->subject_label
+                        : null;
                 })
                 ->hidden(function ($livewire) use ($allowedDepartments) {
                     $filterState = $livewire->getTableFilterState('department');
@@ -125,6 +130,7 @@ class DetailReport implements ReportDriver
                 ->tooltip(__('reports/detail-report.table.columns.activity_real_duration.tooltip')),
             TextColumn::make('activity_is_fulfilled_label')
                 ->label(__('reports/detail-report.table.columns.activity_is_fulfilled')),
+
             TextColumn::make('task_id')
                 ->label(__('reports/detail-report.table.columns.task_id'))
                 ->url(
@@ -143,7 +149,7 @@ class DetailReport implements ReportDriver
 
     public function getFilters(): array
     {
-        $validator = new DateRangeValidator(120);
+        $validator = new DateRangeValidator(1200);
 
         return [
             Filter::make('date_range')
@@ -185,11 +191,13 @@ class DetailReport implements ReportDriver
                     return $query
                         ->when(
                             $data['date_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '>=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '>=', Carbon::parse($date)->startOfDay())
                         )
                         ->when(
                             $data['date_to'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('activity_date', '<=', $date)
+                            fn (Builder $query, $date): Builder =>
+                                $query->where('activity_date', '<', Carbon::parse($date)->addDay()->startOfDay())
                         );
                 })
                 ->columns(2),
@@ -202,6 +210,16 @@ class DetailReport implements ReportDriver
                 ->searchable()
                 ->attribute('department_code'),
         ];
+    }
+
+    public function getSortColumn(): string
+    {
+        return 'activity_date';
+    }
+
+    public function getSortOrder(): string
+    {
+        return 'desc';
     }
 
     public function getExporter(): string
@@ -217,8 +235,7 @@ class DetailReport implements ReportDriver
     public function applyQueryModifications(Builder $query): Builder
     {
         return $query
-            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'))
-            ->with('taskSubjects');
+            ->whereIn('department_code', $this->departmentService->getAvailableDepartments()->pluck('code'));
     }
 
     public function lastSyncedAt(): ?string
