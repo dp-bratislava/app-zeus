@@ -71,7 +71,7 @@
         "dpb/pkg-tickets": "^12.0",
         "dpb/pkg-work-log": "^12.0",
         "dpb/spotlight": "^12.5",
-        "dpb/ui-components": "^12.5",
+        "dpb/ui-components": "dev-main as 12.5.2",
         "dpb/wtf-ui": "dev-main as 12.5.9",
         "filament/spatie-laravel-media-library-plugin": "^5.0",
         "laravel/framework": "^12.0",

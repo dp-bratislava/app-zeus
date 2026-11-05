@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "405499f4791e3c21c984f09f5c00a5d1",
+    "content-hash": "b6f3b42fbba9ea61813ef95e399e6bcd",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1441,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "10763e76a76ee8a37d740ee7295f1ba6a6fcf9c8"
+                "reference": "134c5b298cd06642cfd0ba7a4396004b0172c18d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/10763e76a76ee8a37d740ee7295f1ba6a6fcf9c8",
-                "reference": "10763e76a76ee8a37d740ee7295f1ba6a6fcf9c8",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/134c5b298cd06642cfd0ba7a4396004b0172c18d",
+                "reference": "134c5b298cd06642cfd0ba7a4396004b0172c18d",
                 "shasum": ""
             },
             "require": {
@@ -1483,7 +1483,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agregaty-merged-with-main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-10-12T15:10:56+00:00"
+            "time": "2026-11-05T10:20:25+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2411,22 +2411,23 @@
         },
         {
             "name": "dpb/ui-components",
-            "version": "v12.5.1",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/ui-components.git",
-                "reference": "4572bd1b531e46910dbfc13e04d6f2f8def95c31"
+                "reference": "276cd5a7f99cbbdf5aec328672dd238743289396"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/4572bd1b531e46910dbfc13e04d6f2f8def95c31",
-                "reference": "4572bd1b531e46910dbfc13e04d6f2f8def95c31",
+                "url": "https://api.github.com/repos/dp-bratislava/ui-components/zipball/276cd5a7f99cbbdf5aec328672dd238743289396",
+                "reference": "276cd5a7f99cbbdf5aec328672dd238743289396",
                 "shasum": ""
             },
             "require": {
                 "filament/forms": "^5.0",
                 "laravel/framework": "^11.0 || ^12.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2453,10 +2454,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/ui-components/tree/v12.5.1",
+                "source": "https://github.com/dp-bratislava/ui-components/tree/main",
                 "issues": "https://github.com/dp-bratislava/ui-components/issues"
             },
-            "time": "2026-05-13T06:09:15+00:00"
+            "time": "2026-11-05T09:38:13+00:00"
         },
         {
             "name": "dpb/wtf-ui",
@@ -16588,6 +16589,12 @@
             "alias_normalized": "12.5.7.0"
         },
         {
+            "package": "dpb/ui-components",
+            "version": "dev-main",
+            "alias": "12.5.2",
+            "alias_normalized": "12.5.2.0"
+        },
+        {
             "package": "dpb/wtf-ui",
             "version": "dev-main",
             "alias": "12.5.9",
@@ -16602,6 +16609,7 @@
         "dpb/pkg-assets": 20,
         "dpb/pkg-fleet": 20,
         "dpb/pkg-task-ms-ui": 20,
+        "dpb/ui-components": 20,
         "dpb/wtf-ui": 20
     },
     "prefer-stable": true,
