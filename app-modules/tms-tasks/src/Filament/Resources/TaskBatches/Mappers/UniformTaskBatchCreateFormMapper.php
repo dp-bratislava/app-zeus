@@ -20,15 +20,15 @@ class UniformTaskBatchCreateFormMapper implements TaskBatchCreateFormMapper
     public function fromForm(array $data): CreateTaskBatchCommand
     {
         $configuration = $this->configurationMapper->getConfiguration(
-            subjects: $data[TaskBatchForm::FIELD_NAME_VEHICLE_PICKER] ?? [],
+            subjects: $data[TaskBatchForm::SUBJECT_PICKER_KEY] ?? [],
             selectedTaskItemGroupIds: $data[TaskBatchForm::COL_NAME_TIG_PICKER] ?? [],
             operationsByGroup: $data[TaskBatchForm::COL_NAME_OPERATION_PICKER] ?? [],
-            contractIds: $data[TaskBatchForm::COL_NAME_CONTRACT_PICKER] ?? [],
+            contractIds: $data[TaskBatchForm::CONTRACT_PICKER_KEY] ?? [],
         );
 
         return new CreateTaskBatchCommand(
             date: CarbonImmutable::parse($data['date']),
-            taskGroupId: $data[TaskBatchForm::COL_NAME_TG_PICKER],
+            taskGroupId: $data[TaskBatchForm::TASK_GROUP_PICKER_KEY],
             configuration: $configuration,
             context: new TaskBatchHandlerContext(
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,

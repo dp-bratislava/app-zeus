@@ -3,6 +3,7 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
 use Carbon\CarbonImmutable;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Livewire\AssignmentMatrix;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
@@ -14,21 +15,20 @@ use Illuminate\Support\Facades\DB;
 
 class TaskBatchConfiguration
 {
-    public static function make(
-        ?string $name = TaskBatchForm::COMPONENT_NAME_TASK_BATCH_CONFIG,
-    ): Component {
+    public static function make(): Component
+    {
         return Section::make()
             ->schema(function (Get $get): array {
                 $selectedContractIds = array_map(
                     'intval',
-                    $get(TaskBatchForm::COL_NAME_CONTRACT_PICKER) ?? [],
+                    $get(TaskBatchForm::CONTRACT_PICKER_KEY) ?? [],
                 );
 
                 $allContracts = app(TaskBatchLookupScopeService::class)
                     // ->employeeContracts(app(TaskBatchResourceContext::class));
                     ->employeeContracts(
                         CarbonImmutable::parse(
-                            $get(TaskBatchForm::COL_NAME_DATE)
+                            $get(TaskBatchForm::DATE_KEY)
                         )
                     );
 
@@ -39,7 +39,7 @@ class TaskBatchConfiguration
 
                 $selectedVehicleIds = array_map(
                     'intval',
-                    $get(TaskBatchForm::FIELD_NAME_VEHICLE_PICKER) ?? [],
+                    $get(TaskBatchForm::SUBJECT_PICKER_KEY) ?? [],
                 );
 
                 $subjects = self::getSubjects($selectedVehicleIds);
@@ -55,7 +55,7 @@ class TaskBatchConfiguration
                     ->all();
 
                 $state = self::filterMatrixState(
-                    $get(TaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE) ?? [],
+                    $get(DiverseTaskBatchSchema::ASSIGNMENT_MATRIX_STATE_KEY) ?? [],
                     $selectedVehicleIds,
                 );
 

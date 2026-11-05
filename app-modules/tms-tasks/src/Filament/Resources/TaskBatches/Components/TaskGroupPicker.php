@@ -12,7 +12,7 @@ use Filament\Schemas\Components\Utilities\Set;
 class TaskGroupPicker
 {
     public static function make(
-        ?string $name = TaskBatchForm::COL_NAME_TG_PICKER
+        ?string $name = TaskBatchForm::TASK_GROUP_PICKER_KEY
     ): Component {
         return ToggleButtons::make($name)
             ->label(__('dpb-mod-tasks::task-batch.form.fields.task_groups'))
@@ -43,7 +43,7 @@ class TaskGroupPicker
                 Get $get,
                 Set $set
             ) {
-                $taskGroupId = $get(TaskBatchForm::COL_NAME_TG_PICKER);
+                $taskGroupId = $get(TaskBatchForm::TASK_GROUP_PICKER_KEY);
 
                 $taskItemGroups = $lookupService
                     ->taskItemGroups()

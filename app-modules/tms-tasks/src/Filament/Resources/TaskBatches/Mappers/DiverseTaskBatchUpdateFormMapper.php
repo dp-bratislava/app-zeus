@@ -5,7 +5,7 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
@@ -23,8 +23,8 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
         array $data,
     ): UpdateTaskBatchCommand {
 
-        $matrix = $data[DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] ?? [];
-        $notes = $data[DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE] ?? [];
+        $matrix = $data[DiverseTaskBatchSchema::ASSIGNMENT_MATRIX_STATE_KEY] ?? [];
+        $notes = $data[DiverseTaskBatchSchema::NOTES_STATE_KEY] ?? [];
 
         $configuration = $this->configMapper
             ->getConfiguration(
@@ -35,7 +35,7 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
         return new UpdateTaskBatchCommand(
             taskBatchId: $record->id,
             // date: CarbonImmutable::parse($data['date']),
-            date: CarbonImmutable::parse($data[TaskBatchForm::COL_NAME_DATE]),
+            date: CarbonImmutable::parse($data[TaskBatchForm::DATE_KEY]),
             configuration: $configuration,
             context: new TaskBatchHandlerContext(
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
@@ -100,19 +100,19 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
         return [
             'date' => $record->date,
 
-            DiverseTaskBatchForm::COL_NAME_CONTRACT_PICKER => $contractIds,
+            TaskBatchForm::CONTRACT_PICKER_KEY => $contractIds,
 
-            TaskBatchForm::COL_NAME_TG_PICKER => $record->task_group_id,
+            TaskBatchForm::TASK_GROUP_PICKER_KEY => $record->task_group_id,
 
-            DiverseTaskBatchForm::FIELD_NAME_VEHICLE_PICKER => $tasks
+            TaskBatchForm::SUBJECT_PICKER_KEY => $tasks
                 ->pluck('subject_id')
                 ->unique()
                 ->values()
                 ->all(),
 
-            DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE => $matrix,
+            DiverseTaskBatchSchema::ASSIGNMENT_MATRIX_STATE_KEY => $matrix,
 
-            DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE => $notes,
+            DiverseTaskBatchSchema::NOTES_STATE_KEY => $notes,
         ];
     }
 }

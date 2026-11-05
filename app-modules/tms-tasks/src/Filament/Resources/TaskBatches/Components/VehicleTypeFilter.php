@@ -2,16 +2,15 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Component;
-use Filament\Schemas\Components\Utilities\Set;
 
-class VehicleTypePicker
+class VehicleTypeFilter
 {
-    public static function make(?string $name = TaskBatchForm::COL_NAME_VEHICLE_TYPE_PICKER): Component
-    {
+    public static function make(
+        string $name
+    ): Component {
         // Note: You may want to change the field name if it's saving to a different column
         return ToggleButtons::make($name)
             ->label(__('dpb-mod-tasks::task-batch.form.filters.subject.vehicle_type'))
@@ -36,9 +35,6 @@ class VehicleTypePicker
                     return null;
                 }
             )
-            ->afterStateUpdated(function (Set $set) {
-                $set(TaskBatchForm::COL_NAME_ASSIGNED_TO, null);
-            })
             ->dehydrated()
             ->live()
             ->inline();

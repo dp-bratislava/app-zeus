@@ -2,15 +2,8 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
-use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditDiverseTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\EditUniformTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditTaskBatch;
-use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
-use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchInfolistMapper;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
@@ -38,50 +31,38 @@ class TaskBatchInfolist
     private static function headerSection(): Component
     {
         return Section::make('Header')
-            ->heading(__(static::LANG_PFX . 'sections.header'))
+            // ->heading(__(static::LANG_PFX . 'sections.header'))
+            ->heading(fn($record) => $record->date->format('Y-m-d') . " " . $record->taskGroup->title)
             ->headerActions([
                 RedirectToIndexAction::make()
                     ->label(__(static::LANG_PFX . 'actions.back_action')),
-                // EditTaskBatchAction::make()
                 EditAction::make()
                     ->label(__(static::LANG_PFX . 'actions.edit_action')),
-                // EditUniformTaskBatchAction::make()
-                //     ->label(__(static::LANG_PFX . 'actions.edit_action'))
-                //     ->visible(
-                //         fn(TaskBatch $record): bool =>
-                //         data_get($record->configuration, 'mode')
-                //             === TaskBatchMode::Uniform->value
-                //     ),
-                // EditDiverseTaskBatchAction::make()
-                //     ->label(__(static::LANG_PFX . 'actions.edit_action'))
-                //     ->visible(
-                //         fn(TaskBatch $record): bool =>
-                //         data_get($record->configuration, 'mode')
-                //             === TaskBatchMode::Diverse->value
-                //     ),
                 DeleteTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.delete_action'))
                     ->color('danger'),
 
             ])
-            ->columnSpanFull()
-            ->columns(8)
-            ->schema([
-                TextEntry::make('id'),
-                TextEntry::make('date')
-                    ->label(__(static::LANG_PFX . 'entries.date'))
-                    ->date('Y-m-d'),
-                // TextEntry::make('batch.context')
-                    // ->label(__(static::LANG_PFX . 'entries.task_group'))
-                    // ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
-                TextEntry::make('configuration.mode')
-                    ->label(__(static::LANG_PFX . 'entries.mode'))
-                    ->formatStateUsing(fn($record) => TaskBatchMode::tryFrom($record->configuration['mode'])->label()),
-                TextEntry::make('author.lastname')
-                    ->label(__(static::LANG_PFX . 'entries.author')),
-                TextEntry::make('created_at')
-                    ->label(__(static::LANG_PFX . 'entries.created_at')),
-            ]);
+            ->columnSpanFull();
+            // ->columns(8)
+            // ->schema([
+            //     // TextEntry::make('id'),
+            //     TextEntry::make('date')
+            //         ->label(__(static::LANG_PFX . 'entries.date'))
+            //         ->date('Y-m-d'),
+            //     TextEntry::make('taskGroup.title')
+            //         ->label(__(static::LANG_PFX . 'entries.task_group')),
+            //     // TextEntry::make('batch.context')
+            //         // ->label(__(static::LANG_PFX . 'entries.task_group'))
+            //         // ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
+            //     // TextEntry::make('configuration.mode')
+            //     //     ->label(__(static::LANG_PFX . 'entries.mode'))
+            //     //     ->formatStateUsing(fn($record) => TaskBatchMode::tryFrom($record->configuration['mode'])->label()),
+            //     TextEntry::make('author.lastname')
+            //         ->label(__(static::LANG_PFX . 'entries.author')),
+            //     TextEntry::make('created_at')
+            //         ->label(__(static::LANG_PFX . 'entries.created_at')),
+            // ]);
     }
 
     private static function subjectsSection(): Component

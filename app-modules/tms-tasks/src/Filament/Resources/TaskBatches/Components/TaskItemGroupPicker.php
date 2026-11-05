@@ -22,7 +22,7 @@ class TaskItemGroupPicker
                 ): array => $lookupService
                     ->taskItemGroups()
                     ->filter(
-                        fn($group) => $group->task_group_id === $get(TaskBatchForm::COL_NAME_TG_PICKER)
+                        fn($group) => $group->task_group_id === $get(TaskBatchForm::TASK_GROUP_PICKER_KEY)
                     )
                     ->pluck('title', 'id')
                     ->toArray()

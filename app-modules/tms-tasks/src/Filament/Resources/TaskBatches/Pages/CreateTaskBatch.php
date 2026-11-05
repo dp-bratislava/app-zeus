@@ -3,9 +3,8 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages;
 
 use Dpb\Departments\Services\DepartmentService;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\DiverseTaskBatchCreateFormMapper;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchCreateFormMapperResolver;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskGroupModeResolver;
@@ -26,7 +25,7 @@ class CreateTaskBatch extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $taskGroupId = $data[TaskBatchForm::COL_NAME_TG_PICKER];
+        $taskGroupId = $data[TaskBatchForm::TASK_GROUP_PICKER_KEY];
         $departmentId = app(DepartmentService::class)->getActiveDepartment()->id;
 
         $mode = app(TaskGroupModeResolver::class)
@@ -48,7 +47,7 @@ class CreateTaskBatch extends CreateRecord
         array $state,
         array $notes = []
     ): void {
-        $this->data[DiverseTaskBatchForm::FIELD_NAME_ASSIGNMENT_MATRIX_STATE] = $state;
-        $this->data[DiverseTaskBatchForm::FIELD_NAME_NOTES_STATE] = $notes;
+        $this->data[DiverseTaskBatchSchema::ASSIGNMENT_MATRIX_STATE_KEY] = $state;
+        $this->data[DiverseTaskBatchSchema::NOTES_STATE_KEY] = $notes;
     }
 }

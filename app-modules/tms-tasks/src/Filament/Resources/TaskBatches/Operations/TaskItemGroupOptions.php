@@ -3,7 +3,6 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Operations;
 
 use Dpb\Package\Tasks\Models\TaskItemGroup;
-use Illuminate\Support\Collection;
 
 final class TaskItemGroupOptions
 {

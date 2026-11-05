@@ -2,10 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 
-use Dpb\Modules\Tasks\Enums\TaskBatchMode;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateDiverseTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateUniformTaskBatchAction;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
@@ -94,12 +91,6 @@ class TaskBatchesTable
             ->filters([
                 DateRangeFilter::make('date')
                     ->label(__('dpb-mod-tasks::task-batch.table.filters.date')),
-                // SelectFilter::make('task_group_id')
-                //     ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
-                //     ->relationship('taskGroup', 'title')
-                //     ->preload()
-                //     ->multiple()
-                //     ->searchable(),
                 // self::taskItemGroupFilter(),
                 // self::subjectFilter(),
                 self::taskGroupFilter(),
@@ -111,11 +102,7 @@ class TaskBatchesTable
             ])
             ->headerActions([
                 CreateTaskBatchAction::make('create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Dyn'),
-                CreateDiverseTaskBatchAction::make('diverse_create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rozne'),
-                CreateUniformTaskBatchAction::make('uniform_create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action') . ' Rovnake')
+                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -165,7 +152,7 @@ class TaskBatchesTable
     {
         return SelectFilter::make('taskGroup')
             // return SelectFilter::make('task_group_id')
-            ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
+            ->label(__('dpb-mod-tasks::task-batch.table.filters.task_group'))
             ->relationship(
                 'taskGroup',
                 'title',

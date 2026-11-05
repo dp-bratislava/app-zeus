@@ -3,24 +3,17 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskBatch;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateUniformTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\ListTaskBatches;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables\TaskBatchesTable;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\ViewTaskBatch;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchInfolist;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchAccessService;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\MasterPermissionGuard\Concerns\HasResourceGuard;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateDiverseTaskBatch;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\CreateTaskUnifromTaskBatch;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditDiverseTaskBatch;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages\EditUniformTaskBatch;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class TaskBatchResource extends Resource
 {
@@ -54,11 +47,6 @@ class TaskBatchResource extends Resource
             ->canViewAny();
     }
 
-    // public static function form(Schema $schema): Schema
-    // {
-    //     return TaskBatchForm::configure($schema, false);
-    // }
-
     public static function infolist(Schema $schema): Schema
     {
         return TaskBatchInfolist::configure($schema);
@@ -82,10 +70,6 @@ class TaskBatchResource extends Resource
             'index' => ListTaskBatches::route('/'),
             'create' => CreateTaskBatch::route('/create'),
             'edit' => EditTaskBatch::route('/{record}/edit'),
-            'create-diverse' => CreateDiverseTaskBatch::route('/create-diverse'),
-            'create-uniform' => CreateUniformTaskBatch::route('/create-uniform'),
-            'edit-uniform' => EditUniformTaskBatch::route('/{record}/edit/uniform'),
-            'edit-diverse' => EditDiverseTaskBatch::route('/{record}/edit/diverse'),
             'view' => ViewTaskBatch::route('/{record}'),
         ];
     }

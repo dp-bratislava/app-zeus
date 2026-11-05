@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Enums\TaskPlaceOfOrigin;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
-use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\UniformTaskBatchForm;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\UniformTaskBatchSchema;
 use Dpb\Modules\Tasks\TaskBatches\Commands\UpdateTaskBatchCommand;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
@@ -25,15 +25,15 @@ class UniformTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
 
         $configuration = $this->configMapper
             ->getConfiguration(
-                subjects: $data[UniformTaskBatchForm::FIELD_NAME_VEHICLE_PICKER] ?? [],
-                selectedTaskItemGroupIds: $data[UniformTaskBatchForm::COL_NAME_TIG_PICKER] ?? [],
-                operationsByGroup: $data[UniformTaskBatchForm::COL_NAME_OPERATION_PICKER] ?? [],
-                contractIds: $data[UniformTaskBatchForm::COL_NAME_CONTRACT_PICKER] ?? [],
+                subjects: $data[TaskBatchForm::SUBJECT_PICKER_KEY] ?? [],
+                selectedTaskItemGroupIds: $data[UniformTaskBatchSchema::TIG_PICKER_KEY] ?? [],
+                operationsByGroup: $data[UniformTaskBatchSchema::OPERATION_PICKER_KEY] ?? [],
+                contractIds: $data[TaskBatchForm::CONTRACT_PICKER_KEY] ?? [],
             );
 
         return new UpdateTaskBatchCommand(
             taskBatchId: $record->id,
-            date: CarbonImmutable::parse($data['date']),
+            date: CarbonImmutable::parse($data[TaskBatchForm::DATE_KEY]),
             configuration: $configuration,
             context: new TaskBatchHandlerContext(
                 placeOfOriginId: PlaceOfOrigin::byUri(TaskPlaceOfOrigin::Maintenance->value)->first()?->id,
@@ -56,20 +56,21 @@ class UniformTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
         $taskItemGroups = $configuration['task_item_groups'] ?? [];
 
         return [
-            'date' => $record->date,
+            TaskBatchForm::DATE_KEY =>
+            $record->date,
 
-            UniformTaskBatchForm::COL_NAME_CONTRACT_PICKER =>
+            TaskBatchForm::CONTRACT_PICKER_KEY =>
             array_values(array_unique(
                 $configuration['contract_ids'] ?? []
             )),
 
-            TaskBatchForm::COL_NAME_TG_PICKER =>
+            TaskBatchForm::TASK_GROUP_PICKER_KEY =>
             $record->taskGroup->id ?? null,
 
-            UniformTaskBatchForm::COL_NAME_TIG_PICKER =>
+            UniformTaskBatchSchema::TIG_PICKER_KEY =>
             array_map('intval', array_keys($taskItemGroups)),
 
-            UniformTaskBatchForm::COL_NAME_OPERATION_PICKER =>
+            UniformTaskBatchSchema::OPERATION_PICKER_KEY =>
             collect($taskItemGroups)
                 ->map(
                     fn(array $operationIds): array =>
@@ -77,7 +78,7 @@ class UniformTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
                 )
                 ->all(),
 
-            UniformTaskBatchForm::FIELD_NAME_VEHICLE_PICKER =>
+            TaskBatchForm::SUBJECT_PICKER_KEY =>
             array_map(
                 'intval',
                 $configuration['subjects']['vehicle'] ?? []
