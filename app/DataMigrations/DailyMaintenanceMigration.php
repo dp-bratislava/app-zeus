@@ -3,7 +3,7 @@
 namespace App\DataMigrations;
 
 use App\DataMigrations\Contracts\DataMigration;
-use Dpb\Modules\Tasks\Eligibility\Models\OperationRule;
+use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRule;
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Package\Tasks\Models\TaskGroup;
 use Dpb\Package\Tasks\Models\TaskItemGroup;
@@ -156,67 +156,6 @@ class DailyMaintenanceMigration implements DataMigration
         );
     }
 
-    public function run1(): void
-    {
-        $now = now();
-
-        $taskGroupId = TaskGroup::where('code', 'daily-maintenance')
-            ->first()->id;
-
-        // task batch group department and mode binding
-        $departments = [
-            self::DEP_7213_ID,
-            self::DEP_7223_ID,
-            self::DEP_7233_ID,
-        ];
-
-        $tig = TaskItemGroup::whereKey(self::DAILY_MAINTENANCE_TIG_ID)->first();
-
-        foreach ($departments as $departmentId) {
-
-            $taskBatchDepartmentGroupId = DB::table('tms_task_batch_department_group')->insertGetId(
-                [
-                    'department_id' => $departmentId,
-                    'task_group_id' => $taskGroupId,
-                    'mode' => TaskBatchMode::Uniform->value,
-                ]
-            );
-
-            DB::table('tms_task_batch_department_group_items')->upsert(
-                [
-                    'tbdg_id' => $taskBatchDepartmentGroupId,
-                    'task_item_group_id' => $tig->id,
-                    // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
-                    'label' => $tig->title,
-                    'is_scalable' => false,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-                ['tbdg_id', 'task_item_group_id']
-            );
-        }
-
-        $rules = [];
-        // bind operation categories to subject conditions
-        $conditions = json_encode([
-            'vehicle_type' => [
-                'in' => ['A'],
-            ],
-        ]);
-        $rules[] = [
-            'task_item_group_id' => TaskItemGroup::whereKey(self::DAILY_MAINTENANCE_TIG_ID)
-                ->first()->id,
-            'subject_type' => self::SUBJECT_TYPE,
-            'operation_id' => Operation::whereKey(self::DAILY_MAINTENANCE_5MIN_ID)
-                ->first()->id,
-            'conditions' => $conditions,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ];
-
-        OperationRule::insert($rules);
-    }
-
     private function seed(
         int $taskGroupId,
         array $departmentIds,
@@ -226,10 +165,11 @@ class DailyMaintenanceMigration implements DataMigration
         string $timestamp
     ) {
         $rules = [];
+        $departmentRules = [];
 
         foreach ($departmentIds as $departmentId) {
 
-            $taskBatchDepartmentGroupId = DB::table('tms_task_batch_department_group')->insertGetId(
+            $departmentTaskGroupId = DB::table('tms_task_batch_department_task_group')->insertGetId(
                 [
                     'department_id' => $departmentId,
                     'task_group_id' => $taskGroupId,
@@ -238,9 +178,9 @@ class DailyMaintenanceMigration implements DataMigration
             );
 
             foreach ($taskItemGroups as $tig) {
-                DB::table('tms_task_batch_department_group_items')->upsert(
+                $tbdtgiId = DB::table('tms_task_batch_department_task_group_items')->insertGetId(
                     [
-                        'tbdg_id' => $taskBatchDepartmentGroupId,
+                        'department_task_group_id' => $departmentTaskGroupId,
                         'task_item_group_id' => $tig->id,
                         // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
                         'label' => $tig->title,
@@ -248,12 +188,11 @@ class DailyMaintenanceMigration implements DataMigration
                         'created_at' => $timestamp,
                         'updated_at' => $timestamp,
                     ],
-                    ['tbdg_id', 'task_item_group_id']
                 );
 
                 foreach ($operationIds as $operationId) {
-                    $rules[] = [
-                        'task_item_group_id' => $tig->id,
+                    $departmentRules[] = [
+                        'department_task_group_item_id' => $tbdtgiId,
                         'subject_type' => self::SUBJECT_TYPE,
                         'operation_id' => $operationId,
                         'conditions' => $conditions,
@@ -264,6 +203,6 @@ class DailyMaintenanceMigration implements DataMigration
             }
         }
 
-        OperationRule::insert($rules);
+        DepartmentOperationRule::insert($departmentRules);
     }
 }

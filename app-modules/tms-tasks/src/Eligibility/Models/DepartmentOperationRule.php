@@ -2,14 +2,12 @@
 
 namespace Dpb\Modules\Tasks\Eligibility\Models;
 
-use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Dpb\WorkTimeFund\Models\Operation as WtfOperation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class OperationRule extends Model
+class DepartmentOperationRule extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -17,7 +15,7 @@ class OperationRule extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'task_item_group_id',
+        'tbdgi_id', // task batch department group item
         'subject_type',
         'operation_id',
         'conditions',
@@ -29,16 +27,16 @@ class OperationRule extends Model
 
     public function getTable()
     {
-        return config('pkg-task-ms.table_prefix') . 'operation_rules';
+        return config('pkg-task-ms.table_prefix') . 'task_batch_department_operation_rules';
     }
 
-    public function taskItemGroup(): BelongsTo
-    {
-        return $this->belongsTo(
-            TaskItemGroup::class,
-            'task_item_group_id'
-        );
-    }
+    // public function taskItemGroup(): BelongsTo
+    // {
+    //     return $this->belongsTo(
+    //         TaskItemGroup::class,
+    //         'task_item_group_id'
+    //     );
+    // }
 
     public function operation(): BelongsTo
     {

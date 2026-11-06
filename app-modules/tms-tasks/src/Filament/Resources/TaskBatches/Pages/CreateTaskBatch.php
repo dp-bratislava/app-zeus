@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages;
 
+use App\Concerns\RedirectsOnDepartmentChange;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchCreateFormMapperResolver;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
@@ -13,10 +14,25 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\On;
+use Override;
+use RuntimeException;
 
 class CreateTaskBatch extends CreateRecord
 {
+    use RedirectsOnDepartmentChange;
+
     protected static string $resource = TaskBatchResource::class;
+
+    protected function handleAccessibleDepartmentChange(): void
+    {
+        $this->redirect(static::getResource()::getUrl('create'));
+    }
+
+    #[Override]
+    protected function canStillAccessPage(): bool
+    {
+        return static::getResource()::canViewAny();
+    }
 
     public function form(Schema $schema): Schema
     {

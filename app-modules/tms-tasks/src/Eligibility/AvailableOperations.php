@@ -2,7 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Eligibility;
 
-use Dpb\Modules\Tasks\Eligibility\Models\OperationRule;
+use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRuleView;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -13,33 +13,34 @@ final class AvailableOperations
     ) {}
 
     public function for(
+        int $departmentId,
         int $taskItemGroupId,
         Model $subject,
     ): Collection {
-        $evaluator = $this->evaluators->resolve($subject->getMorphClass());
+        $subjectType = $subject->getMorphClass();
 
-        $subjectType = array_search(
-            $subject::class,
-            \Illuminate\Database\Eloquent\Relations\Relation::morphMap(),
-            true,
-        );
+        $evaluator = $this->evaluators->resolve($subjectType);
 
-        $subjectType = $subjectType ?: $subject->getMorphClass();
-
-        $rules = OperationRule::query()
+        $rules = DepartmentOperationRuleView::query()
+            ->where('department_id', $departmentId)
             ->where('task_item_group_id', $taskItemGroupId)
             ->where('subject_type', $subjectType)
             ->with('operation')
             ->get();
 
         return $rules
-            ->filter(fn (OperationRule $rule) =>
+            ->filter(
+                fn(DepartmentOperationRuleView $rule) =>
                 $evaluator->matches(
                     $subject,
                     $rule->conditions ?? [],
                 )
             )
-            ->map(fn (OperationRule $rule) => $rule->operation)
+            ->map(
+                fn(DepartmentOperationRuleView $rule) =>
+                $rule->operation
+            )
+            ->filter()
             ->unique('id')
             ->values();
     }

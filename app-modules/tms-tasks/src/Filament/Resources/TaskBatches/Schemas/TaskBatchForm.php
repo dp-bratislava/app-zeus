@@ -45,8 +45,11 @@ class TaskBatchForm
                         if (! $tgId) {
                             return [];
                         }
-                        $departmentId = app(DepartmentService::class)->getActiveDepartment()->id;
-                        // dd($departmentId, $tgId);
+
+                        $departmentId = app(DepartmentService::class)
+                            ->getActiveDepartment()
+                            ->id;
+
                         $mode = app(TaskGroupModeResolver::class)
                             ->resolve($tgId, $departmentId);
 

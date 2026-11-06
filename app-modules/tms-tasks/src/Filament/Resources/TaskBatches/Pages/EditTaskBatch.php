@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Pages;
 
+use App\Concerns\RedirectsOnDepartmentChange;
 use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\BackToViewAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchUpdateFormMapperResolver;
@@ -15,10 +16,25 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\On;
+use Override;
+use RuntimeException;
 
 class EditTaskBatch extends EditRecord
 {
+    use RedirectsOnDepartmentChange;
+
     protected static string $resource = TaskBatchResource::class;
+
+    protected function getDepartmentChangeRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
+
+    #[Override]
+    protected function canStillAccessPage(): bool
+    {
+        return static::getResource()::canViewAny();
+    }
 
     protected function getHeaderActions(): array
     {

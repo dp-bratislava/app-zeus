@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers;
 
+use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Eligibility\AvailableOperations;
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
@@ -18,6 +19,7 @@ final class DiverseConfigurationMapper
 
     public function __construct(
         private readonly AvailableOperations $availableOperations,
+        private readonly DepartmentService $departmentService,
         private readonly TaskAssignmentSubjectResolver $subjectResolver,
     ) {}
 
@@ -33,7 +35,9 @@ final class DiverseConfigurationMapper
                 id: (int) $id,
             ));
 
-        $subjects = $this->subjectResolver->resolveMany($subjectReferences);
+        $subjects = $this
+            ->subjectResolver
+            ->resolveMany($subjectReferences);
 
         return [
             'version' => self::VERSION,
@@ -85,8 +89,14 @@ final class DiverseConfigurationMapper
         int $tigId,
         Model $subject,
     ): array {
+        $departmentId = $this->departmentService->getActiveDepartment()->id;
+
         return $this->availableOperations
-            ->for($tigId, $subject)
+            ->for(
+                departmentId: $departmentId,
+                taskItemGroupId: $tigId,
+                subject: $subject
+            )
             ->map(fn(Operation $operation) => (int) $operation->id)
             ->values()
             ->all();

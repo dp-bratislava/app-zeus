@@ -32,7 +32,7 @@ class TaskBatch extends Model
 
     public function getTable()
     {
-        return config('pkg-task-ms.table_prefix') . 'task_batches';
+        return config('pkg-task-ms.table_prefix') . 'task_batch_batches';
     }
 
     public function batch(): BelongsTo

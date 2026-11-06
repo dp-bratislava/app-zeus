@@ -25,7 +25,6 @@ class TaskBatchConfiguration
                 );
 
                 $allContracts = app(TaskBatchLookupScopeService::class)
-                    // ->employeeContracts(app(TaskBatchResourceContext::class));
                     ->employeeContracts(
                         CarbonImmutable::parse(
                             $get(TaskBatchForm::DATE_KEY)
@@ -45,9 +44,9 @@ class TaskBatchConfiguration
                 $subjects = self::getSubjects($selectedVehicleIds);
 
                 $groups = app(TaskBatchLookupScopeService::class)
-                    ->batchableTaskItemGroups()
+                    ->taskItemGroups()
                     ->map(fn($group) => [
-                        'id' => (int) $group->task_item_group_id,
+                        'id' => (int) $group->id,
                         'label' => $group->label,
                         'is_scalable' => $group->is_scalable,
                     ])
@@ -59,7 +58,6 @@ class TaskBatchConfiguration
                     $selectedVehicleIds,
                 );
 
-                // dd($groups);
                 return [
                     Livewire::make(AssignmentMatrix::class, [
                         'subjects' => $subjects,

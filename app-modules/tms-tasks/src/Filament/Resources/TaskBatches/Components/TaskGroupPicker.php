@@ -24,7 +24,7 @@ class TaskGroupPicker
                     TaskBatchLookupScopeService $lookupService
                 ): array => $lookupService
                     ->taskGroups()
-                    ->pluck('title', 'id')
+                    ->pluck('label', 'id')
                     ->toArray()
             )
             ->default(

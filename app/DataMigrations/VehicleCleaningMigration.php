@@ -4,7 +4,7 @@ namespace App\DataMigrations;
 
 use App\DataMigrations\Contracts\DataMigration;
 use Dpb\DatahubSync\Models\Department;
-use Dpb\Modules\Tasks\Eligibility\Models\OperationRule;
+use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRule;
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
 use Dpb\Package\TaskMS\Models\DepartmentAssignment;
 use Dpb\Package\Tasks\Models\TaskGroup;
@@ -17,6 +17,7 @@ class VehicleCleaningMigration implements DataMigration
 {
     private const SUBJECT_TYPE = 'vehicle';
     private const TIG_CODE_PFX = 'cistenie_vozidiel.';
+    private const CLEANING_DEP_CODE = 9486;
 
     public function run(): void
     {
@@ -60,7 +61,10 @@ class VehicleCleaningMigration implements DataMigration
         );
 
         // assign cleaning group to cleaning department
-        $cleaningDepartmentId = Department::where('code', '=', '9486')->first()->id;
+        $cleaningDepartmentId = Department::where('code', '=', self::CLEANING_DEP_CODE)
+            ->first()
+            ->id;
+
         DepartmentAssignment::firstOrCreate([
             'department_id' => $cleaningDepartmentId,
             'subject_id' => $taskGroup->id,
@@ -73,37 +77,43 @@ class VehicleCleaningMigration implements DataMigration
             $taskGroupId = TaskGroup::where('code', 'vehicle-cleaning')
                 ->first()->id;
 
-            $tbdgId = DB::table('tms_task_batch_department_group')->insertGetId(
-                [
-                    'department_id' => $cleaningDepartmentId,
-                    'task_group_id' => $taskGroupId,
-                    'mode' => TaskBatchMode::Diverse->value,
-                ]
-            );
+            $departmentTaskGroupId = DB::table('tms_task_batch_department_task_group')
+                ->insertGetId(
+                    [
+                        'department_id' => $cleaningDepartmentId,
+                        'task_group_id' => $taskGroupId,
+                        'mode' => TaskBatchMode::Diverse->value,
+                    ]
+                );
+
+            $departmentTaskGroupItems = [];
 
             foreach ($taskItemGroups as $tig) {
-                $this->createTaskBatchData(
+                $tigId = TaskItemGroup::where('code', '=', $tig['code'])
+                    ->first()
+                    ->id;
+
+                $departmentTaskGroupItems[$tigId] = $this->createDepartmentTaskGroupItem(
+                    $tigId,
                     $tig,
                     $cleaningDepartmentId,
-                    $tbdgId
+                    $departmentTaskGroupId
                 );
             }
 
-            $this->createOperationRules();
+            $this->createOperationRules($departmentTaskGroupItems);
         });
     }
 
-    private function createTaskBatchData(
+    private function createDepartmentTaskGroupItem(
+        int $tigId,
         array $tig,
         int $departmentId,
-        int $taskBatchDepartmentGroupId
+        int $departmentTaskGroupId
     ) {
-        // items for group - department binding
-        $tigId = TaskItemGroup::where('code', '=', $tig['code'])->first()->id;
-
-        DB::table('tms_task_batch_department_group_items')->upsert(
+        $departmentTgItemId = DB::table('tms_task_batch_department_task_group_items')->insertGetId(
             [
-                'tbdg_id' => $taskBatchDepartmentGroupId,
+                'department_task_group_id' => $departmentTaskGroupId,
                 'task_item_group_id' => $tigId,
                 // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
                 'label' => $tig['title'],
@@ -111,7 +121,6 @@ class VehicleCleaningMigration implements DataMigration
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            ['tbdg_id', 'task_item_group_id']
         );
 
         DepartmentAssignment::firstOrCreate([
@@ -119,10 +128,13 @@ class VehicleCleaningMigration implements DataMigration
             'subject_id' => $tigId,
             'subject_type' => 'task-item-group',
         ]);
+
+        return $departmentTgItemId;
     }
 
-    private function createOperationRules()
-    {
+    private function createOperationRules(
+        array $departmentTaskGroupItems
+    ) {
         // bind operations to task item groups and subject conditions
         $rules = [];
 
@@ -194,12 +206,16 @@ class VehicleCleaningMigration implements DataMigration
 
         foreach ($conditionMap as $categoryTitle => $conditions) {
             $categoryId = Category::where('title', '=', $categoryTitle)
-                ->first()->id;
+                ->first()
+                ->id;
 
             foreach ($tigOperationMap as $tigCode => $operationTitle) {
+                $tigId = TaskItemGroup::where('code', '=', self::TIG_CODE_PFX . $tigCode)
+                        ->first()
+                        ->id;
+
                 $rules[] = [
-                    'task_item_group_id' => TaskItemGroup::where('code', '=', self::TIG_CODE_PFX . $tigCode)
-                        ->first()->id,
+                    'department_task_group_item_id' => $departmentTaskGroupItems[$tigId],
                     'subject_type' => self::SUBJECT_TYPE,
                     'operation_id' => Operation::where('parent_id', '=', $categoryId)
                         ->whereLike('title', $operationTitle)
@@ -208,9 +224,12 @@ class VehicleCleaningMigration implements DataMigration
                 ];
             }
 
+            $tigCleaningBId = TaskItemGroup::where('code', '=', 'cistenie_vozidiel.cistenie_b')->first()->id;
+            $departmentTaskGroupItemId = $departmentTaskGroupItems[$tigCleaningBId];
             $rules = array_merge($rules, $this->cleaningB(
-                $categoryId,
-                $conditions
+                departmentTaskGroupItemId: $departmentTaskGroupItemId,
+                categoryId: $categoryId,
+                conditions: $conditions
             ));
         }
 
@@ -225,23 +244,22 @@ class VehicleCleaningMigration implements DataMigration
             $rules,
         );
 
-        OperationRule::insert($rules);
+        DepartmentOperationRule::insert($rules);
     }
 
     private function cleaningB(
+        int $departmentTaskGroupItemId,
         int $categoryId,
         string $conditions
     ): array {
         $result = [];
-
-        $tigCleaningBId = TaskItemGroup::where('code', '=', 'cistenie_vozidiel.cistenie_b')->first()->id;
 
         $categoryCelaningB = Category::where('parent_id', '=', $categoryId)->first()->id;
         $operations = Operation::where('parent_id', '=', $categoryCelaningB)->pluck('id');
 
         foreach ($operations as $operationId) {
             $result[] = [
-                'task_item_group_id' => $tigCleaningBId,
+                'department_task_group_item_id' => $departmentTaskGroupItemId,
                 'subject_type' => self::SUBJECT_TYPE,
                 'operation_id' => $operationId,
                 'conditions' => $conditions,

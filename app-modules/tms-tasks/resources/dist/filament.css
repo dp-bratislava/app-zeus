@@ -5,7 +5,7 @@
 }
 
 .vehicle-tasks-repeater tbody tr:hover {
-    background-color: rgb(243 244 246);
+    background-color: rgb(243, 244, 246);
 }
 
 .big-checkbox input[type="checkbox"] {

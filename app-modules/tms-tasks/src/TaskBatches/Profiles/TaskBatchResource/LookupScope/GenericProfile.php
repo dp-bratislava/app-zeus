@@ -6,12 +6,11 @@ use Carbon\CarbonImmutable;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleType;
-use Dpb\Package\Tasks\Models\TaskGroup;
-use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchLookupScopeProfile;
+use Dpb\Modules\Tasks\TaskBatches\Models\DepartmentTaskGroupView;
+use Dpb\Modules\Tasks\TaskBatches\Models\DepartmentTaskItemGroupView;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -68,19 +67,12 @@ class GenericProfile implements TaskBatchLookupScopeProfile
 
     public function taskGroups(TaskBatchResourceContext $context): Collection
     {
-        return TaskGroup::query()
-            // ->from('tsk_task_groups as tg')
-            ->join(
-                'tms_task_batch_department_group as tbdg',
-                'tbdg.task_group_id',
-                '=',
-                'tsk_task_groups.id'
-            )
-            ->where('tbdg.department_id', $context->departmentContext->departmentId)
-            ->whereIn('tsk_task_groups.id', $context->departmentContext->taskGroupIds)
+        return DepartmentTaskGroupView::query()
+            ->where('department_id', $context->departmentContext->departmentId)
+            ->whereIn('task_group_id', $context->departmentContext->taskGroupIds)
             ->get([
-                'tsk_task_groups.id',
-                'tsk_task_groups.title',
+                'task_group_id as id',
+                'task_group_label as label',
             ]);
     }
 
@@ -94,40 +86,15 @@ class GenericProfile implements TaskBatchLookupScopeProfile
     public function taskItemGroups(
         TaskBatchResourceContext $context,
     ): Collection {
-        return TaskItemGroup::query()
-            ->whereIn('id', $context->departmentContext->taskItemGroupIds)
-            ->get();
-    }
-
-    // public function taskBatchGroups(
-    //     TaskBatchResourceContext $context,
-    // ): SupportCollection {
-    //     return DB::table('tms_task_batch_groups as tbg')
-    //         ->join(
-    //             'tms_task_batch_department_group as tbdg',
-    //             'tbg.id',
-    //             '=',
-    //             'tbdg.id',
-    //         )
-    //         ->where('tbdg.department_id', $context->departmentContext->departmentId)
-    //         ->get();
-    // }
-
-    public function batchableTaskItemGroups(
-        TaskBatchResourceContext $context,
-    ): SupportCollection {
-        // return DB::table('tms_task_batch_department_tigs')
-        //     ->where('department_id', $context->departmentContext->departmentId)
-        // ->get();
-        return DB::table('tms_task_batch_department_group_items as tbdgi')
-            ->join(
-                'tms_task_batch_department_group as tbdg',
-                'tbdgi.tbdg_id',
-                '=',
-                'tbdg.id',
-            )
-            ->where('tbdg.department_id', $context->departmentContext->departmentId)
-            ->get();
+        return DepartmentTaskItemGroupView::query()
+            ->where('department_id', $context->departmentContext->departmentId)
+            ->whereIn('task_group_id', $context->departmentContext->taskGroupIds)
+            ->get([
+                'task_group_id',
+                'task_item_group_id as id',
+                'task_item_group_label as label',
+                'is_scalable'
+            ]); 
     }
 
     public function vehicleTypes(

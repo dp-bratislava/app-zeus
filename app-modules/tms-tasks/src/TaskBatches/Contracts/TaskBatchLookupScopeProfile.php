@@ -5,7 +5,6 @@ namespace Dpb\Modules\Tasks\TaskBatches\Contracts;
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
 
 interface TaskBatchLookupScopeProfile
 {
@@ -13,8 +12,6 @@ interface TaskBatchLookupScopeProfile
     public function taskSubjects(TaskBatchResourceContext $context): array;
     public function taskGroups(TaskBatchResourceContext $context): Collection;
     public function taskItemGroups(TaskBatchResourceContext $context): Collection;
-    // public function taskBatchGroups(TaskBatchResourceContext $context): SupportCollection;
-    public function batchableTaskItemGroups(TaskBatchResourceContext $context): SupportCollection;
     public function maintenanceGroups(TaskBatchResourceContext $context): array;
     public function vehicleTypes(TaskBatchResourceContext $context): Collection;
 }

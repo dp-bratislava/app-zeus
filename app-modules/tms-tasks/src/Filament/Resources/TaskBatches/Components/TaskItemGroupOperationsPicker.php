@@ -2,6 +2,7 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
+use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Operations\OperationOptions;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Operations\TaskItemGroupOptions;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
@@ -15,40 +16,28 @@ use Filament\Schemas\Components\Utilities\Set;
 
 final class TaskItemGroupOperationsPicker
 {
-    private static function operationsPicker1(): Component
-    {
-        return Group::make()
-            ->schema(function (Get $get): array {
-                $selected = $get(
-                    UniformTaskBatchSchema::TIG_PICKER_KEY
-                ) ?? [];
-
-                return collect($selected)
-                    ->map(fn($tigId) => self::operationPicker((int) $tigId))
-                    ->all();
-            })
-            ->key(UniformTaskBatchSchema::OPERATION_PICKER_CONTAINER_KEY);
-    }
-
-    private static function operationsPickers(): Component
-    {
+    private static function operationsPickers(
+        int $departmentId
+    ): Component {
         return Section::make(
             __('dpb-mod-tasks::task-batch.form.fields.operations')
         )
-            ->schema(function (Get $get): array {
+            ->schema(function (Get $get) use ($departmentId): array {
                 return collect(
                     $get(UniformTaskBatchSchema::TIG_PICKER_KEY) ?? []
                 )
-                    ->map(fn($tigId) => self::operationPicker((int) $tigId))
+                    ->map(fn($tigId) => self::operationPicker($departmentId, (int) $tigId))
                     ->values()
                     ->all();
             })
-            // ->key('dynamicOperationPickers');
             ->key(UniformTaskBatchSchema::OPERATION_PICKER_CONTAINER_KEY);
     }
 
-    private static function operationPicker(int $tigId): Component
-    {
+    private static function operationPicker(
+        int $departmentId,
+        int $tigId
+    ): Component {
+
         return ToggleButtons::make(
             UniformTaskBatchSchema::OPERATION_PICKER_KEY . '.' . $tigId
         )
@@ -56,19 +45,24 @@ final class TaskItemGroupOperationsPicker
             ->label(
                 fn(Get $get, TaskItemGroupOptions $options): string =>
                 $options->labelFor(
-                    $tigId,
-                    (int) $get(TaskBatchForm::TASK_GROUP_PICKER_KEY),
+                    departmentId: $departmentId,
+                    taskItemGroupId: $tigId,
+                    taskGroupId: (int) $get(TaskBatchForm::TASK_GROUP_PICKER_KEY),
                 )
             )
             ->multiple()
             ->options(
-                fn(OperationOptions $options): array =>
-                $options->forTaskItemGroup($tigId)
+                function (OperationOptions $options) use ($departmentId, $tigId): array {
+                    return $options->for(
+                        departmentId: $departmentId,
+                        taskItemGroupId: $tigId,
+                    );
+                }
             )
             ->inline();
     }
 
-    private static function taskItemGroupPicker(): Component
+    private static function taskItemGroupPicker(int $departmentId): Component
     {
         return ToggleButtons::make(
             UniformTaskBatchSchema::TIG_PICKER_KEY
@@ -77,7 +71,8 @@ final class TaskItemGroupOperationsPicker
             ->multiple()
             ->options(
                 fn(Get $get, TaskItemGroupOptions $options): array =>
-                $options->forTaskGroup(
+                $options->for(
+                    $departmentId,
                     (int) $get(TaskBatchForm::TASK_GROUP_PICKER_KEY)
                 )
             )
@@ -87,49 +82,67 @@ final class TaskItemGroupOperationsPicker
                 Get $get,
                 Set $set,
                 ToggleButtons $component,
-            ): void {
+                OperationOptions $operationOptions,
+            ) use ($departmentId): void {
                 $selectedIds = collect(
                     $get(UniformTaskBatchSchema::TIG_PICKER_KEY) ?? []
                 )
                     ->map(fn($id) => (string) $id)
                     ->all();
 
-                // Preserve operation selections for groups that remain selected.
                 $currentOperations = $get(
                     UniformTaskBatchSchema::OPERATION_PICKER_KEY
                 ) ?? [];
 
-                $preservedOperations = array_intersect_key(
+                // Preserve selections for groups that remain selected.
+                $operations = array_intersect_key(
                     $currentOperations,
                     array_flip($selectedIds),
                 );
 
-                // Initialise only newly selected groups.
-                foreach ($selectedIds as $id) {
-                    $preservedOperations[$id] ??= [];
+                // Initialise newly selected groups.
+                foreach ($selectedIds as $tigId) {
+                    if (array_key_exists($tigId, $operations)) {
+                        continue;
+                    }
+
+                    $availableOperations = $operationOptions->for(
+                        departmentId: $departmentId,
+                        taskItemGroupId: (int) $tigId,
+                    );
+
+                    $operations[$tigId] = count($availableOperations) === 1
+                        ? [(int) array_key_first($availableOperations)]
+                        : [];
                 }
 
-                // Initialise the newly generated dynamic fields.
+                // Initialise dynamically generated fields.
                 $component
                     ->getContainer()
-                    ->getComponent(UniformTaskBatchSchema::OPERATION_PICKER_CONTAINER_KEY)
+                    ->getComponent(
+                        UniformTaskBatchSchema::OPERATION_PICKER_CONTAINER_KEY
+                    )
                     ->getChildSchema()
                     ->fill();
 
-                // Restore selections after fill().
+                // Restore preserved selections and initialise new ones.
                 $set(
                     UniformTaskBatchSchema::OPERATION_PICKER_KEY,
-                    $preservedOperations,
+                    $operations,
                 );
             });
     }
 
     public static function make(): Component
     {
+        $departmentId = app(DepartmentService::class)
+            ->getActiveDepartment()
+            ->id;
+
         return Group::make()
             ->schema([
-                self::taskItemGroupPicker(),
-                self::operationsPickers(),
+                self::taskItemGroupPicker($departmentId),
+                self::operationsPickers($departmentId),
             ]);
     }
 }

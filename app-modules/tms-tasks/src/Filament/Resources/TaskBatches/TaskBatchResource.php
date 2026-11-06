@@ -57,13 +57,6 @@ class TaskBatchResource extends Resource
         return TaskBatchesTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
@@ -73,14 +66,4 @@ class TaskBatchResource extends Resource
             'view' => ViewTaskBatch::route('/{record}'),
         ];
     }
-
-    // public static function getEloquentQuery(): Builder
-    // {
-    //     return parent::getEloquentQuery()
-    //         ->with([
-    //             // 'subjects.subject.model',
-    //             // 'subjects.subject.codes',
-    //             // 'subjects.subject.licencePlates',
-    //         ]);
-    // }
 }

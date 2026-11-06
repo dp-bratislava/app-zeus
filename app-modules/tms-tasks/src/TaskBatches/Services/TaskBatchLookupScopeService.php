@@ -67,13 +67,4 @@ class TaskBatchLookupScopeService
             ->resolve($context->departmentContext->departmentGroup)
             ->taskItemGroups($context);
     }    
-
-    public function batchableTaskItemGroups(): SupportCollection
-    {
-        $context = $this->factory->make();
-
-        return $this->resolver
-            ->resolve($context->departmentContext->departmentGroup)
-            ->batchableTaskItemGroups($context);
-    }     
 }

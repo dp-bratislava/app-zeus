@@ -2,7 +2,8 @@
 
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Operations;
 
-use Dpb\Package\Tasks\Models\TaskItemGroup;
+use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRuleView;
+use Dpb\WorkTimeFund\Models\Operation;
 use Illuminate\Support\Facades\DB;
 
 final class OperationOptions
@@ -10,38 +11,22 @@ final class OperationOptions
     /**
      * @return array<int, string>
      */
-    public function forTaskItemGroup(
+    public function for(
+        int $departmentId,
         int $taskItemGroupId,
     ): array {
-        $relatedType = TaskItemGroup::class;
+        $dorTable = (new  DepartmentOperationRuleView)->getTable();
+        $operationTable = (new  Operation)->getTable();
 
-        // $query = DB::table('dpb_worktimefund_model_operation as o')
-        //     ->join(
-        //         'dpb_worktimefund_mm_categoryrelations as cr',
-        //         'o.parent_id',
-        //         '=',
-        //         'cr.category_id'
-        //     )
-        //     ->where('cr.related_type', '=', $relatedType)
-        //     ->where('cr.related_id', '=', $taskItemGroupId);
-        // // dd($query->toRawSql());
-
-        // return $query
-        //     ->pluck('o.title', 'o.id')
-        //     ->mapWithKeys(fn($label, $id) => [
-        //         (int) $id => $label,
-        //     ])
-        //     ->all();
-
-        return DB::table('dpb_worktimefund_model_operation as o')
+        return DB::table($dorTable . ' as dor') 
             ->join(
-                'dpb_worktimefund_mm_categoryrelations as cr',
-                'o.parent_id',
+                $operationTable . ' as o',
+                'o.id',
                 '=',
-                'cr.category_id',
+                'dor.operation_id',
             )
-            ->where('cr.related_type', TaskItemGroup::class)
-            ->where('cr.related_id', $taskItemGroupId)
+            ->where('dor.department_id', '=', $departmentId)
+            ->where('dor.task_item_group_id', '=', $taskItemGroupId)
             ->orderBy('o.title')
             ->get([
                 'o.id as operation_id',
