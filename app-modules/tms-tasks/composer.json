@@ -1,0 +1,33 @@
+{
+    "name": "dpb/mod-tasks",
+    "type": "library",
+    "version": "1.0",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Andrej",
+            "email": "horny.andrej@dpb.sk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dpb\\Modules\\Tasks\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "dpb/dpb-work-time-fund-filament": "^12.5.0",
+        "dpb/dpb-master-permission-guard": "^12.5.1",
+        "dpb/dpb-work-time-fund": "^12.5.0",
+        "dpb/pkg-task-ms-ui": "^12.5.0",
+        "dpb/dpb-departments": "^12.0",
+        "dpb/pkg-assets": "^1.0.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dpb\\Modules\\Tasks\\Providers\\TasksModuleServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,164 @@
+<?php
+
+namespace Dpb\Modules\Tasks\TaskBatches\Workflows;
+
+use Dpb\Modules\Tasks\TaskBatches\Commands\CreateTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\Commands\ReconcileTaskAssignmentsCommand;
+use Dpb\Modules\Tasks\TaskBatches\DTO\CreateTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\DeleteTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\ReconcileTaskAssignmentsWorkflowResult;
+use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\CreateTaskAssignmentsWorkflow;
+use Dpb\Modules\Tasks\TaskBatches\Workflows\DeleteTaskAssignmentsWorkflow;
+use Dpb\Package\TaskMS\Models\TaskAssignment;
+use Dpb\Package\Tasks\Models\Task;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+
+class ReconcileTaskAssignmentsWorkflow
+{
+    public function __construct(
+        private CreateTaskAssignmentsWorkflow $taCWorkflow,
+        private DeleteTaskAssignmentsWorkflow $taDWorkflow,
+
+    ) {}
+
+    public function execute(
+        ReconcileTaskAssignmentsCommand $command,
+    ): ReconcileTaskAssignmentsWorkflowResult {
+        $existingAssignments = $this->getExistingTaskAssignments(
+            $command->batchId
+        );
+
+        $existingAssignmentsBySubject = $existingAssignments->keyBy(
+            fn($assignment) =>
+            "{$assignment->subject_type}:{$assignment->subject_id}"
+        );
+
+        $desiredSubjects = collect($command->taskConfigs)->keyBy(
+            fn(TaskBatchTaskConfig $taskConfig) =>
+            "{$taskConfig->subject->type->value}:{$taskConfig->subject->id}"
+        );
+
+        $subjectsToCreateAssignmentsFor = $desiredSubjects->diffKeys($existingAssignmentsBySubject);
+        $assignmentsToDelete = $existingAssignmentsBySubject->diffKeys($desiredSubjects);
+        $assignmentsToKeep = $existingAssignmentsBySubject->intersectByKeys($desiredSubjects);
+
+        // dd($desiredSubjects, $existingAssignmentsBySubject);
+        // create
+        $taCWfResult = $this->createAssignments($subjectsToCreateAssignmentsFor, $command);
+
+        // delete
+        $deleteRecords = $this->deleteAssignments($assignmentsToDelete);
+
+        // update
+        $taskIds = $assignmentsToKeep->pluck('task_id')->all();
+
+        $this->updateAssignments(
+            $taskIds,
+            $command,
+        );
+
+        return new ReconcileTaskAssignmentsWorkflowResult(
+            recordsToCreate: array_merge(
+                $taCWfResult?->batchRecords ?? [],
+                // $tiReconcileWfResult->recordsToCreate
+            ),
+            recordsToDelete: array_merge(
+                $deleteRecords?->batchRecords ?? [],
+                // $tiReconcileWfResult->recordsToDelete
+            )
+        );
+    }
+
+    private function getExistingTaskAssignments(
+        int $batchId,
+    ): Collection {
+        $taskAssignmentMorph = app(TaskAssignment::class)->getMorphClass();
+
+        return DB::table('dpb_batchable_batch_records as br')
+            ->join(
+                'tms_task_assignments as ta',
+                'ta.id',
+                '=',
+                'br.record_id'
+            )
+            ->where('br.batch_id', $batchId)
+            ->where('br.record_type', $taskAssignmentMorph)
+            ->whereNull('ta.deleted_at')
+            ->get([
+                'ta.id',
+                'ta.subject_id',
+                'ta.subject_type',
+                'ta.task_id',
+            ]);
+    }
+
+    private function createAssignments(
+        Collection $subjectsToCreateFor,
+        ReconcileTaskAssignmentsCommand $command
+    ): ?CreateTaskAssignmentsWorkflowResult {
+        if ($subjectsToCreateFor->isEmpty()) {
+            return null;
+        }
+
+        $taskConfigs = $this->filterTaskConfigsBySubjects(
+            $command->taskConfigs,
+            $subjectsToCreateFor
+        );
+
+        return $this->taCWorkflow
+            ->execute(new CreateTaskAssignmentsCommand(
+                date: $command->date,
+                taskGroupId: $command->taskGroupId,
+                taskConfigs: $taskConfigs,
+                context: $command->context
+            ));
+    }
+
+    private function deleteAssignments(
+        Collection $assignmentsToDelete
+    ): ?DeleteTaskAssignmentsWorkflowResult {
+        if ($assignmentsToDelete->isEmpty()) {
+            return null;
+        }
+
+        return $this->taDWorkflow
+            ->execute($assignmentsToDelete->pluck('id')->toArray());
+    }
+
+    private function updateAssignments(
+        array $taskIds,
+        ReconcileTaskAssignmentsCommand $command,
+    ): void {
+        TaskAssignment::query()
+            ->whereIn('task_id', $taskIds)
+            ->update([
+                'author_id' => $command->context->authorId,
+                'updated_at' => $command->context->handledAt,
+            ]);
+
+        Task::query()
+            ->whereIn('id', $taskIds)
+            ->update([
+                // 'group_id' => $command->taskGroupId,
+                'date' => $command->date,
+                'updated_at' => $command->context->handledAt,
+            ]);
+    }
+
+    private function filterTaskConfigsBySubjects(
+        Collection $taskConfigs,
+        Collection $subjects
+    ): Collection {
+
+        return $taskConfigs
+            ->filter(
+                fn(TaskBatchTaskConfig $config) =>
+                $subjects->has(
+                    "{$config->subject->type->value}:{$config->subject->id}"
+                )
+            )
+            ->values();
+    }
+}
