@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-09 - 1.0.19
+### Fixed
+- Report for controlling
+
+## 2026-11-05 - 1.0.18
+### Fixed
+- Report snapshots update
+
 ## 2026-09-15 - 1.0.15
 ### Added
 - Batch category operations assignment
