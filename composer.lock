@@ -1441,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/dpb-wtf-tms-bridge.git",
-                "reference": "88c2c2e455d7cfdfd046d5eaeaa690a50147fd67"
+                "reference": "fcae962ea0dd27838cd6bf94e2e2c951c8373f47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/88c2c2e455d7cfdfd046d5eaeaa690a50147fd67",
-                "reference": "88c2c2e455d7cfdfd046d5eaeaa690a50147fd67",
+                "url": "https://api.github.com/repos/dp-bratislava/dpb-wtf-tms-bridge/zipball/fcae962ea0dd27838cd6bf94e2e2c951c8373f47",
+                "reference": "fcae962ea0dd27838cd6bf94e2e2c951c8373f47",
                 "shasum": ""
             },
             "require": {
@@ -1455,7 +1455,7 @@
                 "dpb/dpb-work-time-fund": "^12.5.0",
                 "dpb/dpb-work-time-fund-filament": "^12.5.0",
                 "dpb/pkg-assets": "^1.0.0",
-                "dpb/pkg-task-ms-ui": "^12.5.6"
+                "dpb/pkg-task-ms-ui": "^12.5.7"
             },
             "type": "library",
             "extra": {
@@ -1483,7 +1483,7 @@
                 "source": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/tree/fero/agregaty-merged-with-main",
                 "issues": "https://github.com/dp-bratislava/dpb-wtf-tms-bridge/issues"
             },
-            "time": "2026-11-06T09:52:13+00:00"
+            "time": "2026-11-09T14:52:56+00:00"
         },
         {
             "name": "dpb/ext-spatie-model-states",
@@ -2175,12 +2175,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-task-ms-ui.git",
-                "reference": "4871840cdb757eae8824c4c53f602cbdb4048987"
+                "reference": "35b59a9910fc39190ee7c3306c646cee1c74d103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/4871840cdb757eae8824c4c53f602cbdb4048987",
-                "reference": "4871840cdb757eae8824c4c53f602cbdb4048987",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-task-ms-ui/zipball/35b59a9910fc39190ee7c3306c646cee1c74d103",
+                "reference": "35b59a9910fc39190ee7c3306c646cee1c74d103",
                 "shasum": ""
             },
             "require": {
@@ -2218,7 +2218,7 @@
                 "source": "https://github.com/dp-bratislava/pkg-task-ms-ui/tree/main",
                 "issues": "https://github.com/dp-bratislava/pkg-task-ms-ui/issues"
             },
-            "time": "2026-09-29T12:53:53+00:00"
+            "time": "2026-11-09T14:50:02+00:00"
         },
         {
             "name": "dpb/pkg-tasks",
