@@ -4,7 +4,6 @@ namespace Dpb\Modules\Tasks\TaskBatches\Commands;
 
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchHandlerContext;
-use Dpb\Modules\Tasks\TaskBatches\DTO\SubjectTaskConfig;
 
 final readonly class CreateTaskBatchCommand
 {

@@ -8,16 +8,10 @@ use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskAssignmentSubjectResolver;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
-use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchRecordScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\TaskMS\UI\Filament\Components\FleetVehiclePicker;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\SelectFilter;
@@ -91,8 +85,6 @@ class TaskBatchesTable
             ->filters([
                 DateRangeFilter::make('date')
                     ->label(__('dpb-mod-tasks::task-batch.table.filters.date')),
-                // self::taskItemGroupFilter(),
-                // self::subjectFilter(),
                 self::taskGroupFilter(),
 
             ])
@@ -103,39 +95,7 @@ class TaskBatchesTable
             ->headerActions([
                 CreateTaskBatchAction::make('create_action')
                     ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action')),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    // DeleteBulkAction::make(),
-                ]),
             ]);
-    }
-
-    private static function subjectFilter(): Filter
-    {
-        return Filter::make('subject')
-            ->schema([
-                FleetVehiclePicker::make('subject')
-                    ->options([])
-                    ->getSearchResultsUsing(null)
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->searchable()
-                    ->multiple()
-                    ->label(__('dpb-mod-tasks::task-batch.table.filters.subject')),
-            ])
-            ->query(function (Builder $query, array $data): Builder {
-                return $query
-                    ->when(
-                        $data['subject'],
-                        fn(Builder $query, $subject): Builder => $query->whereHas('subjects', function ($q) use ($subject) {
-                            $q->whereMorphedTo(
-                                'subject',
-                                app(Vehicle::class)->getMorphClass(),
-                            )
-                                ->whereIn('subject_id', $subject);
-                        })
-                    );
-            });
     }
 
     private static function taskItemGroupFilter(): SelectFilter

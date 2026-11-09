@@ -1908,15 +1908,14 @@
             "dist": {
                 "type": "path",
                 "url": "app-modules/tms-tasks",
-                "reference": "e5be30ba8dc56db9332dc0e66eebef9e51450feb"
+                "reference": "3dc3812ce2ad18e0e642d72e5d2a7bb579384b2d"
             },
             "require": {
                 "dpb/dpb-departments": "^12.0",
                 "dpb/dpb-master-permission-guard": "^12.5.1",
                 "dpb/dpb-work-time-fund": "^12.5.0",
                 "dpb/dpb-work-time-fund-filament": "^12.5.0",
-                "dpb/pkg-assets": "^1.0.0",
-                "dpb/pkg-task-ms-ui": "^12.5.0"
+                "dpb/pkg-batchable": "^12.0"
             },
             "type": "library",
             "extra": {
@@ -1991,53 +1990,6 @@
                 "issues": "https://github.com/dp-bratislava/pkg-activities/issues"
             },
             "time": "2026-01-23T12:22:22+00:00"
-        },
-        {
-            "name": "dpb/pkg-assets",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:dp-bratislava/pkg-assets.git",
-                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-assets/zipball/e17f59ae0ee730c312e452e4b3231b3adc5e7918",
-                "reference": "e17f59ae0ee730c312e452e4b3231b3adc5e7918",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^11.0|^12.0",
-                "illuminate/support": "^11.0|^12.0",
-                "spatie/laravel-package-tools": "^1.92"
-            },
-            "type": "package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Dpb\\Package\\Assets\\Providers\\AssetServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dpb\\Package\\Assets\\": "src/"
-                }
-            },
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Andrej",
-                    "email": "horny.andrej@dpb.sk"
-                }
-            ],
-            "support": {
-                "source": "https://github.com/dp-bratislava/pkg-assets/tree/v1.0.4",
-                "issues": "https://github.com/dp-bratislava/pkg-assets/issues"
-            },
-            "time": "2026-09-03T07:46:50+00:00"
         },
         {
             "name": "dpb/pkg-batchable",
@@ -2433,16 +2385,16 @@
         },
         {
             "name": "dpb/pkg-tasks",
-            "version": "v12.0.7",
+            "version": "v12.0.8",
             "source": {
                 "type": "git",
                 "url": "git@github.com:dp-bratislava/pkg-tasks.git",
-                "reference": "22902c3bba59559104adf64381373f0aa3799046"
+                "reference": "bfb880f315556d80a852427e3298e143feed2b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/22902c3bba59559104adf64381373f0aa3799046",
-                "reference": "22902c3bba59559104adf64381373f0aa3799046",
+                "url": "https://api.github.com/repos/dp-bratislava/pkg-tasks/zipball/bfb880f315556d80a852427e3298e143feed2b89",
+                "reference": "bfb880f315556d80a852427e3298e143feed2b89",
                 "shasum": ""
             },
             "require": {
@@ -2475,10 +2427,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.7",
+                "source": "https://github.com/dp-bratislava/pkg-tasks/tree/v12.0.8",
                 "issues": "https://github.com/dp-bratislava/pkg-tasks/issues"
             },
-            "time": "2026-08-12T10:58:16+00:00"
+            "time": "2026-11-09T15:12:48+00:00"
         },
         {
             "name": "dpb/pkg-tickets",

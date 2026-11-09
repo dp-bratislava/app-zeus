@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataMigrations;
+namespace App\DataMigrations\TaskBatch;
 
 use App\DataMigrations\Contracts\DataMigration;
 use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRule;

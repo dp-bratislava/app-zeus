@@ -71,7 +71,7 @@ class TasksModuleServiceProvider extends ServiceProvider
         FilamentAsset::register([
             Css::make(
                 'dpb-mod-tasks',
-                __DIR__ . '/../resources/dist/filament.css',
+                __DIR__ . '/../../resources/dist/filament.css',
             ),
         ], package: 'dpb/mod-tasks');
     }
