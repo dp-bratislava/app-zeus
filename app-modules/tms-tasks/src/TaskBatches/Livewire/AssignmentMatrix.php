@@ -203,7 +203,7 @@ class AssignmentMatrix extends Component
 
     private function notifyParent(): void
     {
-        logger()->debug('AssignmentMatrix dispatching event');
+        // logger()->debug('AssignmentMatrix dispatching event');
 
         $this->dispatch(
             'assignment-matrix-updated',

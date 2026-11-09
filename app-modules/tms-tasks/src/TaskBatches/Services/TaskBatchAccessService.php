@@ -4,6 +4,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Services;
 
 use Dpb\Modules\Tasks\TaskBatches\Factories\TaskAssignmentContextFactory;
 use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskAssignmentAccessResolver;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchAccessResolver;
 use Dpb\Package\Tasks\Models\TaskItem;
@@ -24,13 +25,13 @@ class TaskBatchAccessService
             ->canViewAny($context);
     }
 
-    public function canView(): bool
+    public function canView(TaskBatch $record): bool
     {
         $context = $this->factory->make();
 
         return $this->resolver
             ->resolve($context->departmentContext->departmentGroup)
-            ->canView($context);
+            ->canView($record, $context);
     }
 
     public function canCreate(): bool
@@ -42,22 +43,22 @@ class TaskBatchAccessService
             ->canCreate($context);
     }
 
-    public function canUpdate(): bool
+    public function canUpdate(TaskBatch $record): bool
     {
         $context = $this->factory->make();
 
         return $this->resolver
             ->resolve($context->departmentContext->departmentGroup)
-            ->canUpdate($context);
+            ->canUpdate($record, $context);
     }
 
-    public function canDelete(): bool
+    public function canDelete(TaskBatch $record): bool
     {
         $context = $this->factory->make();
 
         return $this->resolver
             ->resolve($context->departmentContext->departmentGroup)
-            ->canDelete($context);
+            ->canDelete($record, $context);
     }
 
     // public function canCreateTaskItem(): bool

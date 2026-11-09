@@ -6,8 +6,11 @@ use Dpb\Modules\Tasks\Eligibility\SubjectEvaluatorRegistry;
 use Dpb\Modules\Tasks\Eligibility\VehicleRuleEvaluator;
 use Dpb\Modules\Tasks\Filament\Plugins\TaskBatchPlugin;
 use Dpb\Modules\Tasks\TaskBatches\Livewire\AssignmentMatrix;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
+use Dpb\Modules\Tasks\TaskBatches\Policies\TaskBatchPolicy;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -48,6 +51,7 @@ class TasksModuleServiceProvider extends ServiceProvider
 
         // $this->registerResourceTabs();
 
+        Gate::policy(TaskBatch::class, TaskBatchPolicy::class);
 
         $this->registerFilamentPlugin();
 

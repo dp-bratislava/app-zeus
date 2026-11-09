@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class GenericProfile implements TaskBatchRecordScopeProfile
 {
-    public function taskBatchScope(Builder $query, TaskBatchResourceContext $context): Builder
-    {
+    public function taskBatchScope(
+        Builder $query,
+        TaskBatchResourceContext $context
+    ): Builder {
         $taskGroupIds = $context->departmentContext->taskGroupIds;
 
         return $query
