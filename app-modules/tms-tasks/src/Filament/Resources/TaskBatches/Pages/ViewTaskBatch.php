@@ -15,9 +15,9 @@ class ViewTaskBatch extends ViewRecord
     protected static string $resource = TaskBatchResource::class;
 
     #[Override]
-    protected function canStillAccessPage(): bool
+    protected function canAccessAfterDepartmentChange(): bool
     {
-        return static::getResource()::canViewAny();
+        return static::getResource()::canView();
     }
 
     protected function getDepartmentChangeRedirectUrl(): string

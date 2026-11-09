@@ -31,9 +31,9 @@ class EditTaskBatch extends EditRecord
     }
 
     #[Override]
-    protected function canStillAccessPage(): bool
+    protected function canAccessAfterDepartmentChange(): bool
     {
-        return static::getResource()::canViewAny();
+        return static::getResource()::canUpdate();
     }
 
     protected function getHeaderActions(): array

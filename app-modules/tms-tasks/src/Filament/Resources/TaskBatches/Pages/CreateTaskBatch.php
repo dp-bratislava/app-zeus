@@ -29,9 +29,9 @@ class CreateTaskBatch extends CreateRecord
     }
 
     #[Override]
-    protected function canStillAccessPage(): bool
+    protected function canAccessAfterDepartmentChange(): bool
     {
-        return static::getResource()::canViewAny();
+        return static::getResource()::canCreate();
     }
 
     public function form(Schema $schema): Schema

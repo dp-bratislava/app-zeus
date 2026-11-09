@@ -15,7 +15,7 @@ class ListTaskBatches extends ListRecords
     protected static string $resource = TaskBatchResource::class;
 
     #[Override]
-    protected function canStillAccessPage(): bool
+    protected function canAccessAfterDepartmentChange(): bool
     {
         return static::getResource()::canViewAny();
     }

@@ -94,7 +94,8 @@ class GenericProfile implements TaskBatchLookupScopeProfile
                 'task_item_group_id as id',
                 'task_item_group_label as label',
                 'is_scalable'
-            ]); 
+            ])
+            ->sortBy('label'); 
     }
 
     public function vehicleTypes(

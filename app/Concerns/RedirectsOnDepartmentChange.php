@@ -17,7 +17,7 @@ trait RedirectsOnDepartmentChange
         $this->dispatch('refresh-topbar');
         $this->dispatch('refresh-sidebar');
 
-        if (! $this->canStillAccessPage()) {
+        if (! $this->canAccessAfterDepartmentChange()) {
             $this->redirect($this->getDepartmentChangeRedirectUrl());
 
             return;
@@ -36,5 +36,5 @@ trait RedirectsOnDepartmentChange
         return '/';
     }
 
-    abstract protected function canStillAccessPage(): bool;
+    abstract protected function canAccessAfterDepartmentChange(): bool;
 }
