@@ -78,6 +78,8 @@ class ControllingDetailReportExporter extends BaseReportExporter
             ['key' => 'task_item_assigned_to_label', 'label' => 'Prevádzka podzákazky'],
             ['key' => 'task_item_author_lastname', 'label' => 'Podzákazku vytvoril'],
             ['key' => 'wtf_task_created_at', 'label' => 'Čas priradenia práce'],
+            ['key' => 'task_id', 'label' => 'id zákazky'],
+            ['key' => 'task_item_id', 'label' => 'id podzákazky'],
             ...$this->dynamicColumns()
         ];
     }
@@ -116,6 +118,8 @@ class ControllingDetailReportExporter extends BaseReportExporter
                 'activity_title',
                 'activity_expected_duration',
                 'activity_real_duration',
+                'task_id',
+                'task_item_id',
                 ...$dynamicColumns,
             ])
             ->groupBy([
