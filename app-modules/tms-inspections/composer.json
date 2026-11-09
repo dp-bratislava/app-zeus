@@ -1,0 +1,31 @@
+{
+    "name": "dpb/mod-inspections",
+    "type": "library",
+    "version": "1.0",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Andrej",
+            "email": "horny.andrej@dpb.sk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dpb\\Modules\\Inspections\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "dpb/dpb-work-time-fund-filament": "^12.5.0",
+        "dpb/dpb-master-permission-guard": "^12.5.1",
+        "dpb/dpb-work-time-fund": "^12.5.0",
+        "dpb/dpb-departments": "^12.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dpb\\Modules\\Inspections\\Providers\\InspectionsModuleServiceProvider"
+            ]
+        }
+    }
+}

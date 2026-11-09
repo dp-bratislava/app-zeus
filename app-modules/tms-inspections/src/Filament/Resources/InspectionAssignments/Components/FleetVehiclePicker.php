@@ -1,0 +1,121 @@
+<?php
+
+namespace Dpb\Modules\Inspections\Filament\Resources\InspectionAssignments\Components;
+
+use Closure;
+use Dpb\Departments\Services\DepartmentService;
+use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\Queries\SearchVehiclesForTask;
+use Dpb\Package\TaskMS\Repositories\DepartmentAssignmentRepository;
+use Filament\Forms\Components\Select;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Auth;
+
+/**
+ * Extends Filament Select component.
+ *
+ * Presets label and filtering. If needed it can be overriden
+ * and used like original Select component.
+ * Both custom methods have to be called with null as input parameter
+ * to apply custom bevaiour.
+ */
+class FleetVehiclePicker extends Select
+{
+    public function getOptionLabelFromRecordUsing(?Closure $callback): static
+    {
+        if ($callback !== null) {
+            $this->getOptionLabelFromRecordUsing = $callback;
+        } else {
+            $this->getOptionLabelFromRecordUsing = function (Vehicle $record) {
+                $display = $record->label;
+
+                return "{$display} {$record->model?->title}";
+            };
+        }
+
+        return $this;
+    }
+
+    // public function getSearchResultsUsing(?Closure $callback): static
+    // {
+    //     if ($callback !== null) {
+    //         $this->getSearchResultsUsing = $callback;
+    //     } else {
+    //         $this->getSearchResultsUsing = fn($search) =>
+    //             Vehicle::query()
+    //                 ->whereHas('codes', function($q) use ($search) {
+    //                     $q->whereLike('code', "%{$search}%")
+    //                     ->orderByDesc('date_from')
+    //                     ->first();
+    //                 })
+    //                 // ->orWhereLike('title', "%{$search}%")
+    //                 ->get()
+    //                 ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model->title]);
+    //     }
+
+    //     return $this;
+    // }
+
+    public function options(Arrayable|Closure|array|string|null $options): static
+    {
+        if ($options !== null) {
+            $this->options = $options;
+        } else {
+            $this->options = Vehicle::with(['codes', 'licencePlates', 'model'])
+                ->when(! Auth::user()->hasRole('super-admin'), function ($q) {
+                    $userHandledVehicleTypes = Auth::user()->vehicleTypes();
+                    $q->byType($userHandledVehicleTypes);
+                    // dd('gg');
+                })
+                ->get()
+                ->mapWithKeys(function ($vehicle) {
+                    $display = $vehicle->label;
+
+                    return [
+                        $vehicle->id => $display.' - '.$vehicle->model?->title,
+                    ];
+                });
+        }
+
+        return $this;
+    }
+
+    public function getSearchResultsUsing(?Closure $callback): static
+    {
+        if ($callback !== null) {
+            $this->getSearchResultsUsing = $callback;
+        } else {
+            // $this->getSearchResultsUsing = fn($search) =>
+            // Vehicle::query()
+            //     ->when(!Auth::user()->hasRole('super-admin'), function ($q) {
+            //         $userHandledVehicleTypes = Auth::user()->vehicleTypes();
+            //         $q->byType($userHandledVehicleTypes);
+            //         // dd('gg');
+            //     })
+            //     ->whereHas('codes', function ($q) use ($search) {
+            //         $q->where('code', 'like', "%{$search}%");
+            //     })
+            //     ->with(['codes' => fn($q) => $q->where('code', 'like', "%{$search}%")->orderByDesc('date_from')])
+            //     ->get()
+            //     ->mapWithKeys(function (Vehicle $vehicle) {
+            //         $latestCode = $vehicle->codes->first();
+            //         if (!$latestCode) {
+            //             return []; // important: return empty array if no code
+            //         }
+            //         return [
+            //             $vehicle->id => $latestCode->code . ' - ' . $vehicle->model?->title,
+            //         ];
+            //     })
+            //     ->toArray(); // must return array
+
+            $this->getSearchResultsUsing = fn ($search) => app(SearchVehiclesForTask::class)(
+                $search,
+                // Auth::user(),
+                app(DepartmentAssignmentRepository::class),
+                app(DepartmentService::class)
+            );
+        }
+
+        return $this;
+    }
+}

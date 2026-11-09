@@ -31,6 +31,8 @@ class TasksModuleServiceProvider extends ServiceProvider
             path: __DIR__ . '/../../config/mod-tasks.php',
             key: 'dpb-mod-tasks'
         );
+
+        // $this->registerFilamentPlugin();
     }
 
     public function boot(): void
@@ -48,8 +50,6 @@ class TasksModuleServiceProvider extends ServiceProvider
             path: __DIR__ . '/../../resources/lang',
             namespace: 'dpb-mod-tasks'
         );
-
-        // $this->registerResourceTabs();
 
         Gate::policy(TaskBatch::class, TaskBatchPolicy::class);
 

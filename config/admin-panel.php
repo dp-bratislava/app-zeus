@@ -3,17 +3,16 @@
 use App\Filament\Resources\ReportsResource;
 use Dpb\DpbEmployeeManager\Filament\Pages\EmployeeManagerPage\EmployeeManagerPage;
 use Dpb\Insights\Filament\Pages\InsightsPage;
+use Dpb\Modules\Inspections\Filament\Plugins\InspectionPlugin;
+use Dpb\Modules\Inspections\Filament\Resources\InspectionAssignmentResource;
+use Dpb\Modules\Tasks\Filament\Plugins\TaskBatchPlugin;
+use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
 use Dpb\Package\TaskMS\UI\Filament\Plugins\TaskMSPlugin;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\EAV\AttributeResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\BrandResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\MaintenanceGroupResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleGroupResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleModelResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet\VehicleTypeResource;
+use Dpb\Package\TaskMS\UI\Filament\Resources\Fleet;
 // use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\DailyMaintenanceResource;
-use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
+// use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionAssignmentResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateGroupResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Inspection\InspectionTemplateResource;
 use Dpb\Package\TaskMS\UI\Filament\Resources\Task\PlaceOfOriginResource;
@@ -35,12 +34,15 @@ return [
         UserAdminPlugin::class,
         TaskMSPlugin::class,
         StickyTableHeaderPlugin::class,
+        InspectionPlugin::class,
+        TaskBatchPlugin::class,
     ],
 
     'navigation' => [
         'items' => [
             TaskAssignmentResource::class,
             TaskItemResource::class,
+            TaskBatchResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
             WorktimeManagementPage::class,
@@ -58,12 +60,12 @@ return [
             [
                 'title' => 'Číselníky',
                 'items' => [
-                    // VehicleResource::class,
-                    // VehicleModelResource::class,
-                    // MaintenanceGroupResource::class,
-                    // VehicleGroupResource::class,
-                    // BrandResource::class,
-                    // VehicleTypeResource::class,
+                    // Fleet\VehicleResource::class,
+                    // Fleet\VehicleModelResource::class,
+                    // Fleet\MaintenanceGroupResource::class,
+                    // Fleet\VehicleGroupResource::class,
+                    // Fleet\BrandResource::class,
+                    // Fleet\VehicleTypeResource::class,
                     // InspectionTemplateResource::class,
                     // InspectionTemplateGroupResource::class,
                     // TicketTypeResource::class,
