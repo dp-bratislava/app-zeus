@@ -3,10 +3,10 @@
 namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Components;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\UniformTaskBatchSchema;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchLookupScopeService;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Utilities\Get;
-use Illuminate\Support\Facades\DB;
 
 class VehiclePicker
 {
@@ -23,38 +23,28 @@ class VehiclePicker
             ])
             ->searchPrompt('Hľadaj')
             ->bulkToggleable()
-            //         ->reactive()
-            // ->afterStateUpdated(function ($set, $get) {
-            //     $set('selected_count', count($get('vehicles') ?? []));
-            // })                    
-            ->options(function (Get $get) {
+            ->options(function (Get $get, TaskBatchLookupScopeService $lookupService) {
                 $mgId = $get(UniformTaskBatchSchema::MAINTENANCE_GROUP_FILTER_KEY);
                 $typeId = $get(UniformTaskBatchSchema::VEHICLE_TYPE_FILTER_KEY);
 
-                // 1. Initialize query
-                $query = DB::table('mvw_fleet_vehicle_snapshots');
-                // 2. Apply filters conditionally
-                if ($mgId) {
-                    $query->whereNotNull('maintenance_group_id')
-                        ->where('maintenance_group_id', '=', $mgId);
-                } elseif ($typeId) {
-                    // Using your model scope for IDs
-                    $query->where('type_id', '=', $typeId);
-                } else {
-                    // If nothing is selected, return empty to keep UI clean
-                    return [];
-                }
+                return $lookupService->taskSubjects()
+                    ->filter(function ($vehicle) use ($mgId, $typeId) {
+                        if ($mgId) {
+                            return $vehicle->maintenance_group_id == $mgId;
+                        }
 
-                // 3. Return formatted options
-                return $query
-                    ->get([
-                        'vehicle_id',
-                        'code',
-                        'licence_plate',
-                    ])
+                        if ($typeId) {
+                            return $vehicle->type_id == $typeId;
+                        }
+
+                        return true;
+                    })
                     ->mapWithKeys(fn($vehicle) => [
-                        $vehicle->vehicle_id => ($vehicle->code ?? $vehicle->licence_plate) ?? 'g'
-                    ])->toArray();
+                        $vehicle->vehicle_id => $vehicle->code
+                            ?? $vehicle->licence_plate
+                            ?? 'N/A',
+                    ])
+                    ->toArray();
             });
     }
 }

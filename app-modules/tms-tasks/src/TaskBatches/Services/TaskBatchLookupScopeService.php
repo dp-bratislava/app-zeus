@@ -5,8 +5,7 @@ namespace Dpb\Modules\Tasks\TaskBatches\Services;
 use Carbon\CarbonImmutable;
 use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\Profile\TaskBatchLookupScopeResolver;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Collection;
 
 class TaskBatchLookupScopeService
 {
@@ -15,7 +14,7 @@ class TaskBatchLookupScopeService
         private TaskBatchContextFactory $factory,
     ) {}
 
-    public function employeeContracts(CarbonImmutable $date): array
+    public function employeeContracts(CarbonImmutable $date): Collection
     {
         $context = $this->factory->make();
 
@@ -24,7 +23,7 @@ class TaskBatchLookupScopeService
             ->employeeContracts($context, $date);
     }
 
-    public function taskSubjects(): array
+    public function taskSubjects(): Collection
     {
         $context = $this->factory->make();
 
@@ -51,7 +50,7 @@ class TaskBatchLookupScopeService
             ->vehicleTypes($context);
     }
 
-    public function maintenanceGroups(): array
+    public function maintenanceGroups(): Collection
     {
         $context = $this->factory->make();
         return $this->resolver

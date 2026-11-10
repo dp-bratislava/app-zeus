@@ -42,9 +42,9 @@ return [
         'items' => [
             TaskAssignmentResource::class,
             TaskItemResource::class,
-            TaskBatchResource::class,
             InspectionAssignmentResource::class,
             DailyMaintenanceResource::class,
+            TaskBatchResource::class,
             WorktimeManagementPage::class,
         ],
         'groups' => [

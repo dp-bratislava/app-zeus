@@ -11,7 +11,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use RuntimeException;
 
 /**
- * Read only model for db view
+ * @property WtfOperation|null $operation
+ * @property TaskGroup|null $taskGroup
+ * @property TaskItemGroup|null $taskItemGroup
+ * @property array|null $conditions
  */
 class DepartmentOperationRuleView extends Model
 {

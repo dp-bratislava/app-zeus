@@ -20,11 +20,18 @@ class ContractPicker
                 'class' => 'grid grid-cols-8 gap-2 w-full [&>div>label]:w-full [&>div>label>span]:w-full',
             ])
             ->inline()
-            ->options(fn(TaskBatchLookupScopeService $lookupSvc, Get $get) => $lookupSvc->employeeContracts(
-                CarbonImmutable::parse(
-                    $get(TaskBatchForm::DATE_KEY)
-                )
-            ))
+            ->options(
+                fn(TaskBatchLookupScopeService $lookupSvc, Get $get) => $lookupSvc
+                    ->employeeContracts(
+                        CarbonImmutable::parse($get(TaskBatchForm::DATE_KEY))
+                    )
+                    ->mapWithKeys(function ($contract) {
+                        return [
+                            $contract->contract_id =>  $contract->pid . ' - ' . $contract->last_name
+                        ];
+                    })
+                    ->toArray()
+            )
             ->multiple()
             ->live();
     }

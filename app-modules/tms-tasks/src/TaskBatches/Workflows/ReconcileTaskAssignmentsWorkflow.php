@@ -44,7 +44,6 @@ class ReconcileTaskAssignmentsWorkflow
         $assignmentsToDelete = $existingAssignmentsBySubject->diffKeys($desiredSubjects);
         $assignmentsToKeep = $existingAssignmentsBySubject->intersectByKeys($desiredSubjects);
 
-        // dd($desiredSubjects, $existingAssignmentsBySubject);
         // create
         $taCWfResult = $this->createAssignments($subjectsToCreateAssignmentsFor, $command);
 
@@ -52,10 +51,9 @@ class ReconcileTaskAssignmentsWorkflow
         $deleteRecords = $this->deleteAssignments($assignmentsToDelete);
 
         // update
-        $taskIds = $assignmentsToKeep->pluck('task_id')->all();
-
         $this->updateAssignments(
-            $taskIds,
+            $assignmentsToKeep,
+            $desiredSubjects,
             $command,
         );
 
@@ -128,23 +126,31 @@ class ReconcileTaskAssignmentsWorkflow
     }
 
     private function updateAssignments(
-        array $taskIds,
+        Collection $assignments,
+        Collection $desiredSubjects,
         ReconcileTaskAssignmentsCommand $command,
     ): void {
-        TaskAssignment::query()
-            ->whereIn('task_id', $taskIds)
-            ->update([
-                'author_id' => $command->context->authorId,
-                'updated_at' => $command->context->handledAt,
-            ]);
+        foreach ($assignments as $assignment) {
+            $subjectKey = "{$assignment->subject_type}:{$assignment->subject_id}";
 
-        Task::query()
-            ->whereIn('id', $taskIds)
-            ->update([
-                // 'group_id' => $command->taskGroupId,
-                'date' => $command->date,
-                'updated_at' => $command->context->handledAt,
-            ]);
+            /** @var TaskBatchTaskConfig $taskConfig */
+            $taskConfig = $desiredSubjects->get($subjectKey);
+
+            TaskAssignment::query()
+                ->whereKey($assignment->id)
+                ->update([
+                    'author_id' => $command->context->authorId,
+                    'updated_at' => $command->context->handledAt,
+                ]);
+
+            Task::query()
+                ->whereKey($assignment->task_id)
+                ->update([
+                    'date' => $command->date,
+                    'description' => $taskConfig->note,
+                    'updated_at' => $command->context->handledAt,
+                ]);
+        }
     }
 
     private function filterTaskConfigsBySubjects(

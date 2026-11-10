@@ -24,17 +24,18 @@ class TaskBatchConfiguration
                     $get(TaskBatchForm::CONTRACT_PICKER_KEY) ?? [],
                 );
 
-                $allContracts = app(TaskBatchLookupScopeService::class)
+                $contractOptions = app(TaskBatchLookupScopeService::class)
                     ->employeeContracts(
                         CarbonImmutable::parse(
                             $get(TaskBatchForm::DATE_KEY)
                         )
-                    );
-
-                $contractOptions = array_intersect_key(
-                    $allContracts,
-                    array_flip($selectedContractIds),
-                );
+                    )
+                    ->mapWithKeys(fn($contract) => [
+                        (int) $contract->contract_id =>
+                        $contract->pid . ' - ' . $contract->last_name,
+                    ])
+                    ->only($selectedContractIds)
+                    ->all();
 
                 $selectedVehicleIds = array_map(
                     'intval',
@@ -53,8 +54,14 @@ class TaskBatchConfiguration
                     ->values()
                     ->all();
 
-                $state = self::filterMatrixState(
+                $matrixState = self::filterMatrixState(
                     $get(DiverseTaskBatchSchema::ASSIGNMENT_MATRIX_STATE_KEY) ?? [],
+                    $selectedVehicleIds,
+                );
+
+
+                $notesState = self::filterNotesState(
+                    $get(DiverseTaskBatchSchema::NOTES_STATE_KEY) ?? [],
                     $selectedVehicleIds,
                 );
 
@@ -62,8 +69,9 @@ class TaskBatchConfiguration
                     Livewire::make(AssignmentMatrix::class, [
                         'subjects' => $subjects,
                         'groups' => $groups,
-                        'state' => $state,
+                        'state' => $matrixState,
                         'contractOptions' => $contractOptions,
+                        'notes' => $notesState,
                     ])
                         ->key('assignment-matrix-' . md5(
                             json_encode([
@@ -95,6 +103,15 @@ class TaskBatchConfiguration
     }
 
     private static function filterMatrixState(
+        array $state,
+        array $selectedVehicleIds,
+    ): array {
+        $selectedIds = array_flip($selectedVehicleIds);
+
+        return array_intersect_key($state, $selectedIds);
+    }
+
+    private static function filterNotesState(
         array $state,
         array $selectedVehicleIds,
     ): array {

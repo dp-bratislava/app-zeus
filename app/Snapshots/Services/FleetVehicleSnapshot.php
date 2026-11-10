@@ -90,7 +90,7 @@ class FleetVehicleSnapshot extends Snapshot
             FROM
                 {$this->from($tempTable)}
             ON DUPLICATE KEY UPDATE
-                {$this->duplicateKeyUpdate('activity_id')}
+                {$this->duplicateKeyUpdate('vehicle_id')}
         ";
     }
 
@@ -102,6 +102,18 @@ class FleetVehicleSnapshot extends Snapshot
             'licence_plate' => 'lp.`code`',
             'model' => 'vm.title',
             'type' => 'vt.title',
+            // 'brand' => 'vt.title',
+            'length' => 'vm.length',
+            'seats' => 'vm.seats',
+            'is_historic' => 'v.is_historic',
+            // 'maintenance_group_title' => 'v.updated_at',
+            // 'maintenance_group_short_title' => 'v.updated_at',
+            // 'cost_department_code' => 'v.updated_at',
+            // 'cost_department_title' => 'v.updated_at',
+            'maintenance_group_id' => 'v.maintenance_group_id',
+            // 'cost_department_id' => 'v.updated_at',
+            'model_id' => 'vm.id',
+            'type_id' => 'vm.type_id',
             'updated_at' => 'v.updated_at',
         ];
     }
@@ -116,7 +128,7 @@ class FleetVehicleSnapshot extends Snapshot
             LEFT JOIN latest_code lc ON lc.vehicle_id = v.id
             LEFT JOIN fleet_vehicle_codes vc ON vc.id = lc.vehicle_code_id
             LEFT JOIN latest_plate lp_ref ON lp_ref.vehicle_id = v.id
-            LEFT JOIN fleet_licence_plates lp ON lp.id = lp_ref.licence_plate_id
+            LEFT JOIN fleet_licence_plates lp ON lp.id = lp_ref.licence_plate_id             
         ";
     }
 }

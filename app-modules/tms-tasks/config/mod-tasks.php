@@ -1,7 +1,6 @@
 <?php
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
-// use Dpb\Modules\Tasks\Filament\Resources\Task\TaskAssignmentResource;
 
 return [
 
@@ -42,7 +41,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'task_subject_adapters' => [
-        'vehicle' => \Dpb\Modules\Tasks\Adapters\FleetVehicleTaskSubjectAdapter::class,
     ],
 ];
 

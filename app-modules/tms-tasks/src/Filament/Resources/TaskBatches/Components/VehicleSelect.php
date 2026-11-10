@@ -28,7 +28,14 @@ class VehicleSelect
             ->options(function (
                 TaskBatchLookupScopeService $lookupService,
             ) {
-                return $lookupService->taskSubjects();
+                return $lookupService
+                    ->taskSubjects()
+                    ->mapWithKeys(fn($vehicle) => [
+                        $vehicle->vehicle_id => ($vehicle->code
+                            ?? $vehicle->licence_plate
+                            ?? 'N/A') . ' - ' . $vehicle->model
+                    ])
+                    ->toArray();
             });
     }
 }

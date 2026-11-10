@@ -8,7 +8,7 @@ Module is part of aplication layer so it is installed only once. After that, all
 
 ### Enable module architecture
 
-In `composer.json` add
+In root `composer.json` add
 ```bash
     "repositories": [
         ...,
@@ -32,9 +32,10 @@ composer require dpb/mod-tasks
 **WARNING - NOT IDENPOTENT**
 
 ```bash
-artisan data:migrate batch-context
-artisan data:migrate vehicle-cleaning
-artisan data:migrate daily-maintenance
+artisan data:migrate tb.batch-context
+artisan data:migrate tb.vehicle-cleaning
+artisan data:migrate tb.daily-maintenance
+artisan data:migrate tb.reconcile-old-data
 ```
 
 # More docs

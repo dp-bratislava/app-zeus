@@ -6,7 +6,9 @@ use App\DataMigrations\Contracts\DataMigration;
 use Dpb\DatahubSync\Models\Department;
 use Dpb\Modules\Tasks\Eligibility\Models\DepartmentOperationRule;
 use Dpb\Modules\Tasks\Enums\TaskBatchMode;
+use Dpb\Package\Fleet\Models\VehicleModel;
 use Dpb\Package\TaskMS\Models\DepartmentAssignment;
+use Dpb\Package\TaskMS\Models\TaskItemGroupAssignment;
 use Dpb\Package\Tasks\Models\TaskGroup;
 use Dpb\Package\Tasks\Models\TaskItemGroup;
 use Dpb\WorkTimeFund\Models\Category;
@@ -15,9 +17,26 @@ use Illuminate\Support\Facades\DB;
 
 class VehicleCleaningMigration implements DataMigration
 {
-    private const SUBJECT_TYPE = 'vehicle';
+    // rules subject_type
+    private const RULE_SUBJECT_TYPE = 'vehicle';
+    // task item group assignment  
+    private const TIGA_SUBJECT_TYPE = 'vehicle-model';
+    // department task item group assignment  
+    private const DA_TIG_SUBJECT_TYPE = 'task-item-group';
+    private const DA_TG_SUBJECT_TYPE = 'task-group';
     private const TIG_CODE_PFX = 'cistenie_vozidiel.';
-    private const CLEANING_DEP_CODE = 9486;
+    private const CLEANING_DEP_CODE = '9486';
+    private const DEPARTMENT_CODES = [
+        '9486',
+        '7213',
+        '7223',
+        '7233',
+        '5400',
+        '5621',
+        '5622',
+        '5521',
+        '5522',
+    ];
 
     public function run(): void
     {
@@ -65,11 +84,7 @@ class VehicleCleaningMigration implements DataMigration
             ->first()
             ->id;
 
-        DepartmentAssignment::firstOrCreate([
-            'department_id' => $cleaningDepartmentId,
-            'subject_id' => $taskGroup->id,
-            'subject_type' => 'task-group',
-        ]);
+        $this->assignTigToDepartments($taskGroup->id);
 
         // task batch data
         DB::transaction(function () use ($cleaningDepartmentId, $taskItemGroups) {
@@ -103,6 +118,60 @@ class VehicleCleaningMigration implements DataMigration
 
             $this->createOperationRules($departmentTaskGroupItems);
         });
+
+        $this->assignTigToVehicleModels($taskGroup->id);
+    }
+
+    private function assignTigToDepartments(int $taskGroupId)
+    {
+        $data = [];
+        $now = now();
+        $departmentIds = Department::whereIn('code', self::DEPARTMENT_CODES)
+            ->pluck('id');
+
+        $tigIds = TaskItemGroup::where('task_group_id', $taskGroupId)
+            ->pluck('id');
+
+        foreach ($departmentIds as $departmentId) {
+            $data[] = [
+                'department_id' => $departmentId,
+                'subject_id' => $taskGroupId,
+                'subject_type' => self::DA_TG_SUBJECT_TYPE,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+            foreach ($tigIds as $tigId) {
+                $data[] = [
+                    'department_id' => $departmentId,
+                    'subject_id' => $tigId,
+                    'subject_type' => self::DA_TIG_SUBJECT_TYPE,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            }
+        }
+
+        DepartmentAssignment::insert($data);
+    }
+
+    private function assignTigToVehicleModels(int $taskGroupId)
+    {
+        $data = [];
+        $modelIds = VehicleModel::pluck('id');
+        $tigIds = TaskItemGroup::where('task_group_id', $taskGroupId)
+            ->pluck('id');
+
+        foreach ($modelIds as $modelId) {
+            foreach ($tigIds as $tigId) {
+                $data[] = [
+                    'group_id' => $tigId,
+                    'subject_id' => $modelId,
+                    'subject_type' => self::TIGA_SUBJECT_TYPE
+                ];
+            }
+        }
+
+        TaskItemGroupAssignment::insert($data);
     }
 
     private function createDepartmentTaskGroupItem(
@@ -111,23 +180,18 @@ class VehicleCleaningMigration implements DataMigration
         int $departmentId,
         int $departmentTaskGroupId
     ) {
-        $departmentTgItemId = DB::table('tms_task_batch_department_task_group_items')->insertGetId(
-            [
-                'department_task_group_id' => $departmentTaskGroupId,
-                'task_item_group_id' => $tigId,
-                // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
-                'label' => $tig['title'],
-                'is_scalable' => $tig['is_scalable'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        );
-
-        DepartmentAssignment::firstOrCreate([
-            'department_id' => $departmentId,
-            'subject_id' => $tigId,
-            'subject_type' => 'task-item-group',
-        ]);
+        $departmentTgItemId = DB::table('tms_task_batch_department_task_group_items')
+            ->insertGetId(
+                [
+                    'department_task_group_id' => $departmentTaskGroupId,
+                    'task_item_group_id' => $tigId,
+                    // 'label' => isset($tig['label']) ? $tig['label'] : $tig['title'],
+                    'label' => $tig['title'],
+                    'is_scalable' => $tig['is_scalable'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            );
 
         return $departmentTgItemId;
     }
@@ -211,12 +275,12 @@ class VehicleCleaningMigration implements DataMigration
 
             foreach ($tigOperationMap as $tigCode => $operationTitle) {
                 $tigId = TaskItemGroup::where('code', '=', self::TIG_CODE_PFX . $tigCode)
-                        ->first()
-                        ->id;
+                    ->first()
+                    ->id;
 
                 $rules[] = [
                     'department_task_group_item_id' => $departmentTaskGroupItems[$tigId],
-                    'subject_type' => self::SUBJECT_TYPE,
+                    'subject_type' => self::RULE_SUBJECT_TYPE,
                     'operation_id' => Operation::where('parent_id', '=', $categoryId)
                         ->whereLike('title', $operationTitle)
                         ->first()->id,
@@ -260,7 +324,7 @@ class VehicleCleaningMigration implements DataMigration
         foreach ($operations as $operationId) {
             $result[] = [
                 'department_task_group_item_id' => $departmentTaskGroupItemId,
-                'subject_type' => self::SUBJECT_TYPE,
+                'subject_type' => self::RULE_SUBJECT_TYPE,
                 'operation_id' => $operationId,
                 'conditions' => $conditions,
             ];

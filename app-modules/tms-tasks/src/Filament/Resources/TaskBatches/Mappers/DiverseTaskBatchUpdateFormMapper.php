@@ -57,9 +57,9 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
         $tasks = collect($configuration['tasks'] ?? []);
 
         $matrix = $tasks->mapWithKeys(function (array $task): array {
-            $groups = collect($task['task_items'] ?? [])
-                ->mapWithKeys(function (array $group): array {
-                    $work = collect($group['work'] ?? [])
+            $taskItems = collect($task['task_items'] ?? [])
+                ->mapWithKeys(function (array $taskItem): array {
+                    $work = collect($taskItem['work'] ?? [])
                         ->mapWithKeys(fn(array $assignment): array => [
                             (int) $assignment['contract_id'] => [
                                 'contract_id' => (int) $assignment['contract_id'],
@@ -69,7 +69,7 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
                         ->all();
 
                     return [
-                        (int) $group['task_item_group_id'] => [
+                        (int) $taskItem['task_item_group_id'] => [
                             'work' => $work,
                         ],
                     ];
@@ -77,7 +77,7 @@ class DiverseTaskBatchUpdateFormMapper implements TaskBatchUpdateFormMapper
                 ->all();
 
             return [
-                (int) $task['subject_id'] => $groups,
+                (int) $task['subject_id'] => $taskItems,
             ];
         })->all();
 
