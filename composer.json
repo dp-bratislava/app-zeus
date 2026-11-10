@@ -94,8 +94,9 @@
         "watheqalshowaiter/filament-sticky-table-header": "^1.5"
     },
     "require-dev": {
-        "filament/upgrade": "^5.0",
         "fakerphp/faker": "^1.23",
+        "filament/upgrade": "^5.0",
+        "larastan/larastan": "^3.14",
         "laravel-lang/common": "^6.8",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",

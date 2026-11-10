@@ -10,7 +10,7 @@ final readonly class TaskBatchHandlerContext
      * @param int $placeOfOriginId
      * @param int $authorId
      * @param CarbonImmutable $handledAt
-     * @param mixed $departmentId
+     * @param ?int $departmentId
      */
     public function __construct(
         public int $placeOfOriginId,

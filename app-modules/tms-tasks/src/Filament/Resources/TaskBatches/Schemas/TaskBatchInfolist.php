@@ -31,7 +31,6 @@ class TaskBatchInfolist
     private static function headerSection(): Component
     {
         return Section::make('Header')
-            // ->heading(__(static::LANG_PFX . 'sections.header'))
             ->heading(fn($record) => $record->date->format('Y-m-d') . " " . $record->taskGroup->title)
             ->headerActions([
                 RedirectToIndexAction::make()
@@ -44,25 +43,6 @@ class TaskBatchInfolist
 
             ])
             ->columnSpanFull();
-            // ->columns(8)
-            // ->schema([
-            //     // TextEntry::make('id'),
-            //     TextEntry::make('date')
-            //         ->label(__(static::LANG_PFX . 'entries.date'))
-            //         ->date('Y-m-d'),
-            //     TextEntry::make('taskGroup.title')
-            //         ->label(__(static::LANG_PFX . 'entries.task_group')),
-            //     // TextEntry::make('batch.context')
-            //         // ->label(__(static::LANG_PFX . 'entries.task_group'))
-            //         // ->formatStateUsing(fn($record) => TaskBatchContext::tryFrom($record->taskGroup->code)->label()),
-            //     // TextEntry::make('configuration.mode')
-            //     //     ->label(__(static::LANG_PFX . 'entries.mode'))
-            //     //     ->formatStateUsing(fn($record) => TaskBatchMode::tryFrom($record->configuration['mode'])->label()),
-            //     TextEntry::make('author.lastname')
-            //         ->label(__(static::LANG_PFX . 'entries.author')),
-            //     TextEntry::make('created_at')
-            //         ->label(__(static::LANG_PFX . 'entries.created_at')),
-            // ]);
     }
 
     private static function subjectsSection(): Component
