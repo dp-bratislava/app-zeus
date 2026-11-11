@@ -5,13 +5,17 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Tables;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\CreateTaskBatchAction;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskBatchTaskConfig;
 use Dpb\Modules\Tasks\TaskBatches\DTO\TaskSubjectReference;
+use Dpb\Modules\Tasks\TaskBatches\Factories\TaskBatchContextFactory;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskAssignmentSubjectResolver;
+use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchAccessService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchConfigMapper;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchRecordScopeService;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskSubjectPresenter;
+use Filament\Forms\Components\DatePicker;
 use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\SelectFilter;
@@ -83,9 +87,11 @@ class TaskBatchesTable
                     ->label(__($langColsPfx . 'created_at'))
             ])
             ->filters([
-                DateRangeFilter::make('date')
-                    ->label(__('dpb-mod-tasks::task-batch.table.filters.date')),
+                // DateRangeFilter::make('date')
+                //     ->label(__('dpb-mod-tasks::task-batch.table.filters.date')),
+                self::dateRangeFilter('date'),
                 self::taskGroupFilter(),
+                // TaskSubjectFilter::make('configuration'),
 
             ])
             ->recordActions([
@@ -94,15 +100,44 @@ class TaskBatchesTable
             ])
             ->headerActions([
                 CreateTaskBatchAction::make('create_action')
-                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action')),
+                    ->label(__('dpb-mod-tasks::task-batch.table.actions.create_action'))
+                    ->visible(fn(TaskBatchAccessService $accessSvc) => $accessSvc->canCreate())
             ]);
     }
 
-    private static function taskItemGroupFilter(): SelectFilter
+    private static function dateRangeFilter(string $dateColName): Filter
     {
-        return SelectFilter::make('itemGroups.taskItemGroup')
-            ->label(__('dpb-mod-tasks::task-batch.table.filters.task_item_group'))
-            ->relationship('itemGroups.taskItemGroup', 'title')
+        return Filter::make('date')
+            ->form([
+                DatePicker::make('created_from')
+                    ->label(__('dpb-mod-tasks::task-batch.table.filters.created_from')),
+                DatePicker::make('created_until')
+                    ->label(__('dpb-mod-tasks::task-batch.table.filters.created_until'))
+            ])
+            ->query(function (Builder $query, array $data) use ($dateColName): Builder {
+                return $query
+                    ->when(
+                        $data['created_from'],
+                        fn(Builder $query, $date): Builder => $query->whereDate($dateColName, '>=', $date),
+                    )
+                    ->when(
+                        $data['created_until'],
+                        fn(Builder $query, $date): Builder => $query->whereDate($dateColName, '<=', $date),
+                    );
+            });
+    }
+
+    /**
+     * @todo
+     * 
+     * need mapping for json filtering
+     * 
+     * @return SelectFilter
+     */
+    private static function taskSubjectFilter(): SelectFilter
+    {
+        return SelectFilter::make('subject')
+            ->label(__('dpb-mod-tasks::task-batch.table.filters.subject'))
             ->multiple()
             ->preload()
             ->searchable();
@@ -116,17 +151,13 @@ class TaskBatchesTable
             ->relationship(
                 'taskGroup',
                 'title',
-                // function (
-                //     $query,
-                //     TaskBatchLookupScopeService $lookupSvc
-                // ) {
-                //     $query->
-
-                // }
+                function (
+                    $query,
+                    TaskBatchRecordScopeService $scopeSvc
+                ) {
+                    return $scopeSvc->taskGroupScope($query);
+                }
             )
-            // ->options(function(TaskBatchLookupScopeService $lookupSvc) {
-            //     return $lookupSvc->taskGroups();
-            // })
             ->multiple()
             ->preload()
             ->searchable();

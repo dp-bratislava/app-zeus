@@ -4,7 +4,9 @@ namespace Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas;
 
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\DeleteTaskBatchAction;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Actions\RedirectToIndexAction;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Services\TaskBatchInfolistMapper;
+use Dpb\WorkTimeFund\Services\RetroactiveEditService;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
@@ -36,10 +38,18 @@ class TaskBatchInfolist
                 RedirectToIndexAction::make()
                     ->label(__(static::LANG_PFX . 'actions.back_action')),
                 EditAction::make()
-                    ->label(__(static::LANG_PFX . 'actions.edit_action')),
+                    ->label(__(static::LANG_PFX . 'actions.edit_action'))
+                    ->visible(fn(
+                        TaskBatch $record,
+                        RetroactiveEditService $validatorSvc
+                    ) => $validatorSvc->isWithinGracePeriod($record->date)),
                 DeleteTaskBatchAction::make()
                     ->label(__(static::LANG_PFX . 'actions.delete_action'))
-                    ->color('danger'),
+                    ->color('danger')
+                    ->visible(fn(
+                        TaskBatch $record,
+                        RetroactiveEditService $validatorSvc
+                    ) => $validatorSvc->isWithinGracePeriod($record->date)),
 
             ])
             ->columnSpanFull();

@@ -11,4 +11,6 @@ use Illuminate\Database\Eloquent\Builder;
 interface TaskBatchRecordScopeProfile
 {
     public function taskBatchScope(Builder $query, TaskBatchResourceContext $taContext): Builder;
+    public function taskGroupScope(Builder $query, TaskBatchResourceContext $taContext): Builder;
+    public function taskSubjectScope(Builder $query, TaskBatchResourceContext $taContext): Builder;
 }

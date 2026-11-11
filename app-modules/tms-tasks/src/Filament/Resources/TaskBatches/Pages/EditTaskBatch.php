@@ -9,8 +9,10 @@ use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Mappers\TaskBatchUpdateForm
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\DiverseTaskBatchSchema;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\Schemas\TaskBatchForm;
 use Dpb\Modules\Tasks\Filament\Resources\TaskBatches\TaskBatchResource;
+use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 use Dpb\Modules\Tasks\TaskBatches\Resolvers\TaskGroupModeResolver;
 use Dpb\Modules\Tasks\TaskBatches\Workflows\UpdateTaskBatchWorkflow;
+use Dpb\WorkTimeFund\Services\RetroactiveEditService;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
@@ -40,7 +42,11 @@ class EditTaskBatch extends EditRecord
     {
         return [
             BackToViewAction::make($this->record),
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn(
+                    TaskBatch $record,
+                    RetroactiveEditService $validatorSvc
+                ) => $validatorSvc->isWithinGracePeriod($record->date)),
         ];
     }
 

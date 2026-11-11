@@ -7,7 +7,7 @@ return [
     'modals' => [
         'delete_action' => [
             'heading' => 'Odstrániť zákazky',
-            'description' => 'Táto akcia odstráni všetky zákazky vrátane zaevidovanej práce',
+            'description' => 'Táto akcia odstráni všetky zákazky z tejto sady vrátane zaevidovanej práce',
         ],
     ],
     'form' => [
@@ -72,6 +72,8 @@ return [
         ],
         'filters' => [
             'date' => 'Dátum',
+            'created_from' => 'Od',
+            'created_until' => 'Do',
             'subject' => 'Vozidlá',
             'task_group' => 'Skupina zákazky',
             'task_item_group' => 'Skupina podzákazky',

@@ -2,8 +2,10 @@
 
 namespace Dpb\Modules\Tasks\TaskBatches\Profiles\TaskBatchResource\Access;
 
+use Dpb\Departments\Services\DepartmentService;
 use Dpb\Modules\Tasks\TaskBatches\Context\TaskBatchResourceContext;
 use Dpb\Modules\Tasks\TaskBatches\Contracts\TaskBatchAccessProfile;
+use Dpb\Modules\Tasks\TaskBatches\Models\DepartmentTaskGroupView;
 use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
 
 /**
@@ -11,9 +13,18 @@ use Dpb\Modules\Tasks\TaskBatches\Models\TaskBatch;
  */
 class GenericProfile implements TaskBatchAccessProfile
 {
+    public function __construct(
+        private DepartmentService $departmentService
+    ) {}
+
     public function canViewAny(TaskBatchResourceContext $context): bool
     {
-        return true;
+        $activeDepartmetnId = $this->departmentService->getActiveDepartment()->id;
+
+        return DepartmentTaskGroupView::query()
+            ->where('department_id', $activeDepartmetnId)
+            ->exists();
+        // return true;
     }
 
     /**
@@ -34,7 +45,11 @@ class GenericProfile implements TaskBatchAccessProfile
 
     public function canCreate(TaskBatchResourceContext $context): bool
     {
-        return true;
+        $activeDepartmetnId = $this->departmentService->getActiveDepartment()->id;
+
+        return DepartmentTaskGroupView::query()
+            ->where('department_id', $activeDepartmetnId)
+            ->exists();
     }
 
     /**
@@ -61,8 +76,8 @@ class GenericProfile implements TaskBatchAccessProfile
      */
     public function canDelete(
         TaskBatch $record,
-        TaskBatchResourceContext $context): bool
-    {        
+        TaskBatchResourceContext $context
+    ): bool {
         return in_array(
             $record->taskGroup->id,
             $context->departmentContext->taskGroupIds

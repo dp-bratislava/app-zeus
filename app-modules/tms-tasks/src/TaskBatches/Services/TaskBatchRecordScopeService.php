@@ -21,4 +21,22 @@ class TaskBatchRecordScopeService
             ->resolve($context->departmentContext->departmentGroup)
             ->taskBatchScope($qeury, $context);
     }   
+
+    public function taskGroupScope(Builder $qeury): Builder
+    {
+        $context = $this->factory->make();
+
+        return $this->resolver
+            ->resolve($context->departmentContext->departmentGroup)
+            ->taskGroupScope($qeury, $context);
+    }  
+    
+    public function taskSubjectScope(Builder $qeury): Builder
+    {
+        $context = $this->factory->make();
+
+        return $this->resolver
+            ->resolve($context->departmentContext->departmentGroup)
+            ->taskSubjectScope($qeury, $context);
+    }      
 }
