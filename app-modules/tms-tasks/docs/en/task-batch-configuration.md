@@ -41,7 +41,7 @@ Uniform mode is intended for batches where multiple subjects share the same task
 | `version` | string | Yes | Configuration schema version. |
 | `subjects` | object | Yes | Subjects grouped by subject type. |
 | `contract_ids` | array | Yes | Contract IDs shared across the batch. |
-| `task_item_groups` | object | Yes | Task item IDs grouped by task item group ID. |
+| `task_item_groups` | object | Yes | Wtf Operation IDs grouped by task item group ID. |
 
 #### Subjects
 
@@ -57,7 +57,7 @@ The `subjects` object contains subject types as keys and arrays of subject IDs a
 
 #### Task Item Groups
 
-The `task_item_groups` object maps task item group IDs to arrays of task item IDs.
+The `task_item_groups` object maps Wtf Operation IDs to arrays of task item group IDs.
 
 ```json
 {
