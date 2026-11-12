@@ -3,7 +3,7 @@
 namespace App\DataMigrations\TaskBatch;
 
 use App\DataMigrations\Contracts\DataMigration;
-use Dpb\Modules\Tasks\TaskBatches\Enums\TaskBatchContext;
+use App\Enums\BatchContext as EnumsBatchContext;
 use Dpb\Package\Batchable\Models\BatchContext;
 
 class BatchContextMigration implements DataMigration
@@ -12,8 +12,8 @@ class BatchContextMigration implements DataMigration
     {
         BatchContext::upsert(
             [
-                'code' => TaskBatchContext::VehicleCleaning->value,
-                'description' => TaskBatchContext::VehicleCleaning->label()
+                'code' => EnumsBatchContext::TaskBatch->value,
+                'description' => EnumsBatchContext::TaskBatch->label()
             ],
             ['code']
         );

@@ -38,6 +38,16 @@ artisan data:migrate tb.daily-maintenance
 artisan data:migrate tb.reconcile-old-data
 ```
 
+## Rebuild vehicle snapshot
+
+```bash
+sudo mysql app-zeus -e "
+  TRUNCATE TABLE mvw_fleet_vehicle_snapshots;
+  UPDATE report_sync_state SET last_synced_at = '1026-04-20 17:02:20' where report_name = 'mvw_fleet_vehicle_snapshots';
+" \
+&& artisan snapshot:sync fleet-vehicle
+```
+
 # More docs
 
 More detailed docs are in `docs` directory
